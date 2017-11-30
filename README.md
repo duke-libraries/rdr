@@ -19,8 +19,6 @@ Note that this application is intended to run within the [rdr-vagrant](https://g
 
    *Vagrant creates this as a shared folder that you can access both inside the VM and on your workstation. We've found it's best to do your git operations exclusively via the workstation folder.*
 
-   ***
-
 
 ## Install the rdr application
 
