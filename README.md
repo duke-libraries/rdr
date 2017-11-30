@@ -30,41 +30,58 @@ A generated Hyrax-based Research Data Repository application
 3. startup vagrant `vagrant up`
 
    *This will run through provisioning the new Virtual Machine. The first time it runs, it will take a while to complete. In the future when you want to startup the dev environment, you'll run the same command but it will startup much more quickly*
-   
+
    *Vagrant creates a shared folder that you can access both inside the VM and on your workstation. We've found it's best to do your git operations exclusively via the workstation folder.*
-   
+
 
 ### rdr application
 
 4. clone this repo
-`git clone https://github.com/duke-libraries/rdr.git`
+`git clone https://github.com/duke-libraries/rdr.git` 
 
-5. shell into vagrant box 
+   OR using ssh `git clone git@github.com:duke-libraries/rdr.git` 
+   *note that you'll need to have [setup keys in github](https://help.github.com/articles/connecting-to-github-with-ssh/) to use this approach*
+
+5. shell into vagrant box
 `vagrant ssh`
 
 6. change to the new folder
 `cd /vagrant/rdr`
 
-7. create default gemset `rvm gemset create rdr`
+7. Copy the role map config file `cp config/role_map.yml.sample config/role_map.yml`
 
 8. grab the bunder gem `gem install bundler`
 
 9. run `bundle install`
 
-10. start the server
+10. run database migrations `rake db:migrate`
+
+11. load default workflow `rake rake hyrax:workflow:load`
+
+12. start the server(s)
 `bin/rails hydra:server`
-    
-    You should be able to visit [localhost:3000](http://localhost:3000) and see the application running
 
-11. create default work type
-`rails generate hyrax:work Work`
+    *This starts Solr, Fedora, and Rails*
 
-12. Have fun!
+13. create default admin set &mdash; open a new terminal tab (Ctrl-T or ⌘-T), shell into vagrant `vagrant ssh`, and move to the correct folder `cd /vagrant/rdr`
+
+    then run `bin/rails hyrax:default_admin_set:create`
+
+    you can close the tab when it's done
 
 
-## Installation Notes
+14. The application should now be running at [localhost:3000](http://localhost:3000). You can try to do some things like creating a new user account and depositing an object
 
-* includes a pre-generated gemset named rdr which lives in the root of the project
+
+### Shut down the application
+
+* to shut down the app, stop the rails server by pressing Ctrl-C (⌘-C), logout of vagrant `logout`, and then shutdown the VM `vagrant halt`
+
+
+### Start up the application
+
+* to startup again, run `vagrant up`, `vagrant ssh`, `cd /vagrant/rdr`, and `bin/rails hydra:server`
+
 
 
 ## Solr and Fedora
@@ -85,4 +102,4 @@ A generated Hyrax-based Research Data Repository application
 
 ## References
 
-This is based on the [Samvera Hyrax](https://github.com/samvera/hyrax#creating-a-hyrax-based-app) installation instructions
+Instructions are based on the [Samvera Hyrax](https://github.com/samvera/hyrax#creating-a-hyrax-based-app) installation instructions
