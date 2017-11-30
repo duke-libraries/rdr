@@ -20,20 +20,21 @@ Note that this application is intended to run within the [rdr-vagrant](https://g
    *You can quickly check to see if you have VirtualBox installed by running `vboxmanage --version`*
 
 
-## Setup Vagrant Environment
+## Setup the Environment
+
+
+### Vagrant
 
 1. clone the [rdr-vagrant](https://github.com/duke-libraries/rdr-vagrant) repository `git clone https://github.com/duke-libraries/rdr-vagrant.git`
 2. move to the rdr-vagrant folder `cd rdr-vagrant`
 3. startup vagrant `vagrant up`
 
-   ***
-
    *This will run through provisioning the new Virtual Machine. The first time it runs, it will take a while to complete. In the future when you want to startup the dev environment, you'll run the same command but it will startup much more quickly*
+   
+   *Vagrant creates a shared folder that you can access both inside the VM and on your workstation. We've found it's best to do your git operations exclusively via the workstation folder.*
+   
 
-   *After the setup has completed, you will will be able to shell into the new VM by running `vagrant ssh`. Once we're done installing the application below you'll also be able to move into the application folder `cd /vagrant/rdr` -- Vagrant creates this as a shared folder that you can access both inside the VM and on your workstation. We've found it's best to do your git operations exclusively via the workstation folder.*
-
-
-## Install the rdr application
+### rdr application
 
 4. clone this repo
 `git clone https://github.com/duke-libraries/rdr.git`
