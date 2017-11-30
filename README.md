@@ -11,15 +11,15 @@ Note that this application is intended to run within the [rdr-vagrant](https://g
 2. move to the rdr-vagrant folder `cd rdr-vagrant`
 3. startup vagrant `vagrant up`
 
-   +++
+   ***
 
-   This will run through provisioning the new Virtual Machine. The first time it runs, it will take a while to complete. In the future when you want to startup the dev environment, you'll run the same command but it will startup much more quickly
+   *This will run through provisioning the new Virtual Machine. The first time it runs, it will take a while to complete. In the future when you want to startup the dev environment, you'll run the same command but it will startup much more quickly*
 
-   After the setup has completed, you will will be able to shell into the new VM by running `vagrant ssh` and then move to the application folder by running `cd /vagrant/rdr-vagrant`
+   *After the setup has completed, you will will be able to shell into the new VM by running `vagrant ssh` and then move to the application folder by running `cd /vagrant/rdr-vagrant`*
 
-   Vagrant creates this as a shared folder that you can access both inside the VM and on your workstation. We've found it's best to do your git operations exclusively via the workstation folder.
+   *Vagrant creates this as a shared folder that you can access both inside the VM and on your workstation. We've found it's best to do your git operations exclusively via the workstation folder.*
 
-   +++
+   ***
 
 
 ## Install the rdr application
