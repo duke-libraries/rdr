@@ -31,19 +31,21 @@ Note that this application is intended to run within the [rdr-vagrant](https://g
 6. change to the new folder
 `cd /vagrant/rdr`
 
-7. grab the bunder gem `gem install bundler`
+7. create default gemset `rvm gemset create rdr`
 
-8. run `bundle install`
+8. grab the bunder gem `gem install bundler`
 
-9. start the server
+9. run `bundle install`
+
+10. start the server
 `bin/rails hydra:server`
     
     You should be able to visit [localhost:3000](http://localhost:3000) and see the application running
 
-10. create default work type
+11. create default work type
 `rails generate hyrax:work Work`
 
-11. Have fun!
+12. Have fun!
 
 
 ## Installation Notes
