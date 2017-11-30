@@ -27,22 +27,25 @@ Note that this application is intended to run within the [rdr-vagrant](https://g
 4. clone this repo
 `git clone https://github.com/duke-libraries/rdr.git`
 
-5. change to the new folder
-`cd rdr`
+5. shell into vagrant box 
+`vagrant ssh`
 
-6. grab the bunder gem `gem install bundler`
+6. change to the new folder
+`cd /vagrant/rdr`
 
-7. run `bundle install`
+7. grab the bunder gem `gem install bundler`
 
-8. start the server
+8. run `bundle install`
+
+9. start the server
 `bin/rails hydra:server`
     
     You should be able to visit [localhost:3000](http://localhost:3000) and see the application running
 
-9. create default work type
+10. create default work type
 `rails generate hyrax:work Work`
 
-10. Have fun!
+11. Have fun!
 
 
 ## Installation Notes
