@@ -2,7 +2,7 @@
 
 A generated Hyrax-based Research Data Repository application
 
-Note that this application is intended to run within the [rdr-vagrant](https://github.com/duke-libraries/rdr-vagrant) virtual machine
+*Note that this application is intended to run within the [rdr-vagrant](https://github.com/duke-libraries/rdr-vagrant) virtual machine*
 
 
 ## Prerequisites (vagrant / virtualbox)
