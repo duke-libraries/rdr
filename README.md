@@ -9,15 +9,15 @@ Note that this application is intended to run within the [rdr-vagrant](https://g
 
 * [Vagrant](https://www.vagrantup.com/) version 1.8.5+
 
-   You can quickly check to see if you have a suitable version of vagrant installed by running `vagrant -v`
+   *You can quickly check to see if you have a suitable version of vagrant installed by running `vagrant -v`*
 
-   If you don't have vagrant installed, you can [download it](https://www.vagrantup.com/downloads.html) -- it's available for both Mac and Windows, as well as Debian and Centos.
+   *If you don't have vagrant installed, you can [download it](https://www.vagrantup.com/downloads.html) -- it's available for both Mac and Windows, as well as Debian and Centos.*
 
 * [VirtualBox](https://www.virtualbox.org/)
 
-   Vagrant runs inside of a Virtual Machine (VM) hosted by VirtualBox, which is made by Oracle and is free to [download](https://www.virtualbox.org/wiki/Downloads). They have version for Mac and Windows, as well as Linux and Solaris.
+   *Vagrant runs inside of a Virtual Machine (VM) hosted by VirtualBox, which is made by Oracle and is free to [download](https://www.virtualbox.org/wiki/Downloads). They have version for Mac and Windows, as well as Linux and Solaris.*
 
-   You can quickly check to see if you have VirtualBox installed by running `vboxmanage --version`
+   *You can quickly check to see if you have VirtualBox installed by running `vboxmanage --version`*
 
 
 ## Setup Vagrant Environment
@@ -30,9 +30,7 @@ Note that this application is intended to run within the [rdr-vagrant](https://g
 
    *This will run through provisioning the new Virtual Machine. The first time it runs, it will take a while to complete. In the future when you want to startup the dev environment, you'll run the same command but it will startup much more quickly*
 
-   *After the setup has completed, you will will be able to shell into the new VM by running `vagrant ssh` and then move to the application folder by running `cd /vagrant/rdr-vagrant`*
-
-   *Vagrant creates this as a shared folder that you can access both inside the VM and on your workstation. We've found it's best to do your git operations exclusively via the workstation folder.*
+   *After the setup has completed, you will will be able to shell into the new VM by running `vagrant ssh`. Once we're done installing the application below you'll also be able to move into the application folder `cd /vagrant/rdr` -- Vagrant creates this as a shared folder that you can access both inside the VM and on your workstation. We've found it's best to do your git operations exclusively via the workstation folder.*
 
 
 ## Install the rdr application
