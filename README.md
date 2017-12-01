@@ -70,7 +70,7 @@ A generated Hyrax-based Research Data Repository application
     you can close the tab when it's done
 
 
-14. The application should now be running at [localhost:3000](http://localhost:3000). You can try to do some things like creating a new user account and depositing an object
+14. The application should now be running at [localhost:3000](http://localhost:3000). You can try to do some things like [creating a new user account](http://localhost:3000/users/sign_up?locale=en) and [depositing an object](http://localhost:3000/concern/works/new?locale=en)
 
     *Note that if you would like to give your user account admin rights, you'll need to edit the config/role_map.yml file. Create a new role type under the development section at the top named 'admin:' and add the user account you created under it as '- email@address.com'*
 
