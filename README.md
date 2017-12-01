@@ -72,6 +72,8 @@ A generated Hyrax-based Research Data Repository application
 
 14. The application should now be running at [localhost:3000](http://localhost:3000). You can try to do some things like creating a new user account and depositing an object
 
+    *Note that if you would like to give your user account admin rights, you'll need to edit the config/role_map.yml file. Create a new role type under the development section at the top named 'admin:' and add the user account you created under it as '- email@address.com'*
+
 
 ### Shut down the application
 
