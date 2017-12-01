@@ -56,7 +56,7 @@ A generated Hyrax-based Research Data Repository application
 
 10. run database migrations `rake db:migrate`
 
-11. load default workflow `rake rake hyrax:workflow:load`
+11. load default workflow `rake hyrax:workflow:load`
 
 12. start the server(s)
 `bin/rails hydra:server`
