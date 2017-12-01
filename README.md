@@ -77,7 +77,7 @@ A generated Hyrax-based Research Data Repository application
 
 ### Shut down the application
 
-* to shut down the app, stop the rails server by pressing Ctrl-C (⌘-C), logout of vagrant `logout`, and then shutdown the VM `vagrant halt`
+* to shut down the app, stop the rails server by pressing Ctrl-C, logout of vagrant `logout`, and then shutdown the VM `vagrant halt`
 
 
 ### Start up the application
