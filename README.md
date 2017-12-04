@@ -52,7 +52,7 @@ A generated Hyrax-based Research Data Repository application
 
 8. grab the bunder gem `gem install bundler`
 
-9. run `bundle install`
+9. run `bundle install --without production`
 
 10. run database migrations `rake db:migrate`
 
