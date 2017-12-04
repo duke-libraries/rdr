@@ -27,3 +27,6 @@
 
 # Ignore application configuration
 /config/application.yml
+
+# Pre-compiled assets
+/public/assets
