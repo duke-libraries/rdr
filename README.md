@@ -36,11 +36,7 @@ A generated Hyrax-based Research Data Repository application
 
 ### rdr application
 
-4. clone this repo
-`git clone https://github.com/duke-libraries/rdr.git` 
-
-   OR using ssh `git clone git@github.com:duke-libraries/rdr.git` 
-   *note that you'll need to have [setup keys in github](https://help.github.com/articles/connecting-to-github-with-ssh/) to use this approach*
+4. this repo ([DUL RDR](https://github.com/duke-libraries/rdr)) is included as a submodule in rdr-vagrant, so it should be included already.
 
 5. shell into vagrant box
 `vagrant ssh`
