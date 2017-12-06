@@ -26,7 +26,7 @@ A generated Hyrax-based Research Data Repository application
 ### Vagrant
 
 1. clone the [rdr-vagrant](https://github.com/duke-libraries/rdr-vagrant) repository `git clone --recursive https://github.com/duke-libraries/rdr-vagrant.git`
-2. move to the rdr-vagrant folder `cd rdr-vagrant`
+2. move to the *rdr-vagrant* folder `cd rdr-vagrant`
 3. startup vagrant `vagrant up`
 
    *This will run through provisioning the new Virtual Machine. The first time it runs, it will take a while to complete. In the future when you want to startup the dev environment, you'll run the same command but it will startup much more quickly*
@@ -36,7 +36,16 @@ A generated Hyrax-based Research Data Repository application
 
 ### rdr application
 
-4. this repo ([DUL RDR](https://github.com/duke-libraries/rdr)) is included as a submodule in rdr-vagrant, so it should be included already.
+4. This repo ([rdr](https://github.com/duke-libraries/rdr)) is included as a submodule in rdr-vagrant, so the folder and files are there already.
+
+   However, we need to specify that we will be using the *develop* branch.
+
+   move to the *rdr* folder `cd rdr`
+
+   specify the branch `git checkout develop`
+
+   move back to the *rdr-vagrant* folder `cd ..`
+
 
 5. shell into vagrant box
 `vagrant ssh`
