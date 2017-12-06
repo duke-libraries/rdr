@@ -25,7 +25,7 @@ A generated Hyrax-based Research Data Repository application
 
 ### Vagrant
 
-1. clone the [rdr-vagrant](https://github.com/duke-libraries/rdr-vagrant) repository `git clone https://github.com/duke-libraries/rdr-vagrant.git`
+1. clone the [rdr-vagrant](https://github.com/duke-libraries/rdr-vagrant) repository `git clone --recursive https://github.com/duke-libraries/rdr-vagrant.git`
 2. move to the rdr-vagrant folder `cd rdr-vagrant`
 3. startup vagrant `vagrant up`
 
