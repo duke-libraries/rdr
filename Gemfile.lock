@@ -580,7 +580,7 @@ GEM
       rdf (~> 2.1)
     redic (1.5.0)
       hiredis
-    redis (4.0.1)
+    redis (3.3.5)
     redis-namespace (1.6.0)
       redis (>= 3.0.4)
     redlock (0.2.1)
@@ -766,6 +766,7 @@ DEPENDENCIES
   pg
   puma (~> 3.7)
   rails (~> 5.1.4)
+  redis (~> 3.0)
   resque
   resque-pool
   rsolr (>= 1.0)
