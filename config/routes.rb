@@ -1,8 +1,13 @@
+require 'resque_web'
+
 Rails.application.routes.draw do
-  
+
   mount Blacklight::Engine => '/'
-  
-    concern :searchable, Blacklight::Routes::Searchable.new
+
+  concern :searchable, Blacklight::Routes::Searchable.new
+
+  # Resque web
+  mount ResqueWeb::Engine => "/queues"
 
   resource :catalog, only: [:index], as: 'catalog', path: '/catalog', controller: 'catalog' do
     concerns :searchable

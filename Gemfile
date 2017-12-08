@@ -16,6 +16,10 @@ gem 'jbuilder', '~> 2.5'
 gem 'figaro'
 gem 'redis', '~> 3.0'
 
+gem 'resque'
+gem 'resque-pool'
+gem 'resque-web', require: 'resque_web'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -51,8 +55,6 @@ group :development, :test do
 end
 
 group :production do
-  gem 'resque'
-  gem 'resque-pool'
   gem 'pg'
   gem 'therubyracer', platforms: :ruby
 end
