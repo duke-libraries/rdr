@@ -30,3 +30,6 @@
 
 # Pre-compiled assets
 /public/assets
+
+# Resque pool config
+/config/resque-pool.yml

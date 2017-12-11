@@ -1,6 +1,13 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  # To use :resque (rather than the default :inline) as your active_job.queue_adapter, two changes
+  # are needed:
+  # (1) Override the default active_job.queue_adapter by uncommenting the line below:
+  # config.active_job.queue_adapter = :resque
+  # (2) Change the cache_classes config (below)from 'false' to 'true'.  Otherwise you will likely
+  # get errors resulting from double-loading.  If you do this, you will need to restart the rails
+  # server more often to pick up code changes.
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
