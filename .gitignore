@@ -33,3 +33,6 @@
 
 # Resque pool config
 /config/resque-pool.yml
+
+# FITS log file
+/fits.log
