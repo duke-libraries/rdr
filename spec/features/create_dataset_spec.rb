@@ -1,10 +1,10 @@
 # Generated via
-#  `rails generate hyrax:work Work`
+#  `rails generate hyrax:work Dataset`
 require 'rails_helper'
 include Warden::Test::Helpers
 
 # NOTE: If you generated more than one work, you have to set "js: true"
-RSpec.feature 'Create a Work', js: false do
+RSpec.feature 'Create a Dataset', js: false do
   # context 'a logged in user' do
   #   let(:user_attributes) do
   #     { email: 'test@example.com' }
@@ -24,10 +24,10 @@ RSpec.feature 'Create a Work', js: false do
   #     click_link "Add new work"
   #
   #     # If you generate more than one work uncomment these lines
-  #     choose "payload_concern", option: "Work"
+  #     choose "payload_concern", option: "Dataset"
   #     click_button "Create work"
   #
-  #     expect(page).to have_content "Add New Work"
+  #     expect(page).to have_content "Add New Dataset"
   #   end
   # end
 end
