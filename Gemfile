@@ -49,9 +49,12 @@ gem 'rsolr', '>= 1.0'
 gem 'jquery-rails'
 gem 'devise'
 gem 'devise-guests', '~> 0.6'
+gem 'omniauth-shibboleth'
+
 group :development, :test do
   gem 'fcrepo_wrapper'
   gem 'rspec-rails'
+  gem 'rspec-its'
 end
 
 group :production do
