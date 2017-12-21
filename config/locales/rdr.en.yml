@@ -1,0 +1,3 @@
+en:
+  rdr:
+    user_not_found: "User %{user_key} could not be found"
