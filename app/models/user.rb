@@ -33,6 +33,15 @@ class User < ApplicationRecord
     end
   end
 
+  # Override method from Hyrax::User::ClassMethods so that it properly creates system users,
+  # given that we do not use 'email' for Hydra.config.user_key_field.
+  def self.find_or_create_system_user(user_key)
+    User.find_by_user_key(user_key) ||
+        User.create!(Hydra.config.user_key_field => user_key,
+                     email: user_key,
+                     password: Devise.friendly_token[0, 20])
+  end
+
   # Method added by Blacklight; Blacklight uses #to_s on your
   # user class to get a user-displayable login/identifier for
   # the account.

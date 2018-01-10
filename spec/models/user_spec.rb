@@ -6,4 +6,11 @@ RSpec.describe User do
 
   its(:to_s) { is_expected.to eq "0000000" }
 
+  describe "overridden system user creation" do
+    it "successfully creates system users" do
+      expect{ User.audit_user }.to change{User.count}.by(1)
+      expect{ User.batch_user }.to change{User.count}.by(1)
+    end
+  end
+
 end
