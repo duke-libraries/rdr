@@ -30,6 +30,9 @@ gem 'resque-web', require: 'resque_web'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
+# Use postgresql for all environments, not just production
+gem 'pg'
+
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
@@ -53,6 +56,5 @@ group :development, :test do
 end
 
 group :production do
-  gem 'pg'
   gem 'therubyracer', platforms: :ruby
 end
