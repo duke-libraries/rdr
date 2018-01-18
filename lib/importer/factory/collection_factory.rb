@@ -1,0 +1,22 @@
+module Importer
+  module Factory
+    class CollectionFactory < ObjectFactory
+      self.klass = Collection
+
+      def find_or_create
+        collection = find
+        return collection if collection
+        run(&:save!)
+      end
+
+      def update
+        raise "Collection doesn't exist" unless object
+        object.attributes = update_attributes
+        run_callbacks(:save) do
+          object.save!
+        end
+        log_updated(object)
+      end
+    end
+  end
+end
