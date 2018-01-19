@@ -1,0 +1,18 @@
+<%# NOTE: Overrides existing Hyrax partial %>
+<footer class="navbar navbar-inverse site-footer">
+  <div class="container-fluid">
+    <div class="navbar-text text-left">
+        <p><%= t('hyrax.footer.service_html') %></p>
+        <p><%= t('hyrax.product_name') %> v<%= Hyrax::VERSION %></p>
+    </div>
+    <div class="navbar-right">
+      <ul class="nav navbar-nav" style="float:none;">
+        <%= render 'shared/locale_picker' if available_translations.size > 1 %>
+      </ul>
+      <div class="navbar-text text-right">
+        <p><%= t('hyrax.footer.copyright_html') %></p>
+        <p><%= t('hyrax.background_attribution_html') %></p>
+      </div>
+    </div>
+  </div>
+</footer>

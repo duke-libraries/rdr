@@ -1,0 +1,62 @@
+/* ===================== */
+/* Page Layout Overrides */
+/* ===================== */
+
+.dul-masthead-bar, #dul-masthead-filler {
+  width: 100%;
+  text-align: center;
+  background-color: #053482;
+}
+
+.dul-masthead-wrapper {
+  height: 105px;
+  margin: 0 auto;
+  padding-left:0;
+}
+
+#dul-masthead-dul-megamenu .dul-masthead-megamenu_container ul .dul-masthead-mega_toplevel a {
+    font-weight: 400 !important;
+}
+
+#masthead {
+  padding-top: 10px;
+  margin-bottom: 0;
+}
+
+.navbar-brand {
+  padding: 18px 15px;
+  font-size: 20px;
+  line-height: auto;
+  height: auto;
+  text-transform: uppercase;
+}
+
+.navbar-toggle, .facets-toggle {
+    margin-right: 0;
+    margin-top: 16px;
+    background-color: #ddd;
+    & .icon-bar {
+      background-color: white;
+    }
+}
+
+#content-wrapper {
+  background: #fff;
+  padding: 20px 0;
+}
+
+.breadcrumb {
+  background-color: transparent;
+}
+
+/* ============== */
+/* Search Results */
+/* ============== */
+
+.metadata {
+  & .attribute-label.h4 {
+      font-size: 18px;
+  }
+}
+
+
