@@ -34,7 +34,7 @@ module Importer
       end
 
       def create_attributes
-        transform_attributes
+        transform_attributes.merge(admin_set_attributes)
       end
 
       def update_attributes
@@ -97,6 +97,10 @@ module Importer
         attributes.slice(*permitted_attributes).merge(file_attributes)
       end
 
+      def admin_set_attributes
+        attributes[:admin_set_id].present? ? {} : { admin_set_id: Rdr.preferred_admin_set_id }
+      end
+
       def file_attributes
         files_directory.present? && files.present? ? { uploaded_files: uploaded_files } : {}
       end
@@ -115,7 +119,8 @@ module Importer
       end
 
       def permitted_attributes
-        klass.properties.keys.map(&:to_sym) + [:id, :edit_users, :edit_groups, :read_groups, :visibility]
+        klass.properties.keys.map(&:to_sym) +
+            [:id, :admin_set_id, :edit_users, :edit_groups, :read_groups, :visibility]
       end
     end
   end
