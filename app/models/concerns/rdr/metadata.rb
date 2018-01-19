@@ -30,6 +30,10 @@ module Rdr
       property :doi, predicate: ::RDF::Vocab::Identifiers.doi do |index|
         index.as :stored_sortable
       end
+
+      property :ark, predicate: ::RDF::URI.new("http://repository.lib.duke.edu/vocab/asset/ark") do |index|
+        index.as :stored_sortable
+      end
     end
 
   end
