@@ -22,7 +22,7 @@ RSpec.describe Importer::CSVParser do
     subject { parser.send(:validate_headers, headers) }
 
     context 'with valid headers' do
-      let(:headers) { %w(id title) }
+      let(:headers) { %w(id title parent_ark) }
       it { is_expected.to eq headers }
     end
 
