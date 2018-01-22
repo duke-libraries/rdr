@@ -66,11 +66,7 @@ module Importer
       val = val.strip
       # Workaround for https://jira.duraspace.org/browse/FCREPO-2038
       val.delete!("\r")
-      processed[key] << (looks_like_uri?(val) ? RDF::URI(val) : val)
-    end
-
-    def looks_like_uri?(str)
-      str =~ %r{^https?://}
+      processed[key] << val
     end
 
     def update_collection(collection, field, val)

@@ -1,4 +1,4 @@
-type,title,contributor,resource_type,file,file,file
-Dataset,Test 1,"Smith, Sue",dataset,data/data1.csv,data/data2.csv,docs/doc1.txt
-,Test 2,"Jones, Bill",dataset,data/data3.csv,docs/doc2.txt
-Dataset,Test 3,"Allen, Jane",dataset,data/data1.csv
+type,title,contributor,resource_type,license,file,file,file
+Dataset,Test 1,"Smith, Sue",dataset,"http://creativecommons.org/publicdomain/zero/1.0/",data/data1.csv,data/data2.csv,docs/doc1.txt
+,Test 2,"Jones, Bill",dataset,"http://creativecommons.org/publicdomain/zero/1.0/",data/data3.csv,docs/doc2.txt
+Dataset,Test 3,"Allen, Jane",dataset,"http://creativecommons.org/publicdomain/zero/1.0/",data/data1.csv
