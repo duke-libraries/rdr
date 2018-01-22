@@ -39,7 +39,6 @@ RSpec.describe Importer::CSVParser do
       it { is_expected.to eq headers }
     end
 
-    # It doesn't expect a matching column for "resource_type"
     context 'with resource_type column' do
       let(:headers) { %w(resource_type title) }
       it { is_expected.to eq headers }
