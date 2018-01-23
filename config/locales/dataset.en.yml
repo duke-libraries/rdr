@@ -6,3 +6,32 @@ en:
       dataset:
         name:               "Dataset"
         description:        "Dataset works"
+  simple_form:
+    labels:
+      dataset:
+        # Customize Dataset new/edit form field labels here
+        # field_name: Label
+        affiliation: Affiliation
+        alternative: Alternative Title
+        ark: ARK
+        available: Publication Date
+        based_near: Geographic Coverage
+        bibliographic_citation: Citation
+        contributor: Contributor
+        description: Description
+        doi: DOI
+        format: Format
+        language: Language
+        license: Rights
+        provenance: Provenance
+        related_url: Related Materials
+        resource_type: Type
+        subject: Subject
+        temporal: Collection Dates
+        title: Title
+    hints:
+      dataset:
+        # Customize Dataset new/edit form field help text here
+        # field_name: "Text help"
+        
+        
