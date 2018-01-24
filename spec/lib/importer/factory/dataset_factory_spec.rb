@@ -34,22 +34,10 @@ RSpec.describe Importer::Factory::DatasetFactory, :clean do
     end
 
     context "for a new dataset" do
-      describe "admin set ID provided" do
-        let(:expected_admin_set_id) { 'w9505044z' }
-        before { attributes.merge!({ admin_set_id: expected_admin_set_id }) }
-        it 'creates file sets with access controls' do
-          expect(actor).to receive(:create).with(Hyrax::Actors::Environment) do |k|
-            expect(k.attributes).to include('member_of_collection_ids' => [ coll.id ],
-                                            'uploaded_files' => [ uploaded_file.id ],
-                                            'admin_set_id' => expected_admin_set_id)
-          end
-          factory.run
-        end
-      end
-      describe "admin set ID not provided" do
-        describe "preferred admin set configured" do
-          let(:expected_admin_set_id) { 'gq67jr16q' }
-          before { allow(Rdr).to receive(:preferred_admin_set_id) { expected_admin_set_id } }
+      describe "admin set" do
+        describe "admin set ID provided" do
+          let(:expected_admin_set_id) { 'w9505044z' }
+          before { attributes.merge!({ admin_set_id: expected_admin_set_id }) }
           it 'creates file sets with access controls' do
             expect(actor).to receive(:create).with(Hyrax::Actors::Environment) do |k|
               expect(k.attributes).to include('member_of_collection_ids' => [ coll.id ],
@@ -59,13 +47,43 @@ RSpec.describe Importer::Factory::DatasetFactory, :clean do
             factory.run
           end
         end
-        describe "preferred admin set not configured" do
-          let(:expected_admin_set_id) { AdminSet::DEFAULT_ID }
-          it 'creates file sets with access controls' do
+        describe "admin set ID not provided" do
+          describe "preferred admin set configured" do
+            let(:expected_admin_set_id) { 'gq67jr16q' }
+            before { allow(Rdr).to receive(:preferred_admin_set_id) { expected_admin_set_id } }
+            it 'creates file sets with access controls' do
+              expect(actor).to receive(:create).with(Hyrax::Actors::Environment) do |k|
+                expect(k.attributes).to include('member_of_collection_ids' => [ coll.id ],
+                                                'uploaded_files' => [ uploaded_file.id ],
+                                                'admin_set_id' => expected_admin_set_id)
+              end
+              factory.run
+            end
+          end
+          describe "preferred admin set not configured" do
+            let(:expected_admin_set_id) { AdminSet::DEFAULT_ID }
+            it 'creates file sets with access controls' do
+              expect(actor).to receive(:create).with(Hyrax::Actors::Environment) do |k|
+                expect(k.attributes).to include('member_of_collection_ids' => [ coll.id ],
+                                                'uploaded_files' => [ uploaded_file.id ],
+                                                'admin_set_id' => expected_admin_set_id)
+              end
+              factory.run
+            end
+          end
+        end
+      end
+      describe "nesting" do
+        describe "parent ARK provided" do
+          let(:parent_ark) { 'ark:/99999/fk4c256z6n' }
+          let(:parent_id) { 'gq67jr16q' }
+          before do
+            attributes.merge!({ parent_ark: [ parent_ark ] })
+            allow(factory).to receive(:parent_id).with(parent_ark) { parent_id }
+          end
+          it 'sends the appropriate nesting attribute to the actor' do
             expect(actor).to receive(:create).with(Hyrax::Actors::Environment) do |k|
-              expect(k.attributes).to include('member_of_collection_ids' => [ coll.id ],
-                                              'uploaded_files' => [ uploaded_file.id ],
-                                              'admin_set_id' => expected_admin_set_id)
+              expect(k.attributes).to include('in_works_ids' => [ parent_id ])
             end
             factory.run
           end

@@ -5,12 +5,13 @@ module Importer
       extend ActiveModel::Callbacks
       define_model_callbacks :save, :create
       class_attribute :klass
-      attr_reader :attributes, :files_directory, :object, :files
+      attr_reader :attributes, :files_directory, :object, :files, :parent_arks
 
       def initialize(attributes, files_dir = nil)
         @attributes = attributes
         @files_directory = files_dir
         @files = @attributes.delete(:file)
+        @parent_arks = @attributes.delete(:parent_ark)
       end
 
       def run
@@ -47,6 +48,22 @@ module Importer
 
       def find_by_id
         klass.find(attributes[:id]) if klass.exists?(attributes[:id])
+      end
+
+      def find_by_ark(ark)
+        ark_field_name = ActiveFedora.index_field_mapper.solr_name('ark', :stored_sortable)
+        results = klass.where(ark_field_name => ark)
+        if results.count > 1
+          raise Rdr::UnexpectedMultipleResultsError, I18n.t('rdr.unexpected_multiple_results', identifier: ark)
+        else
+          results.first
+        end
+      end
+
+      def parent_id(parent_ark)
+        if parent = find_by_ark(parent_ark)
+          parent.id
+        end
       end
 
       # An ActiveFedora bug when there are many habtm <-> has_many associations means they won't all get saved.
@@ -94,7 +111,7 @@ module Importer
       # Override if we need to map the attributes from the parser in
       # a way that is compatible with how the factory needs them.
       def transform_attributes
-        attributes.slice(*permitted_attributes).merge(file_attributes)
+        attributes.slice(*permitted_attributes).merge(file_attributes).merge(nesting_attributes)
       end
 
       def admin_set_attributes
@@ -118,9 +135,13 @@ module Importer
         end
       end
 
+      def nesting_attributes
+        parent_arks.present? ? { in_works_ids: parent_arks.map { |ark| parent_id(ark) } } : {}
+      end
+
       def permitted_attributes
         klass.properties.keys.map(&:to_sym) +
-            [:id, :admin_set_id, :edit_users, :edit_groups, :read_groups, :visibility]
+            [:id, :admin_set_id, :parent_ark, :edit_users, :edit_groups, :read_groups, :visibility]
       end
     end
   end

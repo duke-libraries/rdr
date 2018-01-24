@@ -61,4 +61,8 @@ RSpec.configure do |config|
     ActiveFedora::Cleaner.clean!
   end
 
+  config.after(:each) do
+    ActiveFedora::Cleaner.clean!
+  end
+
 end

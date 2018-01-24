@@ -57,6 +57,9 @@ RSpec.describe Importer::CSVImporter do
       ds1 = Dataset.where(title: 'Test 1').first
       ds2 = Dataset.where(title: 'Test 2').first
       ds3 = Dataset.where(title: 'Test 3').first
+      expect(ds1.works).to match_array([ ds2, ds3 ])
+      expect(ds2.in_works).to eq([ ds1 ])
+      expect(ds3.in_works).to eq([ ds1 ])
       expect(ds1.file_sets.map(&:files).map(&:first).map(&:checksum).map(&:value)).to match_array(ds1_checksums)
       expect(ds2.file_sets.map(&:files).map(&:first).map(&:checksum).map(&:value)).to match_array(ds2_checksums)
       expect(ds3.file_sets.map(&:files).map(&:first).map(&:checksum).map(&:value)).to match_array(ds3_checksums)
