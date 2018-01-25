@@ -6,6 +6,7 @@ module Hyrax
     self.model_class = ::Dataset
 
     self.terms += [
+      :bibliographic_citation,
       :resource_type,
       :affiliation,
       :alternative,
