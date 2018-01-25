@@ -3,14 +3,19 @@ en:
     search:
       fields:
         facet:
+          affiliation_sim: Affiliation
+          available_sim: Publication Date
           based_near_label_sim: Location
           creator_sim: Creator
-          file_format_sim: Format
-          generic_type_sim: Type
+          file_format_sim: File Format
+          format_sim: Format
+          generic_type_sim: Generic Type
           keyword_sim: Keyword
           language_sim: Language
           publisher_sim: Publisher
+          resource_type_sim: Type
           subject_sim: Subject
+          temporal_sim: Collection Dates
         index:
           based_near_tesim: Location
           contributor_tesim: Contributor

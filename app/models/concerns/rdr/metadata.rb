@@ -8,15 +8,15 @@ module Rdr
       end
 
       property :affiliation, predicate: ::RDF::URI.new("http://repository.lib.duke.edu/vocab/asset/affiliation") do |index|
-        index.as :stored_searchable
+        index.as :stored_searchable, :facetable
       end
 
       property :available, predicate: ::RDF::Vocab::DC.available do |index|
-        index.as :dateable
+        index.as :dateable, :facetable
       end
 
       property :temporal, predicate: ::RDF::Vocab::DC.temporal do |index|
-        index.as :dateable
+        index.as :dateable, :facetable
       end
 
       property :format, predicate: ::RDF::Vocab::DC.format do |index|
