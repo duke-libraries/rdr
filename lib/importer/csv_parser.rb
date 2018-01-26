@@ -31,7 +31,7 @@ module Importer
     end
 
     def valid_headers
-      Dataset.attribute_names + %w(id type parent_ark file) + collection_headers
+      Dataset.attribute_names + %w(id type parent_ark visibility file) + collection_headers
     end
 
     def collection_headers
