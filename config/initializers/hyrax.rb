@@ -219,9 +219,7 @@ Hyrax.config do |config|
   # ingest files from the file system that are not part of the BrowseEverything
   # mount point.
   #
-  if whitelisted_dirs = ENV['whitelisted_ingest_dirs']
-    config.whitelisted_ingest_dirs = whitelisted_dirs.split(':')
-  end
+  config.whitelisted_ingest_dirs = ENV.fetch('whitelisted_ingest_dirs', '').split(':')
 
 end
 
