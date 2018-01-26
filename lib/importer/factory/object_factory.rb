@@ -123,19 +123,13 @@ module Importer
       end
 
       def file_attributes
-        files_directory.present? && files.present? ? { uploaded_files: uploaded_files } : {}
+        files_directory.present? && files.present? ? { remote_files: remote_files } : {}
       end
 
-      def file_paths
-        files.map { |file_name| File.join(files_directory, file_name) }
-      end
-
-      def uploaded_files
+      def remote_files
         files.map do |file_name|
-          f = File.open(File.join(files_directory, file_name))
-          upf = Hyrax::UploadedFile.create(file: f, user: User.batch_user)
-          f.close
-          upf.id
+          f = File.join(files_directory, file_name)
+          { url: "file:#{f}", file_name: File.basename(f) }
         end
       end
 

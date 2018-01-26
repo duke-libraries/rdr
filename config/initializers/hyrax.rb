@@ -219,7 +219,10 @@ Hyrax.config do |config|
   # ingest files from the file system that are not part of the BrowseEverything
   # mount point.
   #
-  # config.whitelisted_ingest_dirs = []
+  if whitelisted_dirs = ENV['whitelisted_ingest_dirs']
+    config.whitelisted_ingest_dirs = whitelisted_dirs.split(':')
+  end
+
 end
 
 Date::DATE_FORMATS[:standard] = "%m/%d/%Y"

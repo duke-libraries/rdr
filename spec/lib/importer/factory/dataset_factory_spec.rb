@@ -19,6 +19,8 @@ RSpec.describe Importer::Factory::DatasetFactory, :clean do
   end
 
   before do
+    allow(Hyrax).to receive(:config).and_call_original
+    allow(Hyrax).to receive_message_chain(:config, :whitelisted_ingest_dirs) { Array(fixture_path) }
     allow(Hyrax::CurationConcern).to receive(:actor).and_return(actor)
   end
 
@@ -26,12 +28,8 @@ RSpec.describe Importer::Factory::DatasetFactory, :clean do
     let(:factory) { described_class.new(attributes, files_directory) }
     let(:files) { ['data.csv'] }
     let(:file_path) { File.join(files_directory, files.first) }
-    let(:uploaded_file) { double(Hyrax::UploadedFile, id: 7) }
+    let(:remote_files) { [ { url: "file:#{file_path}", file_name: files.first } ] }
     let!(:coll) { create(:collection) }
-
-    before do
-      allow(Hyrax::UploadedFile).to receive(:create) { uploaded_file }
-    end
 
     context "for a new dataset" do
       describe "admin set" do
@@ -41,7 +39,7 @@ RSpec.describe Importer::Factory::DatasetFactory, :clean do
           it 'creates file sets with access controls' do
             expect(actor).to receive(:create).with(Hyrax::Actors::Environment) do |k|
               expect(k.attributes).to include('member_of_collection_ids' => [ coll.id ],
-                                              'uploaded_files' => [ uploaded_file.id ],
+                                              'remote_files' => remote_files,
                                               'admin_set_id' => expected_admin_set_id)
             end
             factory.run
@@ -54,7 +52,7 @@ RSpec.describe Importer::Factory::DatasetFactory, :clean do
             it 'creates file sets with access controls' do
               expect(actor).to receive(:create).with(Hyrax::Actors::Environment) do |k|
                 expect(k.attributes).to include('member_of_collection_ids' => [ coll.id ],
-                                                'uploaded_files' => [ uploaded_file.id ],
+                                                'remote_files' => remote_files,
                                                 'admin_set_id' => expected_admin_set_id)
               end
               factory.run
@@ -65,7 +63,7 @@ RSpec.describe Importer::Factory::DatasetFactory, :clean do
             it 'creates file sets with access controls' do
               expect(actor).to receive(:create).with(Hyrax::Actors::Environment) do |k|
                 expect(k.attributes).to include('member_of_collection_ids' => [ coll.id ],
-                                                'uploaded_files' => [ uploaded_file.id ],
+                                                'remote_files' => remote_files,
                                                 'admin_set_id' => expected_admin_set_id)
               end
               factory.run
@@ -97,7 +95,7 @@ RSpec.describe Importer::Factory::DatasetFactory, :clean do
       it 'creates file sets' do
         expect(actor).to receive(:update).with(Hyrax::Actors::Environment) do |k|
           expect(k.attributes).to include('member_of_collection_ids' => [ coll.id ],
-                                          'uploaded_files' => [ uploaded_file.id ])
+                                          'remote_files' => remote_files)
         end
         factory.run
       end
