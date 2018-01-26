@@ -14,7 +14,9 @@ RSpec.describe Importer::CSVParser do
       expect(first_record[:contributor]).to eq [ 'Smith, Sue' ]
       expect(first_record[:license].first).to be_a String
       expect(first_record[:license]).to eq [ 'http://creativecommons.org/publicdomain/zero/1.0/' ]
-      expect(first_record.keys).to match_array [ :type, :title, :contributor, :resource_type, :license, :file]
+      expect(first_record[:visibility]).to eq [ 'open' ]
+      expect(first_record.keys).to match_array [ :type, :visibility, :title, :contributor,
+                                                 :resource_type, :license, :file ]
     end
   end
 

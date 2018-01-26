@@ -5,13 +5,14 @@ module Importer
       extend ActiveModel::Callbacks
       define_model_callbacks :save, :create
       class_attribute :klass
-      attr_reader :attributes, :files_directory, :object, :files, :parent_arks
+      attr_reader :attributes, :files_directory, :object, :files, :parent_arks, :visibility
 
       def initialize(attributes, files_dir = nil)
         @attributes = attributes
         @files_directory = files_dir
         @files = @attributes.delete(:file)
         @parent_arks = @attributes.delete(:parent_ark)
+        @visibility = @attributes.delete(:visibility)
       end
 
       def run
@@ -111,7 +112,10 @@ module Importer
       # Override if we need to map the attributes from the parser in
       # a way that is compatible with how the factory needs them.
       def transform_attributes
-        attributes.slice(*permitted_attributes).merge(file_attributes).merge(nesting_attributes)
+        attributes.slice(*permitted_attributes)
+            .merge(file_attributes)
+            .merge(nesting_attributes)
+            .merge(visibility_attributes)
       end
 
       def admin_set_attributes
@@ -137,6 +141,10 @@ module Importer
 
       def nesting_attributes
         parent_arks.present? ? { in_works_ids: parent_arks.map { |ark| parent_id(ark) } } : {}
+      end
+
+      def visibility_attributes
+        visibility.present? ? { visibility: visibility.first } : {}
       end
 
       def permitted_attributes
