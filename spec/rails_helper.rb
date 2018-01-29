@@ -66,3 +66,5 @@ RSpec.configure do |config|
   end
 
 end
+
+Hyrax.config.whitelisted_ingest_dirs = [ File.join(Rails.root, 'spec', 'fixtures') ]
