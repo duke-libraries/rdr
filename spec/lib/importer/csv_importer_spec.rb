@@ -48,7 +48,10 @@ RSpec.describe Importer::CSVImporter do
     let(:ds2_checksums) { [ '37a0502601ed54f31d119d5355ade2c29ea530ea', '8376ba1d652cee933cc7cff95d8c049fb7a9a855' ] }
     let(:ds3_checksums) { [ '4c4665b408134d8f6995d1640a7f2d4eeee5c010' ] }
     subject { described_class.new(metadata_file, files_directory, model) }
-    before { AdminSet.find_or_create_default_admin_set_id }
+    before do
+      AdminSet.find_or_create_default_admin_set_id
+      allow(CharacterizeJob).to receive(:perform_later)
+    end
     it 'imports the objects' do
       subject.import_all
       datasets = Dataset.all
