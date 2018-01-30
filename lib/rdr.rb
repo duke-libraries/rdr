@@ -4,6 +4,7 @@ module Rdr
   autoload :Configurable
   autoload :Error
   autoload :UnexpectedMultipleResultsError, 'rdr/error'
+  autoload :Index
 
   include Rdr::Configurable
 
