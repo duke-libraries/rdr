@@ -17,39 +17,61 @@ RSpec.describe ProxyService do
 
   describe "#list" do
     context "no user given" do
-      let(:results) { [ { user: userA, proxy_info: { proxies: [ userB, userC ], proxy_for: [ ] } },
-                        { user: userB, proxy_info: { proxies: [ userC ], proxy_for: [ userA ] } },
-                        { user: userC, proxy_info: { proxies: [ ], proxy_for: [ userA, userB ] } },
-                        { user: userD, proxy_info: { proxies: [ ], proxy_for: [ ] } } ] }
       it "should list all users with a proxy and their proxies" do
-        expect(described_class.list).to match_array(results)
+        # Expected results look like this:
+        # [ { user: userA, proxy_info: { proxies: [ userB, userC ], proxy_for: [ ] } },
+        #   { user: userB, proxy_info: { proxies: [ userC ], proxy_for: [ userA ] } },
+        #   { user: userC, proxy_info: { proxies: [ ], proxy_for: [ userA, userB ] } },
+        #   { user: userD, proxy_info: { proxies: [ ], proxy_for: [ ] } } ]
+        expect(described_class.list).to match_array([
+            a_hash_including(user: userA,
+                             proxy_info: a_hash_including(proxies: match_array([ userB, userC ]),
+                                                          proxy_for: [])),
+            a_hash_including(user: userB,
+                             proxy_info: a_hash_including(proxies: [ userC ],
+                                                          proxy_for: [ userA ])),
+            a_hash_including(user: userC,
+                             proxy_info: a_hash_including(proxies: [],
+                                                          proxy_for: match_array([ userA, userB ]))),
+            a_hash_including(user: userD,
+                             proxy_info: a_hash_including(proxies: [],
+                                                          proxy_for: []))
+                                                    ])
       end
     end
     context "user given" do
       context "user key given" do
         context "user exists" do
           context "user has proxies and is a proxy for" do
-            let(:results) { { proxies: [ userC ], proxy_for: [ userA ] } }
-            it "should list the proxies but no proxy for's" do
-              expect(described_class.list(userB.user_key)).to match_array(results)
+            # Expected results look like this:
+            # { proxies: [ userC ], proxy_for: [ userA ] }
+            it "should list the proxies and the proxy for's" do
+              expect(described_class.list(userB.user_key)).to include(proxies: [ userC ],
+                                                                      proxy_for: [ userA ])
             end
           end
           context "user has proxies but is not a proxy for" do
-            let(:results) { { proxies: [ userB, userC ], proxy_for: [] } }
+            # Expected results look like this:
+            # { proxies: [ userB, userC ], proxy_for: [] }
             it "should list the proxies but no proxy for's" do
-              expect(described_class.list(userA.user_key)).to match_array(results)
+              expect(described_class.list(userA.user_key)).to include(proxies: match_array([ userB, userC ]),
+                                                                      proxy_for: [])
             end
           end
           context "user has no proxies but is a proxy for" do
-            let(:results) { { proxies: [ ], proxy_for: [ userA, userB ] } }
+            # Expected results look like this:
+            # { proxies: [ ], proxy_for: [ userA, userB ] }
             it "should list the proxy for's but no proxies" do
-              expect(described_class.list(userC.user_key)).to match_array(results)
+              expect(described_class.list(userC.user_key)).to include(proxies: [],
+                                                                      proxy_for: match_array([ userA, userB ]))
             end
           end
           context "user has no proxies and is not a proxy for" do
-            let(:results) { { proxies: [ ], proxy_for: [ ] } }
+            # Expected results look like this:
+            # { proxies: [ ], proxy_for: [ ] }
             it "should list neither proxies nor proxy for's" do
-              expect(described_class.list(userD.user_key)).to match_array(results)
+              expect(described_class.list(userD.user_key)).to include(proxies: [],
+                                                                      proxy_for: [])
             end
           end
         end
@@ -63,27 +85,35 @@ RSpec.describe ProxyService do
       end
       context "user object given" do
         context "user has proxies and is a proxy for" do
-          let(:results) { { proxies: [ userC ], proxy_for: [ userA ] } }
-          it "should list the proxies but no proxy for's" do
-            expect(described_class.list(userB)).to match_array(results)
+          # Expected results look like this:
+          # { proxies: [ userC ], proxy_for: [ userA ] }
+          it "should list the proxies and the proxy for's" do
+            expect(described_class.list(userB)).to include(proxies: [ userC ],
+                                                           proxy_for: [ userA ])
           end
         end
         context "user has proxies but is not a proxy for" do
-          let(:results) { { proxies: [ userB, userC ], proxy_for: [] } }
+          # Expected results look like this:
+          # { proxies: [ userB, userC ], proxy_for: [] }
           it "should list the proxies but no proxy for's" do
-            expect(described_class.list(userA)).to match_array(results)
+            expect(described_class.list(userA)).to include(proxies: match_array([ userB, userC ]),
+                                                           proxy_for: [])
           end
         end
         context "user has no proxies but is a proxy for" do
-          let(:results) { { proxies: [ ], proxy_for: [ userA, userB ] } }
+          # Expected results look like this:
+          # { proxies: [ ], proxy_for: [ userA, userB ] }
           it "should list the proxy for's but no proxies" do
-            expect(described_class.list(userC)).to match_array(results)
+            expect(described_class.list(userC)).to include(proxies: [],
+                                                           proxy_for: match_array([ userA, userB ]))
           end
         end
         context "user has no proxies and is not a proxy for" do
-          let(:results) { { proxies: [ ], proxy_for: [ ] } }
+          # Expected results look like this:
+          # { proxies: [ ], proxy_for: [ ] }
           it "should list neither proxies nor proxy for's" do
-            expect(described_class.list(userD)).to match_array(results)
+            expect(described_class.list(userD)).to include(proxies: [],
+                                                           proxy_for: [])
           end
         end
       end
