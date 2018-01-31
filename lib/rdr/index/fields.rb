@@ -41,8 +41,9 @@ module Rdr::Index
       register field, :stored_sortable, type: :date
     end
 
-    DATEABLE_FIELDS.each do |field|
+    DATEABLE_FACETABLE_FIELDS.each do |field|
       register field, :dateable
+      register "#{field}_facet", :facetable, prefix: field
     end
 
     # This is an outlier ...
