@@ -41,13 +41,13 @@ class CatalogController < ApplicationController
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
-    config.add_facet_field solr_name("temporal", :facetable), label: I18n.t("blacklight.search.fields.facet.temporal_sim"), limit: 5
-    config.add_facet_field solr_name("available", :facetable), label: I18n.t("blacklight.search.fields.facet.available_sim"), limit: 5
-    config.add_facet_field solr_name("subject", :facetable), label: I18n.t("blacklight.search.fields.facet.subject_sim"), limit: 5
-    config.add_facet_field solr_name("creator", :facetable), label: I18n.t("blacklight.search.fields.facet.creator_sim"), limit: 5
-    config.add_facet_field solr_name("format", :facetable), label: I18n.t("blacklight.search.fields.facet.format_sim"), limit: 5
-    config.add_facet_field solr_name("affiliation", :facetable), label: I18n.t("blacklight.search.fields.facet.affiliation_sim"), limit: 5
-    config.add_facet_field solr_name("resource_type", :facetable), label: I18n.t("blacklight.search.fields.facet.resource_type_sim"), limit: 5
+    config.add_facet_field Rdr::Index::Fields.temporal_facet.to_s, label: I18n.t("blacklight.search.fields.facet.temporal_sim"), limit: 5
+    config.add_facet_field Rdr::Index::Fields.available_facet.to_s, label: I18n.t("blacklight.search.fields.facet.available_sim"), limit: 5
+    config.add_facet_field Rdr::Index::Fields.subject_facet.to_s, label: I18n.t("blacklight.search.fields.facet.subject_sim"), limit: 5
+    config.add_facet_field Rdr::Index::Fields.creator_facet.to_s, label: I18n.t("blacklight.search.fields.facet.creator_sim"), limit: 5
+    config.add_facet_field Rdr::Index::Fields.format_facet.to_s, label: I18n.t("blacklight.search.fields.facet.format_sim"), limit: 5
+    config.add_facet_field Rdr::Index::Fields.affiliation_facet.to_s, label: I18n.t("blacklight.search.fields.facet.affiliation_sim"), limit: 5
+    config.add_facet_field Rdr::Index::Fields.resource_type_facet.to_s, label: I18n.t("blacklight.search.fields.facet.resource_type_sim"), limit: 5
 
     config.add_facet_field solr_name('member_of_collections', :symbol), limit: 5, label: 'Collections'
 

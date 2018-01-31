@@ -8,12 +8,12 @@ module Rdr
     # :stored_searchable, :facetable
     STORED_SEARCHABLE_FACETABLE_FIELDS = (
       Hyrax::BasicMetadataIndexer.stored_and_facetable_fields +
-      %i[ format title ]
+      %i[ affiliation format title ]
     ).freeze
 
     STORED_SEARCHABLE_FIELDS = (
       Hyrax::BasicMetadataIndexer.stored_fields +
-      %i[ affiliation alternative depositor provenance ]
+      %i[ alternative depositor provenance ]
     ).freeze
 
     STORED_SORTABLE_FIELDS = %i[ ark doi ].freeze
