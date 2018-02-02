@@ -86,23 +86,27 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
-    config.add_show_field solr_name("title", :stored_searchable)
-    config.add_show_field solr_name("description", :stored_searchable)
-    config.add_show_field solr_name("keyword", :stored_searchable)
-    config.add_show_field solr_name("subject", :stored_searchable)
-    config.add_show_field solr_name("creator", :stored_searchable)
-    config.add_show_field solr_name("contributor", :stored_searchable)
-    config.add_show_field solr_name("publisher", :stored_searchable)
+    config.add_show_field Rdr::Index::Fields.title.to_s
+    config.add_show_field Rdr::Index::Fields.description.to_s
+    config.add_show_field Rdr::Index::Fields.creator.to_s
+    config.add_show_field Rdr::Index::Fields.bibliographic_citation.to_s
+    config.add_show_field Rdr::Index::Fields.doi.to_s
+    config.add_show_field Rdr::Index::Fields.subject.to_s
+    config.add_show_field Rdr::Index::Fields.available.to_s
+    config.add_show_field Rdr::Index::Fields.ark.to_s
+    config.add_show_field Rdr::Index::Fields.alternative.to_s
+    config.add_show_field Rdr::Index::Fields.contributor.to_s
+    config.add_show_field Rdr::Index::Fields.affiliation.to_s
+    config.add_show_field Rdr::Index::Fields.publisher.to_s
+    config.add_show_field Rdr::Index::Fields.temporal.to_s
     config.add_show_field solr_name("based_near_label", :stored_searchable)
-    config.add_show_field solr_name("language", :stored_searchable)
-    config.add_show_field solr_name("date_uploaded", :stored_searchable)
-    config.add_show_field solr_name("date_modified", :stored_searchable)
-    config.add_show_field solr_name("date_created", :stored_searchable)
-    config.add_show_field solr_name("rights_statement", :stored_searchable)
-    config.add_show_field solr_name("license", :stored_searchable)
-    config.add_show_field solr_name("resource_type", :stored_searchable), label: "Resource Type"
-    config.add_show_field solr_name("format", :stored_searchable)
-    config.add_show_field solr_name("identifier", :stored_searchable)
+    config.add_show_field Rdr::Index::Fields.language.to_s
+    config.add_show_field Rdr::Index::Fields.resource_type.to_s
+    config.add_show_field Rdr::Index::Fields.format.to_s
+    config.add_show_field Rdr::Index::Fields.related_url.to_s
+    config.add_show_field Rdr::Index::Fields.license.to_s
+    config.add_show_field Rdr::Index::Fields.provenance.to_s
+
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
