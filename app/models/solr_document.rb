@@ -25,4 +25,54 @@ class SolrDocument
   # Do content negotiation for AF models. 
 
   use_extension( Hydra::ContentNegotiation )
+
+  def affiliation
+    self[Rdr::Index::Fields.affiliation]
+  end
+
+  def alternative
+    self[Rdr::Index::Fields.alternative]
+  end
+
+  def ark
+    self[Rdr::Index::Fields.ark]
+  end
+
+  def available
+    self[Rdr::Index::Fields.available]
+  end
+
+  def based_near
+    self[Rdr::Index::Fields.based_near]
+  end
+
+  def bibliographic_citation
+    self[Rdr::Index::Fields.bibliographic_citation]
+  end
+
+  def doi
+    self[Rdr::Index::Fields.doi]
+  end
+
+  def format
+    self[Rdr::Index::Fields.format]
+  end
+
+  def provenance
+    self[Rdr::Index::Fields.provenance]
+  end
+
+  def related_url
+    self[Rdr::Index::Fields.related_url]
+  end
+
+  def resource_type
+    self[Rdr::Index::Fields.resource_type]
+  end
+
+  def temporal
+    self[Rdr::Index::Fields.temporal]
+  end
+
+
 end
