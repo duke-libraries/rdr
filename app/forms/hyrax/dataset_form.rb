@@ -20,14 +20,17 @@ module Hyrax
 
     self.required_fields = [
       :title,
-      :creator,
-      :publisher,
-      :available,
-      :description,
-      :resource_type,
-      :license,
-      :bibliographic_citation,
     ]
 
+    def primary_terms
+      required_fields + [ :creator,
+                          :publisher,
+                          :available,
+                          :description,
+                          :resource_type,
+                          :license,
+                          :bibliographic_citation,
+                        ]
+    end
   end
 end
