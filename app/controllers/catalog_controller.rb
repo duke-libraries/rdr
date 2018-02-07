@@ -64,8 +64,8 @@ class CatalogController < ApplicationController
     #   The ordering of the field names is the order of the display
     config.add_index_field Rdr::Index::Fields.title.to_s, label: I18n.t("rdr.show.fields.title"), itemprop: 'name', if: false
     config.add_index_field Rdr::Index::Fields.description.to_s, label: I18n.t("rdr.show.fields.description"), itemprop: 'description', helper_method: :iconify_auto_link
-    config.add_index_field Rdr::Index::Fields.subject.to_s, label: I18n.t("rdr.show.fields.subject"), itemprop: 'about', link_to_search: solr_name("subject", :facetable)
     config.add_index_field Rdr::Index::Fields.creator.to_s, label: I18n.t("rdr.show.fields.creator"), itemprop: 'creator', link_to_search: solr_name("creator", :facetable)
+    config.add_index_field Rdr::Index::Fields.subject.to_s, label: I18n.t("rdr.show.fields.subject"), itemprop: 'about', link_to_search: solr_name("subject", :facetable)
     config.add_index_field Rdr::Index::Fields.available.to_s, label: I18n.t("rdr.show.fields.available"), itemprop: 'datePublished', helper_method: :human_readable_date
     config.add_index_field Rdr::Index::Fields.bibliographic_citation.to_s, label: I18n.t("rdr.show.fields.bibliographic_citation"), itemprop: 'citation'
     config.add_index_field Rdr::Index::Fields.doi.to_s, label: I18n.t("rdr.show.fields.doi")
