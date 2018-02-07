@@ -56,9 +56,8 @@ module Rdr::Index
         it_behaves_like "a stored_sortable field", field
       end
 
-      DATEABLE_FACETABLE_FIELDS.each do |field|
+      DATEABLE_FIELDS.each do |field|
         it_behaves_like "a dateable field", field
-        it_behaves_like "a facetable field", field
       end
 
       SORTABLE_DATE_FIELDS.each do |field|

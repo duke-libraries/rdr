@@ -18,7 +18,7 @@ module Rdr
 
     STORED_SORTABLE_FIELDS = %i[ ark doi ].freeze
 
-    DATEABLE_FACETABLE_FIELDS = %i[ available temporal ].freeze
+    DATEABLE_FIELDS = %i[ available temporal ].freeze
 
     # :stored_sortable, type: :date
     SORTABLE_DATE_FIELDS = %i[ date_modified date_uploaded ].freeze

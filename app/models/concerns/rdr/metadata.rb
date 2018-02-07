@@ -12,11 +12,11 @@ module Rdr
       end
 
       property :available, predicate: ::RDF::Vocab::DC.available do |index|
-        index.as :dateable, :facetable
+        index.as :dateable
       end
 
       property :temporal, predicate: ::RDF::Vocab::DC.temporal do |index|
-        index.as :dateable, :facetable
+        index.as :dateable
       end
 
       property :format, predicate: ::RDF::Vocab::DC.format do |index|

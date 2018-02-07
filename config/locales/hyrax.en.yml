@@ -4,7 +4,7 @@ en:
       fields:
         facet:
           affiliation_sim: Affiliation
-          available_sim: Publication Date
+          available_dtsim: Publication Date
           based_near_label_sim: Location
           creator_sim: Creator
           file_format_sim: File Format
@@ -15,7 +15,7 @@ en:
           publisher_sim: Publisher
           resource_type_sim: Type
           subject_sim: Subject
-          temporal_sim: Collection Dates
+          temporal_dtsim: Collection Dates
         index:
           based_near_tesim: Location
           contributor_tesim: Contributor
