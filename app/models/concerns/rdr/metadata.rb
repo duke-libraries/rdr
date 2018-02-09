@@ -27,6 +27,10 @@ module Rdr
         index.as :stored_searchable
       end
 
+      property :rights_note, predicate: ::RDF::URI.new("http://repository.lib.duke.edu/vocab/asset/rightsNote") do |index|
+        index.as :stored_searchable
+      end
+
       property :doi, predicate: ::RDF::Vocab::Identifiers.doi do |index|
         index.as :stored_sortable
       end

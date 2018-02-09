@@ -6,6 +6,6 @@ module Hyrax
     # https://github.com/samvera/hyrax/blob/master/app/presenters/hyrax/work_show_presenter.rb
     delegate  :affiliation, :alternative, :ark, :available, :based_near,
               :bibliographic_citation, :doi, :format, :provenance,
-              :related_url, :resource_type, :temporal, to: :solr_document
+              :related_url, :resource_type, :rights_note, :temporal, to: :solr_document
   end
 end

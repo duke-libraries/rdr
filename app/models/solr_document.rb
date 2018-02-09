@@ -70,6 +70,10 @@ class SolrDocument
     self[Rdr::Index::Fields.resource_type]
   end
 
+  def rights_note
+    self[Rdr::Index::Fields.rights_note]
+  end
+
   def temporal
     self[Rdr::Index::Fields.temporal]
   end

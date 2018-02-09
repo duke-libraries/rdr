@@ -28,6 +28,7 @@ en:
         publisher: Publisher
         related_url: Related Materials
         resource_type: Type
+        rights_note: Rights Note
         subject: Subject
         temporal: Collection Dates
         title: Title
@@ -51,6 +52,7 @@ en:
         provenance: Provenance
         related_url: Related Materials
         resource_type: Type
+        rights_note: Rights Note
         subject: Subject
         temporal: Collection Dates
         title: Title

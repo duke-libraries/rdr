@@ -28,7 +28,7 @@ en:
           identifier_tesim: Identifier
           keyword_tesim: Keyword
           language_tesim: Language
-          license_tesim: License
+          license_tesim: Rights
           publisher_tesim: Publisher
           rights_statement_tesim: Rights Statement
           subject_tesim: Subject
@@ -44,7 +44,7 @@ en:
           identifier_tesim: Identifier
           keyword_tesim: Keyword
           language_tesim: Language
-          license_tesim: License
+          license_tesim: Rights
           publisher_tesim: Publisher
           rights_statement_tesim: Rights Statement
           subject_tesim: Subject
