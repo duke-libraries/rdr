@@ -15,6 +15,7 @@ module Hyrax
       :doi,
       :format,
       :provenance,
+      :rights_note,
       :temporal,
     ]
 
@@ -29,6 +30,7 @@ module Hyrax
                           :description,
                           :resource_type,
                           :license,
+                          :rights_note,
                           :bibliographic_citation,
                         ]
     end
