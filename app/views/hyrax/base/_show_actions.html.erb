@@ -20,7 +20,7 @@
                 class: presenter.display_feature_link? ? 'btn btn-default collapse' : 'btn btn-default' %>
   <% end %>
 
-  <% if current_user && depositor?(presenter, current_user) %>
+  <% if current_user && presenter.depositor? %>
     <%= link_to "Request Modifications",  Rdr.depositor_request_form %>
   <% end %>
 
