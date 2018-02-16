@@ -5,7 +5,7 @@ module Hyrax
     # Account for fields not already delegated to solr_document via
     # https://github.com/samvera/hyrax/blob/master/app/presenters/hyrax/work_show_presenter.rb
     delegate  :affiliation, :alternative, :ark, :available, :based_near,
-              :bibliographic_citation, :doi, :format, :provenance,
+              :bibliographic_citation, :doi, :format, :members, :provenance,
               :related_url, :resource_type, :rights_note, :temporal, to: :solr_document
 
     def depositor?

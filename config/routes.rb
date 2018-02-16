@@ -34,4 +34,8 @@ Rails.application.routes.draw do
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  get 'export_files/:id', to: 'export_files#new', as: 'export_files'
+  post 'export_files/:id', to: 'export_files#create'
+
 end

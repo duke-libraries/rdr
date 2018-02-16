@@ -32,6 +32,9 @@
 # Pre-compiled assets
 /public/assets
 
+# Export files
+/public/export_files
+
 # Resque pool config
 /config/resque-pool.yml
 

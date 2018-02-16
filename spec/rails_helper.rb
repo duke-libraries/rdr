@@ -57,6 +57,9 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
+  # Devise controller test helpers; e.g., #sign_in
+  config.include Devise::Test::ControllerHelpers, type: :controller
+
   config.before(:suite) do
     ActiveFedora::Cleaner.clean!
   end

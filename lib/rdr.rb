@@ -3,6 +3,7 @@ module Rdr
 
   autoload :Configurable
   autoload :Error
+  autoload :ChecksumInvalid, 'rdr/error'
   autoload :UnexpectedMultipleResultsError, 'rdr/error'
   autoload :Index
 

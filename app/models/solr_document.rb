@@ -22,7 +22,7 @@ class SolrDocument
   # Recommendation: Use field names from Dublin Core
   use_extension(Blacklight::Document::DublinCore)
 
-  # Do content negotiation for AF models. 
+  # Do content negotiation for AF models.
 
   use_extension( Hydra::ContentNegotiation )
 
@@ -78,5 +78,8 @@ class SolrDocument
     self[Rdr::Index::Fields.temporal]
   end
 
+  def members
+    self['member_ids_ssim'] || []
+  end
 
 end
