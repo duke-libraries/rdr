@@ -21,7 +21,7 @@
   <% end %>
 
   <% if current_user && presenter.depositor? %>
-    <%= link_to "Request Modifications",  Rdr.depositor_request_form %>
+    <%= link_to "Request Modifications",  Rdr.depositor_request_form, class: 'btn btn-default', target: "_blank" %>
   <% end %>
 
   <!-- COinS hook for Zotero -->
