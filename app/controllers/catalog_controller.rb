@@ -83,6 +83,8 @@ class CatalogController < ApplicationController
     config.add_show_field Rdr::Index::Fields.ark.to_s
     config.add_show_field Rdr::Index::Fields.alternative.to_s
     config.add_show_field Rdr::Index::Fields.contributor.to_s
+    config.add_show_field Rdr::Index::Fields.is_replaced_by.to_s
+    config.add_show_field Rdr::Index::Fields.replaces.to_s
     config.add_show_field Rdr::Index::Fields.affiliation.to_s
     config.add_show_field Rdr::Index::Fields.publisher.to_s
     config.add_show_field Rdr::Index::Fields.temporal.to_s

@@ -23,7 +23,15 @@ module Rdr
         index.as :stored_searchable, :facetable
       end
 
+      property :is_replaced_by, predicate: ::RDF::Vocab::DC.isReplacedBy do |index|
+        index.as :stored_searchable
+      end
+
       property :provenance, predicate: ::RDF::Vocab::DC.provenance do |index|
+        index.as :stored_searchable
+      end
+
+      property :replaces, predicate: ::RDF::Vocab::DC.replaces do |index|
         index.as :stored_searchable
       end
 

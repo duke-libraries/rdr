@@ -15,6 +15,8 @@ module Hyrax
       :doi,
       :format,
       :provenance,
+      :replaces,
+      :is_replaced_by,
       :rights_note,
       :temporal,
     ]

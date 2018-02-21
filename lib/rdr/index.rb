@@ -13,7 +13,7 @@ module Rdr
 
     STORED_SEARCHABLE_FIELDS = (
       Hyrax::BasicMetadataIndexer.stored_fields +
-      %i[ alternative depositor provenance rights_note ]
+      %i[ alternative depositor is_replaced_by provenance replaces rights_note ]
     ).freeze
 
     STORED_SORTABLE_FIELDS = %i[ ark doi ].freeze

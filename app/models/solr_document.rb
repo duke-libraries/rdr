@@ -58,12 +58,20 @@ class SolrDocument
     self[Rdr::Index::Fields.format]
   end
 
+  def is_replaced_by
+    self[Rdr::Index::Fields.is_replaced_by]
+  end
+
   def provenance
     self[Rdr::Index::Fields.provenance]
   end
 
   def related_url
     self[Rdr::Index::Fields.related_url]
+  end
+
+  def replaces
+    self[Rdr::Index::Fields.replaces]
   end
 
   def resource_type

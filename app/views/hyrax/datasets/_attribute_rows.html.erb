@@ -6,6 +6,8 @@
 <%= presenter.attribute_to_html(:ark, label: I18n.t("rdr.show.fields.ark")) %>
 <%= presenter.attribute_to_html(:alternative, label: I18n.t("rdr.show.fields.alternative")) %>
 <%= presenter.attribute_to_html(:contributor, render_as: :faceted, label: I18n.t("rdr.show.fields.contributor")) %>
+<%= presenter.attribute_to_html(:replaces, label: I18n.t("rdr.show.fields.replaces")) %>
+<%= presenter.attribute_to_html(:is_replaced_by, label: I18n.t("rdr.show.fields.is_replaced_by")) %>
 <%= presenter.attribute_to_html(:affiliation, render_as: :faceted, label: I18n.t("rdr.show.fields.affiliation")) %>
 <%= presenter.attribute_to_html(:publisher, render_as: :faceted, label: I18n.t("rdr.show.fields.publisher")) %>
 <%= presenter.attribute_to_html(:temporal, render_as: :faceted, label: I18n.t("rdr.show.fields.temporal")) %>
