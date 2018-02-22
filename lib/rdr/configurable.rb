@@ -4,6 +4,11 @@ module Rdr
 
     included do
 
+      # default from address for emails sent by application
+      mattr_accessor :default_from_address do
+        ENV["DEFAULT_FROM_ADDRESS"] || 'from@example.com'
+      end
+
       # URL of depositor modification request form
       mattr_accessor :depositor_request_form do
         ENV["DEPOSITOR_REQUEST_FORM"]
@@ -16,7 +21,7 @@ module Rdr
 
       # Contact email for export files
       mattr_accessor :export_files_contact_email do
-        ENV["EXPORT_FILES_CONTACT_EMAIL"] || 'ddrhelp@duke.edu'
+        ENV["EXPORT_FILES_CONTACT_EMAIL"] || 'from@example.com'
       end
 
       mattr_accessor :export_files_max_payload_size do
