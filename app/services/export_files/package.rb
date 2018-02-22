@@ -28,7 +28,7 @@ module ExportFiles
     end
 
     def scanner
-      @scanner ||= Scanner.new(work, ability: ability)
+      @scanner ||= Scanner.new(repo_id, ability: ability)
     end
 
     def scan
@@ -44,7 +44,7 @@ module ExportFiles
     end
 
     def export!
-      Packager.new(self, work, ability: ability).build!
+      Packager.new(self, repo_id, ability: ability).build!
       manifest!
       archive!
     end
@@ -52,11 +52,11 @@ module ExportFiles
     def bag_info
       { 'Source-Organization' => Rdr.export_files_source_organization,
         'Contact-Email' => Rdr.export_files_contact_email,
-        'External-Identifier' => work.doi.first }.compact
+        'External-Identifier' => work_doc.doi }.compact
     end
 
-    def work
-      @work ||= ActiveFedora::Base.find(repo_id)
+    def work_doc
+      @work_doc ||= SolrDocument.find(repo_id)
     end
 
     def storage

@@ -1,20 +1,20 @@
 module ExportFiles
   class Scanner
 
-    attr_reader :ability, :results, :work
+    attr_reader :ability, :results, :work_id
 
     delegate :file_count, :file_size_total, to: :results
 
     ScanResults = Struct.new(:file_count, :file_size_total)
 
-    def initialize(work, ability:)
-      @work = work
+    def initialize(work_id, ability:)
+      @work_id = work_id
       @ability = ability
     end
 
     def scan
       init_scan_results
-      work_doc = SolrDocument.find(work.id)
+      work_doc = SolrDocument.find(work_id)
       scan_work(work_doc)
       results
     end

@@ -5,8 +5,8 @@ module ExportFiles
 
     attr_reader :package, :payload_file
 
-    delegate :content, :file_digest, :file_name, :nested_path, to: :payload_file
-
+    delegate :file, :file_digest, :file_name, :nested_path, to: :payload_file
+    delegate :stream, to: :file
     delegate :add_file, :data_dir, to: :package
 
     def self.call(*args)
@@ -26,7 +26,7 @@ module ExportFiles
     def download
       add_file(destination_path) do |io|
         io.binmode
-        io.write(content)
+        stream.each { |chunk| io.write(chunk) }
       end
     end
 

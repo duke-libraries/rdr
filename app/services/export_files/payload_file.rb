@@ -16,8 +16,8 @@ module ExportFiles
       "work #{fileset.parent.id}, fileset #{fileset.id}, file #{file_name}"
     end
 
-    def content
-      original_file.content
+    def file
+      original_file
     end
 
     def file_digest
