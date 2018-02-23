@@ -13,7 +13,7 @@ module Rdr
 
     STORED_SEARCHABLE_FIELDS = (
       Hyrax::BasicMetadataIndexer.stored_fields +
-      %i[ alternative depositor is_replaced_by provenance replaces rights_note ]
+      %i[ alternative depositor provenance rights_note ]
     ).freeze
 
     STORED_SORTABLE_FIELDS = %i[ ark doi ].freeze
@@ -23,7 +23,10 @@ module Rdr
     # :stored_sortable, type: :date
     SORTABLE_DATE_FIELDS = %i[ date_modified date_uploaded ].freeze
 
-    SYMBOL_FIELDS = Hyrax::BasicMetadataIndexer.symbol_fields
+    SYMBOL_FIELDS = (
+      Hyrax::BasicMetadataIndexer.symbol_fields +
+          %i[ is_replaced_by replaces  ]
+    ).freeze
 
   end
 end
