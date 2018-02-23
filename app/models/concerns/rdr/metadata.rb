@@ -24,7 +24,7 @@ module Rdr
       end
 
       property :is_replaced_by, predicate: ::RDF::Vocab::DC.isReplacedBy do |index|
-        index.as :stored_searchable
+        index.as :symbol
       end
 
       property :provenance, predicate: ::RDF::Vocab::DC.provenance do |index|
@@ -32,7 +32,7 @@ module Rdr
       end
 
       property :replaces, predicate: ::RDF::Vocab::DC.replaces do |index|
-        index.as :stored_searchable
+        index.as :symbol
       end
 
       property :rights_note, predicate: ::RDF::URI.new("http://repository.lib.duke.edu/vocab/asset/rightsNote") do |index|
