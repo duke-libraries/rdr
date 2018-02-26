@@ -22,13 +22,13 @@ en:
         description: Description
         doi: DOI
         format: Format
-        is_replaced_by: Current Version
+        is_replaced_by: Is Replaced By
         language: Language
         license: Rights
         provenance: Provenance
         publisher: Publisher
         related_url: Related Materials
-        replaces: Previous Versions
+        replaces: Replaces
         resource_type: Type
         rights_note: Rights Note
         subject: Subject
@@ -49,12 +49,12 @@ en:
         description: Description
         doi: DOI
         format: Format
-        is_replaced_by: Current Version
+        is_replaced_by: Is Replaced By
         language: Language
         license: Rights
         provenance: Provenance
         related_url: Related Materials
-        replaces: Previous Versions
+        replaces: Replaces
         resource_type: Type
         rights_note: Rights Note
         subject: Subject
