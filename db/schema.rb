@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171212194715) do
+ActiveRecord::Schema.define(version: 20180228151529) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -104,6 +107,15 @@ ActiveRecord::Schema.define(version: 20171212194715) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "importer_checksums", force: :cascade do |t|
+    t.string "path"
+    t.string "value"
+    t.string "algorithm", default: "SHA1"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["path"], name: "index_importer_checksums_on_path"
+  end
+
   create_table "job_io_wrappers", force: :cascade do |t|
     t.integer "user_id"
     t.integer "uploaded_file_id"
@@ -176,7 +188,7 @@ ActiveRecord::Schema.define(version: 20171212194715) do
     t.string "namespace", default: "default", null: false
     t.string "template", null: false
     t.text "counters"
-    t.integer "seq", limit: 8, default: 0
+    t.bigint "seq", default: 0
     t.binary "rand"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -7,14 +7,17 @@ module Importer
     # @param [String] files_directory path, passed to factory constructor
     # @param [#to_s, Class] model if Class, the factory class to be invoked per row.
     # Otherwise, the stringable first (Xxx) portion of an "XxxFactory" constant.
-    def initialize(metadata_file, files_directory, model = nil)
+    # @param [String] checksum_file path to checksum file
+    def initialize(metadata_file, files_directory, model = nil, checksum_file = nil)
       @metadata_file = metadata_file
       @files_directory = files_directory
       @model = model
+      @checksum_file = checksum_file
     end
 
     # @return [Integer] count of objects created
     def import_all
+      load_checksums if @checksum_file
       count = 0
       parser.each do |attributes|
         create_fedora_objects(attributes)
@@ -47,5 +50,10 @@ module Importer
     def create_fedora_objects(attributes)
       factory_class(attributes.delete(:type) || @model).new(attributes, @files_directory).run
     end
+
+    def load_checksums
+      Checksum.import_data(@checksum_file)
+    end
+
   end
 end
