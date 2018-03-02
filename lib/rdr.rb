@@ -6,6 +6,7 @@ module Rdr
   autoload :ChecksumInvalid, 'rdr/error'
   autoload :UnexpectedMultipleResultsError, 'rdr/error'
   autoload :Index
+  autoload :Notifications
 
   include Rdr::Configurable
 
