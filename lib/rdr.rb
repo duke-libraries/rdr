@@ -5,6 +5,7 @@ module Rdr
   autoload :Error
   autoload :ChecksumInvalid, 'rdr/error'
   autoload :UnexpectedMultipleResultsError, 'rdr/error'
+  autoload :DatasetVersionError, 'rdr/error'
   autoload :Index
   autoload :Notifications
 

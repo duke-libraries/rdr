@@ -6,6 +6,9 @@ en:
       dataset:
         name:               "Dataset"
         description:        "Dataset works"
+    datasets:
+      show:
+        previous_version: "You are viewing a previous version of this dataset. The latest version is available at %s."
   rdr:
     show:
       fields:
