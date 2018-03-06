@@ -23,27 +23,35 @@ module Rdr
         index.as :stored_searchable, :facetable
       end
 
-      property :is_replaced_by, predicate: ::RDF::Vocab::DC.isReplacedBy do |index|
-        index.as :symbol
+      property :is_replaced_by,
+               predicate: ::RDF::Vocab::DC.isReplacedBy,
+               multiple: false do |index|
+        index.as :stored_sortable
       end
 
       property :provenance, predicate: ::RDF::Vocab::DC.provenance do |index|
         index.as :stored_searchable
       end
 
-      property :replaces, predicate: ::RDF::Vocab::DC.replaces do |index|
-        index.as :symbol
+      property :replaces,
+               predicate: ::RDF::Vocab::DC.replaces,
+               multiple: false do |index|
+        index.as :stored_sortable
       end
 
       property :rights_note, predicate: ::RDF::URI.new("http://repository.lib.duke.edu/vocab/asset/rightsNote") do |index|
         index.as :stored_searchable
       end
 
-      property :doi, predicate: ::RDF::Vocab::Identifiers.doi do |index|
+      property :doi,
+               predicate: ::RDF::Vocab::Identifiers.doi,
+               multiple: false do |index|
         index.as :stored_sortable
       end
 
-      property :ark, predicate: ::RDF::URI.new("http://repository.lib.duke.edu/vocab/asset/ark") do |index|
+      property :ark,
+               predicate: ::RDF::URI.new("http://repository.lib.duke.edu/vocab/asset/ark"),
+               multiple: false do |index|
         index.as :stored_sortable
       end
     end

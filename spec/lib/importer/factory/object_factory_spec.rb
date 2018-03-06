@@ -21,7 +21,7 @@ RSpec.describe Importer::Factory::ObjectFactory do
     subject { TestModelFactory.new({}) }
     let(:ark) { 'ark:/99999/fk4c256z6n' }
     describe 'object exists' do
-      let!(:object) { TestModel.create(ark: [ ark ]) }
+      let!(:object) { TestModel.create(ark: ark) }
       it 'finds the object' do
         expect(subject.find_by_ark(ark)).to eq(object)
       end
@@ -32,8 +32,8 @@ RSpec.describe Importer::Factory::ObjectFactory do
       end
     end
     describe 'multiple objects found' do
-      let!(:object) { TestModel.create(ark: [ ark ]) }
-      let!(:additional_object) { TestModel.create(ark: [ ark ]) }
+      let!(:object) { TestModel.create(ark: ark) }
+      let!(:additional_object) { TestModel.create(ark: ark) }
       it 'raises an error' do
         expect{ subject.find_by_ark(ark) }.to raise_error(Rdr::UnexpectedMultipleResultsError)
       end

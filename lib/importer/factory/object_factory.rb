@@ -1,4 +1,5 @@
 require 'importer/log_subscriber'
+
 module Importer
   module Factory
     class ObjectFactory
@@ -112,10 +113,10 @@ module Importer
       # Override if we need to map the attributes from the parser in
       # a way that is compatible with how the factory needs them.
       def transform_attributes
-        attributes.slice(*permitted_attributes)
-            .merge(file_attributes)
-            .merge(nesting_attributes)
-            .merge(visibility_attributes)
+        sanitized_attributes
+          .merge(file_attributes)
+          .merge(nesting_attributes)
+          .merge(visibility_attributes)
       end
 
       def admin_set_attributes
@@ -133,6 +134,17 @@ module Importer
         end
       end
 
+      def sanitized_attributes
+        permitted_attributes.each_with_object({}) do |(k, v), memo|
+          if klass.delegated_attributes.key?(k)
+            value = Array(v)
+            memo[k] = klass.multiple?(k) ? value : value.first
+          else
+            memo[k] = v
+          end
+        end
+      end
+
       def nesting_attributes
         parent_arks.present? ? { in_works_ids: parent_arks.map { |ark| parent_id(ark) } } : {}
       end
@@ -142,6 +154,10 @@ module Importer
       end
 
       def permitted_attributes
+        attributes.slice(*permitted_attribute_names)
+      end
+
+      def permitted_attribute_names
         klass.properties.keys.map(&:to_sym) +
             [:id, :admin_set_id, :parent_ark, :edit_users, :edit_groups, :read_groups, :visibility]
       end
