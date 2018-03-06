@@ -1,5 +1,6 @@
 en:
   rdr:
+    checksum_verification_failure_heading: "Checksum Verification Failure"
     provided_checksum_mismatch: "Checksum mismatch: FileSet %{fs_id} original file : provided: %{provided_cksum}, repository: %{repo_cksum}"
     repository_checksum_failure: "Repository fixity check failure: FileSet %{fs_id}"
     unexpected_multiple_results: "Unexpected multiple results for %{identifier}"
