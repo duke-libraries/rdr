@@ -60,18 +60,43 @@ module Importer
       end
     end
 
+    describe 'deposit attributes' do
+      let(:csv_file) { "/tmp/metadata.csv" }
+      let(:depositor_key) { 'a@b.edu' }
+      let(:proxy_key) { 'c@d.edu' }
+      before do
+        allow(subject).to receive(:parser) { [ {'title' => [ 'Test Title' ] } ] }
+      end
+      subject { described_class.new(csv_file, files_directory, 'Dataset', depositor: depositor_key,
+                                    proxy_depositor: proxy_key) }
+      before do
+        allow_any_instance_of(Importer::Factory::DatasetFactory).to receive(:run)
+      end
+      it 'passes the depositor and proxy depositor to the object factory' do
+        expect(Importer::Factory::DatasetFactory).to receive(:new)
+                                                      .with(hash_including(depositor: depositor_key,
+                                                                           proxy_depositor: proxy_key),
+                                                            any_args)
+                                                      .and_call_original
+        subject.import_all
+      end
+    end
+
     context 'end-to-end integration', integration: true do
-      let(:metadata_file) { File.join(fixture_path, 'importer', 'dataset', 'metadata.csv') }
+      let(:manifest_file) { File.join(fixture_path, 'importer', 'dataset', 'metadata.csv') }
       let(:files_directory) { File.join(fixture_path, 'importer', 'dataset', 'files') }
       let(:checksum_file_template) { File.join(fixture_path, 'importer', 'dataset', 'checksums.txt') }
       let(:checksum_dir) { Dir.mktmpdir }
       let(:checksum_file) { File.join(checksum_dir, 'checksums.txt') }
       let(:model) { 'Dataset' }
+      let(:depositor) { FactoryBot.create(:user) }
+      let(:proxy) { FactoryBot.create(:user) }
       let(:dataset_titles) { [ [ 'Test 1' ], [ 'Test 2' ], [ 'Test 3' ] ] }
       let(:ds1_checksums) { [ '4c4665b408134d8f6995d1640a7f2d4eeee5c010', 'ab84c8b1187123c4d627bea511714dd723b56dbe', '94631dfa806987fa6c01880d59303519f23c5609' ] }
       let(:ds2_checksums) { [ '37a0502601ed54f31d119d5355ade2c29ea530ea', '8376ba1d652cee933cc7cff95d8c049fb7a9a855' ] }
       let(:ds3_checksums) { [ '4c4665b408134d8f6995d1640a7f2d4eeee5c010' ] }
-      subject { described_class.new(metadata_file, files_directory, model, checksum_file) }
+      subject { described_class.new(manifest_file, files_directory, model, checksum_file, depositor: depositor.user_key,
+                                    proxy_depositor: proxy.user_key) }
       before do
         AdminSet.find_or_create_default_admin_set_id
         allow(CharacterizeJob).to receive(:perform_later)
@@ -86,6 +111,8 @@ module Importer
         subject.import_all
         datasets = Dataset.all
         expect(datasets.size).to eq(3)
+        expect(datasets.map(&:depositor)).to all(eq(depositor.user_key))
+        expect(datasets.map(&:proxy_depositor)).to all(eq(proxy.user_key))
         expect(datasets.map(&:title)).to match_array(dataset_titles)
         ds1 = Dataset.where(title: 'Test 1').first
         ds2 = Dataset.where(title: 'Test 2').first

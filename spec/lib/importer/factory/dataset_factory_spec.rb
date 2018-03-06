@@ -6,6 +6,8 @@ RSpec.describe Importer::Factory::DatasetFactory, :clean do
   let(:actor) { double }
   let(:files_directory) { fixture_path }
   let(:files) { [] }
+  let(:depositor_key) { 'a@b.edu' }
+  let(:proxy_key) { 'c@d.edu' }
   let(:attributes) do
     {
         collection: { id: coll.id },
@@ -13,8 +15,9 @@ RSpec.describe Importer::Factory::DatasetFactory, :clean do
         identifier: ['123'],
         title: ['Test dataset'],
         read_groups: ['public'],
-        depositor: 'bob',
-        edit_users: ['bob']
+        depositor: depositor_key,
+        edit_users: ['bob'],
+        proxy_depositor: proxy_key
     }
   end
 
@@ -87,6 +90,14 @@ RSpec.describe Importer::Factory::DatasetFactory, :clean do
           end
         end
       end
+      describe "deposit attributes" do
+        it 'sends the appropriate deposit attributes to the actor' do
+          expect(actor).to receive(:create).with(Hyrax::Actors::Environment) do |k|
+            expect(k.attributes).to include('depositor' => depositor_key, 'proxy_depositor' => proxy_key)
+          end
+          factory.run
+        end
+      end
     end
 
     context "for an existing dataset without files" do
@@ -104,7 +115,6 @@ RSpec.describe Importer::Factory::DatasetFactory, :clean do
 
   context 'when a collection already exists' do
     let!(:coll) { create(:collection) }
-
     it 'does not create a new collection' do
       expect(actor).to receive(:create).with(Hyrax::Actors::Environment) do |k|
         expect(k.attributes).to include(member_of_collection_ids: [coll.id])

@@ -97,7 +97,11 @@ module Importer
       # @param [Hash] attrs the attributes to put in the environment
       # @return [Hyrax::Actors::Environment]
       def environment(attrs)
-        Hyrax::Actors::Environment.new(@object, Ability.new(User.batch_user), attrs)
+        Hyrax::Actors::Environment.new(@object, Ability.new(import_user(attrs)), attrs)
+      end
+
+      def import_user(attrs)
+        attrs[:depositor].present? ? User.find_by_user_key(attrs[:depositor]) : User.batch_user
       end
 
       def work_actor
@@ -159,7 +163,7 @@ module Importer
 
       def permitted_attribute_names
         klass.properties.keys.map(&:to_sym) +
-            [:id, :admin_set_id, :parent_ark, :edit_users, :edit_groups, :read_groups, :visibility]
+            [ :id, :admin_set_id, :parent_ark, :edit_users, :edit_groups, :read_groups, :visibility ]
       end
     end
   end
