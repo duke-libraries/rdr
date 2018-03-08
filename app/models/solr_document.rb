@@ -26,6 +26,8 @@ class SolrDocument
 
   use_extension( Hydra::ContentNegotiation )
 
+  include Rdr::DatasetVersioning
+
   def affiliation
     self[Rdr::Index::Fields.affiliation]
   end
@@ -89,5 +91,26 @@ class SolrDocument
   def members
     self['member_ids_ssim'] || []
   end
+
+  def previous_dataset_version_query
+    ActiveFedora::SolrService
+      .query(previous_dataset_version_query_params)
+      .map { |hit| SolrDocument.new(hit) }
+  end
+
+  def previous_dataset_version_query_params
+    ActiveFedora::SolrQueryBuilder.construct_query([[ Rdr::Index::Fields.doi, replaces ]])
+  end
+
+  def next_dataset_version_query
+    ActiveFedora::SolrService
+      .query(next_dataset_version_query_params)
+      .map { |hit| SolrDocument.new(hit) }
+  end
+
+  def next_dataset_version_query_params
+    ActiveFedora::SolrQueryBuilder.construct_query([[ Rdr::Index::Fields.doi, is_replaced_by ]])
+  end
+
 
 end

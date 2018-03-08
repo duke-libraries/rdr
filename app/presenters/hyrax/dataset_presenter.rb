@@ -8,6 +8,8 @@ module Hyrax
               :bibliographic_citation, :doi, :format, :is_replaced_by, :members, :provenance,
               :related_url, :replaces, :resource_type, :rights_note, :temporal, to: :solr_document
 
+    delegate *(Rdr::DatasetVersioning.public_instance_methods), to: :solr_document
+
     def depositor?
       current_ability.current_user.user_key == depositor
     end

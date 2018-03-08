@@ -15,4 +15,19 @@ class Dataset < ActiveFedora::Base
   # This must be included at the end, because it finalizes the metadata
   # schema (by adding accepts_nested_attributes)
   include ::Hyrax::BasicMetadata
+
+  include Rdr::DatasetVersioning
+
+  def previous_dataset_version_query
+    Dataset.where(Rdr::Index::Fields.doi => replaces)
+  end
+
+  def next_dataset_version_query
+    Dataset.where(Rdr::Index::Fields.doi => is_replaced_by)
+  end
+
+  def reload
+    super.tap { |_| @dataset_versions = nil }
+  end
+
 end
