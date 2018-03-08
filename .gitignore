@@ -35,6 +35,9 @@
 # Export files
 /public/export_files
 
+/public/system
+/public/uploads
+
 # Resque pool config
 /config/resque-pool.yml
 
