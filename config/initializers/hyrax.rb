@@ -161,7 +161,7 @@ Hyrax.config do |config|
   # config.permission_options = { "Choose Access" => "none", "View/Download" => "read", "Edit" => "edit" }
 
   # Labels for owner permission levels
-  # config.owner_permission_levels = { "Edit Access" => "edit" }
+  config.owner_permission_levels = { "Read Access" => "read" }
 
   # Path to the ffmpeg tool
   # config.ffmpeg_path = 'ffmpeg'
@@ -228,3 +228,5 @@ Date::DATE_FORMATS[:standard] = "%m/%d/%Y"
 Qa::Authorities::Local.register_subauthority('subjects', 'Qa::Authorities::Local::TableBasedAuthority')
 Qa::Authorities::Local.register_subauthority('languages', 'Qa::Authorities::Local::TableBasedAuthority')
 Qa::Authorities::Local.register_subauthority('genres', 'Qa::Authorities::Local::TableBasedAuthority')
+
+Hyrax::CurationConcern.actor_factory.insert_after Hyrax::Actors::OptimisticLockValidator, DepositorAccessActor

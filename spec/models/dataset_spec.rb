@@ -1,9 +1,58 @@
 # Generated via
 #  `rails generate hyrax:work Dataset`
 require 'rails_helper'
+require 'cancan/matchers'
 
 RSpec.describe Dataset do
 
+  context "object creation", integration: true do
+    subject do
+      Hyrax::CurationConcern.actor.create(env)
+      Dataset.find('test_work')
+    end
+
+    let(:depositor) { FactoryBot.create(:user) }
+    let(:remote_file) { File.join(fixture_path, "data.csv") }
+    let(:remote_files) { { url: "file:#{remote_file}", file_name: File.basename(remote_file) } }
+    let(:attrs) { { title: ['test work'], depositor: depositor.user_key, remote_files: [remote_files] } }
+    let(:ability) { Ability.new(depositor) }
+    let(:env) {
+      Hyrax::Actors::Environment.new(Dataset.new(id: 'test_work'),
+                                     ability,
+                                     attrs)
+    }
+
+    before do
+      allow(CharacterizeJob).to receive(:perform_later)
+    end
+
+    context "depositor is not a curator" do
+      it "grants the depositor read rights on the work" do
+        expect(ability).to_not be_able_to(:edit, subject)
+        expect(ability).to be_able_to(:read, subject)
+      end
+
+      it "grants the depositor read rights on the work filesets" do
+        expect(ability).to_not be_able_to(:edit, subject.file_sets.first)
+        expect(ability).to be_able_to(:read, subject.file_sets.first)
+      end
+    end
+
+    context "depositor is a curator" do
+      before do
+        allow(User).to receive(:curators).and_return([depositor.user_key])
+      end
+
+      it "grants the depositor edit rights on the work" do
+        expect(ability).to be_able_to(:edit, subject)
+      end
+
+      it "grants the depositor edit rights on the work filesets" do
+        expect(ability).to be_able_to(:edit, subject.file_sets.first)
+      end
+    end
+  end
+  
   describe "#latest_dataset_version?" do
     subject { FactoryBot.build(:dataset, doi: "http://example.com/my_doi_v1") }
     describe "when isReplacedBy is blank" do

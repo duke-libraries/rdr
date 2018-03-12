@@ -100,6 +100,8 @@ module Importer
       before do
         AdminSet.find_or_create_default_admin_set_id
         allow(CharacterizeJob).to receive(:perform_later)
+        # Fixes failing test in advance of upcoming refactoring of depositor and proxy handing
+        allow(User).to receive(:curators).and_return([depositor.user_key])
         template = File.read(checksum_file_template)
         data = template.gsub('FIXTURE_PATH', fixture_path)
         File.open(checksum_file, 'w') do |f|

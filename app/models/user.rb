@@ -73,4 +73,8 @@ class User < ApplicationRecord
     end
   end
 
+  def curator?
+    self.class.curators.include?(self.user_key)
+  end
+
 end
