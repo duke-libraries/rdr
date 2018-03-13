@@ -1,0 +1,25 @@
+<h1><%= t("rdr.batch_import.heading") %></h1>
+
+<% if @batch_import.errors.any? %>
+  <div id="error_explanation" class="col-md-12">
+    <ul>
+      <% @batch_import.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="row">
+  <div class="col-md-12">
+    <%= form_for @batch_import do |f| %>
+      <%= render partial: 'manifest_file', locals: { f: f } %>
+      <%= render partial: 'files_directory', locals: { f: f } %>
+      <%= render partial: 'checksum_file', locals: { f: f } %>
+      <%= render partial: 'on_behalf_of', locals: {f: f } %>
+      <div class="form-group">
+        <%= f.submit "Submit", id: "batch_imports_submit_button", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>

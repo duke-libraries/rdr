@@ -4,7 +4,7 @@ require 'importer'
 RSpec.describe Importer::CSVParser do
   let(:parser) { described_class.new(file) }
   let(:attributes) { parser.attributes }
-  let(:file) { "#{fixture_path}/importer/metadata_samples/some_implicit_models.csv" }
+  let(:file) { "#{fixture_path}/importer/manifest_samples/some_implicit_models.csv" }
   let(:first_record) { parser.first }
 
   context 'parsing metadata file' do

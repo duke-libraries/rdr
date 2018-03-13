@@ -4,27 +4,27 @@ module Importer
   # 'type' or globally by passing the model attribute
   class CSVImporter
 
-    attr_reader :checksum_file, :depositor, :files_directory, :manifest_file, :model, :proxy_depositor
+    attr_reader :checksum_file, :depositor, :files_directory, :manifest_file, :model, :on_behalf_of
 
     # @param [String] manifest_file path to CSV file
     # @param [String] files_directory path, passed to factory constructor
     # @param [String] checksum_file path to checksum file
-    # @param [String] depositor user_key of the User to be recorded as depositor
+    # @param [String] depositor user_key of the User performing the deposit
     # @param [#to_s, Class] model if Class, the factory class to be invoked per row.
     # Otherwise, the stringable first (Xxx) portion of an "XxxFactory" constant.
-    # @param [String] proxy_depositor user_key of the User to be recorded as proxy_depositor
+    # @param [String] on_behalf_of user_key of the User on whose behalf the deposit is being made (if proxy deposit)
     def initialize(manifest_file,
                    files_directory,
-                   model = nil,
-                   checksum_file = nil,
+                   model: nil,
+                   checksum_file: nil,
                    depositor: nil,
-                   proxy_depositor: nil)
+                   on_behalf_of: nil)
       @manifest_file = manifest_file
       @files_directory = files_directory
       @checksum_file = checksum_file
       @depositor = depositor
       @model = model
-      @proxy_depositor = proxy_depositor
+      @on_behalf_of = on_behalf_of
     end
 
     # @return [Integer] count of objects created
@@ -42,15 +42,7 @@ module Importer
     private
 
     def deposit_attributes
-      depositor_attributes.merge(proxy_depositor_attributes)
-    end
-
-    def depositor_attributes
-      depositor.present? ? { depositor: depositor } : {}
-    end
-
-    def proxy_depositor_attributes
-      proxy_depositor.present? ? { proxy_depositor: proxy_depositor } : {}
+      { depositor: depositor, on_behalf_of: on_behalf_of }
     end
 
     def parser

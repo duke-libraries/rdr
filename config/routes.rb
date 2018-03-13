@@ -38,4 +38,6 @@ Rails.application.routes.draw do
   get 'export_files/:id', to: 'export_files#new', as: 'export_files'
   post 'export_files/:id', to: 'export_files#create'
 
+  resources :batch_imports, only: [ :new, :create ]
+
 end

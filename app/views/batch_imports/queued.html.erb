@@ -1,0 +1,41 @@
+<h1><%= t("rdr.batch_import.heading") %></h1>
+
+<p class="lead">
+  Batch Import Job queued.
+</p>
+
+<div class="row">
+  <div class="col-md-2">
+    <%= t('helpers.label.batch_import.manifest_file') %>:
+  </div>
+  <div class="col-md-4">
+    <%= @batch_import.manifest_file_full_path %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <%= t('helpers.label.batch_import.files_directory') %>:
+  </div>
+  <div class="col-md-4">
+    <%= @batch_import.files_directory_full_path %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <%= t('helpers.label.batch_import.checksum_file') %>:
+  </div>
+  <div class="col-md-4">
+    <%= @batch_import.checksum_file_full_path %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <%= t('helpers.label.batch_import.on_behalf_of') %>:
+  </div>
+  <div class="col-md-4">
+    <%= render_on_behalf_of(@batch_import.on_behalf_of) %>
+  </div>
+</div>

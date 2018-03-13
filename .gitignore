@@ -38,6 +38,9 @@
 /public/system
 /public/uploads
 
+# Batch import config
+/config/batch_import.yml
+
 # Resque pool config
 /config/resque-pool.yml
 
