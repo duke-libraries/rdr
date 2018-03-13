@@ -31,3 +31,4 @@ production:
   pool: <%= ENV['DB_POOL'] || '5' %>
   username: <%= ENV['DB_USERNAME'] %>
   password: <%= ENV['DB_PASSWORD'] %>
+  url: postgresql://localhost/
