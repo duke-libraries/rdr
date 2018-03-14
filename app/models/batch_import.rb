@@ -1,3 +1,5 @@
+require 'importer'
+
 class BatchImport
   include ActiveModel::Model
 
