@@ -5,7 +5,7 @@ class BatchImport
 
   attr_reader :checksum_file, :files_directory, :manifest_file, :model, :on_behalf_of
 
-  DEFAULT_CONFIG_FILE = File.join(Rails.root, 'config', 'batch_import.yml')
+  CONFIG_FILE = File.join(Rails.root, 'config', 'batch_import.yml')
 
   validates_presence_of :manifest_file, :files_directory
   validate :manifest_file_must_exist, if: Proc.new { manifest_file.present? }
@@ -15,11 +15,19 @@ class BatchImport
   validate :on_behalf_of_user_must_exist, if: Proc.new { on_behalf_of.present? }
 
   def self.default_config
-    YAML.load(File.read(DEFAULT_CONFIG_FILE)).deep_symbolize_keys
+    { basepath: File.join(Rails.root, 'tmp', 'imports') }
   end
 
-  def self.default_basepath
-    default_config[:basepath]
+  def self.config
+    if File.exists?(CONFIG_FILE)
+      YAML.load(File.read(CONFIG_FILE)).deep_symbolize_keys
+    else
+      default_config
+    end
+  end
+
+  def self.basepath
+    config[:basepath]
   end
 
   def initialize(args)
@@ -35,15 +43,15 @@ class BatchImport
   end
 
   def checksum_file_full_path
-    File.join(self.class.default_basepath, checksum_file) if checksum_file.present?
+    File.join(self.class.basepath, checksum_file) if checksum_file.present?
   end
 
   def files_directory_full_path
-    File.join(self.class.default_basepath, files_directory)
+    File.join(self.class.basepath, files_directory)
   end
 
   def manifest_file_full_path
-    File.join(self.class.default_basepath, manifest_file)
+    File.join(self.class.basepath, manifest_file)
   end
 
   def checksum_file_must_exist

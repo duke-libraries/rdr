@@ -9,6 +9,28 @@ end
 
 RSpec.describe BatchImport do
 
+  describe 'configuration' do
+    describe 'config file exists' do
+      let(:basepath) { '/path/from/config/file/' }
+      let(:config_file_contents) { "basepath: #{basepath}\n" }
+      before do
+        allow(File).to receive(:exists?).with(described_class::CONFIG_FILE) { true }
+        allow(File).to receive(:read).with(described_class::CONFIG_FILE) { config_file_contents }
+      end
+      it 'uses values from the config file' do
+        expect(described_class.config[:basepath]).to eq(basepath)
+      end
+    end
+    describe 'config file does not exist' do
+      before do
+        allow(File).to receive(:exists?).with(described_class::CONFIG_FILE) { false }
+      end
+      it 'uses default config values' do
+        expect(described_class.config[:basepath]).to eq(described_class.default_config[:basepath])
+      end
+    end
+  end
+
   describe 'validation' do
     let(:basepath) { '/' }
     let(:on_behalf_of_user) { FactoryBot.build(:user) }
@@ -20,18 +42,17 @@ RSpec.describe BatchImport do
                    'checksum_file' => checksum_file, 'on_behalf_of' => on_behalf_of } }
 
     before do
+      allow(File).to receive(:exists?).with(described_class::CONFIG_FILE) { true }
+      allow(File).to receive(:read).with(described_class::CONFIG_FILE) { "basepath: #{basepath}\n" }
       allow(User).to receive(:find_by_user_key).with(on_behalf_of_user.user_key) { on_behalf_of_user }
     end
 
     subject { described_class.new(args) }
 
-    before do
-      allow(File).to receive(:read).with(BatchImport::DEFAULT_CONFIG_FILE) { "basepath: #{basepath}\n" }
-    end
-
     describe 'valid batch import' do
       it { is_expected.to be_valid }
     end
+
     describe 'invalid batch import' do
       describe 'manifest file does not exist' do
         let(:file_path) { File.join(basepath, manifest_file) }
@@ -89,6 +110,7 @@ RSpec.describe BatchImport do
         end
       end
     end
+
   end
 
 end
