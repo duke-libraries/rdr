@@ -4,7 +4,7 @@ require 'importer'
 RSpec.describe Importer::CSVParser do
   let(:parser) { described_class.new(file) }
   let(:attributes) { parser.attributes }
-  let(:file) { "#{fixture_path}/importer/manifest_samples/some_implicit_models.csv" }
+  let(:file) { "#{fixture_path}/importer/manifest_samples/sample.csv" }
   let(:first_record) { parser.first }
 
   context 'parsing metadata file' do
@@ -15,8 +15,7 @@ RSpec.describe Importer::CSVParser do
       expect(first_record[:license].first).to be_a String
       expect(first_record[:license]).to eq [ 'http://creativecommons.org/publicdomain/zero/1.0/' ]
       expect(first_record[:visibility]).to eq [ 'open' ]
-      expect(first_record.keys).to match_array [ :type, :visibility, :title, :contributor,
-                                                 :resource_type, :license, :file ]
+      expect(first_record.keys).to match_array [ :visibility, :title, :contributor, :resource_type, :license, :file ]
     end
   end
 
@@ -24,7 +23,7 @@ RSpec.describe Importer::CSVParser do
     subject { parser.send(:validate_headers, headers) }
 
     context 'with valid headers' do
-      let(:headers) { %w(id title parent_ark) }
+      let(:headers) { %w(title parent_ark) }
       it { is_expected.to eq headers }
     end
 

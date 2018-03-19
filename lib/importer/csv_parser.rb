@@ -31,11 +31,7 @@ module Importer
     end
 
     def valid_headers
-      Dataset.attribute_names + %w(id type parent_ark visibility file) + collection_headers
-    end
-
-    def collection_headers
-      %w(collection_id collection_title)
+      Dataset.attribute_names + %w(collection_id parent_ark visibility file)
     end
 
     def attributes(headers, row)
@@ -48,16 +44,7 @@ module Importer
 
     def extract_field(header, val, processed)
       return unless val
-      case header
-        when 'type', 'id'
-          # type and id are singular
-          processed[header.to_sym] = val
-        when /^collection_(.*)$/
-          processed[:collection] ||= {}
-          update_collection(processed[:collection], Regexp.last_match(1), val)
-        else
-          extract_multi_value_field(header, val, processed)
-      end
+      extract_multi_value_field(header, val, processed)
     end
 
     def extract_multi_value_field(header, val, processed, key = nil)
@@ -67,11 +54,6 @@ module Importer
       # Workaround for https://jira.duraspace.org/browse/FCREPO-2038
       val.delete!("\r")
       processed[key] << val
-    end
-
-    def update_collection(collection, field, val)
-      val = [val] unless %w(admin_policy_id id).include? field
-      collection[field.to_sym] = val
     end
 
   end

@@ -10,12 +10,6 @@ module Importer
         super.except(:collection).merge(member_of_collection_ids: [collection.id])
       end
 
-      # Strip out the :collection key, and add the member_of_collection_ids,
-      # which is used by Hyrax::Actors::AddAsMemberOfCollectionsActor
-      def update_attributes
-        super.except(:collection).merge(member_of_collection_ids: [collection.id])
-      end
-
       private
 
       def collection

@@ -6,50 +6,42 @@ module Importer
       extend ActiveModel::Callbacks
       define_model_callbacks :save, :create
       class_attribute :klass
-      attr_reader :attributes, :files_directory, :object, :files, :parent_arks, :visibility
+      attr_reader :attributes, :collection_ids, :files_directory, :object, :files, :parent_arks, :visibility
 
       def initialize(attributes, files_dir = nil)
         @attributes = attributes
         @files_directory = files_dir
+        @collection_ids = @attributes.delete(:collection_id)
         @files = @attributes.delete(:file)
         @parent_arks = @attributes.delete(:parent_ark)
         @visibility = @attributes.delete(:visibility)
       end
 
       def run
-        arg_hash = { id: attributes[:id], name: 'UPDATE', klass: klass }
-        @object = find
-        if @object
-          ActiveSupport::Notifications.instrument('import.importer', arg_hash) { update }
-        else
-          ActiveSupport::Notifications.instrument('import.importer', arg_hash.merge(name: 'CREATE')) { create }
-        end
+        arg_hash = { name: 'CREATE', klass: klass }
+        ActiveSupport::Notifications.instrument('import.importer', arg_hash) { create }
         yield(object) if block_given?
         object
       end
 
-      def update
-        raise "Object doesn't exist" unless object
-        run_callbacks(:save) do
-          work_actor.update(environment(update_attributes))
+      def create
+        attrs = create_attributes
+        @object = klass.new
+        run_callbacks :save do
+          run_callbacks :create do
+            work_actor.create(environment(attrs))
+          end
         end
-        log_updated(object)
+        log_created(object)
       end
 
       def create_attributes
         transform_attributes.merge(admin_set_attributes)
       end
 
-      def update_attributes
-        transform_attributes.except(:id)
-      end
-
-      def find
-        return find_by_id if attributes[:id]
-      end
-
-      def find_by_id
-        klass.find(attributes[:id]) if klass.exists?(attributes[:id])
+      def log_created(obj)
+        msg = "Created #{klass.model_name.human} #{obj.id}"
+        Rails.logger.info(msg)
       end
 
       def find_by_ark(ark)
@@ -68,74 +60,16 @@ module Importer
         end
       end
 
-      # An ActiveFedora bug when there are many habtm <-> has_many associations means they won't all get saved.
-      # https://github.com/projecthydra/active_fedora/issues/874
-      # 2+ years later, still open!
-      def create
-        attrs = create_attributes
-        @object = klass.new
-        run_callbacks :save do
-          run_callbacks :create do
-            klass == Collection ? create_collection(attrs) : work_actor.create(environment(attrs))
-          end
-        end
-        log_created(object)
-      end
-
-      def log_created(obj)
-        msg = "Created #{klass.model_name.human} #{obj.id}"
-        Rails.logger.info(msg)
-      end
-
-      def log_updated(obj)
-        msg = "Updated #{klass.model_name.human} #{obj.id}"
-        Rails.logger.info(msg)
-      end
-
       private
-
-      # @param [Hash] attrs the attributes to put in the environment
-      # @return [Hyrax::Actors::Environment]
-      def environment(attrs)
-        Hyrax::Actors::Environment.new(@object, Ability.new(import_user(attrs)), attrs)
-      end
-
-      def import_user(attrs)
-        attrs[:depositor].present? ? User.find_by_user_key(attrs[:depositor]) : User.batch_user
-      end
-
-      def work_actor
-        Hyrax::CurationConcern.actor
-      end
-
-      def create_collection(attrs)
-        @object.attributes = attrs
-        @object.apply_depositor_metadata(User.batch_user)
-        @object.save!
-      end
 
       # Override if we need to map the attributes from the parser in
       # a way that is compatible with how the factory needs them.
       def transform_attributes
         sanitized_attributes
-          .merge(file_attributes)
-          .merge(nesting_attributes)
-          .merge(visibility_attributes)
-      end
-
-      def admin_set_attributes
-        attributes[:admin_set_id].present? ? {} : { admin_set_id: Rdr.preferred_admin_set_id }
-      end
-
-      def file_attributes
-        files_directory.present? && files.present? ? { remote_files: remote_files } : {}
-      end
-
-      def remote_files
-        files.map do |file_name|
-          f = File.join(files_directory, file_name)
-          { url: "file:#{f}", file_name: File.basename(f) }
-        end
+            .merge(file_attributes)
+            .merge(nesting_attributes)
+            .merge(visibility_attributes)
+            .merge(collection_membership_attributes)
       end
 
       def sanitized_attributes
@@ -149,6 +83,27 @@ module Importer
         end
       end
 
+      def permitted_attributes
+        attributes.slice(*permitted_attribute_names)
+      end
+
+      def permitted_attribute_names
+        klass.properties.keys.map(&:to_sym) +
+            [ :admin_set_id, :parent_ark, :edit_users, :edit_groups, :read_groups, :visibility ]
+      end
+
+      def admin_set_attributes
+        attributes[:admin_set_id].present? ? {} : { admin_set_id: Rdr.preferred_admin_set_id }
+      end
+
+      def collection_membership_attributes
+        collection_ids.present? ? { member_of_collection_ids: collection_ids } : {}
+      end
+
+      def file_attributes
+        files_directory.present? && files.present? ? { remote_files: remote_files } : {}
+      end
+
       def nesting_attributes
         parent_arks.present? ? { in_works_ids: parent_arks.map { |ark| parent_id(ark) } } : {}
       end
@@ -157,14 +112,27 @@ module Importer
         visibility.present? ? { visibility: visibility.first } : {}
       end
 
-      def permitted_attributes
-        attributes.slice(*permitted_attribute_names)
+      def import_user(attrs)
+        attrs[:depositor].present? ? User.find_by_user_key(attrs[:depositor]) : User.batch_user
       end
 
-      def permitted_attribute_names
-        klass.properties.keys.map(&:to_sym) +
-            [ :id, :admin_set_id, :parent_ark, :edit_users, :edit_groups, :read_groups, :visibility ]
+      def remote_files
+        files.map do |file_name|
+          f = File.join(files_directory, file_name)
+          { url: "file:#{f}", file_name: File.basename(f) }
+        end
       end
+
+      # @param [Hash] attrs the attributes to put in the environment
+      # @return [Hyrax::Actors::Environment]
+      def environment(attrs)
+        Hyrax::Actors::Environment.new(@object, Ability.new(import_user(attrs)), attrs)
+      end
+
+      def work_actor
+        Hyrax::CurationConcern.actor
+      end
+
     end
   end
 end

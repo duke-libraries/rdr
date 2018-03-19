@@ -10,7 +10,7 @@ RSpec.describe Importer::Factory::DatasetFactory, :clean do
   let(:proxy_key) { 'c@d.edu' }
   let(:attributes) do
     {
-        collection: { id: coll.id },
+        collection_id: [ coll.id ],
         file: files,
         identifier: ['123'],
         title: ['Test dataset'],
@@ -100,28 +100,6 @@ RSpec.describe Importer::Factory::DatasetFactory, :clean do
       end
     end
 
-    context "for an existing dataset without files" do
-      let(:work) { create(:dataset) }
-      let(:factory) { described_class.new(attributes.merge(id: work.id), files_directory) }
-      it 'creates file sets' do
-        expect(actor).to receive(:update).with(Hyrax::Actors::Environment) do |k|
-          expect(k.attributes).to include('member_of_collection_ids' => [ coll.id ],
-                                          'remote_files' => remote_files)
-        end
-        factory.run
-      end
-    end
   end
 
-  context 'when a collection already exists' do
-    let!(:coll) { create(:collection) }
-    it 'does not create a new collection' do
-      expect(actor).to receive(:create).with(Hyrax::Actors::Environment) do |k|
-        expect(k.attributes).to include(member_of_collection_ids: [coll.id])
-      end
-      expect do
-        factory.run
-      end.to change { Collection.count }.by(0)
-    end
-  end
 end

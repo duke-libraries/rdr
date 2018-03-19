@@ -5,44 +5,19 @@ module Importer
   RSpec.describe CSVImporter do
     let(:files_directory) { '/tmp/files' }
 
-    context 'when the model is passed' do
-      let(:csv_file) { "#{fixture_path}/importer/manifest_samples/some_implicit_models.csv" }
-      let(:fallback_class) { Class.new { def initialize(_x, _y); end } }
+    describe 'factory invocation' do
+      let(:csv_file) { "#{fixture_path}/importer/manifest_samples/sample.csv" }
       let(:factory) { double(run: true) }
-
-      subject { described_class.new(csv_file, files_directory, model: fallback_class) }
-      # note: 1 row does not specify type, 2 do
-      it 'creates new works' do
-        expect(fallback_class).to receive(:new)
-                                      .with(any_args).and_return(factory).exactly(1).times
-        expect(Importer::Factory::DatasetFactory).to receive(:new)
-                                                         .with(any_args).and_return(factory).exactly(2).times
-        subject.import_all
-      end
-    end
-
-    context 'when the model specified on the row' do
-      let(:csv_file) { "#{fixture_path}/importer/manifest_samples/explicit_models.csv" }
-      let(:collection_factory) { double }
-      let(:dataset_factory) { double }
-
       subject { described_class.new(csv_file, files_directory) }
-
-      it 'creates new datasets and collections' do
-        expect(Importer::Factory::CollectionFactory).to receive(:new)
-                                                            .with(hash_excluding(:type), files_directory)
-                                                            .and_return(collection_factory)
-        expect(collection_factory).to receive(:run)
+      it 'creates new works' do
         expect(Importer::Factory::DatasetFactory).to receive(:new)
-                                                         .with(hash_excluding(:type), files_directory)
-                                                         .and_return(dataset_factory).exactly(3).times
-        expect(dataset_factory).to receive(:run).exactly(3).times
+                                                         .with(any_args).and_return(factory).exactly(3).times
         subject.import_all
       end
     end
 
     describe 'checksums' do
-      let(:csv_file) { "#{fixture_path}/importer/manifest_samples/explicit_models.csv" }
+      let(:csv_file) { "#{fixture_path}/importer/manifest_samples/sample.csv" }
       before do
         allow(subject).to receive(:parser) { [] }
       end
