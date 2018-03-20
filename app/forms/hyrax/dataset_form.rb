@@ -36,5 +36,16 @@ module Hyrax
                           :bibliographic_citation,
                         ]
     end
+
+    # Patch of HydraEditor::Form pending resolution of
+    # https://github.com/samvera/hydra-editor/issues/146
+    def self.model_attributes(params)
+      super.tap do |cleaned|
+        cleaned.each do |k, v|
+          cleaned[k] = nil if v == ''
+        end
+      end
+    end
+
   end
 end
