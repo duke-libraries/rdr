@@ -7,14 +7,21 @@ class DepositorAccessActor < Hyrax::Actors::AbstractActor
     work = env.curation_concern
     depositor = work.depositor
 
-    unless ::User.curators.include?(depositor)
+    if ::User.curators.include?(depositor)
+      return true
+    else
       work.read_users += [depositor]
       work.edit_users -= [depositor]
-      work.save!
-      # If there are a lot of members, granting access to each could take a
-      # long time. Do this work in the background.
-      Hyrax::GrantReadToMembersJob.perform_later(work, depositor)
-      Hyrax::RevokeEditFromMembersJob.perform_later(work, depositor)
+      if work.save
+        # If there are a lot of members, granting access to each could take a
+        # long time. Do this work in the background.
+        Hyrax::GrantReadToMembersJob.perform_later(work, depositor)
+        Hyrax::RevokeEditFromMembersJob.perform_later(work, depositor)
+        return true
+      else
+        return false
+      end
+
     end
   end
 end
