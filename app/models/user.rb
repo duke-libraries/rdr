@@ -11,6 +11,10 @@ class User < ApplicationRecord
 
   # Connects this user object to Blacklights Bookmarks.
   include Blacklight::User
+  # Connects this user object to Role-management behaviors.
+  include Hydra::RoleManagement::UserRoles
+
+
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -48,7 +52,13 @@ class User < ApplicationRecord
     end
 
     def curators
-      RoleMapper.whois(CURATOR_GROUP)
+
+      if curator_group = Role.find_by(name: User::CURATOR_GROUP)
+        curator_group.users.map(&:user_key)
+      else
+        []
+      end
+
     end
 
   end
@@ -74,7 +84,7 @@ class User < ApplicationRecord
   end
 
   def curator?
-    self.class.curators.include?(self.user_key)
+    roles.where(name: User::CURATOR_GROUP).exists?
   end
 
 end

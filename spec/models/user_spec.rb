@@ -15,16 +15,16 @@ RSpec.describe User do
 
  describe "#add_curators_as_proxies" do
 
-    let(:curatorA) { FactoryBot.create(:user) }
-    let(:curatorB) { FactoryBot.create(:user) }
+    let!(:curatorA) { FactoryBot.create(:user) }
+    let!(:curatorB) { FactoryBot.create(:user) }
 
     before do
       # stub group service implementation to return curator group members
-      allow(RoleMapper).to receive(:whois).with(User::CURATOR_GROUP).and_return([ curatorA.uid, curatorB.uid ])
+      allow(described_class).to receive(:curators) { [ curatorA.uid, curatorB.uid ] }
     end
 
     it "adds all curators as proxy depositors for new user" do
-      owner_user = FactoryBot.create(:user, email: "user@example.com")
+      owner_user = FactoryBot.create(:user, uid: "owner-user", email: "owner-user@example.com")
       expect(owner_user.can_receive_deposits_from).to match_array([curatorA, curatorB])
     end
 
