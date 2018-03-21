@@ -110,3 +110,42 @@ A generated Hyrax-based Research Data Repository application
 ## References
 
 Instructions are based on the [Samvera Hyrax](https://github.com/samvera/hyrax#creating-a-hyrax-based-app) installation instructions
+
+
+## Addenda
+
+### 3/21/2018 -- Changes to role management
+
+Previously we were using the default role management in Hyrax which used <code>config/role_map.yml</code> to assign users to roles. We're no longer using the yml file and are instead using the [hydra-role-management](https://github.com/samvera/hydra-role-management) gem so there are a few extra steps you'll need to take to get things to work.
+
+1. run database migrations using: <code>rake db:migrate</code>
+        
+2. add a user to the admin group via the rails console
+    
+    use `rails c` to start the console
+    
+    then enter:
+    
+    `admin = Role.create(name: "admin")` 
+    
+    `admin.users << User.find_by_user_key( "your_admin_user_name" )`
+    
+    `admin.save`
+
+    and then exit the console: `exit`
+    
+3. start up the server `bin/rails hydra:server`, sign in using the 'admin' user you assigned above, and visit [localhost:3000/roles](http://localhost:3000/roles) which should allow you to view existing roles, create new ones, and assign users to them. 
+
+    **Note: if you had established other user roles in the role_map.yml file, you'll need to manually assign those users using this process**
+
+4. If you have any problems, you can test whether a user has been assigned to either the admin or curator groups (as these have defined methods on the User class) using the rails console as follows:
+
+    `u = User.find_by_user_key( "your_user_id_name" )`
+
+    `u.admin?`
+    
+    `u.curator?`
+    
+    If either returns true, you know your user is in that group.
+
+
