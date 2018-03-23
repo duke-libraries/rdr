@@ -5,25 +5,25 @@ require 'rails_helper'
 RSpec.describe Hyrax::DatasetsController do
 
   describe "#show" do
+    render_views
     describe "flash" do
       let!(:v1) { FactoryBot.create(:dataset, :public, doi: "http://example.com/my_doi_v1", is_replaced_by: "http://example.com/my_doi_v2") }
       let!(:v2) { FactoryBot.create(:dataset, :public, doi: "http://example.com/my_doi_v2", replaces: "http://example.com/my_doi_v1") }
       describe "when the record is the latest dataset version" do
         it "does not render a flash message" do
           get :show, params: { id: v2 }
-          expect(flash.now[:info]).to be_nil
+          expect(response.body).not_to match(/previous version/)
         end
       end
       describe "when the record is not the latest dataset version" do
         it "renders a flash message" do
           get :show, params: { id: v1 }
-          expect(flash.now[:info]).to match(/version/)
+          expect(response.body).to match(/previous version/)
         end
       end
     end
 
     describe "versions partial" do
-      render_views
       subject { get :show, params: { id: v1 } }
       describe "when the dataset has one version" do
         let(:v1) { FactoryBot.create(:dataset, :public) }
