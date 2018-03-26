@@ -49,6 +49,11 @@
   background-color: transparent;
 }
 
+.site-footer {
+  height: auto;
+}
+
+
 /* ============== */
 /* Search Results */
 /* ============== */
@@ -60,3 +65,19 @@
 }
 
 
+/* ========= */
+/*  Columns  */
+/* ========= */
+
+.column-extra-padding {
+  padding: 30px;
+}
+
+
+/* ========== */
+/*  Homepage  */
+/* ========== */
+
+.home-content #recent_docs .recent-item img {
+  width: 45px;
+}

@@ -1,0 +1,31 @@
+<h2 class="sr-only"><%= t('hyrax.homepage.recently_uploaded.title') %></h2>
+<% if recent_documents.blank? %>
+  <p><%= t('.no_public') %></p>
+<% else %>
+  <div id="recent_docs">
+
+    <table class="table table-bordered table-striped">
+
+      <tbody>
+        <tr>
+          <th scope="col" class="col-md-4">Depositor</th>
+          <th scope="col" class="col-md-8">Details</th>
+        </tr>
+
+        <%= render partial: "recent_document", collection: recent_documents %>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+  <ul class="list-inline datasets-highlights-list">
+    <li>
+      <%= link_to "Browse datasets",
+          main_app.search_catalog_path(f: { has_model_ssim: ["Dataset"] }),
+          class: 'btn btn-default' %>
+    </li>
+  </ul>
+
+<% end %>
