@@ -5,12 +5,12 @@ class SearchBuilder < Blacklight::SearchBuilder
   include Hydra::AccessControlsEnforcement
   include Hyrax::SearchFilters
 
+  self.default_processor_chain += [:latest_version_filter]
 
-  ##
-  # @example Adding a new step to the processor chain
-  #   self.default_processor_chain += [:add_custom_data_to_query]
-  #
-  #   def add_custom_data_to_query(solr_parameters)
-  #     solr_parameters[:custom] = blacklight_params[:user_value]
-  #   end
+  def latest_version_filter(solr_parameters)
+    solr_parameters[:fq] ||= []
+    if blacklight_params["latest_version"] == 'true'
+      solr_parameters[:fq] << "-#{Rdr::Index::Fields::IS_REPLACED_BY}:*"
+    end
+  end
 end
