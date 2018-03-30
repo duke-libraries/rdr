@@ -10,12 +10,14 @@ en:
           file_format_sim: File Format
           format_sim: Format
           generic_type_sim: Generic Type
+          has_model_ssim: Browse
           keyword_sim: Keyword
           language_sim: Language
           publisher_sim: Publisher
           resource_type_sim: Type
           subject_sim: Subject
           temporal_dtsim: Collection Dates
+          top_level_bsi: Top-Level
         index:
           based_near_tesim: Location
           contributor_tesim: Contributor

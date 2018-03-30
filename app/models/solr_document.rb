@@ -92,6 +92,10 @@ class SolrDocument
     self['member_ids_ssim'] || []
   end
 
+  def top_level
+    self['top_level_bsi'] || false
+  end
+
   def previous_dataset_version_query
     ActiveFedora::SolrService
       .query(previous_dataset_version_query_params)
