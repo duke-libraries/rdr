@@ -2,6 +2,7 @@
 #  `rails generate hyrax:work Dataset`
 require 'rails_helper'
 require 'cancan/matchers'
+require 'ezid/test_helper'
 
 RSpec.describe Dataset do
 
@@ -23,6 +24,7 @@ RSpec.describe Dataset do
     }
 
     before do
+      ezid_test_mode!
       allow(CharacterizeJob).to receive(:perform_later)
     end
 
@@ -52,7 +54,7 @@ RSpec.describe Dataset do
       end
     end
   end
-  
+
   describe "#latest_dataset_version?" do
     subject { FactoryBot.build(:dataset, doi: "http://example.com/my_doi_v1") }
     describe "when isReplacedBy is blank" do

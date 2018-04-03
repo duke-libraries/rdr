@@ -38,6 +38,9 @@ gem 'pg'
 # for group management
 gem 'hydra-role-management'
 
+# for ARK's
+gem 'ezid-client'
+
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'

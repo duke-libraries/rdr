@@ -1,5 +1,6 @@
 require 'rails_helper'
 require 'importer'
+require 'ezid/test_helper'
 
 module Importer
   RSpec.describe CSVImporter do
@@ -59,11 +60,12 @@ module Importer
     end
 
     context 'end-to-end integration', integration: true do
-      let(:manifest_file) { File.join(fixture_path, 'importer', 'dataset', 'manifest.csv') }
+      let(:tmp_dir) { Dir.mktmpdir }
+      let(:manifest_file_template) { File.join(fixture_path, 'importer', 'dataset', 'manifest.csv') }
+      let(:manifest_file) { File.join(tmp_dir, 'manifest.csv') }
       let(:files_directory) { File.join(fixture_path, 'importer', 'dataset', 'files') }
       let(:checksum_file_template) { File.join(fixture_path, 'importer', 'dataset', 'checksums.txt') }
-      let(:checksum_dir) { Dir.mktmpdir }
-      let(:checksum_file) { File.join(checksum_dir, 'checksums.txt') }
+      let(:checksum_file) { File.join(tmp_dir, 'checksums.txt') }
       let(:model) { 'Dataset' }
       let(:depositor) { FactoryBot.create(:user) }
       let(:on_behalf_of) { FactoryBot.create(:user) }
@@ -71,18 +73,25 @@ module Importer
       let(:ds1_checksums) { [ '4c4665b408134d8f6995d1640a7f2d4eeee5c010', 'ab84c8b1187123c4d627bea511714dd723b56dbe', '94631dfa806987fa6c01880d59303519f23c5609' ] }
       let(:ds2_checksums) { [ '37a0502601ed54f31d119d5355ade2c29ea530ea', '8376ba1d652cee933cc7cff95d8c049fb7a9a855' ] }
       let(:ds3_checksums) { [ '4c4665b408134d8f6995d1640a7f2d4eeee5c010' ] }
+      let(:parent_ark) { Ezid::Identifier.mint }
       subject { described_class.new(manifest_file, files_directory, model: model, checksum_file: checksum_file,
                                     depositor: depositor.user_key, on_behalf_of: on_behalf_of.user_key) }
       before do
+        ezid_test_mode!
         AdminSet.find_or_create_default_admin_set_id
         allow(CharacterizeJob).to receive(:perform_later)
-        template = File.read(checksum_file_template)
-        data = template.gsub('FIXTURE_PATH', fixture_path)
+        manifest_template = File.read(manifest_file_template)
+        manifest_data = manifest_template.gsub('PARENT_ARK', parent_ark.id)
+        File.open(manifest_file, 'w') do |f|
+          f.write(manifest_data)
+        end
+        checksum_template = File.read(checksum_file_template)
+        checksum_data = checksum_template.gsub('FIXTURE_PATH', fixture_path)
         File.open(checksum_file, 'w') do |f|
-          f.write(data)
+          f.write(checksum_data)
         end
       end
-      after { FileUtils.rmdir(checksum_dir) }
+      after { FileUtils.rmdir(tmp_dir)}
       it 'imports the objects' do
         subject.import_all
         datasets = Dataset.all
@@ -91,6 +100,10 @@ module Importer
         expect(datasets.map(&:on_behalf_of)).to all(eq(on_behalf_of.user_key))
         expect(datasets.map(&:proxy_depositor)).to all(eq(depositor.user_key))
         expect(datasets.map(&:title)).to match_array(dataset_titles)
+        expect(datasets.map(&:ark)).to all(be_a(String))
+        datasets.map(&:ark).each do |ark|
+          expect(Ezid::Identifier.find(ark).status).to eq(Ezid::Status::PUBLIC)
+        end
         ds1 = Dataset.where(title: 'Test 1').first
         ds2 = Dataset.where(title: 'Test 2').first
         ds3 = Dataset.where(title: 'Test 3').first
