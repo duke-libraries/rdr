@@ -53,7 +53,7 @@ A generated Hyrax-based Research Data Repository application
 6. change to the new folder
 `cd /vagrant/rdr`
 
-7. Copy the role map config file `cp config/role_map.yml.sample config/role_map.yml`
+~~7. Copy the role map config file `cp config/role_map.yml.sample config/role_map.yml`~~ *no longer needed -- [see below](#3212018----changes-to-role-management)*
 
 8. grab the bunder gem `gem install bundler`
 
