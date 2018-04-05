@@ -86,6 +86,15 @@ class Ark
     save
   end
 
+  def deactivate!
+    unavailable!(Rdr.deaccession_reason)
+    save
+  end
+
+  def delete!
+    delete
+  end
+
   def identifier
     if @identifier.nil?
       if identifier_id

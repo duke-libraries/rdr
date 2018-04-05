@@ -74,5 +74,31 @@ RSpec.describe Ark do
         end
       end
     end
+
+    describe '#deactivate!' do
+      let!(:id) { described_class.identifier_class.new("foo") }
+      before do
+        allow(subject).to receive(:identifier) { id }
+        allow(id).to receive(:persisted?) { true }
+        allow(id).to receive(:public?) { true }
+        allow(id).to receive(:save)
+      end
+      it 'marks the ARK as unavailable with a reason' do
+        expect(id).to receive(:unavailable!).with(Rdr.deaccession_reason)
+        subject.deactivate!
+      end
+    end
+
+    describe '#delete!' do
+      let!(:id) { described_class.identifier_class.new("foo") }
+      before do
+        allow(subject).to receive(:identifier) { id }
+        allow(id).to receive(:persisted?) { true }
+      end
+      it 'deletes the ARK' do
+        expect(id).to receive(:delete)
+        subject.delete!
+      end
+    end
   end
 end

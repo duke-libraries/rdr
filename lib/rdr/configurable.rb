@@ -4,6 +4,11 @@ module Rdr
 
     included do
 
+      # reason recorded in Ezid when an ARK is made unavailable due to object deaccession
+      mattr_accessor :deaccession_reason do
+        ENV["DEACCESSION_REASON"] || 'Deaccessioned from repository'
+      end
+
       # default from address for emails sent by application
       mattr_accessor :default_from_address do
         ENV["DEFAULT_FROM_ADDRESS"] || 'from@example.com'

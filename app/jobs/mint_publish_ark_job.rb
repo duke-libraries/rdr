@@ -1,5 +1,5 @@
 class MintPublishArkJob < ApplicationJob
-  queue_as Hyrax.config.ingest_queue_name
+  queue_as :ark
 
   def perform(work)
     MintPublishArk.call(work)
