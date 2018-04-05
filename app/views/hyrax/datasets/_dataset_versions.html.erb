@@ -27,7 +27,7 @@
 	<%= num_versions - i %>
       </td>
       <td>
-	<%= link_to_unless ver.id == presenter.solr_document.id, ver.doi, "https://dx.doi.org/#{ver.doi}" %>
+	<%= link_to_unless ver.id == presenter.solr_document.id, ver.doi, "https://doi.org/#{ver.doi}" %>
       </td>
       <td>
 	<%= Array(ver.provenance).last %>
