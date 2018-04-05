@@ -47,11 +47,11 @@ RSpec.describe Hyrax::DatasetsController do
       let!(:v3) { FactoryBot.create(:dataset, :public, doi: "http://example.com/my_doi_v3", replaces: "http://example.com/my_doi_v2") }
       describe "with version 1 of 3" do
         let(:current_version) { v1 }
-        it { is_expected.to redirect_to(hyrax_dataset_path(v3)) }
+        it { is_expected.to be_redirect }
       end
       describe "with version 2 of 3" do
         let(:current_version) { v2 }
-        it { is_expected.to redirect_to(hyrax_dataset_path(v3)) }
+        it { is_expected.to be_redirect }
       end
       describe "with version 3 of 3" do
         let(:current_version) { v3 }

@@ -19,7 +19,7 @@ module Hyrax
       doc = ::SolrDocument.find(params[:id])
       unless doc.latest_dataset_version?
         if params[:dataset_version] == 'latest'
-          redirect_to hyrax_dataset_path(doc.latest_dataset_version)
+          redirect_to [main_app, doc.latest_dataset_version]
         else
           flash.now[:notice] = t('.previous_version') % latest_dataset_version_link.html_safe
         end
