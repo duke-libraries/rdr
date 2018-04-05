@@ -53,31 +53,41 @@ A generated Hyrax-based Research Data Repository application
 6. change to the new folder
 `cd /vagrant/rdr`
 
-7. Copy the role map config file `cp config/role_map.yml.sample config/role_map.yml`
+~~7. Copy the role map config file `cp config/role_map.yml.sample config/role_map.yml`~~ *no longer needed -- [see below](#3212018----changes-to-role-management)*
 
 8. grab the bunder gem `gem install bundler`
 
 9. run `bundle install --without production`
 
-10. run database migrations `rake db:migrate`
+10. setup Postgres ([see confluence documentation](https://duldev.atlassian.net/wiki/spaces/DDR/pages/427491331/One-Time+Setup+to+Use+Postgres+instead+of+Sqlite)]:
 
-11. load default workflow `rake hyrax:workflow:load`
+    a. Create a 'hydra' postgres user (role): `psql -c "CREATE USER hydra WITH PASSWORD 'hydra' CREATEDB;" postgres`
+  
+    b. Create a development postgres database: `psql -c "CREATE DATABASE development WITH OWNER hydra;" postgres`
+  
+    c. Create a test postgres database: `psql -c "CREATE DATABASE test WITH OWNER hydra;" postgres`
+  
+    d. Set up the development and test databases: `rake db:schema:load`
 
-12. start the server(s)
+11. run database migrations `rake db:migrate`
+
+12. load default workflow `rake hyrax:workflow:load`
+
+13. start the server(s)
 `bin/rails hydra:server`
 
     *This starts Solr, Fedora, and Rails*
 
-13. create default admin set &mdash; open a new terminal tab (Ctrl-T or ⌘-T), shell into vagrant `vagrant ssh`, and move to the correct folder `cd /vagrant/rdr`
+14. create default admin set &mdash; open a new terminal tab (Ctrl-T or ⌘-T), shell into vagrant `vagrant ssh`, and move to the correct folder `cd /vagrant/rdr`
 
     then run `bin/rails hyrax:default_admin_set:create`
 
     you can close the tab when it's done
 
 
-14. The application should now be running at [localhost:3000](http://localhost:3000). You can try to do some things like [creating a new user account](http://localhost:3000/users/sign_up?locale=en) and [depositing an object](http://localhost:3000/concern/works/new?locale=en)
+15. The application should now be running at [localhost:3000](http://localhost:3000). You can try to do some things like [creating a new user account](http://localhost:3000/users/sign_up?locale=en) and [depositing an object](http://localhost:3000/concern/works/new?locale=en)
 
-    *Note that if you would like to give your user account admin rights, you'll need to edit the config/role_map.yml file. Create a new role type under the development section at the top named 'admin:' and add the user account you created under it as '- email@address.com'*
+    *Note that if you would like to give your user account admin rights, you'll need follow the [instructions below](#3212018----changes-to-role-management)
 
 
 ### Shut down the application
