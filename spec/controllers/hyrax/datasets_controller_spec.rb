@@ -20,6 +20,10 @@ RSpec.describe Hyrax::DatasetsController do
           get :show, params: { id: v1 }
           expect(response.body).to match(/previous version/)
         end
+        it "renders a link to the latest version" do
+          get :show, params: { id: v1 }
+          expect(response.body).to match(/dataset_version=latest/)
+        end
       end
     end
 

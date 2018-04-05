@@ -21,10 +21,15 @@ module Hyrax
         if params[:dataset_version] == 'latest'
           redirect_to hyrax_dataset_path(doc.latest_dataset_version)
         else
-          flash.now[:notice] = t('.previous_version') %
-                             "#{hyrax_dataset_path(doc)}?dataset_version=latest"
+          flash.now[:notice] = t('.previous_version') % latest_dataset_version_link.html_safe
         end
       end
+    end
+
+    def latest_dataset_version_link
+      uri = URI.parse(request.original_url)
+      uri.query = "dataset_version=latest"
+      helpers.link_to(uri.to_s, uri.to_s)
     end
 
   end
