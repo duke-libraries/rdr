@@ -15,12 +15,13 @@ RSpec.feature 'Create a Dataset', js: false do
 
     before do
       AdminSet.find_or_create_default_admin_set_id
-      allow(user).to receive(:curator?) { true }
+      curator = Role.find_or_create_by(name: User::CURATOR_GROUP)
+      curator.users << user
+      curator.save!
       login_as user
     end
 
     scenario do
-      pending("TODO: Figure out why this doesn't work - started failing after implementing feature for only curators have ability to create works. ")
       visit '/dashboard'
       click_link "Works"
       click_link "Add new work"
