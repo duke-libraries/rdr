@@ -25,4 +25,17 @@ RSpec.describe 'Ability', type: :model do
     
   end
 
+  describe 'create works' do
+    describe 'user is a curator' do
+      before do
+        allow(user).to receive(:curator?) { true }
+      end
+      it { is_expected.to be_able_to(:create, Dataset) }
+    end
+
+    describe 'user is not a curator' do
+      it { is_expected.to_not be_able_to(:create, Dataset) }
+    end
+  end
+
 end

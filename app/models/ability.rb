@@ -2,7 +2,8 @@ class Ability
   include Hydra::Ability
 
   include Hyrax::Ability
-  self.ability_logic += [:everyone_can_create_curation_concerns]
+  # commented out to restrict the ability of who can create works
+  # self.ability_logic += [:everyone_can_create_curation_concerns]
 
   # Define any customized permissions here.
   def custom_permissions
@@ -25,8 +26,8 @@ class Ability
 
     if current_user.curator?
       can [ :create ], BatchImport
+      can [ :create ], Dataset
     end
-
   end
 
 end

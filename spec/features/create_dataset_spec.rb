@@ -15,6 +15,9 @@ RSpec.feature 'Create a Dataset', js: false do
 
     before do
       AdminSet.find_or_create_default_admin_set_id
+      curator = Role.find_or_create_by(name: User::CURATOR_GROUP)
+      curator.users << user
+      curator.save!
       login_as user
     end
 
