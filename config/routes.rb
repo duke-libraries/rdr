@@ -36,6 +36,14 @@ Rails.application.routes.draw do
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
+  namespace :hyrax, path: :concern do
+    namespaced_resources 'datasets' do
+      member do
+        post :assign_register_doi
+      end
+    end
+  end
+
   get 'export_files/:id', to: 'export_files#new', as: 'export_files'
   post 'export_files/:id', to: 'export_files#create'
 

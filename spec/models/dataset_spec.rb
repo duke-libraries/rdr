@@ -167,4 +167,26 @@ RSpec.describe Dataset do
     end
   end
 
+  describe "#doi_assignable?" do
+    describe "has ARK" do
+      describe "has DOI" do
+        subject { FactoryBot.build(:dataset, ark: 'sample_ark', doi: 'sample_doi') }
+        it { is_expected.not_to be_doi_assignable }
+      end
+      describe "does not have DOI" do
+        subject { FactoryBot.build(:dataset, ark: 'sample_ark') }
+        it { is_expected.to be_doi_assignable }
+      end
+    end
+    describe "does not have ARK" do
+      describe "has DOI" do
+        subject { FactoryBot.build(:dataset, doi: 'sample_doi') }
+        it { is_expected.not_to be_doi_assignable }
+      end
+      describe "does not have DOI" do
+        subject { FactoryBot.build(:dataset) }
+        it { is_expected.not_to be_doi_assignable }
+      end
+    end
+  end
 end

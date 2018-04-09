@@ -18,6 +18,10 @@ class Dataset < ActiveFedora::Base
 
   include Rdr::DatasetVersioning
 
+  def doi_assignable?
+    ark.present? && doi.blank?
+  end
+
   def previous_dataset_version_query
     Dataset.where(Rdr::Index::Fields.doi => replaces)
   end

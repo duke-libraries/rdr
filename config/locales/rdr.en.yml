@@ -1,4 +1,7 @@
 en:
+  unauthorized:
+    assign_register_doi:
+      all: "You are not authorized to assign and register DOI's"
   helpers:
     label:
       batch_import:
@@ -16,3 +19,6 @@ en:
     user_not_found: "User %{user_key} could not be found"
     batch_import:
       heading: "Batch Import"
+    doi:
+      assigment_registration_job_enqueued: 'Queued up DOI assignment and registration job'
+      not_assignable: 'DOI cannot be assigned -- object either already has a DOI or does not have an ARK'

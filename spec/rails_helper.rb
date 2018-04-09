@@ -71,3 +71,8 @@ RSpec.configure do |config|
 end
 
 Hyrax.config.whitelisted_ingest_dirs = [ File.join(Rails.root, 'spec', 'fixtures') ]
+
+# Enables the use of main_app url helpers in spec tests
+def main_app
+  Rails.application.class.routes.url_helpers
+end

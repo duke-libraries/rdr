@@ -25,6 +25,7 @@ class Ability
     end
 
     if current_user.curator?
+      can [ :assign_register_doi ], Dataset
       can [ :create ], BatchImport
       can [ :create ], Dataset
     end

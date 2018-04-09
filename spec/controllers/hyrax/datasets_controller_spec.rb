@@ -60,4 +60,43 @@ RSpec.describe Hyrax::DatasetsController do
     end
   end
 
+  describe "#assign_register_doi" do
+    let(:ds) { FactoryBot.create(:dataset) }
+    let(:user) { FactoryBot.create(:user) }
+    before { sign_in user }
+    describe 'user is a curator' do
+      before do
+        curator = Role.find_or_create_by(name: User::CURATOR_GROUP)
+        curator.users << user
+        curator.save!
+      end
+      describe 'DOI is assignable to object' do
+        before { allow_any_instance_of(Dataset).to receive(:doi_assignable?) { true } }
+        it 'enqueues the assignment and registration job and notifies the user' do
+          expect(AssignRegisterDoiJob).to receive(:perform_later).with(ds)
+          post :assign_register_doi, params: {id: ds.id }
+          expect(flash[:notice]).to eq(I18n.t('rdr.doi.assigment_registration_job_enqueued'))
+          expect(response).to redirect_to("#{main_app.hyrax_dataset_path(ds)}?locale=en")
+        end
+      end
+      describe 'DOI is not assignable to object' do
+        before { allow_any_instance_of(Dataset).to receive(:doi_assignable?) { false } }
+        it 'does not enqueue the assignment and registration job and notifies the user' do
+          expect(AssignRegisterDoiJob).to_not receive(:perform_later).with(ds)
+          post :assign_register_doi, params: {id: ds.id }
+          expect(flash[:alert]).to eq(I18n.t('rdr.doi.not_assignable'))
+          expect(response).to redirect_to("#{main_app.hyrax_dataset_path(ds)}?locale=en")
+        end
+      end
+    end
+    describe 'user is not a curator' do
+      it 'does not enqueue the assignment and registration job and notifies the user of the authorization failure' do
+        expect(AssignRegisterDoiJob).to_not receive(:perform_later).with(ds)
+        post :assign_register_doi, params: {id: ds.id }
+        expect(flash[:alert]).to eq(I18n.t('unauthorized.assign_register_doi.all'))
+        expect(response).to redirect_to("#{main_app.root_path}?locale=en")
+      end
+    end
+  end
+
 end

@@ -3,6 +3,7 @@
 
 module Hyrax
   class DatasetsController < ApplicationController
+
     # Adds Hyrax behaviors to the controller.
     include Hyrax::WorksControllerBehavior
     include Hyrax::BreadcrumbsForWorks
@@ -12,6 +13,18 @@ module Hyrax
     self.show_presenter = Hyrax::DatasetPresenter
 
     before_action :check_dataset_version, only: :show
+
+    def assign_register_doi
+      dataset = Dataset.find(params['id'])
+      authorize! :assign_register_doi, dataset
+      if dataset.doi_assignable?
+        AssignRegisterDoiJob.perform_later(dataset)
+        flash[:notice] = I18n.t('rdr.doi.assigment_registration_job_enqueued')
+      else
+        flash[:alert] = I18n.t('rdr.doi.not_assignable')
+      end
+      redirect_to([main_app, dataset])
+    end
 
     private
 
