@@ -11,4 +11,6 @@ module Rdr
   # Unexpected dataset version result
   class DatasetVersionError < Error; end
 
+  class DoiAssignmentError < Error; end
+
 end

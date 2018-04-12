@@ -22,3 +22,4 @@ en:
     doi:
       assigment_registration_job_enqueued: 'Queued up DOI assignment and registration job'
       not_assignable: 'DOI cannot be assigned -- object either already has a DOI or does not have an ARK'
+      assignment_failed: 'DOI assignment failed'
