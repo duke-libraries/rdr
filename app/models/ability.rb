@@ -25,10 +25,18 @@ class Ability
     end
 
     if current_user.curator?
-      can [ :assign_register_doi ], Dataset
       can [ :create ], BatchImport
       can [ :create ], Dataset
     end
+
+    can [ :assign_register_doi ], Dataset do |ds|
+      current_user.curator? && current_user.can?(:edit, ds) && ds.doi_assignable?
+    end
+
+    can [ :assign_register_doi ], SolrDocument do |doc|
+      current_user.curator? && current_user.can?(:edit, doc) && doc.doi_assignable?
+    end
+
   end
 
 end

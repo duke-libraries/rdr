@@ -56,12 +56,20 @@ class SolrDocument
     self[Rdr::Index::Fields.doi]
   end
 
+  def doi_assignable?
+    ark.present? && doi.blank? && model.include?('Dataset')
+  end
+
   def format
     self[Rdr::Index::Fields.format]
   end
 
   def is_replaced_by
     self[Rdr::Index::Fields.is_replaced_by]
+  end
+
+  def model
+    self['has_model_ssim']
   end
 
   def provenance

@@ -28,6 +28,10 @@
     <%= link_to "Export Files", [main_app, :export_files], class: 'btn btn-default' %>
   <% end %>
 
+  <% if presenter.assignable_doi? %>
+    <%= link_to "Assign & Register DOI", [main_app, :assign_register_doi_hyrax_dataset], method: :post, class: 'btn btn-default' %>
+  <% end %>
+
   <!-- COinS hook for Zotero -->
   <span class="Z3988" title="<%= export_as_openurl_ctx_kev(presenter) %>"></span>
 </div>

@@ -14,5 +14,9 @@ module Hyrax
       current_ability.current_user.user_key == depositor
     end
 
+    def assignable_doi?
+      current_ability.can?(:assign_register_doi, solr_document)
+    end
+
   end
 end

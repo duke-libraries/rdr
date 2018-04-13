@@ -64,11 +64,9 @@ RSpec.describe Hyrax::DatasetsController do
     let(:ds) { FactoryBot.create(:dataset) }
     let(:user) { FactoryBot.create(:user) }
     before { sign_in user }
-    describe 'user is a curator' do
+    describe 'user can assign and register DOIs' do
       before do
-        curator = Role.find_or_create_by(name: User::CURATOR_GROUP)
-        curator.users << user
-        curator.save!
+        allow_any_instance_of(Ability).to receive(:can?).with(:assign_register_doi, an_instance_of(Dataset)) { true }
       end
       describe 'DOI is assignable to object' do
         before { allow_any_instance_of(Dataset).to receive(:doi_assignable?) { true } }
@@ -89,12 +87,27 @@ RSpec.describe Hyrax::DatasetsController do
         end
       end
     end
-    describe 'user is not a curator' do
-      it 'does not enqueue the assignment and registration job and notifies the user of the authorization failure' do
-        expect(AssignRegisterDoiJob).to_not receive(:perform_later).with(ds)
-        post :assign_register_doi, params: {id: ds.id }
-        expect(flash[:alert]).to eq(I18n.t('unauthorized.assign_register_doi.all'))
-        expect(response).to redirect_to("#{main_app.root_path}?locale=en")
+    describe 'user cannot assign and register DOIs' do
+      before do
+        allow_any_instance_of(Ability).to receive(:can?).with(:assign_register_doi, an_instance_of(Dataset)) { false }
+      end
+      describe 'DOI is assignable to object' do
+        before { allow_any_instance_of(Dataset).to receive(:doi_assignable?) { true } }
+        it 'does not enqueue the assignment and registration job and notifies the user' do
+          expect(AssignRegisterDoiJob).to_not receive(:perform_later).with(ds)
+          post :assign_register_doi, params: {id: ds.id }
+          expect(flash[:alert]).to eq(I18n.t('unauthorized.assign_register_doi.all'))
+          expect(response).to redirect_to("#{main_app.root_path}?locale=en")
+        end
+      end
+      describe 'DOI is not assignable to object' do
+        before { allow_any_instance_of(Dataset).to receive(:doi_assignable?) { false } }
+        it 'does not enqueue the assignment and registration job and notifies the user' do
+          expect(AssignRegisterDoiJob).to_not receive(:perform_later).with(ds)
+          post :assign_register_doi, params: {id: ds.id }
+          expect(flash[:alert]).to eq(I18n.t('unauthorized.assign_register_doi.all'))
+          expect(response).to redirect_to("#{main_app.root_path}?locale=en")
+        end
       end
     end
   end
