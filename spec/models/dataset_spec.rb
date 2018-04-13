@@ -189,4 +189,35 @@ RSpec.describe Dataset do
       end
     end
   end
+
+  describe "#doi_registerable?" do
+    subject do
+      FactoryBot.build(:dataset, ark: 'sample_ark', doi: 'sample_doi', title: [ 'Test' ],
+                       creator: [ 'Smith, Joe' ], available: [ '2018-02-02' ])
+    end
+    describe "has ARK, DOI, title, creator, available date" do
+      it { is_expected.to be_doi_registerable }
+    end
+    describe "does not have ARK" do
+      before { allow(subject).to receive(:ark) { nil } }
+      it { is_expected.not_to be_doi_registerable }
+    end
+    describe "does not have DOI" do
+      before { allow(subject).to receive(:doi) { nil } }
+      it { is_expected.not_to be_doi_registerable }
+    end
+    describe "does not have a title" do
+      before { allow(subject).to receive(:title) { [] } }
+      it { is_expected.not_to be_doi_registerable }
+    end
+    describe "does not have a creator" do
+      before { allow(subject).to receive(:creator) { [] } }
+      it { is_expected.not_to be_doi_registerable }
+    end
+    describe "does not have an available date" do
+      before { allow(subject).to receive(:available) { [] } }
+      it { is_expected.not_to be_doi_registerable }
+    end
+  end
+
 end

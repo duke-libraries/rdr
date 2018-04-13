@@ -22,6 +22,10 @@ class Dataset < ActiveFedora::Base
     ark.present? && doi.blank?
   end
 
+  def doi_registerable?
+    ark.present? && doi.present? && title.present? && creator.present? && available.present?
+  end
+
   def previous_dataset_version_query
     Dataset.where(Rdr::Index::Fields.doi => replaces)
   end
