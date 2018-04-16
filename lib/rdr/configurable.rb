@@ -55,6 +55,21 @@ module Rdr
       # ID of AdminSet to use unless otherwise specified
       mattr_accessor :preferred_admin_set_id
 
+      # Crossref login_id
+      mattr_accessor :crossref_user do
+        ENV["CROSSREF_USER"] || "NOT_SET"
+      end
+
+      # Crossref login_password
+      mattr_accessor :crossref_password do
+        ENV["CROSSREF_PASSWORD"] || "NOT_SET"
+      end
+
+      # Crossref registration host
+      mattr_accessor :crossref_host do
+        ENV["CROSSREF_HOST"] || "test.crossref.org"
+      end
+
     end
 
     module ClassMethods

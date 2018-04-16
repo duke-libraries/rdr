@@ -20,6 +20,7 @@ gem 'jquery-rails'
 gem 'devise'
 gem 'devise-guests', '~> 0.6'
 gem 'omniauth-shibboleth'
+gem 'curb', '~> 0.9.4'
 
 gem 'hyrax', '2.0.0'
 
@@ -62,6 +63,7 @@ group :development, :test do
   gem 'rspec-its'
   gem 'rails-controller-testing'
   gem 'factory_bot_rails', '~> 4.8'
+  gem 'webmock'
 end
 
 group :production do

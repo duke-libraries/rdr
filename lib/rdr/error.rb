@@ -13,4 +13,7 @@ module Rdr
 
   class DoiAssignmentError < Error; end
 
+  # Error response from Crossref
+  class CrossrefRegistrationError < Error; end
+
 end
