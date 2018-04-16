@@ -6,6 +6,8 @@ require File.expand_path('../../config/environment', __FILE__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
+require 'active_fedora/cleaner'
+require 'support/factory_bot'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -54,4 +56,23 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  # Devise controller test helpers; e.g., #sign_in
+  config.include Devise::Test::ControllerHelpers, type: :controller
+
+  config.before(:suite) do
+    ActiveFedora::Cleaner.clean!
+  end
+
+  config.after(:each) do
+    ActiveFedora::Cleaner.clean!
+  end
+
+end
+
+Hyrax.config.whitelisted_ingest_dirs = [ File.join(Rails.root, 'spec', 'fixtures') ]
+
+# Enables the use of main_app url helpers in spec tests
+def main_app
+  Rails.application.class.routes.url_helpers
 end

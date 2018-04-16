@@ -1,6 +1,6 @@
 Hyrax.config do |config|
-  # Injected via `rails g hyrax:work Work`
-  config.register_curation_concern :work
+  # Injected via `rails g hyrax:work Dataset`
+  config.register_curation_concern :dataset
   # Register roles that are expected by your implementation.
   # @see Hyrax::RoleRegistry for additional details.
   # @note there are magical roles as defined in Hyrax::RoleRegistry::MAGIC_ROLES
@@ -81,6 +81,7 @@ Hyrax.config do |config|
 
   # Path to the file characterization tool
   # config.fits_path = "fits.sh"
+  config.fits_path = ENV['FITS_HOME'].present? ? File.join(ENV['FITS_HOME'], 'fits.sh') : 'fits.sh'
 
   # Path to the file derivatives creation tool
   # config.libreoffice_path = "soffice"
@@ -111,7 +112,7 @@ Hyrax.config do |config|
   # Should work creation require file upload, or can a work be created first
   # and a file added at a later time?
   # The default is true.
-  # config.work_requires_files = true
+  config.work_requires_files = false
 
   # Should a button with "Share my work" show on the front page to all users (even those not logged in)?
   # config.display_share_button_when_not_logged_in = true
@@ -160,7 +161,7 @@ Hyrax.config do |config|
   # config.permission_options = { "Choose Access" => "none", "View/Download" => "read", "Edit" => "edit" }
 
   # Labels for owner permission levels
-  # config.owner_permission_levels = { "Edit Access" => "edit" }
+  config.owner_permission_levels = { "Read Access" => "read" }
 
   # Path to the ffmpeg tool
   # config.ffmpeg_path = 'ffmpeg'
@@ -218,7 +219,8 @@ Hyrax.config do |config|
   # ingest files from the file system that are not part of the BrowseEverything
   # mount point.
   #
-  # config.whitelisted_ingest_dirs = []
+  config.whitelisted_ingest_dirs = ENV.fetch('WHITELISTED_INGEST_DIRS', '').split(':')
+
 end
 
 Date::DATE_FORMATS[:standard] = "%m/%d/%Y"
@@ -226,3 +228,5 @@ Date::DATE_FORMATS[:standard] = "%m/%d/%Y"
 Qa::Authorities::Local.register_subauthority('subjects', 'Qa::Authorities::Local::TableBasedAuthority')
 Qa::Authorities::Local.register_subauthority('languages', 'Qa::Authorities::Local::TableBasedAuthority')
 Qa::Authorities::Local.register_subauthority('genres', 'Qa::Authorities::Local::TableBasedAuthority')
+
+Hyrax::CurationConcern.actor_factory.insert_after Hyrax::Actors::OptimisticLockValidator, DepositorAccessActor

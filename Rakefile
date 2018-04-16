@@ -6,3 +6,10 @@ require_relative 'config/application'
 Rails.application.load_tasks
 
 require 'solr_wrapper/rake_task' unless Rails.env.production?
+
+task :ci do
+  Rails.env = 'test'
+  with_server 'test' do
+    Rake::Task['spec'].invoke
+  end
+end

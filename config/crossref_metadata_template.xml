@@ -1,0 +1,49 @@
+<doi_batch version="4.4.1" xmlns="http://www.crossref.org/schema/4.4.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.crossref.org/schema/4.4.1 http://www.crossref.org/schemas/crossref4.4.1.xsd">
+  <head>
+    <doi_batch_id>
+      <!-- DOI BATCH ID -->
+    </doi_batch_id>
+    <timestamp>
+      <!-- TIMESTAMP -->
+    </timestamp>
+    <depositor>
+      <depositor_name>Duke University Libraries</depositor_name>
+      <email_address>ddrhelp@duke.edu</email_address>
+    </depositor>
+    <registrant>Duke University Libraries</registrant>
+  </head>
+  <body>
+    <database>
+      <database_metadata language="en">
+        <titles>
+          <title>Duke Digital Repository</title>
+        </titles>
+        <institution>
+          <institution_name>Duke University Libraries</institution_name>
+        </institution>
+      </database_metadata>
+      <dataset dataset_type="record">
+        <contributors>
+	  <!-- CONTRIBUTORS -->
+	</contributors>
+        <titles>
+          <title>
+	    <!-- TITLE -->
+	  </title>
+        </titles>
+        <database_date>
+	  <!-- PUBLICATION DATE -->
+	</database_date>
+        <format>Dataset</format>
+        <doi_data>
+          <doi>
+	    <!-- DOI -->
+	  </doi>
+          <resource>
+	    <!-- RESOURCE (URL) -->
+	  </resource>
+        </doi_data>
+      </dataset>
+    </database>
+  </body>
+</doi_batch>

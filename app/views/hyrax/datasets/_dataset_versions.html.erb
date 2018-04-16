@@ -1,0 +1,41 @@
+<h2>
+  <%= t('.header', default: 'Versions') %>
+</h2>
+
+<table class="table table-striped dataset-versions">
+  <thead>
+    <tr>
+      <th scope="col">
+	<%= t('.table_headings.version', default: 'Version') %>
+      </th>
+      <th scope="col">
+	<%= t('.table_headings.doi', default: 'DOI') %>
+      </th>
+      <th scope="col">
+	<%= t('.table_headings.provenance', default: 'Comment') %>
+      </th>
+      <th scope="col">
+	<%= t('.table_headings.publication_date', default: 'Publication Date') %>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% num_versions = presenter.dataset_versions.length %>
+    <% presenter.dataset_versions.reverse.each_with_index do |ver, i| %>
+    <tr>
+      <td>
+	<%= num_versions - i %>
+      </td>
+      <td>
+	<%= link_to_unless ver.id == presenter.solr_document.id, ver.doi, "https://doi.org/#{ver.doi}" %>
+      </td>
+      <td>
+	<%= Array(ver.provenance).last %>
+      </td>
+      <td>
+	<%= Array(ver.available).first %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

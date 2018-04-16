@@ -1,0 +1,37 @@
+<div class="show-actions">
+  <% if Hyrax.config.analytics? %>
+    <%= link_to "Analytics", presenter.stats_path, id: 'stats', class: 'btn btn-default', data: { turbolinks: false } %>
+  <% end %>
+  <% if presenter.editor? %>
+    <%= link_to "Edit", edit_polymorphic_path([main_app, presenter]), class: 'btn btn-default' %>
+    <%= link_to "Delete", [main_app, presenter], class: 'btn btn-danger', data: { confirm: "Delete this #{presenter.human_readable_type}?" }, method: :delete %>
+    <% if presenter.member_presenters.size > 1 %>
+      <%= link_to t("hyrax.file_manager.link_text"), polymorphic_path([main_app, :file_manager, presenter]), class: 'btn btn-default' %>
+    <% end %>
+  <% end %>
+
+  <% if presenter.work_featurable? %>
+    <%= link_to "Feature", hyrax.featured_work_path(presenter, format: :json),
+                data: { behavior: 'feature' },
+                class: presenter.display_unfeature_link? ? 'btn btn-default collapse' : 'btn btn-default' %>
+
+    <%= link_to "Unfeature", hyrax.featured_work_path(presenter, format: :json),
+                data: { behavior: 'unfeature' },
+                class: presenter.display_feature_link? ? 'btn btn-default collapse' : 'btn btn-default' %>
+  <% end %>
+
+  <% if current_user && presenter.depositor? %>
+    <%= link_to "Request Modifications",  Rdr.depositor_request_form, class: 'btn btn-default', target: "_blank" %>
+  <% end %>
+
+  <% if current_user && presenter.members %>
+    <%= link_to "Export Files", [main_app, :export_files], class: 'btn btn-default' %>
+  <% end %>
+
+  <% if presenter.assignable_doi? %>
+    <%= link_to "Assign & Register DOI", [main_app, :assign_register_doi_hyrax_dataset], method: :post, class: 'btn btn-default' %>
+  <% end %>
+
+  <!-- COinS hook for Zotero -->
+  <span class="Z3988" title="<%= export_as_openurl_ctx_kev(presenter) %>"></span>
+</div>

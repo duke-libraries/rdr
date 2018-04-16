@@ -3,14 +3,21 @@ en:
     search:
       fields:
         facet:
+          affiliation_sim: Affiliation
+          available_dtsim: Publication Date
           based_near_label_sim: Location
           creator_sim: Creator
-          file_format_sim: Format
-          generic_type_sim: Type
+          file_format_sim: File Format
+          format_sim: Format
+          generic_type_sim: Generic Type
+          has_model_ssim: Browse
           keyword_sim: Keyword
           language_sim: Language
           publisher_sim: Publisher
+          resource_type_sim: Type
           subject_sim: Subject
+          temporal_dtsim: Collection Dates
+          top_level_bsi: Top-Level
         index:
           based_near_tesim: Location
           contributor_tesim: Contributor
@@ -23,7 +30,7 @@ en:
           identifier_tesim: Identifier
           keyword_tesim: Keyword
           language_tesim: Language
-          license_tesim: License
+          license_tesim: Rights
           publisher_tesim: Publisher
           rights_statement_tesim: Rights Statement
           subject_tesim: Subject
@@ -39,7 +46,7 @@ en:
           identifier_tesim: Identifier
           keyword_tesim: Keyword
           language_tesim: Language
-          license_tesim: License
+          license_tesim: Rights
           publisher_tesim: Publisher
           rights_statement_tesim: Rights Statement
           subject_tesim: Subject
@@ -53,5 +60,5 @@ en:
     directory:
       suffix:               "@example.org"
     footer:
-      copyright_html: "<strong>Copyright &copy; 2017 Samvera</strong> Licensed under the Apache License, Version 2.0"
+      copyright_html: "<strong>Copyright &copy; 2018 Samvera</strong> Licensed under the Apache License, Version 2.0"
       service_html: A service of <a href="http://samvera.org/" class="navbar-link" target="_blank">Samvera</a>.

@@ -21,7 +21,7 @@ class CatalogController < ApplicationController
 
     config.show.tile_source_field = :content_metadata_image_iiif_info_ssm
     config.show.partials.insert(1, :openseadragon)
-    config.search_builder_class = Hyrax::CatalogSearchBuilder
+    config.search_builder_class = SearchBuilder
 
     # Show gallery view
     config.view.gallery.partials = [:index_header, :index]
@@ -41,16 +41,14 @@ class CatalogController < ApplicationController
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
-    config.add_facet_field solr_name("human_readable_type", :facetable), label: "Type", limit: 5
-    config.add_facet_field solr_name("resource_type", :facetable), label: "Resource Type", limit: 5
-    config.add_facet_field solr_name("creator", :facetable), limit: 5
-    config.add_facet_field solr_name("contributor", :facetable), label: "Contributor", limit: 5
-    config.add_facet_field solr_name("keyword", :facetable), limit: 5
-    config.add_facet_field solr_name("subject", :facetable), limit: 5
-    config.add_facet_field solr_name("language", :facetable), limit: 5
-    config.add_facet_field solr_name("based_near_label", :facetable), limit: 5
-    config.add_facet_field solr_name("publisher", :facetable), limit: 5
-    config.add_facet_field solr_name("file_format", :facetable), limit: 5
+    config.add_facet_field Rdr::Index::Fields.temporal.to_s, label: I18n.t("blacklight.search.fields.facet.temporal_dtsim"), limit: 5
+    config.add_facet_field Rdr::Index::Fields.available.to_s, label: I18n.t("blacklight.search.fields.facet.available_dtsim"), limit: 5
+    config.add_facet_field Rdr::Index::Fields.subject_facet.to_s, label: I18n.t("blacklight.search.fields.facet.subject_sim"), limit: 5
+    config.add_facet_field Rdr::Index::Fields.creator_facet.to_s, label: I18n.t("blacklight.search.fields.facet.creator_sim"), limit: 5
+    config.add_facet_field Rdr::Index::Fields.format_facet.to_s, label: I18n.t("blacklight.search.fields.facet.format_sim"), limit: 5
+    config.add_facet_field Rdr::Index::Fields.affiliation_facet.to_s, label: I18n.t("blacklight.search.fields.facet.affiliation_sim"), limit: 5
+    config.add_facet_field Rdr::Index::Fields.resource_type_facet.to_s, label: I18n.t("blacklight.search.fields.facet.resource_type_sim"), limit: 5
+
     config.add_facet_field solr_name('member_of_collections', :symbol), limit: 5, label: 'Collections'
 
     # The generic_type isn't displayed on the facet list
@@ -64,47 +62,40 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
-    config.add_index_field solr_name("title", :stored_searchable), label: "Title", itemprop: 'name', if: false
-    config.add_index_field solr_name("description", :stored_searchable), itemprop: 'description', helper_method: :iconify_auto_link
-    config.add_index_field solr_name("keyword", :stored_searchable), itemprop: 'keywords', link_to_search: solr_name("keyword", :facetable)
-    config.add_index_field solr_name("subject", :stored_searchable), itemprop: 'about', link_to_search: solr_name("subject", :facetable)
-    config.add_index_field solr_name("creator", :stored_searchable), itemprop: 'creator', link_to_search: solr_name("creator", :facetable)
-    config.add_index_field solr_name("contributor", :stored_searchable), itemprop: 'contributor', link_to_search: solr_name("contributor", :facetable)
-    config.add_index_field solr_name("proxy_depositor", :symbol), label: "Depositor", helper_method: :link_to_profile
-    config.add_index_field solr_name("depositor"), label: "Owner", helper_method: :link_to_profile
-    config.add_index_field solr_name("publisher", :stored_searchable), itemprop: 'publisher', link_to_search: solr_name("publisher", :facetable)
-    config.add_index_field solr_name("based_near_label", :stored_searchable), itemprop: 'contentLocation', link_to_search: solr_name("based_near_label", :facetable)
-    config.add_index_field solr_name("language", :stored_searchable), itemprop: 'inLanguage', link_to_search: solr_name("language", :facetable)
-    config.add_index_field solr_name("date_uploaded", :stored_sortable, type: :date), itemprop: 'datePublished', helper_method: :human_readable_date
-    config.add_index_field solr_name("date_modified", :stored_sortable, type: :date), itemprop: 'dateModified', helper_method: :human_readable_date
-    config.add_index_field solr_name("date_created", :stored_searchable), itemprop: 'dateCreated'
-    config.add_index_field solr_name("rights_statement", :stored_searchable), helper_method: :rights_statement_links
-    config.add_index_field solr_name("license", :stored_searchable), helper_method: :license_links
-    config.add_index_field solr_name("resource_type", :stored_searchable), label: "Resource Type", link_to_search: solr_name("resource_type", :facetable)
-    config.add_index_field solr_name("file_format", :stored_searchable), link_to_search: solr_name("file_format", :facetable)
-    config.add_index_field solr_name("identifier", :stored_searchable), helper_method: :index_field_link, field_name: 'identifier'
-    config.add_index_field solr_name("embargo_release_date", :stored_sortable, type: :date), label: "Embargo release date", helper_method: :human_readable_date
-    config.add_index_field solr_name("lease_expiration_date", :stored_sortable, type: :date), label: "Lease expiration date", helper_method: :human_readable_date
+    config.add_index_field Rdr::Index::Fields.title.to_s, label: I18n.t("rdr.show.fields.title"), itemprop: 'name', if: false
+    config.add_index_field Rdr::Index::Fields.description.to_s, label: I18n.t("rdr.show.fields.description"), itemprop: 'description', helper_method: :iconify_auto_link
+    config.add_index_field Rdr::Index::Fields.creator.to_s, label: I18n.t("rdr.show.fields.creator"), itemprop: 'creator', link_to_search: solr_name("creator", :facetable)
+    config.add_index_field Rdr::Index::Fields.subject.to_s, label: I18n.t("rdr.show.fields.subject"), itemprop: 'about', link_to_search: solr_name("subject", :facetable)
+    config.add_index_field Rdr::Index::Fields.available.to_s, label: I18n.t("rdr.show.fields.available"), itemprop: 'datePublished', helper_method: :human_readable_date
+    config.add_index_field Rdr::Index::Fields.bibliographic_citation.to_s, label: I18n.t("rdr.show.fields.bibliographic_citation"), itemprop: 'citation'
+    config.add_index_field Rdr::Index::Fields.doi.to_s, label: I18n.t("rdr.show.fields.doi")
+    config.add_index_field Rdr::Index::Fields.ark.to_s, label: I18n.t("rdr.show.fields.ark")
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
-    config.add_show_field solr_name("title", :stored_searchable)
-    config.add_show_field solr_name("description", :stored_searchable)
-    config.add_show_field solr_name("keyword", :stored_searchable)
-    config.add_show_field solr_name("subject", :stored_searchable)
-    config.add_show_field solr_name("creator", :stored_searchable)
-    config.add_show_field solr_name("contributor", :stored_searchable)
-    config.add_show_field solr_name("publisher", :stored_searchable)
+    config.add_show_field Rdr::Index::Fields.title.to_s
+    config.add_show_field Rdr::Index::Fields.description.to_s
+    config.add_show_field Rdr::Index::Fields.creator.to_s
+    config.add_show_field Rdr::Index::Fields.bibliographic_citation.to_s
+    config.add_show_field Rdr::Index::Fields.doi.to_s
+    config.add_show_field Rdr::Index::Fields.subject.to_s
+    config.add_show_field Rdr::Index::Fields.available.to_s
+    config.add_show_field Rdr::Index::Fields.ark.to_s
+    config.add_show_field Rdr::Index::Fields.alternative.to_s
+    config.add_show_field Rdr::Index::Fields.contributor.to_s
+    config.add_show_field Rdr::Index::Fields.is_replaced_by.to_s
+    config.add_show_field Rdr::Index::Fields.replaces.to_s
+    config.add_show_field Rdr::Index::Fields.affiliation.to_s
+    config.add_show_field Rdr::Index::Fields.publisher.to_s
+    config.add_show_field Rdr::Index::Fields.temporal.to_s
     config.add_show_field solr_name("based_near_label", :stored_searchable)
-    config.add_show_field solr_name("language", :stored_searchable)
-    config.add_show_field solr_name("date_uploaded", :stored_searchable)
-    config.add_show_field solr_name("date_modified", :stored_searchable)
-    config.add_show_field solr_name("date_created", :stored_searchable)
-    config.add_show_field solr_name("rights_statement", :stored_searchable)
-    config.add_show_field solr_name("license", :stored_searchable)
-    config.add_show_field solr_name("resource_type", :stored_searchable), label: "Resource Type"
-    config.add_show_field solr_name("format", :stored_searchable)
-    config.add_show_field solr_name("identifier", :stored_searchable)
+    config.add_show_field Rdr::Index::Fields.language.to_s
+    config.add_show_field Rdr::Index::Fields.resource_type.to_s
+    config.add_show_field Rdr::Index::Fields.format.to_s
+    config.add_show_field Rdr::Index::Fields.related_url.to_s
+    config.add_show_field Rdr::Index::Fields.license.to_s
+    config.add_show_field Rdr::Index::Fields.provenance.to_s
+    config.add_show_field Rdr::Index::Fields.rights_note.to_s
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
@@ -124,10 +115,19 @@ class CatalogController < ApplicationController
     # solr request handler? The one set in config[:default_solr_parameters][:qt],
     # since we aren't specifying it otherwise.
     config.add_search_field('all_fields', label: 'All Fields') do |field|
-      all_names = config.show_fields.values.map(&:field).join(" ")
+      # all_names = config.show_fields.values.map(&:field).join(" ")
       title_name = solr_name("title", :stored_searchable)
       field.solr_parameters = {
-        qf: "#{all_names} file_format_tesim all_text_timv",
+        # qf: "#{all_names} file_format_tesim all_text_timv",
+        qf: [ solr_name("title", :stored_searchable),
+              solr_name("description", :stored_searchable),
+              solr_name("subject", :stored_searchable),
+              solr_name("creator", :stored_searchable),
+              solr_name("contributor", :stored_searchable),
+              solr_name("identifier", :stored_searchable),
+              solr_name("doi", :stored_sortable),
+              solr_name("ark", :stored_sortable),
+            ].map(&:to_s),
         pf: title_name.to_s
       }
     end

@@ -16,8 +16,33 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+*.log
 
 /node_modules
 /yarn-error.log
 
 .byebug_history
+
+# Ignore role_map.yml
+/config/role_map.yml
+
+# Ignore application configuration
+/config/application.yml
+
+# Pre-compiled assets
+/public/assets
+
+# Export files
+/public/export_files
+
+/public/system
+/public/uploads
+
+# Batch import config
+/config/batch_import.yml
+
+# Resque pool config
+/config/resque-pool.yml
+
+# FITS log file
+/fits.log

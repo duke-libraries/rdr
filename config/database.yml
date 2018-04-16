@@ -5,21 +5,30 @@
 #   gem 'sqlite3'
 #
 default: &default
-  adapter: sqlite3
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
+  adapter: postgresql
+  encoding: UTF8
+  pool: 5
+  username: hydra
+  password: hydra
 
 development:
   <<: *default
-  database: db/development.sqlite3
+  database: development
+  url: postgresql://localhost/
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: db/test.sqlite3
+  database: test
+  url: postgresql://localhost/
 
 production:
-  <<: *default
-  database: db/production.sqlite3
+  adapter: <%= ENV['DB_ADAPTER'] || 'postgresql' %>
+  encoding: <%= ENV['DB_ENCODING'] || 'UTF8' %>
+  database: <%= ENV['DB_DATABASE'] %>
+  pool: <%= ENV['DB_POOL'] || '5' %>
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+  url: postgresql://localhost/

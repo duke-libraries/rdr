@@ -1,0 +1,25 @@
+en:
+  unauthorized:
+    assign_register_doi:
+      all: "You are not authorized to assign and register DOI's"
+  helpers:
+    label:
+      batch_import:
+        checksum_file: Checksum File
+        files_directory: Files Directory
+        manifest_file: Manifest File
+        on_behalf_of: On Behalf Of
+
+  rdr:
+    checksum_verification_failure_heading: "Checksum Verification Failure"
+    does_not_exist: "%{target} does not exist"
+    provided_checksum_mismatch: "Checksum mismatch: FileSet %{fs_id} original file : provided: %{provided_cksum}, repository: %{repo_cksum}"
+    repository_checksum_failure: "Repository fixity check failure: FileSet %{fs_id}"
+    unexpected_multiple_results: "Unexpected multiple results for %{identifier}"
+    user_not_found: "User %{user_key} could not be found"
+    batch_import:
+      heading: "Batch Import"
+    doi:
+      assigment_registration_job_enqueued: 'Queued up DOI assignment and registration job'
+      not_assignable: 'DOI cannot be assigned -- object either already has a DOI or does not have an ARK'
+      assignment_failed: 'DOI assignment failed'

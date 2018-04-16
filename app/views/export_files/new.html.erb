@@ -1,0 +1,16 @@
+<h2>Export Files</h2>
+
+<%= form_tag controller: 'export_files', action: 'create' do %>
+  <div class="form-group">
+    <%= label_tag :basename, "Base Name" %>
+    <%= text_field_tag :basename, params[:basename], maxlength: ExportFiles::Package::BASENAME_MAX_LENGTH,
+                       value: @basename, class: "form-control", "aria-describedby"=>"export_files_basename_help" %>.zip
+    <span id="export_files_basename_help" class="help-block">
+    REQUIRED: Name to be used as the name of the zip archive (without the .zip extension).
+
+    Accepted characters include letters, numbers, underscore, hyphen, or dot.
+    All other characters will be converted to underscores.
+  </span>
+  </div>
+  <%= submit_tag "Export", class: "btn btn-primary" %>
+<% end %>

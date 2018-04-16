@@ -1,0 +1,36 @@
+<%# NOTE: Overrides existing Hyrax partial %>
+<%# Replace Hyrax built-in mast with DUL shared mast. %>
+<div id="dul-masthead-filler">
+  <div class="dul-masthead-wrapper container">
+    <a href="//library.duke.edu/">
+      <img src="//library.duke.edu/masthead/img/logo.png" alt="Duke University Libraries" id="dul-masthead-logo" style="float: left; margin: 20px;" />
+    </a>
+  </div>
+</div>
+<nav id="masthead" class="navbar navbar-static-top" role="navigation">
+  <div class="container">
+    <div class="row">  
+      <div class="navbar-left col-xs-12 col-sm-5 col-md-4 col-lg-3">
+        <a class="navbar-brand" href="<%= hyrax.root_path %>" data-no-turbolink="true">Research Data Repository</a>
+      </div>
+      <div class="searchbar navbar-left col-xs-9 col-sm-5 col-md-4 col-lg-5">
+        <%= render partial: 'catalog/search_form' %>
+      </div>
+      <div class="navbar-right col-xs-3 col-sm-2 col-md-4 col-lg-3">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-collapse" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <%#= render '/logo' %>
+        </div>
+
+        <div class="collapse navbar-collapse" id="top-navbar-collapse">
+          <%= render '/user_util_links' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav><!-- /.navbar -->

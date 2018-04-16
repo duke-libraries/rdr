@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171130181523) do
+ActiveRecord::Schema.define(version: 20180307202620) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -104,6 +107,15 @@ ActiveRecord::Schema.define(version: 20171130181523) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "importer_checksums", force: :cascade do |t|
+    t.string "path"
+    t.string "value"
+    t.string "algorithm", default: "SHA1"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["path"], name: "index_importer_checksums_on_path"
+  end
+
   create_table "job_io_wrappers", force: :cascade do |t|
     t.integer "user_id"
     t.integer "uploaded_file_id"
@@ -176,7 +188,7 @@ ActiveRecord::Schema.define(version: 20171130181523) do
     t.string "namespace", default: "default", null: false
     t.string "template", null: false
     t.text "counters"
-    t.integer "seq", limit: 8, default: 0
+    t.bigint "seq", default: 0
     t.binary "rand"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -240,6 +252,19 @@ ActiveRecord::Schema.define(version: 20171130181523) do
     t.datetime "updated_at", null: false
     t.index ["local_authority_id"], name: "index_qa_local_authority_entries_on_local_authority_id"
     t.index ["uri"], name: "index_qa_local_authority_entries_on_uri", unique: true
+  end
+
+  create_table "roles", id: :serial, force: :cascade do |t|
+    t.string "name"
+  end
+
+  create_table "roles_users", id: false, force: :cascade do |t|
+    t.integer "role_id"
+    t.integer "user_id"
+    t.index ["role_id", "user_id"], name: "index_roles_users_on_role_id_and_user_id"
+    t.index ["role_id"], name: "index_roles_users_on_role_id"
+    t.index ["user_id", "role_id"], name: "index_roles_users_on_user_id_and_role_id"
+    t.index ["user_id"], name: "index_roles_users_on_user_id"
   end
 
   create_table "searches", force: :cascade do |t|
@@ -489,6 +514,7 @@ ActiveRecord::Schema.define(version: 20171130181523) do
     t.binary "zotero_token"
     t.string "zotero_userid"
     t.string "preferred_locale"
+    t.string "uid"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

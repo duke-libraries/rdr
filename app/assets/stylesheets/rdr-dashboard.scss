@@ -1,0 +1,17 @@
+
+/* Custom styles for Dashboard view, which has <body class="dashboard"/> */
+/* ===================================================================== */
+
+body.dashboard {
+  padding-top: 80px;
+  & #masthead {
+    background: #f0f0f0;
+    border-bottom: 2px solid #053482;
+  }
+  & .dul-masthead-bar, & #dul-masthead-filler {
+    display: none;
+  }
+  & #content-wrapper {
+    padding: 0;
+  }
+}
