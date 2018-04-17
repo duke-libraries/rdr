@@ -46,3 +46,6 @@
 
 # FITS log file
 /fits.log
+
+# Ignore spec example status persistance file
+/spec/examples.txt

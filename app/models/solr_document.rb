@@ -60,6 +60,10 @@ class SolrDocument
     ark.present? && doi.blank? && model.include?('Dataset')
   end
 
+  def doi_required_metadata_present?
+    self[Rdr::Index::Fields.title].present? && self[Rdr::Index::Fields.creator].present? && available.present?
+  end
+
   def format
     self[Rdr::Index::Fields.format]
   end
