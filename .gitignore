@@ -29,6 +29,9 @@
 # Ignore application configuration
 /config/application.yml
 
+# Google Analytics config
+/config/analytics.yml
+
 # Pre-compiled assets
 /public/assets
 
