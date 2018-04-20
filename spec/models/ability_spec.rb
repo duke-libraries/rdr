@@ -126,6 +126,13 @@ RSpec.describe 'Ability', type: :model do
 
   end
 
+  describe 'create collections' do
+    describe 'registered user' do
+      before { allow(user).to receive(:groups) { [ 'registered' ] } }
+      it { is_expected.to be_able_to(:create, Collection) }
+    end
+  end
+
   describe 'create works' do
     describe 'user is a curator' do
       before do

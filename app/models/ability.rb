@@ -20,6 +20,10 @@ class Ability
     #   can [:create], ActiveFedora::Base
     # end
 
+    if registered_user?
+      can [ :create ], Collection
+    end
+
     if current_user.admin?
       can [:create, :show, :add_user, :remove_user, :index, :edit, :update, :destroy], Role
     end
