@@ -86,6 +86,15 @@ class Ark
     save
   end
 
+  def local_url
+    ["https://", Rdr.host_name, '/id/', identifier.id ].join
+  end
+
+  def target!
+    identifier.target = local_url
+    identifier.save
+  end
+
   def deactivate!
     unavailable!(Rdr.deaccession_reason)
     save
