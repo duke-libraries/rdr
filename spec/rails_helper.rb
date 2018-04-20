@@ -76,5 +76,3 @@ Hyrax.config.whitelisted_ingest_dirs = [ File.join(Rails.root, 'spec', 'fixtures
 def main_app
   Rails.application.class.routes.url_helpers
 end
-
-Rdr.host_name = "test.server"
