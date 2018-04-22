@@ -17,7 +17,7 @@
 
         <h3><span class="sr-only"><%= t('hyrax.homepage.recently_uploaded.document.title_label') %></span><h3><%= link_to recent_document.to_s, [main_app, recent_document] %></h3>
         <p>
-          <span class="recent-label sr-only"><%= t('hyrax.homepage.recently_uploaded.document.keyword_label') %>:</span> <%= link_to_facet_list(recent_document.keyword, 'keyword', t('hyrax.homepage.recently_uploaded.document.keyword_missing')).html_safe %>
+          <span class="recent-label sr-only"><%= t('hyrax.homepage.recently_uploaded.document.keyword_label') %>:</span> <%= link_to_facet_list(recent_document.keyword, 'keyword', '').html_safe %>
         </p>
 
     </td>
