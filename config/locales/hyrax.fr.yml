@@ -60,3 +60,7 @@ fr:
     institution_name_full: Nom de l'établissement
     product_name: Hyrax
     product_twitter_handle: "@SamveraRepo"
+    homepage:
+      recently_uploaded:
+        document:
+          keyword_missing: '' #left blank intentionally

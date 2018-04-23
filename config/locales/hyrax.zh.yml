@@ -56,3 +56,7 @@ zh:
     institution_name_full: 机构名称
     product_name: 蹄兔
     product_twitter_handle: "@SamveraRepo"
+    homepage:
+      recently_uploaded:
+        document:
+          keyword_missing: '' #left blank intentionally
