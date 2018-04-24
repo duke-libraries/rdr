@@ -3,7 +3,7 @@ module Importer
     include ActiveModel::Validations
 
     def self.controlled_vocabularies
-      @controlled_vocabs ||= Qa::Authorities::Local.names
+      ["licenses", "rights_statements", "resource_types"]
     end
 
     def self.controlled_vocabularies_headings
