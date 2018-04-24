@@ -1,18 +1,46 @@
 <%# NOTE: Overrides existing Hyrax partial %>
-<footer class="navbar navbar-inverse site-footer">
-  <div class="container-fluid">
-    <div class="navbar-text text-left">
-        <p><%= t('hyrax.footer.service_html') %></p>
-        <p><%= t('hyrax.product_name') %> v<%= Hyrax::VERSION %></p>
-    </div>
-    <div class="navbar-right">
-      <ul class="nav navbar-nav" style="float:none;">
-        <%= render 'shared/locale_picker' if available_translations.size > 1 %>
-      </ul>
-      <div class="navbar-text text-right">
-        <p><%= t('hyrax.footer.copyright_html') %></p>
-        <p><%= t('hyrax.background_attribution_html') %></p>
+<footer>
+<div class="container">
+  <div class="row">
+    <div class="col col-md-12 well footer">
+
+      <div class="col col-md-1 footer-padding">
+        <%= link_to image_tag("footer/devillogo-60pct-60.png", :alt => "Duke University Libraries"), "https://library.duke.edu" %>
       </div>
+
+      <div class="col col-md-2 footer-padding">
+        <%= link_to image_tag("footer/dukelogo_vert_60pct_140.png", :alt => "Duke University"), "https://duke.edu" %>
+      </div>
+
+      <div class="col col-md-3">
+        <h3>Contact Us</h3>
+          411 Chapel Drive<br/>
+          Durham, NC 27708<br/>
+          (919) 660-5870<br/>
+          Perkins Library Service Desk<br/><br/>
+          <p> Have Data? <br/><a href="https://library.duke.edu/ddr/research-data">Learn more about sharing your data in Research Data Repository</a>.</p>
+      </div>
+
+      <div class="col col-md-3">
+        <h3>Connect with Us</h3>
+        <ul>
+          <li><%= link_to 'Research Data Management at the Libraries', 'https://library.duke.edu/data/data-management' %></li>
+          <li><%= link_to 'Research Data Management Workshops at the Libraries', 'https://library.duke.edu/data/data-management' %></li>
+          <li><%= link_to 'Data and Visualization Services Blog', 'https://blogs.library.duke.edu/data/' %></li>
+          <li><%= link_to 'Scholarly Communications @ Duke', 'https://blogs.library.duke.edu/scholcomm/' %></li>
+          <li><%= link_to 'Bitstreams Blog', 'https://blogs.library.duke.edu/bitstreams/' %></li>
+        </ul>
+      </div>
+
+      <div class="col col-md-3">
+        <h3>Resources</h3>
+        <ul>
+          <li><%= link_to 'DDR Accessibility Policy', 'https://library.duke.edu/using/policies/ddr-accessibility' %></li>
+          <li><%= link_to 'Deaccession and DMCA Takedown Policy', 'https://duldev.atlassian.net/wiki/spaces/DDRDOC/pages/23625826/Deaccession+and+DMCA+Takedown+Policy' %></li>
+        </ul>
+      </div>
+
     </div>
   </div>
+</div>
 </footer>

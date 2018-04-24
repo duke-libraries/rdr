@@ -2,6 +2,10 @@
 /* Page Layout Overrides */
 /* ===================== */
 
+body {
+    margin-bottom: 25px;
+}
+
 .dul-masthead-bar, #dul-masthead-filler {
   width: 100%;
   text-align: center;
@@ -81,3 +85,51 @@
 .home-content #recent_docs .recent-item img {
   width: 45px;
 }
+
+/* ------------------------
+ *  FOOTER
+ * ------------------------ */
+
+
+
+//https://github.com/duke-libraries/ddr-public/blob/develop/app/assets/stylesheets/ddr.scss#L1242-L1284
+
+.footer {
+    background: #eee;
+    margin-bottom: 0;
+    border: 0;
+  }
+
+
+  .footer h3 {
+    color: #999;
+    text-transform: uppercase;
+  }
+
+  .footer ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  .footer li::before {
+    content: '';
+  }
+
+  .footer li {
+    margin-bottom: .75em;
+  }
+
+  .footer li a,
+  .footer p a {
+    line-height: 1.2em;
+    color: #666;
+  }
+
+  .footer .footer-padding img {
+    margin-top: 3em;
+    opacity: .7;
+  }
+
+  .footer .col-md-1.footer-padding img {
+    margin-top: 2em;
+  }
