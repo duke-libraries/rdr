@@ -23,7 +23,10 @@ module Rdr
     # :stored_sortable, type: :date
     SORTABLE_DATE_FIELDS = %i[ date_modified date_uploaded ].freeze
 
-    SYMBOL_FIELDS = Hyrax::BasicMetadataIndexer.symbol_fields
+    SYMBOL_FIELDS = (
+      Hyrax::BasicMetadataIndexer.symbol_fields +
+      %i[ in_works_ids ]
+    ).freeze
 
   end
 end

@@ -13,7 +13,8 @@ class DatasetIndexer < Hyrax::WorkIndexer
   # Enable queries to distinguish top-level vs. nested datasets
   def generate_solr_document
    super.tap do |solr_doc|
-     solr_doc['top_level_bsi'] = object.in_works_ids.any? ? false : true
+     solr_doc['top_level_bsi'] = object.in_works_ids.blank?
+     solr_doc[Rdr::Index::Fields.in_works_ids] = object.in_works_ids
    end
   end
 end

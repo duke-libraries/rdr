@@ -68,6 +68,10 @@ class SolrDocument
     self[Rdr::Index::Fields.format]
   end
 
+  def in_works_ids
+    self[Rdr::Index::Fields.in_works_ids]
+  end
+
   def is_replaced_by
     self[Rdr::Index::Fields.is_replaced_by]
   end
