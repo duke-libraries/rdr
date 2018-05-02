@@ -21,8 +21,13 @@ module Importer
       controlled_vocabularies_values[vocab_name]
     end
 
+    def self.valid_headers
+      Dataset.attribute_names + %w(collection_id parent_ark visibility file)
+    end
+
     attr_reader :files_directory, :manifest_file
 
+    validate :metadata_headers
     validate :controlled_vocabulary_values
     validate :files_must_exist
 
@@ -33,6 +38,14 @@ module Importer
 
     def parser
       @parser ||= CSVParser.new(manifest_file)
+    end
+
+    def metadata_headers
+      parser.headers.each do |header|
+        unless self.class.valid_headers.include?(header)
+          errors.add(:base, I18n.t('rdr.batch_import.invalid_metadata_header', header: header))
+        end
+      end
     end
 
     def controlled_vocabulary_values
