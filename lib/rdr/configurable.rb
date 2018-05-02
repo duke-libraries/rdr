@@ -70,6 +70,11 @@ module Rdr
         ENV["CROSSREF_HOST"] || "test.crossref.org"
       end
 
+      # Geonames user account
+      mattr_accessor :geonames_user do
+        ENV["GEONAMES_USER"] || "NOT_SET"
+      end
+
     end
 
     module ClassMethods
