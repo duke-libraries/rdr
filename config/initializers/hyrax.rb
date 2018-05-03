@@ -1,3 +1,5 @@
+require 'rdr'
+
 Hyrax.config do |config|
   # Injected via `rails g hyrax:work Dataset`
   config.register_curation_concern :dataset
