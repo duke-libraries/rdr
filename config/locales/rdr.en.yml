@@ -20,6 +20,7 @@ en:
     not_found: "%{target} could not be found"
     batch_import:
       heading: "Batch Import"
+      invalid_metadata_header: "Invalid header: %{header}"
       invalid_metadata_value: "Invalid value: %{value}"
     doi:
       assigment_registration_job_enqueued: 'Queued up DOI assignment and registration job'

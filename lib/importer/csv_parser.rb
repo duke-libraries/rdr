@@ -1,38 +1,25 @@
 module Importer
-  # rubocop:disable Metrics/ClassLength
   class CSVParser
     include Enumerable
+
+    attr_reader :file_name
 
     def initialize(file_name)
       @file_name = file_name
     end
 
+    def headers
+      @headers = as_csv_table.headers.compact
+    end
+
     # @yieldparam attributes [Hash] the attributes from one row of the file
     def each(&_block)
-      headers = nil
-      CSV.foreach(@file_name) do |row|
-        if headers
-          # we already have headers, so this is not the first row.
-          yield attributes(headers, row)
-        else
-          # Grab headers from first row
-          headers = validate_headers(row)
-        end
+      as_csv_table.each do |row|
+        yield attributes(headers, row)
       end
     end
 
     private
-
-    def validate_headers(row)
-      row.compact!
-      difference = (row - valid_headers)
-      raise "Invalid headers: #{difference.join(', ')}" unless difference.blank?
-      row
-    end
-
-    def valid_headers
-      Dataset.attribute_names + %w(collection_id parent_ark visibility file)
-    end
 
     def attributes(headers, row)
       {}.tap do |processed|
@@ -56,6 +43,9 @@ module Importer
       processed[key] << val
     end
 
+    def as_csv_table
+      @csv_table ||= CSV.read(file_name, headers: true)
+    end
+
   end
-  # rubocop:enable Metrics/ClassLength
 end

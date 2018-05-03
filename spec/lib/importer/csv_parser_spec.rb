@@ -2,10 +2,10 @@ require 'rails_helper'
 require 'importer'
 
 RSpec.describe Importer::CSVParser do
-  let(:parser) { described_class.new(file) }
-  let(:attributes) { parser.attributes }
   let(:file) { "#{fixture_path}/importer/manifest_samples/sample.csv" }
-  let(:first_record) { parser.first }
+  let(:first_record) { subject.first }
+
+  subject { described_class.new(file) }
 
   context 'parsing metadata file' do
     it 'parses a record' do
@@ -19,31 +19,8 @@ RSpec.describe Importer::CSVParser do
     end
   end
 
-  describe 'validating CSV headers' do
-    subject { parser.send(:validate_headers, headers) }
-
-    context 'with valid headers' do
-      let(:headers) { %w(title parent_ark) }
-      it { is_expected.to eq headers }
-    end
-
-    context 'with invalid headers' do
-      let(:headers) { ['something bad', 'title'] }
-
-      it 'raises an error' do
-        expect { subject }.to raise_error 'Invalid headers: something bad'
-      end
-    end
-
-    context 'with nil headers' do
-      let(:headers) { ['title', nil] }
-      it { is_expected.to eq headers }
-    end
-
-    context 'with resource_type column' do
-      let(:headers) { %w(resource_type title) }
-      it { is_expected.to eq headers }
-    end
+  describe '#headers' do
+    specify { expect(subject.headers).to eq(%w(visibility title contributor resource_type license file file file)) }
   end
 
 end
