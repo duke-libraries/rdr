@@ -2,7 +2,7 @@
 <%= presenter.attribute_to_html(:bibliographic_citation, label: I18n.t("rdr.show.fields.bibliographic_citation")) %>
 <%= presenter.attribute_to_html(:doi, label: I18n.t("rdr.show.fields.doi")) %>
 <%= presenter.attribute_to_html(:subject, render_as: :faceted, label: I18n.t("rdr.show.fields.subject")) %>
-<%= presenter.attribute_to_html(:available, render_as: :faceted, label: I18n.t("rdr.show.fields.available")) %>
+<%= presenter.attribute_to_html(:available, render_as: :faceted_date, label: I18n.t("rdr.show.fields.available")) %>
 <%= presenter.attribute_to_html(:ark, label: I18n.t("rdr.show.fields.ark")) %>
 <%= presenter.attribute_to_html(:alternative, label: I18n.t("rdr.show.fields.alternative")) %>
 <%= presenter.attribute_to_html(:contributor, render_as: :faceted, label: I18n.t("rdr.show.fields.contributor")) %>
@@ -10,7 +10,7 @@
 <%= presenter.attribute_to_html(:is_replaced_by, label: I18n.t("rdr.show.fields.is_replaced_by")) %>
 <%= presenter.attribute_to_html(:affiliation, render_as: :faceted, label: I18n.t("rdr.show.fields.affiliation")) %>
 <%= presenter.attribute_to_html(:publisher, render_as: :faceted, label: I18n.t("rdr.show.fields.publisher")) %>
-<%= presenter.attribute_to_html(:temporal, render_as: :faceted, label: I18n.t("rdr.show.fields.temporal")) %>
+<%= presenter.attribute_to_html(:temporal, render_as: :faceted_date, label: I18n.t("rdr.show.fields.temporal")) %>
 <%= presenter.attribute_to_html(:based_near_label, label: I18n.t("rdr.show.fields.based_near_label")) %>
 <%= presenter.attribute_to_html(:language, render_as: :faceted, label: I18n.t("rdr.show.fields.language")) %>
 <%= presenter.attribute_to_html(:resource_type, render_as: :faceted, label: I18n.t("rdr.show.fields.resource_type")) %>
