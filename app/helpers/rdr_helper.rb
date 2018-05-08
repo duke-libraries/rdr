@@ -1,5 +1,9 @@
 module RdrHelper
 
+  def readable_date(value)
+    Rdr.readable_date(value)
+  end
+
   def render_on_behalf_of(value)
     if value.blank?
       'Yourself'

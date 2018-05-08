@@ -10,4 +10,8 @@ module Rdr
 
   include Rdr::Configurable
 
+  def self.readable_date value
+    Date.parse(value).to_formatted_s(:standard) rescue value
+  end
+
 end

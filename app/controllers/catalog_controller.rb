@@ -41,8 +41,8 @@ class CatalogController < ApplicationController
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
-    config.add_facet_field Rdr::Index::Fields.temporal.to_s, label: I18n.t("blacklight.search.fields.facet.temporal_dtsim"), limit: 5
-    config.add_facet_field Rdr::Index::Fields.available.to_s, label: I18n.t("blacklight.search.fields.facet.available_dtsim"), limit: 5
+    config.add_facet_field Rdr::Index::Fields.temporal.to_s, label: I18n.t("blacklight.search.fields.facet.temporal_dtsim"), limit: 5, helper_method: :readable_date
+    config.add_facet_field Rdr::Index::Fields.available.to_s, label: I18n.t("blacklight.search.fields.facet.available_dtsim"), limit: 5, helper_method: :readable_date
     config.add_facet_field Rdr::Index::Fields.subject_facet.to_s, label: I18n.t("blacklight.search.fields.facet.subject_sim"), limit: 5
     config.add_facet_field Rdr::Index::Fields.creator_facet.to_s, label: I18n.t("blacklight.search.fields.facet.creator_sim"), limit: 5
     config.add_facet_field Rdr::Index::Fields.format_facet.to_s, label: I18n.t("blacklight.search.fields.facet.format_sim"), limit: 5
