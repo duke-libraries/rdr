@@ -52,6 +52,10 @@ class SolrDocument
     self[Rdr::Index::Fields.bibliographic_citation]
   end
 
+  def contact
+    self[Rdr::Index::Fields.contact]
+  end
+
   def doi
     self[Rdr::Index::Fields.doi]
   end
@@ -66,6 +70,14 @@ class SolrDocument
 
   def format
     self[Rdr::Index::Fields.format]
+  end
+
+  def funding_agency
+    self[Rdr::Index::Fields.funding_agency]
+  end
+
+  def grant_number
+    self[Rdr::Index::Fields.grant_number]
   end
 
   def in_works_ids

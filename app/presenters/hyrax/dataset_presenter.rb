@@ -5,7 +5,9 @@ module Hyrax
     # Account for fields not already delegated to solr_document via
     # https://github.com/samvera/hyrax/blob/master/app/presenters/hyrax/work_show_presenter.rb
     delegate  :affiliation, :alternative, :ark, :available, :based_near,
-              :bibliographic_citation, :doi, :format, :in_works_ids, :is_replaced_by, :members, :provenance,
+              :bibliographic_citation, :contact, :doi, :format,
+              :funding_agency, :grant_number,
+              :in_works_ids, :is_replaced_by, :members, :provenance,
               :related_url, :replaces, :resource_type, :rights_note, :temporal, to: :solr_document
 
     delegate *(Rdr::DatasetVersioning.public_instance_methods), to: :solr_document

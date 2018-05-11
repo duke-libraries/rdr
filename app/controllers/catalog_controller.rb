@@ -97,6 +97,9 @@ class CatalogController < ApplicationController
     config.add_show_field Rdr::Index::Fields.license.to_s
     config.add_show_field Rdr::Index::Fields.provenance.to_s
     config.add_show_field Rdr::Index::Fields.rights_note.to_s
+    config.add_show_field Rdr::Index::Fields.funding_agency.to_s
+    config.add_show_field Rdr::Index::Fields.grant_number.to_s
+    config.add_show_field Rdr::Index::Fields.contact.to_s
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields

@@ -15,12 +15,28 @@ module Rdr
         index.as :dateable
       end
 
+      property :contact,
+               predicate: ::RDF::Vocab::FOAF.mbox,
+               multiple: false do |index|
+        index.as :stored_sortable
+      end
+
       property :temporal, predicate: ::RDF::Vocab::DC.temporal do |index|
         index.as :dateable
       end
 
       property :format, predicate: ::RDF::Vocab::DC.format do |index|
         index.as :stored_searchable, :facetable
+      end
+
+      property :funding_agency,
+               predicate: ::RDF::URI.new("http://purl.org/cerif/frapo/hasFundingAgency") do |index|
+        index.as :stored_searchable
+      end
+
+      property :grant_number,
+               predicate: ::RDF::URI.new("http://purl.org/cerif/frapo/hasGrantNumber") do |index|
+        index.as :symbol
       end
 
       property :is_replaced_by,

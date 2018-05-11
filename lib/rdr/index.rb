@@ -13,10 +13,10 @@ module Rdr
 
     STORED_SEARCHABLE_FIELDS = (
       Hyrax::BasicMetadataIndexer.stored_fields +
-      %i[ alternative depositor provenance rights_note ]
+      %i[ alternative depositor funding_agency provenance rights_note ]
     ).freeze
 
-    STORED_SORTABLE_FIELDS = %i[ ark doi is_replaced_by replaces ].freeze
+    STORED_SORTABLE_FIELDS = %i[ ark contact doi is_replaced_by replaces ].freeze
 
     DATEABLE_FIELDS = %i[ available temporal ].freeze
 
@@ -25,7 +25,7 @@ module Rdr
 
     SYMBOL_FIELDS = (
       Hyrax::BasicMetadataIndexer.symbol_fields +
-      %i[ in_works_ids ]
+      %i[ grant_number in_works_ids ]
     ).freeze
 
   end

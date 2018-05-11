@@ -20,6 +20,7 @@ en:
           top_level_bsi: Top-Level
         index:
           based_near_tesim: Location
+          contact: Contact
           contributor_tesim: Contributor
           creator_tesim: Creator
           date_created_tesim: Date Created
@@ -27,6 +28,8 @@ en:
           date_uploaded_dtsi: Date Uploaded
           description_tesim: Description
           file_format_tesim: File Format
+          funding_agency: Funding Agency
+          grant_number: Grant Number
           identifier_tesim: Identifier
           keyword_tesim: Keyword
           language_tesim: Language
@@ -36,6 +39,7 @@ en:
           subject_tesim: Subject
         show:
           based_near_tesim: Location
+          contact: Contact
           contributor_tesim: Contributor
           creator_tesim: Creator
           date_created_tesim: Date Created
@@ -43,6 +47,8 @@ en:
           date_uploaded_dtsi: Date Uploaded
           description_tesim: Description
           file_format_tesim: File Format
+          funding_agency: Funding Agency
+          grant_number: Grant Number
           identifier_tesim: Identifier
           keyword_tesim: Keyword
           language_tesim: Language
