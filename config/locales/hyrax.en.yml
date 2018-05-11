@@ -52,13 +52,13 @@ en:
           subject_tesim: Subject
           title_tesim: Title
   hyrax:
-    product_name:           "Hyrax"
-    product_twitter_handle: "@SamveraRepo"
-    institution_name:       "Institution"
-    institution_name_full:  "The Institution Name"
-    account_name:           "My Institution Account Id"
+    product_name:           "Archive of Research Collections"
+    product_twitter_handle: "@DukeLibraries"
+    institution_name:       "Duke"
+    institution_name_full:  "Duke University"
+    account_name:           "Duke NetID"
     directory:
-      suffix:               "@example.org"
+      suffix:               "@duke.edu"
     footer:
       copyright_html: "<strong>Copyright &copy; 2018 Samvera</strong> Licensed under the Apache License, Version 2.0"
       service_html: A service of <a href="http://samvera.org/" class="navbar-link" target="_blank">Samvera</a>.

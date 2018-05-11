@@ -28,11 +28,18 @@ body {
 }
 
 .navbar-brand {
-  padding: 18px 15px;
+  padding: 5px 15px 18px 15px;
   font-size: 20px;
   line-height: auto;
   height: auto;
   text-transform: uppercase;
+
+  & .product-name-primary {
+    font-weight: bold;
+  }
+  & .product-name-secondary {
+    font-size: 16px;
+  }
 }
 
 .navbar-toggle, .facets-toggle {
