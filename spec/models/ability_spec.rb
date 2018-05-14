@@ -15,11 +15,12 @@ RSpec.describe 'Ability', type: :model do
 
     describe 'dataset object' do
       let(:dataset) { FactoryBot.build(:dataset, id: 'test') }
-      describe 'curator, editor, assignable' do
+      describe 'curator, editor, assignable, required metadata present' do
         before do
           allow(user).to receive(:curator?) { true }
           allow_any_instance_of(Ability).to receive(:edit_users) { [ user.user_key ] }
           allow(dataset).to receive(:doi_assignable?) { true }
+          allow(dataset).to receive(:doi_required_metadata_present?) { true }
         end
         it { is_expected.to be_able_to(:assign_register_doi, dataset) }
       end
@@ -27,6 +28,7 @@ RSpec.describe 'Ability', type: :model do
         before do
           allow_any_instance_of(Ability).to receive(:edit_users) { [ user.user_key ] }
           allow(dataset).to receive(:doi_assignable?) { true }
+          allow(dataset).to receive(:doi_required_metadata_present?) { true }
         end
         it { is_expected.to_not be_able_to(:assign_register_doi, dataset) }
       end
@@ -34,14 +36,25 @@ RSpec.describe 'Ability', type: :model do
         before do
           allow(user).to receive(:curator?) { true }
           allow(dataset).to receive(:doi_assignable?) { true }
+          allow(dataset).to receive(:doi_required_metadata_present?) { true }
         end
         it { is_expected.to_not be_able_to(:assign_register_doi, dataset) }
       end
-      describe 'not editor' do
+      describe 'not assignable' do
         before do
           allow(user).to receive(:curator?) { true }
           allow_any_instance_of(Ability).to receive(:edit_users) { [ user.user_key ] }
           allow(dataset).to receive(:doi_assignable?) { false }
+          allow(dataset).to receive(:doi_required_metadata_present?) { true }
+        end
+        it { is_expected.to_not be_able_to(:assign_register_doi, dataset) }
+      end
+      describe 'required metadata not present' do
+        before do
+          allow(user).to receive(:curator?) { true }
+          allow_any_instance_of(Ability).to receive(:edit_users) { [ user.user_key ] }
+          allow(dataset).to receive(:doi_assignable?) { true }
+          allow(dataset).to receive(:doi_required_metadata_present?) { false }
         end
         it { is_expected.to_not be_able_to(:assign_register_doi, dataset) }
       end
@@ -49,11 +62,12 @@ RSpec.describe 'Ability', type: :model do
 
     describe 'Solr document' do
       let(:doc) { SolrDocument.new }
-      describe 'curator, editor, assignable' do
+      describe 'curator, editor, assignable, required metadata present' do
         before do
           allow(user).to receive(:curator?) { true }
           allow_any_instance_of(Ability).to receive(:edit_users) { [ user.user_key ] }
           allow(doc).to receive(:doi_assignable?) { true }
+          allow(doc).to receive(:doi_required_metadata_present?) { true }
         end
         it { is_expected.to be_able_to(:assign_register_doi, doc) }
       end
@@ -61,6 +75,7 @@ RSpec.describe 'Ability', type: :model do
         before do
           allow_any_instance_of(Ability).to receive(:edit_users) { [ user.user_key ] }
           allow(doc).to receive(:doi_assignable?) { true }
+          allow(doc).to receive(:doi_required_metadata_present?) { true }
         end
         it { is_expected.to_not be_able_to(:assign_register_doi, doc) }
       end
@@ -68,6 +83,7 @@ RSpec.describe 'Ability', type: :model do
         before do
           allow(user).to receive(:curator?) { true }
           allow(doc).to receive(:doi_assignable?) { true }
+          allow(doc).to receive(:doi_required_metadata_present?) { true }
         end
         it { is_expected.to_not be_able_to(:assign_register_doi, doc) }
       end
@@ -76,6 +92,16 @@ RSpec.describe 'Ability', type: :model do
           allow(user).to receive(:curator?) { true }
           allow_any_instance_of(Ability).to receive(:edit_users) { [ user.user_key ] }
           allow(doc).to receive(:doi_assignable?) { false }
+          allow(doc).to receive(:doi_required_metadata_present?) { true }
+        end
+        it { is_expected.to_not be_able_to(:assign_register_doi, doc) }
+      end
+      describe 'required metadata not present' do
+        before do
+          allow(user).to receive(:curator?) { true }
+          allow_any_instance_of(Ability).to receive(:edit_users) { [ user.user_key ] }
+          allow(doc).to receive(:doi_assignable?) { true }
+          allow(doc).to receive(:doi_required_metadata_present?) { false }
         end
         it { is_expected.to_not be_able_to(:assign_register_doi, doc) }
       end
@@ -98,6 +124,13 @@ RSpec.describe 'Ability', type: :model do
       it { is_expected.to_not be_able_to(:create, BatchImport) }
     end
 
+  end
+
+  describe 'create collections' do
+    describe 'registered user' do
+      before { allow(user).to receive(:groups) { [ 'registered' ] } }
+      it { is_expected.to be_able_to(:create, Collection) }
+    end
   end
 
   describe 'create works' do

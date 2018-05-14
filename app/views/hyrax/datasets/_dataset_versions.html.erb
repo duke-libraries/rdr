@@ -33,7 +33,7 @@
 	<%= Array(ver.provenance).last %>
       </td>
       <td>
-	<%= Array(ver.available).first %>
+        <%= readable_date(Array(ver.available).first) %>
       </td>
     </tr>
     <% end %>

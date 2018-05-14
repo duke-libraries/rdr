@@ -49,4 +49,6 @@ Rails.application.routes.draw do
 
   resources :batch_imports, only: [ :new, :create ]
 
+  get 'id/*local_url_id', to: 'local_urls#show'
+
 end

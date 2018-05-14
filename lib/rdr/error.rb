@@ -16,4 +16,7 @@ module Rdr
   # Error response from Crossref
   class CrossrefRegistrationError < Error; end
 
+  # None found when at least one expected
+  class NotFoundError < Error; end
+
 end

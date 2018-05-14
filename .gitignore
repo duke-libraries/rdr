@@ -29,6 +29,10 @@
 # Ignore application configuration
 /config/application.yml
 
+# Google Analytics config
+/config/analytics.yml
+/config/*.p12
+
 # Pre-compiled assets
 /public/assets
 
@@ -46,3 +50,6 @@
 
 # FITS log file
 /fits.log
+
+# Ignore spec example status persistance file
+/spec/examples.txt

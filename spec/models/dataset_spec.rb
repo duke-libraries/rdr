@@ -190,12 +190,29 @@ RSpec.describe Dataset do
     end
   end
 
-  describe "#doi_registerable?" do
-    subject do
-      FactoryBot.build(:dataset, ark: 'sample_ark', doi: 'sample_doi', title: [ 'Test' ],
-                       creator: [ 'Smith, Joe' ], available: [ '2018-02-02' ])
+  describe "#doi_required_metadata_present?" do
+    subject { FactoryBot.build(:dataset, title: [ 'Test' ], creator: [ 'Smith, Joe' ], available: [ '2018-02-02' ]) }
+    describe "has title, creator, available" do
+      it { is_expected.to be_doi_required_metadata_present }
     end
-    describe "has ARK, DOI, title, creator, available date" do
+    describe "does not have a title" do
+      before { allow(subject).to receive(:title) { [] } }
+      it { is_expected.not_to be_doi_required_metadata_present }
+    end
+    describe "does not have a creator" do
+      before { allow(subject).to receive(:creator) { [] } }
+      it { is_expected.not_to be_doi_required_metadata_present }
+    end
+    describe "does not have an available date" do
+      before { allow(subject).to receive(:available) { [] } }
+      it { is_expected.not_to be_doi_required_metadata_present }
+    end
+  end
+
+  describe "#doi_registerable?" do
+    subject { FactoryBot.build(:dataset, ark: 'sample_ark', doi: 'sample_doi') }
+    before { allow(subject).to receive(:doi_required_metadata_present?) { true } }
+    describe "has ARK, DOI, required metadata present" do
       it { is_expected.to be_doi_registerable }
     end
     describe "does not have ARK" do
@@ -206,16 +223,8 @@ RSpec.describe Dataset do
       before { allow(subject).to receive(:doi) { nil } }
       it { is_expected.not_to be_doi_registerable }
     end
-    describe "does not have a title" do
-      before { allow(subject).to receive(:title) { [] } }
-      it { is_expected.not_to be_doi_registerable }
-    end
-    describe "does not have a creator" do
-      before { allow(subject).to receive(:creator) { [] } }
-      it { is_expected.not_to be_doi_registerable }
-    end
-    describe "does not have an available date" do
-      before { allow(subject).to receive(:available) { [] } }
+    describe "does not have required metadata" do
+      before { allow(subject).to receive(:doi_required_metadata_present?) { false } }
       it { is_expected.not_to be_doi_registerable }
     end
   end

@@ -20,11 +20,14 @@ en:
         available: Publication Date
         based_near: Geographic Coverage
         bibliographic_citation: Citation
+        contact: Contact
         contributor: Contributor
         creator: Creator
         description: Description
         doi: DOI
         format: Format
+        funding_agency: Funding Agency
+        grant_number: Grant Number
         is_replaced_by: Is Replaced By
         language: Language
         license: Rights
@@ -48,10 +51,13 @@ en:
         available: Publication Date
         based_near: Geographic Coverage
         bibliographic_citation: Citation
+        contact: Contact
         contributor: Contributor
         description: Description
         doi: DOI
         format: Format
+        funding_agency: Funding Agency
+        grant_number: Grant Number
         is_replaced_by: Is Replaced By
         language: Language
         license: Rights

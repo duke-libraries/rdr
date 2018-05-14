@@ -22,8 +22,12 @@ class Dataset < ActiveFedora::Base
     ark.present? && doi.blank?
   end
 
+  def doi_required_metadata_present?
+    title.present? && creator.present? && available.present?
+  end
+
   def doi_registerable?
-    ark.present? && doi.present? && title.present? && creator.present? && available.present?
+    ark.present? && doi.present? && doi_required_metadata_present?
   end
 
   def previous_dataset_version_query

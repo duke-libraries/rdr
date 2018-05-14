@@ -28,4 +28,25 @@ RSpec.describe RdrHelper, type: :helper do
       end
     end
   end
+
+  describe '#truncate_description_and_iconify_auto_link' do
+    let(:text1) { 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' }
+    let(:trunc1) { 'Lorem ipsum dolor sit amet, consectetur...' }
+    let(:text2) { 'Aenean eu convallis mi, vel elementum orci. Aenean fermentum augue ligula, et vehicula tellus pharetra sit amet. Nulla scelerisque nec risus non efficitur. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed tempus, enim et pellentesque sagittis, diam dui vestibulum sem, vel tincidunt nunc odio.' }
+    let(:trunc2) { 'Aenean eu convallis mi, vel elementum orci....' }
+    let(:text3) { 'Lorem ipsum dolor sit posuere.' }
+    let(:document) { double('SolrDocument') }
+    let(:config) { double }
+    let(:field) { double('String') }
+    let(:original_args) { { document: document, value: [ text1, text2, text3 ], config: config, field: field } }
+    let(:truncated_args) { { document: document, value: [ trunc1, trunc2, text3 ], config: config, field: field } }
+    before do
+      Rdr.description_truncation_length_index_view = 50
+    end
+    it 'truncates the description field values and calls the iconify_auto_link helper on the result' do
+      expect(helper).to receive(:iconify_auto_link).with(truncated_args)
+      helper.truncate_description_and_iconify_auto_link(original_args)
+    end
+  end
+
 end

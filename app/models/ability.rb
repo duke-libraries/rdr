@@ -20,6 +20,10 @@ class Ability
     #   can [:create], ActiveFedora::Base
     # end
 
+    if registered_user?
+      can [ :create ], Collection
+    end
+
     if current_user.admin?
       can [:create, :show, :add_user, :remove_user, :index, :edit, :update, :destroy], Role
     end
@@ -30,11 +34,17 @@ class Ability
     end
 
     can [ :assign_register_doi ], Dataset do |ds|
-      current_user.curator? && current_user.can?(:edit, ds) && ds.doi_assignable?
+      current_user.curator? &&
+          current_user.can?(:edit, ds) &&
+          ds.doi_assignable? &&
+          ds.doi_required_metadata_present?
     end
 
     can [ :assign_register_doi ], SolrDocument do |doc|
-      current_user.curator? && current_user.can?(:edit, doc) && doc.doi_assignable?
+      current_user.curator? &&
+          current_user.can?(:edit, doc) &&
+          doc.doi_assignable? &&
+          doc.doi_required_metadata_present?
     end
 
   end

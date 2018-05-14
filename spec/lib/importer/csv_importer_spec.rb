@@ -102,7 +102,10 @@ module Importer
         expect(datasets.map(&:title)).to match_array(dataset_titles)
         expect(datasets.map(&:ark)).to all(be_a(String))
         datasets.map(&:ark).each do |ark|
-          expect(Ezid::Identifier.find(ark).status).to eq(Ezid::Status::PUBLIC)
+          ark_id_obj = Ezid::Identifier.find(ark)
+          url = ["https://", Rdr.host_name, '/id/', ark_id_obj.id ].join
+          expect(ark_id_obj.status).to eq(Ezid::Status::PUBLIC)
+          expect(ark_id_obj.target).to eq(url)
         end
         ds1 = Dataset.where(title: 'Test 1').first
         ds2 = Dataset.where(title: 'Test 2').first

@@ -8,6 +8,9 @@ RSpec.describe MintPublishArk do
 
   describe '#call' do
     describe 'ARK assignment' do
+      before do
+        allow(subject.ark).to receive(:target!) { true }
+      end
       describe 'no ARK assigned' do
         it 'assigns an ARK' do
           expect(subject.ark).to receive(:assign!)
@@ -25,7 +28,31 @@ RSpec.describe MintPublishArk do
         end
       end
     end
+    describe 'set ARK target' do
+      describe 'when no ARK assigned' do
+        before do
+          allow(subject.ark).to receive(:assigned?) { false }
+        end
+        it 'does not call the method to set a target' do
+          expect(subject.ark).to_not receive(:target!)
+          subject.call
+        end
+      end
+      describe 'when ARK is assigned' do
+        before do
+          allow(subject.ark).to receive(:assigned?) { true }
+          allow(subject.ark).to receive(:identifier) { double(public?: true) }
+        end
+        it 'calls the method to set a target' do
+          expect(subject.ark).to receive(:target!)
+          subject.call
+        end
+      end
+    end
     describe 'ARK publication' do
+      before do
+        allow(subject.ark).to receive(:target!) { true }
+      end
       describe 'no ARK assigned' do
         before do
           allow(subject.ark).to receive(:assign!)

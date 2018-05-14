@@ -75,6 +75,19 @@ RSpec.describe Ark do
       end
     end
 
+    describe '#target!' do
+      let!(:id) { described_class.identifier_class.new("foo") }
+      let (:url) { ["https://", Rdr.host_name, '/id/', id ].join }
+      before do
+        allow(subject).to receive(:identifier) { id }
+        allow(id).to receive(:save)
+      end
+      it 'sets the ARK target' do
+        subject.target!
+        expect(id.target).to eq(url)
+      end
+    end
+
     describe '#deactivate!' do
       let!(:id) { described_class.identifier_class.new("foo") }
       before do

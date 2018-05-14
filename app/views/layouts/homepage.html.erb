@@ -8,4 +8,8 @@
   <%= render 'hyrax/homepage/announcement' if controller_name == 'homepage' %>
 <% end %>
 
+<%= content_for(:page_title) do %>
+  // Duke Digital Repository
+<% end %>
+
 <%= render template: 'layouts/hyrax' %>

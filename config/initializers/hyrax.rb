@@ -1,3 +1,5 @@
+require 'rdr'
+
 Hyrax.config do |config|
   # Injected via `rails g hyrax:work Dataset`
   config.register_curation_concern :dataset
@@ -41,9 +43,11 @@ Hyrax.config do |config|
   # Defaults to false
   # Requires a Google Analytics id and OAuth2 keyfile.  See README for more info
   # config.analytics = false
+  config.analytics = ENV['TRACK_GOOGLE_ANALYTICS'] == 'true' ? true : false
 
   # Google Analytics tracking ID to gather usage statistics
   # config.google_analytics_id = 'UA-99999999-1'
+  config.google_analytics_id = ENV['GOOGLE_ANALYTICS_TRACKING_ID']
 
   # Date you wish to start collecting Google Analytic statistics for
   # Leaving it blank will set the start date to when ever the file was uploaded by
@@ -102,7 +106,7 @@ Hyrax.config do |config|
 
   # Location autocomplete uses geonames to search for named regions
   # Username for connecting to geonames
-  # config.geonames_username = ''
+  config.geonames_username = Rdr.geonames_user
 
   # Should the acceptance of the licence agreement be active (checkbox), or
   # implied when the save button is pressed? Set to true for active
@@ -223,7 +227,7 @@ Hyrax.config do |config|
 
 end
 
-Date::DATE_FORMATS[:standard] = "%m/%d/%Y"
+Date::DATE_FORMATS[:standard] = "%Y-%m-%d"
 
 Qa::Authorities::Local.register_subauthority('subjects', 'Qa::Authorities::Local::TableBasedAuthority')
 Qa::Authorities::Local.register_subauthority('languages', 'Qa::Authorities::Local::TableBasedAuthority')
