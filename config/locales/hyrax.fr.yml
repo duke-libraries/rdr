@@ -57,3 +57,6 @@ fr:
       recently_uploaded:
         document:
           keyword_missing: '' #left blank intentionally
+    icons:
+      collection: fa fa-th-large
+      default: fa fa-square          

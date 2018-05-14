@@ -65,6 +65,26 @@ body {
 }
 
 
+/* ===== */
+/* Items */
+/* ===== */
+
+.canonical-image {
+  width: 100%;
+}
+
+.media-left, .media-right, .media-body {
+  vertical-align: middle;
+}
+
+.file_listing_thumbnail {
+  border-radius: 8px;
+}
+
+.document .list-thumbnail {
+  text-align: center;
+}
+
 /* ============== */
 /* Search Results */
 /* ============== */
@@ -91,6 +111,7 @@ body {
 
 .home-content #recent_docs .recent-item img {
   width: 45px;
+  border-radius: 6px;
 }
 
 /* ------------------------
