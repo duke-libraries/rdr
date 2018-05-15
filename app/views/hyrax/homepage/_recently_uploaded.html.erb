@@ -23,7 +23,7 @@
   <ul class="list-inline datasets-highlights-list">
     <li>
       <%= link_to "Browse datasets",
-          main_app.search_catalog_path(f: { has_model_ssim: ["Dataset"], Rdr::Index::Fields.top_level => "True" }),
+          main_app.search_catalog_path(f: { has_model_ssim: ["Dataset"], Rdr::Index::Fields.top_level => ["True"] }),
           class: 'btn btn-default' %>
     </li>
   </ul>
