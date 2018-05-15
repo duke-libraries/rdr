@@ -8,7 +8,7 @@ RSpec.describe DatasetIndexer do
   context 'with at least one parent work' do
     before { allow(work).to receive(:in_works_ids).and_return(["t148fh12j"]) }
     it 'indexes as not a top-level work' do
-      expect(solr_document['top_level_bsi']).to eq false
+      expect(solr_document[Rdr::Index::Fields.top_level]).to eq false
     end
     it 'indexes the parent work IDs' do
       expect(solr_document[Rdr::Index::Fields.in_works_ids]).to eq ["t148fh12j"]
@@ -18,7 +18,7 @@ RSpec.describe DatasetIndexer do
   context 'with no parent work' do
     before { allow(work).to receive(:in_works_ids).and_return([]) }
     it 'indexes as a top-level work' do
-      expect(solr_document['top_level_bsi']).to eq true
+      expect(solr_document[Rdr::Index::Fields.top_level]).to eq true
     end
     it 'does not index parent work IDs' do
       expect(solr_document[Rdr::Index::Fields.in_works_ids]).to be_blank

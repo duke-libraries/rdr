@@ -121,7 +121,7 @@ class SolrDocument
   end
 
   def top_level
-    self['top_level_bsi'] || false
+    self[Rdr::Index::Fields.top_level] || false
   end
 
   def previous_dataset_version_query

@@ -35,6 +35,11 @@ module Rdr::Index
         specify { expect(subject.const_get(field.to_s.upcase)).to eq "#{field}_dtsi" }
       end
 
+      shared_examples "a boolean field" do |field|
+        its(field) { is_expected.to eq "#{field}_bsi" }
+        specify { expect(subject.const_get(field.to_s.upcase)).to eq "#{field}_bsi" }
+      end
+
       shared_examples "a symbol field" do |field|
         its(field) { is_expected.to eq "#{field}_ssim" }
         specify { expect(subject.const_get(field.to_s.upcase)).to eq "#{field}_ssim" }
@@ -62,6 +67,10 @@ module Rdr::Index
 
       SORTABLE_DATE_FIELDS.each do |field|
         it_behaves_like "a sortable date field", field
+      end
+
+      BOOLEAN_FIELDS.each do |field|
+        it_behaves_like "a boolean field", field
       end
 
       its(:depositor_symbol) { is_expected.to eq "depositor_ssim" }

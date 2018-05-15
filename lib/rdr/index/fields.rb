@@ -45,6 +45,10 @@ module Rdr::Index
       register field, :dateable
     end
 
+    BOOLEAN_FIELDS.each do |field|
+      register field, type: :boolean
+    end
+
     # This is an outlier ...
     register :depositor_symbol, :symbol, prefix: :depositor
 
