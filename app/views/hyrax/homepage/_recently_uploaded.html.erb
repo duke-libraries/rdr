@@ -4,13 +4,9 @@
 <% else %>
   <div id="recent_docs">
 
-    <table class="table table-bordered table-striped">
+    <table class="table table-striped">
 
       <tbody>
-        <tr>
-          <th scope="col" class="col-md-4">Depositor</th>
-          <th scope="col" class="col-md-8">Details</th>
-        </tr>
 
         <%= render partial: "recent_document", collection: recent_documents %>
 
