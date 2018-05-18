@@ -1,4 +1,4 @@
-# This was taken directly from Sufia's GenericFile::MimeTypes
+# Overrides Hydra::Works::MimeTypes
 module Hydra::Works
   module MimeTypes
     extend ActiveSupport::Concern
