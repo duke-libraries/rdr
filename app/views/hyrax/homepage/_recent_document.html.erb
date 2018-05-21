@@ -1,20 +1,11 @@
 <%# NOTE: Overrides Hyrax partial %>
-<tr class="recent-item">
-
-      <td>
-
-        <%= link_to [main_app, recent_document] do %>
-          <%= render_thumbnail_tag recent_document, suppress_link: true %>
-        <% end %>
-
-        <%= link_to 'View', [main_app, recent_document ], class: 'btn btn-primary btn-sm' %>
-
-      </td>
-
-      <td>
-
+  <div class="media recent-item">
+    <%= link_to [main_app, recent_document] do %>
+      <div class="media-left">
+          <%= render_thumbnail_tag recent_document, { class: "media-object" }, { suppress_link: true } %>
+      </div>
+      <div class="media-body">
         <%= recent_dataset_entry(recent_document) %>
-
-    </td>
-
-</tr>
+      </div>
+    <% end %>
+  </div>
