@@ -42,6 +42,9 @@ gem 'hydra-role-management'
 # for ARK's
 gem 'ezid-client'
 
+# for Box API
+gem 'boxr'
+
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
