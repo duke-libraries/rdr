@@ -1,0 +1,21 @@
+<h1><%= t("rdr.submissions.heading") %></h1>
+
+<% if @submission.errors.any? %>
+  <div id="error_explanation" class="col-md-12">
+    <ul>
+      <% @submission.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="row">
+  <div class="col-md-12">
+    <%= form_for @submission do |f| %>
+      <div class="form-group">
+        <%= f.submit "Submit", id: "submission_submit_button", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>

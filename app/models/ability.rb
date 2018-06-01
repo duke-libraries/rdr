@@ -22,6 +22,7 @@ class Ability
 
     if registered_user?
       can [ :create ], Collection
+      can [ :create ], Submission
     end
 
     if current_user.admin?
