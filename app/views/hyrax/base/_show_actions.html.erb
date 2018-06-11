@@ -1,3 +1,4 @@
+<%# NOTE: Overrides Hyrax partial %>
 <div class="show-actions">
   <% if Hyrax.config.analytics? %>
     <%= link_to "Analytics", presenter.stats_path, id: 'stats', class: 'btn btn-default', data: { turbolinks: false } %>
@@ -8,16 +9,6 @@
     <% if presenter.member_presenters.size > 1 %>
       <%= link_to t("hyrax.file_manager.link_text"), polymorphic_path([main_app, :file_manager, presenter]), class: 'btn btn-default' %>
     <% end %>
-  <% end %>
-
-  <% if presenter.work_featurable? %>
-    <%= link_to "Feature", hyrax.featured_work_path(presenter, format: :json),
-                data: { behavior: 'feature' },
-                class: presenter.display_unfeature_link? ? 'btn btn-default collapse' : 'btn btn-default' %>
-
-    <%= link_to "Unfeature", hyrax.featured_work_path(presenter, format: :json),
-                data: { behavior: 'unfeature' },
-                class: presenter.display_feature_link? ? 'btn btn-default collapse' : 'btn btn-default' %>
   <% end %>
 
   <% if current_user && presenter.depositor? %>

@@ -28,5 +28,7 @@ module Rdr
       %i[ grant_number in_works_ids ]
     ).freeze
 
+    BOOLEAN_FIELDS = %i[ top_level ].freeze
+
   end
 end

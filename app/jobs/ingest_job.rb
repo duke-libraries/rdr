@@ -1,3 +1,4 @@
+# Override IngestJob from Hyrax code to add notification when file ingest finishes.
 class IngestJob < Hyrax::ApplicationJob
   queue_as Hyrax.config.ingest_queue_name
 

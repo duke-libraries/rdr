@@ -1,25 +1,11 @@
-<tr class="recent-item">
-
-      <td>
-
-        <%= link_to [main_app, recent_document] do %>
-          <%= render_thumbnail_tag recent_document, suppress_link: true %>
-        <% end %>
-
-        <span class="recent-label sr-only">
-          <%= t('hyrax.homepage.recently_uploaded.document.depositor_label') %>:
-        </span>
-          <%= link_to_profile recent_document.depositor(t('hyrax.homepage.recently_uploaded.document.depositor_missing')) %>
-
-      </td>
-
-      <td>
-
-        <h3><span class="sr-only"><%= t('hyrax.homepage.recently_uploaded.document.title_label') %></span><h3><%= link_to recent_document.to_s, [main_app, recent_document] %></h3>
-        <p>
-          <span class="recent-label sr-only"><%= t('hyrax.homepage.recently_uploaded.document.keyword_label') %>:</span> <%= link_to_facet_list(recent_document.keyword, 'keyword', t('hyrax.homepage.recently_uploaded.document.keyword_missing')).html_safe %>
-        </p>
-
-    </td>
-
-</tr>
+<%# NOTE: Overrides Hyrax partial %>
+  <div class="media recent-item">
+    <%= link_to [main_app, recent_document] do %>
+      <div class="media-left">
+          <%= render_thumbnail_tag recent_document, { class: "media-object" }, { suppress_link: true } %>
+      </div>
+      <div class="media-body">
+        <%= recent_dataset_entry(recent_document) %>
+      </div>
+    <% end %>
+  </div>

@@ -14,9 +14,9 @@ class CatalogController < ApplicationController
   end
 
   configure_blacklight do |config|
-    config.view.gallery.partials = [:index_header, :index]
-    config.view.masonry.partials = [:index]
-    config.view.slideshow.partials = [:index]
+    #config.view.gallery.partials = [:index_header, :index]
+    #config.view.masonry.partials = [:index]
+    #config.view.slideshow.partials = [:index]
 
 
     config.show.tile_source_field = :content_metadata_image_iiif_info_ssm
@@ -24,8 +24,8 @@ class CatalogController < ApplicationController
     config.search_builder_class = SearchBuilder
 
     # Show gallery view
-    config.view.gallery.partials = [:index_header, :index]
-    config.view.slideshow.partials = [:index]
+    #config.view.gallery.partials = [:index_header, :index]
+    #config.view.slideshow.partials = [:index]
 
     ## Default parameters to send to solr for all search-like requests. See also SolrHelper#solr_search_params
     config.default_solr_params = {
@@ -41,7 +41,6 @@ class CatalogController < ApplicationController
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
-    config.add_facet_field Rdr::Index::Fields.temporal.to_s, label: I18n.t("blacklight.search.fields.facet.temporal_dtsim"), limit: 5, helper_method: :readable_date
     config.add_facet_field Rdr::Index::Fields.available.to_s, label: I18n.t("blacklight.search.fields.facet.available_dtsim"), limit: 5, helper_method: :readable_date
     config.add_facet_field Rdr::Index::Fields.subject_facet.to_s, label: I18n.t("blacklight.search.fields.facet.subject_sim"), limit: 5
     config.add_facet_field Rdr::Index::Fields.creator_facet.to_s, label: I18n.t("blacklight.search.fields.facet.creator_sim"), limit: 5

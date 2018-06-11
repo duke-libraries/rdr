@@ -2,6 +2,28 @@ require 'rails_helper'
 
 RSpec.describe RdrHelper, type: :helper do
 
+  describe '#recent_dataset_entry' do
+    let(:title) { 'Test Title' }
+    let(:doc) { SolrDocument.new }
+    before do
+      allow(doc).to receive(:title) { [ title ] }
+    end
+    describe 'has bibliographic citation' do
+      let(:citation) { 'bibliographic citation' }
+      before do
+        allow(doc).to receive(:bibliographic_citation) { [ citation ] }
+      end
+      it 'returns the bibliographic citation' do
+        expect(helper.recent_dataset_entry(doc)).to eq(citation)
+      end
+    end
+    describe 'does not have bibiliographic citation' do
+      it 'returns the title' do
+        expect(helper.recent_dataset_entry(doc)).to eq(title)
+      end
+    end
+  end
+
   describe '#render_on_behalf_of' do
     describe 'not on behalf of' do
       it 'renders "Yourself"' do

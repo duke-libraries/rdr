@@ -65,6 +65,26 @@ body {
 }
 
 
+/* ===== */
+/* Items */
+/* ===== */
+
+.canonical-image {
+  width: 100%;
+}
+
+.media-left, .media-right, .media-body {
+  vertical-align: middle;
+}
+
+.file_listing_thumbnail {
+  border-radius: 8px;
+}
+
+.document .list-thumbnail {
+  text-align: center;
+}
+
 /* ============== */
 /* Search Results */
 /* ============== */
@@ -89,8 +109,26 @@ body {
 /*  Homepage  */
 /* ========== */
 
+.home-content #recent_docs {
+  margin-bottom: 10px;
+}
+
+.home-content #recent_docs .recent-item:hover {
+  background: #cccccc;
+}
+
 .home-content #recent_docs .recent-item img {
   width: 45px;
+  border-radius: 6px;
+}
+
+.home-content #recent_docs a {
+  color: #333333;
+  text-decoration: none;
+}
+
+.home-content #recent_docs .media-left, .media-body {
+  vertical-align: top;
 }
 
 /* ------------------------
