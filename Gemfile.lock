@@ -67,6 +67,7 @@ GEM
       execjs
     awesome_nested_set (3.1.4)
       activerecord (>= 4.0.0, < 5.3)
+    awesome_print (1.8.0)
     aws-eventstream (1.0.0)
     aws-partitions (1.89.1)
     aws-sdk-core (3.21.2)
@@ -833,6 +834,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  awesome_print
   bagit
   boxr
   byebug

@@ -84,6 +84,11 @@ module Rdr
         end
       end
 
+      # The base Box folder for RDR Submissions
+      mattr_accessor :box_base_folder_rdr_submissions do
+        ENV["BOX_BASE_FOLDER_RDR_SUBMISSIONS"] || "NOT_SET"
+      end
+
     end
 
     module ClassMethods
