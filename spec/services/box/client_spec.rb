@@ -104,6 +104,31 @@ module Box
       end
     end
 
+    describe '#add_manifest_file' do
+      let(:folder) { double('BoxrMash', etag: '0',  id: '48011140270', name: 'submission', type: 'folder') }
+      let(:manifest_path) { '/tmp/manifest.csv' }
+      it 'calls the Boxr client upload file method' do
+        expect(subject.boxr_client).to receive(:upload_file).with(manifest_path, folder)
+        subject.add_manifest_file(folder, manifest_path)
+      end
+      describe 'Boxr error' do
+        let(:action) { "adding manifest file #{manifest_path} to #{folder.name}" }
+        before do
+          allow(subject.boxr_client).to receive(:upload_file).with(manifest_path, folder).and_raise(Boxr::BoxrError)
+        end
+        it 'logs the error' do
+          begin
+            expect(Rails.logger).to receive(:error).with(/Error #{action}:/)
+            subject.add_manifest_file(folder, manifest_path)
+          rescue Rdr::BoxError
+          end
+        end
+        it 'raises a Rdr::BoxError' do
+          expect { subject.add_manifest_file(folder, manifest_path) }.to raise_error(Rdr::BoxError, /Error #{action}:/)
+        end
+      end
+    end
+
     describe '#add_collaborator' do
       let(:folder) { double('BoxrMash', etag: '0',  id: '48011140270', name: 'submission', type: 'folder') }
       let(:login) { "abcdef@duke.edu" }

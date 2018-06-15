@@ -42,6 +42,12 @@ module Box
       self.class.handle_boxr_error(e, "creating RDR submission folder #{folder_name}")
     end
 
+    def add_manifest_file(folder, manifest_path)
+      self.upload_file(manifest_path, folder)
+    rescue Boxr::BoxrError => e
+      self.class.handle_boxr_error(e, "adding manifest file #{manifest_path} to #{folder.name}")
+    end
+
     def add_collaborator(folder, login, role='editor')
       self.add_collaboration(folder, { login: login }, role)
     rescue Boxr::BoxrError => e
