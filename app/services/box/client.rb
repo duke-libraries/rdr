@@ -51,7 +51,15 @@ module Box
     def add_collaborator(folder, login, role='editor')
       self.add_collaboration(folder, { login: login }, role)
     rescue Boxr::BoxrError => e
-      self.class.handle_boxr_error(e, "adding collaborator #{login} to #{folder.name} as #{role}")
+      # If the error is that the login belongs to a user that is already a collaborator on the folder, ignore the
+      # error.  This is likely to be rare in normal operations and, when it does occur, it is likely to be because
+      # the user is a RDR curator or folder administrator who would already have a sufficient level of access to the
+      # folder.  For now, we're ignoring the scenario where the user is a collaborator but with a lesser level of
+      # access.  If/when it becomes clear that we need to address that scenario by, e.g., increasing the user's level
+      # of access, we'll deal with it then.
+      unless e.message =~ /User is already a collaborator/
+        self.class.handle_boxr_error(e, "adding collaborator #{login} to #{folder.name} as #{role}")
+      end
     end
 
     private

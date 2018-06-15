@@ -139,19 +139,30 @@ module Box
       end
       describe 'Boxr error' do
         let(:action) { "adding collaborator #{login} to #{folder.name} as #{role}" }
-        before do
-          allow(subject.boxr_client).to receive(:add_collaboration).with(folder, { login: login }, role).
-              and_raise(Boxr::BoxrError)
-        end
-        it 'logs the error' do
-          begin
-            expect(Rails.logger).to receive(:error).with(/Error #{action}:/)
-            subject.add_collaborator(folder, login)
-          rescue Rdr::BoxError
+        describe 'already a collaborator error' do
+          before do
+            allow(subject.boxr_client).to receive(:add_collaboration).with(folder, { login: login }, role).
+                and_raise(Boxr::BoxrError.new(status: 400, boxr_message: 'User is already a collaborator'))
+          end
+          it 'ignores the error' do
+            expect { subject.add_collaborator(folder, login) }.to_not raise_error
           end
         end
-        it 'raises a Rdr::BoxError' do
-          expect { subject.add_collaborator(folder, login) }.to raise_error(Rdr::BoxError, /Error #{action}:/)
+        describe 'some error other than already a collaborator' do
+          before do
+            allow(subject.boxr_client).to receive(:add_collaboration).with(folder, { login: login }, role).
+                and_raise(Boxr::BoxrError)
+          end
+          it 'logs the error' do
+            begin
+              expect(Rails.logger).to receive(:error).with(/Error #{action}:/)
+              subject.add_collaborator(folder, login)
+            rescue Rdr::BoxError
+            end
+          end
+          it 'raises a Rdr::BoxError' do
+            expect { subject.add_collaborator(folder, login) }.to raise_error(Rdr::BoxError, /Error #{action}:/)
+          end
         end
       end
     end
