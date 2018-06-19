@@ -18,7 +18,7 @@ RSpec.describe SubmissionsController, type: :controller do
   describe 'create' do
     it 'creates a submission object' do
       post :create
-      expect(assigns[:submission].user_key).to eq(user.user_key)
+      expect(assigns[:submission].submitter).to eq(user)
     end
   end
 
