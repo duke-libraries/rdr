@@ -1,4 +1,7 @@
 en:
+  activefedora:
+    models:
+      dataset: Dataset
   blacklight:
     search:
       fields:
