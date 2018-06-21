@@ -89,6 +89,21 @@ module Rdr
         ENV["BOX_BASE_FOLDER_RDR_SUBMISSIONS"] || "NOT_SET"
       end
 
+      # The base URL for accessing the Box instance used for RDR Submissions
+      mattr_accessor :box_base_url_rdr_submissions do
+        ENV["BOX_BASE_URL_RDR_SUBMISSIONS"] || "NOT_SET"
+      end
+
+      # The email address for the curation group
+      mattr_accessor :curation_group_email do
+        ENV["CURATION_GROUP_EMAIL"] || 'curators@example.org'
+      end
+
+      # Submission instructions to include in email after RDR Submissions form completion
+      mattr_accessor :submission_instructions do
+        ENV["SUBMISSION_INSTRUCTIONS"] || 'Submission instructions NOT SET'
+      end
+
     end
 
     module ClassMethods

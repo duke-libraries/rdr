@@ -1,0 +1,15 @@
+<%= t('rdr.submissions.email.success.subject') %>
+
+Submitter: <%= @submission.submitter.display_name %>
+Net ID: <%= @submission.submitter.user_key.split('@').first %>
+
+Submission Folder Name: <%= @submission_folder.name %>
+Submission Folder URL: <%= submission_folder_url(@submission_folder.id) %>
+
+<%= Rdr.submission_instructions %>
+
+<% Submission::ATTRIBUTES.each do |attr| %>
+  <% if include_submission_entry?(@submission, attr) %>
+    <%= submission_entry(@submission, attr) %>
+  <% end %>
+<% end %>
