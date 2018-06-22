@@ -14,7 +14,7 @@ RSpec.describe FacetedDateAttributeRenderer do
       %(
       <tr><th>Available</th>
       <td><ul class='tabular'>
-      <li class="attribute available">
+      <li class="attribute attribute-available">
       <a href="/catalog?f%5Bavailable_dtsim%5D%5B%5D=2017-09-21T00%3A00%3A00Z">2017-09-21</a>
       </li>
       </ul></td></tr>

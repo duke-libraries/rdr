@@ -51,4 +51,6 @@ Rails.application.routes.draw do
 
   get 'id/*local_url_id', to: 'local_urls#show'
 
+  resources :submissions, only: [ :new, :create ]
+
 end

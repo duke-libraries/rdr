@@ -22,7 +22,7 @@ gem 'devise-guests', '~> 0.6'
 gem 'omniauth-shibboleth'
 gem 'curb', '~> 0.9.4'
 
-gem 'hyrax', '2.0.0'
+gem 'hyrax', '2.1.0'
 
 gem 'resque'
 gem 'resque-pool'
@@ -41,6 +41,9 @@ gem 'hydra-role-management'
 
 # for ARK's
 gem 'ezid-client'
+
+# for Box API
+gem 'boxr'
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.

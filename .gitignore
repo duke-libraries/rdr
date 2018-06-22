@@ -36,6 +36,9 @@
 # Pre-compiled assets
 /public/assets
 
+# Collection branding files
+/public/branding
+
 # Export files
 /public/export_files
 

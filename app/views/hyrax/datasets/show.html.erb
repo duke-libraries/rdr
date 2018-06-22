@@ -2,36 +2,39 @@
 
 <%= render 'shared/citations' %>
 
-<div itemscope itemtype="http://schema.org/CreativeWork" class="row">
-  <div class="col-xs-12">
-    <header>
-      <%= render 'work_title', presenter: @presenter %>
-    </header>
-  </div>
-  <div class="col-sm-8">
-    <%= render 'work_description', presenter: @presenter %>
-    <%= render 'relationships', presenter: @presenter %>
-    <%= render 'metadata', presenter: @presenter %>
-    <%= render 'dataset_versions', presenter: @presenter %>    
-  </div>
-  <div class="col-sm-4">
+<div class="row work-type">
+  <div itemscope itemtype="http://schema.org/CreativeWork" class="col-xs-12">
+    <%= render 'work_title', presenter: @presenter %>
     <%= render "show_actions", presenter: @presenter %>
-    <%# Use the fully qualified path to avoid RSpec error: translation missing: en.hyrax.base.show.html.erb.last_modified %>
-    <%= t('hyrax.base.show.last_modified', value: @presenter.date_modified) %>
-    <%= render 'representative_media', presenter: @presenter %>
-    <%= render 'altmetric_badge', presenter: @presenter %>
-    <%= render 'social_media' %>
-    <%# TODO: consider in future whether to add this partial back in %>
-    <%#= render 'citations', presenter: @presenter %>
-  </div>
-</div>
 
-<div class="row">
-  <div class="col-sm-12">
-    <%= render 'items', presenter: @presenter %>
+    <div class="row work-show-columns">
+
+      <div class="col-sm-9">
+        <% if @presenter.universal_viewer? %>
+          <%= render 'representative_media', presenter: @presenter, viewer: true %>
+        <% end %>
+        <%= render 'work_description', presenter: @presenter %>
+        <%= render 'metadata', presenter: @presenter %>
+        <%= render 'items', presenter: @presenter %>
+        <%= render 'dataset_versions', presenter: @presenter %>
+      </div>
+      <div class="contextual-info col-sm-3 text-center">
+        <%= render 'representative_media', presenter: @presenter, viewer: false unless @presenter.universal_viewer? %>
+        <%= render 'altmetric_badge', presenter: @presenter %>
+        <%# TODO: consider in future whether to add this partial back in %>
+        <%#= render 'citations', presenter: @presenter %>
+        <%= render 'social_media' %>
+        <%= render 'relationships', presenter: @presenter %>
+        <div>
+          <small class="text-muted"><%= @presenter.permission_badge %> <%= @presenter.workflow.badge %></small>
+        </div>
+        <% if Hyrax.config.analytics? %>
+          <%= link_to "Usage Stats", @presenter.stats_path, id: 'stats', class: 'btn btn-default btn-link stats-button', data: { turbolinks: false } %>
+        <% end %>
+      </div>
+    </div>
+
     <%= render 'workflow_actions_widget', presenter: @presenter %>
-    <%# TODO: we may consider adding these partials in the future %>
-    <%#= render 'sharing_with', presenter: @presenter %>
-    <%#= render 'user_activity', presenter: @presenter %>
+
   </div>
 </div>
