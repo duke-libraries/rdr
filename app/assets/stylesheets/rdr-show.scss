@@ -2,13 +2,107 @@
 /* Work Show Page Style Overrides */
 /* ============================== */
 
+.work-show-columns {
+  display: flex;
+  @media screen and (max-width: $screen-sm-max) {
+    display: block;
+  }
+  & > div {
+    align-items: stretch;
+  }
+}
+
+dl.work-show {
+  &.dataset {
+    border-top: 4px solid #a1b70d;
+    padding-top: 20px;
+    margin-top: 20px;
+    column-count: 2;
+    column-gap: 20px;
+    @media screen and (max-width: $screen-xs-max) {
+      column-count: auto;
+    }
+  }
+  & > div {
+    break-inside: avoid;
+  }
+  & dt {
+    padding: 0;
+    margin: 0;
+    color: #666;
+    &:not(:first-child) {
+      margin-top: 15px;
+    }
+  }
+  & dd {
+    padding: 0;
+    margin: 0;
+    & ul {
+      padding-left: 0;
+    }
+  }
+}
+
+.contextual-info {
+  background: #fafafa;
+  border-left: 2px solid #eee;
+  padding: 30px 10px;
+  @media screen and (max-width: $screen-xs-max) {
+    border-left: none;
+  }
+  & .representative-media, .canonical-image {
+    display: block;
+    padding: 0.5em 0;
+    max-width: 150px;
+    margin: 0 auto;
+    margin-top: 20px;
+    box-shadow: 3px 3px 15px #ccc;
+  }
+  & h2 {
+    font-size: 22px;
+    border-bottom: 1px dotted #ccc;
+    padding-bottom: 10px;
+  }
+}
+
 .show-actions {
+  padding: 15px 0;
   a.btn {
     margin-bottom: 5px;
     vertical-align: top;
   }
 }
 
+.resp-sharing-button__link {
+  margin: 0;
+}
+
+.resp-sharing-button {
+  padding: 0.2em 0.3em 0em 0.3em;
+}
+
 .resp-sharing-button__link[title="Tumblr"], .resp-sharing-button--tumblr {
     display: none;
+}
+
+.stats-button {
+  &:before {
+    content: "\f080";
+    font-family: "FontAwesome";
+    padding-right: 0.3em;
+  };
+}
+
+table.related-files {
+  & tbody > tr > td {
+    border-top: none;
+  }
+  & td.thumbnail {
+    width: 50px;
+    padding: 0;
+    margin: 10px;
+  }
+  & .btn {
+    font-size: 85%;
+  }
 }

@@ -53,11 +53,16 @@ body {
 
 #content-wrapper {
   background: #fff;
-  padding: 20px 0;
+  padding: 15px 30px;
+}
+
+.alert {
+  margin: 0 0 22px 0;
 }
 
 .breadcrumb {
   background-color: transparent;
+  padding-left: 0;
 }
 
 .site-footer {
