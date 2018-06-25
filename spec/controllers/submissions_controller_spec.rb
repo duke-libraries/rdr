@@ -20,6 +20,24 @@ RSpec.describe SubmissionsController, type: :controller do
       post :create
       expect(assigns[:submission].submitter).to eq(user)
     end
+    it 'validates the submission object' do
+      expect_any_instance_of(Submission).to receive(:valid?)
+      post :create
+    end
+    describe 'submission valid'
+    describe 'submission not valid' do
+      before do
+        allow_any_instance_of(Submission).to receive(:valid?) { false }
+      end
+      it 'emails an error message' do
+        expect(SubmissionsMailer).to receive(:notify_error)
+        post :create
+      end
+      it 'renders the error page' do
+        post :create
+        expect(response).to render_template(:error)
+      end
+    end
   end
 
 end

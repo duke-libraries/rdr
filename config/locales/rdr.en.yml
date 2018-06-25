@@ -28,7 +28,11 @@ en:
       assignment_failed: 'DOI assignment failed'
     submissions:
       heading: 'Submission'
+      form_error_html: "We encountered an error processing your request. One of our curators will follow up with you shortly. In the meantime, please contact us if you have any questions at <a href='%{email}'>%{email}</a>."
       email:
+        error:
+          subject: 'Research Data Form Submission Error'
+          message: 'The following errors were encountered while processing a form submission'
         screened_out:
           subject: 'Research Data Form Submission'
         success:

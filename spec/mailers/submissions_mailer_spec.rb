@@ -10,6 +10,29 @@ RSpec.describe SubmissionsMailer, type: :mailer do
     allow(Rdr).to receive(:curation_group_email) { 'curators@example.org' }
   end
 
+  describe 'notify error' do
+    let(:submission_attrs) { { submitter: submitter, deposit_agreement: 'I agree' } }
+    let(:errors) { ActiveModel::Errors.new(submission) }
+    before do
+      errors.add(:title, :blank, message: "can't be blank")
+      allow(submission).to receive(:errors)  { errors }
+    end
+    it 'sends an appropriate email' do
+      described_class.notify_error(submission).deliver_now!
+      mail = ActionMailer::Base.deliveries.last
+      expect(mail.to).to match_array([ Rdr.curation_group_email ])
+      expect(mail.from).to match_array([ Rdr.curation_group_email ])
+      expect(mail.subject).to eq(I18n.t('rdr.submissions.email.error.subject'))
+      expect(mail.body.encoded).to match("Submitter: #{submitter.display_name}")
+      expect(mail.body.encoded).to match("Net ID: #{submitter_netid}")
+      expect(mail.body.encoded).to match(I18n.t('rdr.submissions.email.error.message'))
+      errors.full_messages.each do |msg|
+        expect(mail.body.encoded).to match(msg)
+      end
+      expect(mail.body.encoded).to match("#{I18n.t('rdr.submissions.label.deposit_agreement')}: #{submission_attrs[:deposit_agreement]}")
+    end
+  end
+
   describe 'notify acreened out' do
     let(:submission_attrs) { { submitter: submitter, screening_pii: 'true' } }
 

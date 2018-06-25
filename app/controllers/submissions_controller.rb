@@ -4,6 +4,12 @@ class SubmissionsController < ApplicationController
 
   def create
     @submission.submitter = current_user
+
+    if @submission.valid?
+    else
+      SubmissionsMailer.notify_error(@submission)
+      render :error
+    end
   end
 
 end
