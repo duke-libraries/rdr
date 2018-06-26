@@ -42,6 +42,12 @@ module Box
       self.class.handle_boxr_error(e, "creating RDR submission folder #{folder_name}")
     end
 
+    def add_deposit_agreement(folder, deposit_agreement_path)
+      self.upload_file(deposit_agreement_path, folder)
+    rescue Boxr::BoxrError => e
+      self.class.handle_boxr_error(e, "adding deposit agreement #{deposit_agreement_path} to #{folder.name}")
+    end
+
     def add_manifest_file(folder, manifest_path)
       self.upload_file(manifest_path, folder)
     rescue Boxr::BoxrError => e
