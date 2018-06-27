@@ -3,8 +3,7 @@ require 'rails_helper'
 module Submissions
   RSpec.describe DocumentDepositAgreement do
 
-    let(:user) { FactoryBot.create(:user) }
-    let(:netid) { user.user_key.split('@').first }
+    let(:user) { FactoryBot.create(:user, uid: 'user2@duke.edu') }
     let(:deposit_agreement_html) { "<h1>Deposit</h1>\n\n<p>I agree</p>" }
     let(:deposit_agreement_text) { "Deposit\n\nI agree" }
 
@@ -28,7 +27,7 @@ module Submissions
         expect(File.read(file_path)).to match(deposit_agreement_text)
       end
       it 'includes the Net ID of the submitter in the file' do
-        expect(File.read(file_path)).to match(netid)
+        expect(File.read(file_path)).to match(user.netid)
       end
     end
 

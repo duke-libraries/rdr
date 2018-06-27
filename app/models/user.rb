@@ -5,6 +5,8 @@ class User < ApplicationRecord
 
   CURATOR_GROUP = 'curator'
 
+  INSTITUTION_PRINCIPAL_NAME_SCOPE = 'duke.edu'
+
   if Blacklight::Utils.needs_attr_accessible?
     attr_accessible :email, :password, :password_confirmation
   end
@@ -72,6 +74,13 @@ class User < ApplicationRecord
 
   def user_key
     uid
+  end
+
+  # For Duke users, returns the (unscoped) NetID
+  # For non-Duke users, returns nil
+  def netid
+    username, scope = user_key.split('@')
+    username if scope == INSTITUTION_PRINCIPAL_NAME_SCOPE
   end
 
   def add_curators_as_proxies

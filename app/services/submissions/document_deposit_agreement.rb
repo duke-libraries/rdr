@@ -26,11 +26,7 @@ module Submissions
     end
 
     def signature
-      "#{user.display_name}\n#{netid}\n#{timestamp}"
-    end
-
-    def netid
-      user.user_key.split('@').first
+      "#{user.display_name}\n#{user.netid}\n#{timestamp}"
     end
 
     def timestamp

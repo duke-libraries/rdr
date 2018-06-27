@@ -3,13 +3,13 @@ require 'rails_helper'
 module Box
   RSpec.describe InitializeSubmissionFolder do
 
-    let(:user_key) { 'abcdef@inst.edu' }
+    let(:user) { User.new(uid: 'abcdef@duke.edu') }
     let(:deposit_agreement_path) { '/tmp/dep-agr/deposit_agreement.txt' }
     let(:manifest_path) { '/tmp/manifest.csv' }
     let(:folder_name) { "abcdef_201806141734" }
     let(:submission_folder) { double('BoxrMash', etag: '0',  id: '48011140270', name: folder_name, type: 'folder') }
 
-    subject { described_class.new(user_key, deposit_agreement: deposit_agreement_path, manifest: manifest_path) }
+    subject { described_class.new(user, deposit_agreement: deposit_agreement_path, manifest: manifest_path) }
 
     before do
       allow(Box::AccessToken).to receive_message_chain(:last, :token) { 'access_token' }
@@ -64,7 +64,7 @@ module Box
           allow_any_instance_of(Box::Client).to receive(:add_manifest_file)
         end
         it 'sets the user as a collaborator on the submission folder' do
-          expect_any_instance_of(Box::Client).to receive(:add_collaborator).with(submission_folder, user_key)
+          expect_any_instance_of(Box::Client).to receive(:add_collaborator).with(submission_folder, user.user_key)
           subject.call
         end
       end

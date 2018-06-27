@@ -1,14 +1,14 @@
 module Box
   class InitializeSubmissionFolder
 
-    attr_reader :box_client, :deposit_agreement_path, :manifest_path, :user_key
+    attr_reader :box_client, :deposit_agreement_path, :manifest_path, :user
 
-    def self.call(user_key, deposit_agreement: nil, manifest: nil)
-      new(user_key, deposit_agreement: deposit_agreement, manifest: manifest).call
+    def self.call(user, deposit_agreement: nil, manifest: nil)
+      new(user, deposit_agreement: deposit_agreement, manifest: manifest).call
     end
 
-    def initialize(user_key, deposit_agreement: nil, manifest: nil)
-      @user_key = user_key
+    def initialize(user, deposit_agreement: nil, manifest: nil)
+      @user = user
       @deposit_agreement_path = deposit_agreement
       @manifest_path = manifest
     end
@@ -24,9 +24,9 @@ module Box
     private
 
     def create_submission_folder
-      netid = extract_netid
+      folder_prefix = user.netid || user.user_key
       now = Time.now.strftime('%Y%m%d%H%M')
-      folder_name = "#{netid}_#{now}"
+      folder_name = "#{folder_prefix}_#{now}"
       box_client.create_rdr_submission_folder(folder_name)
     end
 
@@ -39,11 +39,7 @@ module Box
     end
 
     def add_submitter_as_collaborator(folder)
-      box_client.add_collaborator(folder, user_key)
-    end
-
-    def extract_netid
-      user_key.split('@').first
+      box_client.add_collaborator(folder, user.user_key)
     end
 
   end

@@ -2,8 +2,7 @@ require 'rails_helper'
 
 RSpec.describe SubmissionsMailer, type: :mailer do
 
-  let(:submitter) { FactoryBot.create(:user, display_name: 'Rey Researcher') }
-  let(:submitter_netid) { submitter.user_key.split('@').first }
+  let(:submitter) { FactoryBot.create(:user, uid: 'user3@duke.edu', display_name: 'Rey Researcher') }
   let(:submission) { Submission.new(submission_attrs) }
 
   before do
@@ -24,7 +23,7 @@ RSpec.describe SubmissionsMailer, type: :mailer do
       expect(mail.from).to match_array([ Rdr.curation_group_email ])
       expect(mail.subject).to eq(I18n.t('rdr.submissions.email.error.subject'))
       expect(mail.body.encoded).to match("Submitter: #{submitter.display_name}")
-      expect(mail.body.encoded).to match("Net ID: #{submitter_netid}")
+      expect(mail.body.encoded).to match("Net ID: #{submitter.netid}")
       expect(mail.body.encoded).to match(I18n.t('rdr.submissions.email.error.message'))
       errors.full_messages.each do |msg|
         expect(mail.body.encoded).to match(msg)
@@ -43,7 +42,7 @@ RSpec.describe SubmissionsMailer, type: :mailer do
       expect(mail.from).to match_array([ Rdr.curation_group_email ])
       expect(mail.subject).to eq(I18n.t('rdr.submissions.email.screened_out.subject'))
       expect(mail.body.encoded).to match("Submitter: #{submitter.display_name}")
-      expect(mail.body.encoded).to match("Net ID: #{submitter_netid}")
+      expect(mail.body.encoded).to match("Net ID: #{submitter.netid}")
       expect(mail.body.encoded).to match("#{I18n.t('rdr.submissions.label.screening_pii')}: #{submission_attrs[:screening_pii]}")
       expect(mail.body.encoded).to_not match("#{I18n.t('rdr.submissions.label.screening_funding')}:")
     end
@@ -53,7 +52,7 @@ RSpec.describe SubmissionsMailer, type: :mailer do
     let(:submission_attrs) { { submitter: submitter, title: 'My Research Data Project', screening_pii: 'false',
                                authors: 'Spade, Sam; Tracy, Dick; Fletcher, Jessica' } }
     let(:submission_folder_id) { '1234567890' }
-    let(:submission_folder_name) { "#{submitter_netid}_201804211423" }
+    let(:submission_folder_name) { "#{submitter.netid}_201804211423" }
     let(:submission_folder) { double('BoxrMash', etag: '0',  id: submission_folder_id, name: submission_folder_name,
                                      type: 'folder') }
     let(:submission_folder_url) { "#{Rdr.box_base_url_rdr_submissions}/folder/#{submission_folder_id}"}
@@ -71,7 +70,7 @@ RSpec.describe SubmissionsMailer, type: :mailer do
       expect(mail.from).to match_array([ Rdr.curation_group_email ])
       expect(mail.subject).to eq(I18n.t('rdr.submissions.email.success.subject'))
       expect(mail.body.encoded).to match("Submitter: #{submitter.display_name}")
-      expect(mail.body.encoded).to match("Net ID: #{submitter_netid}")
+      expect(mail.body.encoded).to match("Net ID: #{submitter.netid}")
       expect(mail.body.encoded).to match("Submission Folder Name: #{submission_folder.name}")
       expect(mail.body.encoded).to match("Submission Folder URL: #{submission_folder_url}")
       expect(mail.body.encoded).to match(submission_instructions)
