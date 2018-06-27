@@ -1,21 +1,447 @@
-<h1><%= t("rdr.submissions.heading") %></h1>
 
-<% if @submission.errors.any? %>
-  <div id="error_explanation" class="col-md-12">
-    <ul>
-      <% @submission.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
 
-<div class="row">
+<div class="row submission-form">
+
   <div class="col-md-12">
-    <%= form_for @submission do |f| %>
-      <div class="form-group">
-        <%= f.submit "Submit", id: "submission_submit_button", class: "btn btn-primary" %>
+
+
+    <div class="row">
+
+      <div class="col-md-8 col-md-offset-2">
+
+        <h1><%= t("rdr.submissions.heading") %></h1>
+
+        <% if @submission.errors.any? %>
+          <div id="error_explanation" class="col-md-12">
+            <ul>
+              <% @submission.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
       </div>
-    <% end %>
+
+    </div>
+
+
+    <div class="row">
+
+      <div class="col-md-8 col-md-offset-2" id="fields">
+
+        <%= form_for @submission do |f| %>
+
+          <!-- intro -->
+          <div class="form-tab" id="intro">
+
+              <p class="lead"><%= t("rdr.submissions.questions.intro_html") %></p>
+
+          </div>
+
+
+          <!-- screening question 1 -->
+          <div class="form-tab" id="t1">
+
+            <div id="form_alert1" class="hidden form_alert">
+              <%= t("rdr.submissions.warnings.required_question_html") %>
+            </div>
+
+            <fieldset>
+
+              <legend><%= t("rdr.submissions.fieldsets.legend1") %></legend>
+
+              <p class="lead"><%= t("rdr.submissions.questions.question1_html") %></p>
+
+              <div class="btn-group" data-toggle="buttons">
+
+                <%= f.label :screening_guidelines, :class => 'btn btn-default btn-lg btn-block' do %>
+                  <%= f.radio_button :screening_guidelines, 'ready', {:required => true} %> <%= t("rdr.submissions.labels.question1_label1") %>
+                <% end %>
+
+                <%= f.label :screening_guidelines, :class => 'btn btn-default btn-lg btn-block' do %>
+                  <%= f.radio_button :screening_guidelines, 'not ready', {:required => true} %> <%= t("rdr.submissions.labels.question1_label2") %>
+                <% end %>
+
+              </div>
+
+            </fieldset>
+
+          </div>
+
+          <!-- screening question 2 -->
+          <div class="form-tab" id="t2">
+
+            <div id="form_alert2" class="hidden form_alert">
+              <%= t("rdr.submissions.warnings.required_question_html") %>
+            </div>
+
+            <fieldset>
+
+              <legend><%= t("rdr.submissions.fieldsets.legend2") %></legend>
+
+              <p class="lead"><%= t("rdr.submissions.questions.question2_html") %></p>
+
+              <div class="btn-group" data-toggle="buttons">
+
+                <%= f.label :screening_pii, :class => 'btn btn-default btn-lg btn-block' do %>
+                  <%= f.radio_button :screening_pii, 'no', {:required => true} %> <%= t("rdr.submissions.labels.question2_label1") %>
+                <% end %>
+
+                <%= f.label :screening_guidelines, :class => 'btn btn-default btn-lg btn-block' do %>
+                  <%= f.radio_button :screening_pii, 'yes', {:required => true} %> <%= t("rdr.submissions.labels.question2_label2") %>
+                <% end %>
+
+              </div>
+
+            </fieldset>
+
+          </div>
+
+          <!-- screening question 3 -->
+          <div class="form-tab" id="t3">
+
+            <div id="form_alert3" class="hidden form_alert">
+              <%= t("rdr.submissions.warnings.required_question_html") %>
+            </div>
+
+            <fieldset>
+
+              <legend><%= t("rdr.submissions.fieldsets.legend3") %></legend>
+
+              <p class="lead"><%= t("rdr.submissions.questions.question3_html") %></p>
+
+              <div class="btn-group" data-toggle="buttons">
+
+                <%= f.label :screening_license, :class => 'btn btn-default btn-lg btn-block' do %>
+                  <%= f.radio_button :screening_license, 'yes', {:required => true} %> <%= t("rdr.submissions.labels.question3_label1") %>
+                <% end %>
+
+                <%= f.label :screening_guidelines, :class => 'btn btn-default btn-lg btn-block' do %>
+                  <%= f.radio_button :screening_license, 'no', {:required => true} %> <%= t("rdr.submissions.labels.question3_label2") %>
+                <% end %>
+
+              </div>
+
+            </fieldset>
+
+          </div>
+
+          <!-- screening question 4 -->
+          <div class="form-tab" id="t4">
+
+            <div id="form_alert4" class="hidden form_alert">
+              <%= t("rdr.submissions.warnings.required_question_html") %>
+            </div>
+
+            <fieldset>
+
+              <legend><%= t("rdr.submissions.fieldsets.legend4") %></legend>
+
+              <p class="lead"><%= t("rdr.submissions.questions.question4_html") %></p>
+
+              <div class="btn-group" data-toggle="buttons">
+
+                <%= f.label :screening_funding, :class => 'btn btn-default btn-lg btn-block' do %>
+                  <%= f.radio_button :screening_funding, 'yes', {:required => true} %> <%= t("rdr.submissions.labels.question4_label1") %>
+                <% end %>
+
+                <%= f.label :screening_funding, :class => 'btn btn-default btn-lg btn-block' do %>
+                  <%= f.radio_button :screening_funding, 'no', {:required => true} %> <%= t("rdr.submissions.labels.question4_label2") %>
+                <% end %>
+
+              </div>
+
+            </fieldset>
+
+          </div>
+
+          <!-- screening question 5 -->
+          <div class="form-tab" id="t5">
+
+            <div id="form_alert5" class="hidden form_alert">
+              <%= t("rdr.submissions.warnings.required_question_html") %>
+            </div>
+
+            <fieldset>
+
+                <legend><%= t("rdr.submissions.fieldsets.legend5") %></legend>
+
+
+                <!-- show/hide depending on q4 answer -->
+                <div id="screening-5a">
+
+                  <p class="lead"><%= t("rdr.submissions.questions.question5a_html") %></p>
+
+                  <div class="btn-group" data-toggle="buttons">
+
+                    <%= f.label :screening_funded_size, :class => 'btn btn-default btn-lg btn-block' do %>
+                      <%= f.radio_button :screening_funded_size, 'less than 10 GB', :id =>'funded-size-1' %> <%= t("rdr.submissions.labels.question5a_label1") %>
+                    <% end %>
+
+                    <%= f.label :screening_funded_size, :class => 'btn btn-default btn-lg btn-block' do %>
+                      <%= f.radio_button :screening_funded_size, 'more than 10 GB', :id =>'funded-size-2' %> <%= t("rdr.submissions.labels.question5a_label2") %>
+                    <% end %>
+
+                  </div>
+
+                </div>
+
+
+                <!-- show/hide depending on q4 answer -->
+                <div id="screening-5b">
+
+                  <p class="lead"><%= t("rdr.submissions.questions.question5b_html") %></p>
+
+                  <div class="btn-group" data-toggle="buttons">
+
+                    <%= f.label :screening_nonfunded_size, :class => 'btn btn-default btn-lg btn-block' do %>
+                      <%= f.radio_button :screening_nonfunded_size, 'less than 2.5 GB', :id =>'nonfunded-size-1' %> <%= t("rdr.submissions.labels.question5b_label1") %>
+                    <% end %>
+
+                    <%= f.label :screening_nonfunded_size, :class => 'btn btn-default btn-lg btn-block' do %>
+                      <%= f.radio_button :screening_nonfunded_size, 'more than 2.5 GB', :id =>'nonfunded-size-2' %> <%= t("rdr.submissions.labels.question5b_label2") %>
+                    <% end %>
+
+                  </div>
+
+                </div>
+
+            </fieldset>
+
+          </div>
+
+
+
+          <!-- screening question 6 -->
+          <div class="form-tab" id="t6">
+
+            <div id="form_alert6" class="hidden form_alert">
+              <%= t("rdr.submissions.warnings.required_question_html") %>
+            </div>
+
+            <fieldset>
+
+              <legend><%= t("rdr.submissions.fieldsets.legend6") %></legend>
+
+              <%= displayable_content_block @agreement_display %>
+
+              <div class="btn-group" data-toggle="buttons">
+
+                <%= f.label :deposit_agreement, :class => 'btn btn-default btn-lg btn-block' do %>
+                  <%= f.radio_button :deposit_agreement, 'I agree', {:required => true, :id =>'deposit-agreement-1'} %> <%= t("rdr.submissions.labels.question6_label1") %>
+                <% end %>
+
+                <%= f.label :deposit_agreement, :class => 'btn btn-default btn-lg btn-block' do %>
+                  <%= f.radio_button :deposit_agreement, 'I do not agree', {:required => true, :id =>'deposit-agreement-2'} %> <%= t("rdr.submissions.labels.question6_label2") %>
+                <% end %>
+
+              </div>
+
+            </fieldset>
+
+          </div>
+
+
+
+          <!-- submission form fields -->
+          <div class="form-tab" id="t7">
+
+            <div id="form_alert7" class="hidden form_alert">
+              <%= t("rdr.submissions.warnings.required_questions_html") %>
+            </div>
+
+
+            <fieldset>
+
+              <legend><%= t("rdr.submissions.fieldsets.legend7") %></legend>
+
+              <%= t("rdr.submissions.required_text_html") %>
+
+              <!-- Title -->
+              <div class="form-group">
+                <%= f.label :title, t("rdr.submissions.labels.question7_label"), :class => 'required' %>
+                <%= f.text_area :title, :required => true, :class => 'form-control' %>
+              </div>
+
+
+              <!-- Authors -->
+              <div class="form-group">
+                <%= f.label :authors, t("rdr.submissions.labels.question8_label"), :class => 'required' %>
+                <%= f.text_area :authors, :required => true, :class => 'form-control' %>
+              </div>
+
+
+              <!-- Contributors -->
+              <div class="form-group">
+                <%= f.label :contributors, t("rdr.submissions.labels.question9_label"), :class => '' %>
+                <%= f.text_area :contributors, :class => 'form-control' %>
+              </div>
+
+
+              <!-- Affiliations -->
+              <div class="form-group">
+                <%= f.label :affiliations, t("rdr.submissions.labels.question10_label"), :class => '' %>
+                <%= f.text_area :affiliations, :class => 'form-control' %>
+              </div>
+
+
+              <!-- Contact Info -->
+              <div class="form-group">
+                <%= f.label :contact_info, t("rdr.submissions.labels.question11_label"), :class => '' %>
+                <%= f.text_area :contact_info, :class => 'form-control' %>
+              </div>
+
+
+              <!-- Description -->
+              <div class="form-group">
+                <%= f.label :description, t("rdr.submissions.labels.question12_label"), :class => 'required' %>
+                <%= f.text_area :description, :required => true, :class => 'form-control' %>
+              </div>
+
+
+              <!-- Keywords -->
+              <div class="form-group">
+                <%= f.label :keywords, t("rdr.submissions.labels.question13_label"), :class => 'required' %>
+                <%= f.text_area :keywords, :required => true, :class => 'form-control' %>
+              </div>
+
+
+              <!-- Geo Areas -->
+              <div class="form-group">
+                <%= f.label :geo_areas, t("rdr.submissions.labels.question14_label"), :class => '' %>
+                <%= f.text_area :geo_areas, :class => 'form-control' %>
+              </div>
+
+
+              <!-- Dates -->
+              <div class="form-group">
+                <%= f.label :dates, t("rdr.submissions.labels.question15_label"), :class => '' %>
+                <%= f.text_area :dates, :class => 'form-control' %>
+              </div>
+
+
+              <!-- Languages -->
+              <div class="form-group">
+                <%= f.label :languages, t("rdr.submissions.labels.question16_label"), :class => '' %>
+                <%= f.text_area :languages, :class => 'form-control' %>
+              </div>
+
+
+              <!-- Formats -->
+              <div class="form-group">
+                <%= f.label :formats, t("rdr.submissions.labels.question17_label"), :class => '' %>
+                <%= f.text_area :formats, :class => 'form-control' %>
+              </div>
+
+
+
+              <!-- Related Materials -->
+              <div class="form-group">
+                <%= f.label :related_materials, t("rdr.submissions.labels.question18_label"), :class => '' %>
+                <%= f.text_area :related_materials, :class => 'form-control' %>
+              </div>
+
+            </fieldset>
+
+          </div>
+
+
+
+          <!-- DOI - tab 8-->
+          <div class="form-tab" id="t8">
+
+            <div id="form_alert8" class="hidden form_alert">
+              <%= t("rdr.submissions.warnings.required_question_html") %>
+            </div>
+
+            <fieldset>
+
+              <legend><%= t("rdr.submissions.fieldsets.legend8") %></legend>
+
+              <p class="lead"><%= t("rdr.submissions.questions.question19_html") %></p>
+
+              <div class="btn-group" data-toggle="buttons">
+
+                <%= f.label :doi_exists, :class => 'btn btn-default btn-lg btn-block', :onclick => 'showMy("doi")' do %>
+                  <%= f.radio_button :doi_exists, 'yes', :required => true %> <%= t("rdr.submissions.labels.question19_label1") %>
+                <% end %>
+
+                <%= f.label :doi_exists, :class => 'btn btn-default btn-lg btn-block', :onclick => 'hideMy("doi");' do %>
+                  <%= f.radio_button :doi_exists, 'no', :required => true %> <%= t("rdr.submissions.labels.question19_label2") %>
+                <% end %>
+
+              </div>
+
+
+              <!-- show/hide based on above -->
+              <div class="form-group hidden" id="doi_wrapper">
+                <%= f.label :doi, t("rdr.submissions.labels.question20_label") %>
+                <%= f.text_field :doi, disabled: true, :required => true, :class => 'form-control' %>
+              </div>
+
+
+            </fieldset>
+
+          </div>
+
+
+
+
+          <!-- CC0 - tab 9 -->
+          <div class="form-tab" id="t9">
+
+            <div id="form_alert9" class="hidden form_alert">
+              <%= t("rdr.submissions.warnings.required_question_html") %>
+            </div>
+
+            <fieldset>
+
+              <legend><%= t("rdr.submissions.fieldsets.legend9") %></legend>
+
+              <p class="lead"><%= t("rdr.submissions.questions.question21_html") %></p>
+
+              <div class="btn-group" data-toggle="buttons">
+
+                <%= f.label :using_cco, :class => 'btn btn-default btn-lg btn-block', :onclick => 'hideMy("cc_license");' do %>
+                  <%= f.radio_button :using_cco, 'will use cc0', {:required => true} %> <%= t("rdr.submissions.labels.question21_label1") %>
+                <% end %>
+
+                <%= f.label :using_cco, :class => 'btn btn-default btn-lg btn-block', :onclick => 'showMy("cc_license");' do %>
+                  <%= f.radio_button :using_cco, 'will not use cc0', {:required => true} %> <%= t("rdr.submissions.labels.question21_label2") %>
+                <% end %>
+
+              </div>
+
+
+              <!-- show/hide based on above -->
+              <div class="form-group hidden" id="cc_license_wrapper">
+                <%= f.label :cc_license, t("rdr.submissions.labels.question22_label") %>
+                <%= f.text_field :cc_license, disabled: true, :required => true, :class => 'form-control' %>
+              </div>
+
+
+            </fieldset>
+
+          </div>
+
+
+          <!-- Previous / Next Buttons -->
+          <nav aria-label="form controls" class="submission-nav">
+            <ul class="pager">
+              <li class="previous"><a href="#fields" id="prevBtn" onclick="nextPrev(-1)" class="btn btn-primary"><span class="sr-only">Previous</span><span aria-hidden="true">&lt;&lt;</span> </a></li>
+              <li class="next"><a href="#fields" id="nextBtn" onclick="nextPrev(1)" class="btn btn-primary"><span class="sr-only">Next</span><span aria-hidden="true">&gt;&gt;</span></a></li>
+              <%= f.button 'Submit', id: 'submission_submit_button', class: 'btn btn-primary hidden', type: 'submit' do %>
+                <span class="sr-only">Submit</span>Submit &gt;&gt;
+              <% end %>
+            </ul>
+          </nav>
+
+        <% end %>
+
+        </div>
+      </div>
   </div>
 </div>
+
+<%= javascript_include_tag params[:controller] %>

@@ -136,6 +136,118 @@ body {
   vertical-align: top;
 }
 
+
+/* ======= */
+/*  Forms  */
+/* ======= */
+
+.submission-form #new_submission .btn-group {
+  width: 100%;
+  text-align: center;
+}
+
+.submission-form #new_submission .btn-default.active {
+  box-shadow: none !important;
+  background-color: #001a57 !important;
+  border-color: #001a57 !important;
+  color: #fff !important;
+}
+
+.submission-form h1 {
+  margin-bottom: 1em;
+}
+
+.submission-form .alert {
+  margin: 0 0 20px 0;
+}
+
+.submission-form .submission-nav {
+  padding-top: 1em;
+}
+
+/* Hide all steps by default: */
+.submission-form .form-tab {
+  display: none;
+}
+
+.submission-form .form_alert {
+  margin-bottom: 1em;
+  text-align: center;
+  color: #e73f61;
+  font-size: 1.5em;
+}
+
+.submission-form .form-tab-error {
+  padding: 20px;
+  margin: -20px;
+  background-color: #f9f2f2;
+}
+
+.submission-form .pager li > a {
+  font-weight: bold;
+  font-size: 16px;
+  padding: 10px;
+  min-width: 60px;
+  background-color: #286090;
+  border-color: #265b89;
+  color: #fff;
+}
+
+.submission-form .pager li > a:hover,
+.submission-form .pager li > a:focus {
+  background-color: #245682;
+  border-color: #215079;
+}
+
+.submission-form #submission_submit_button {
+  float: right;
+  font-size: 16px;
+  font-weight: bold;
+  min-width: 60px;
+}
+
+.submission-form .radio-not-checked,
+.submission-form .text-area-empty {
+  background-color: #ffeeee;
+  border-color: #ffaaaa;
+}
+
+.submission-form .form-group {
+  margin-top: 2em;
+  margin-bottom: 0;
+}
+
+.submission-form .form-group label {
+  width: 100%;
+  font-weight: normal;
+}
+
+.submission-form .form-group input {
+  width: 100%;
+}
+
+.submission-form .form-group textarea {
+  width: 100%;
+  height: 6em;
+}
+
+.submission-form .required::before {
+  content: '* ';
+  color: #cc0000;
+  font-size: 200%;
+  line-height: .25;
+  vertical-align: bottom;
+}
+
+.submission-form .required-text {
+  color: #cc0000;
+  font-size: 200%;
+  line-height: .25;
+  vertical-align: bottom;
+}
+
+
+
 /* ------------------------
  *  FOOTER
  * ------------------------ */
