@@ -1,7 +1,7 @@
 require 'boxr'
 
-module Box
-  class Client
+module Submissions
+  class BoxClient
 
     attr_reader :boxr_client
 

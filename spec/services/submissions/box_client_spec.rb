@@ -3,16 +3,16 @@ require 'box/access_token'
 require 'box/refresh_token'
 require 'boxr'
 
-module Box
-  RSpec.describe Client do
+module Submissions
+  RSpec.describe BoxClient do
 
     let(:box_base_folder_rdr_submissions) { '/test/box/base_folder' }
     let(:tokens) { [ 'token1', 'token2', 'token3', 'token4' ] }
     let(:token_refresh_response) { double('BoxrMash', access_token: tokens[2], refresh_token: tokens[3]) }
 
     before do
-      AccessToken.create(token: tokens[0])
-      RefreshToken.create(token: tokens[1])
+      Box::AccessToken.create(token: tokens[0])
+      Box::RefreshToken.create(token: tokens[1])
       allow(Boxr).to receive(:refresh_tokens) { token_refresh_response }
       allow(Rdr).to receive(:box_base_folder_rdr_submissions) { box_base_folder_rdr_submissions }
     end
@@ -20,7 +20,8 @@ module Box
     describe '.refresh_tokens' do
       describe 'success' do
         it 'stores new access and refresh tokens' do
-          expect { described_class.refresh_tokens }.to change{ AccessToken.last }.and(change { RefreshToken.last })
+          expect { described_class.refresh_tokens }.to change{ Box::AccessToken.last }
+                                                           .and(change { Box::RefreshToken.last })
         end
       end
       describe 'Boxr error' do
@@ -30,8 +31,8 @@ module Box
         end
         it 'does not update access and refresh tokens' do
           begin
-            expect { described_class.refresh_tokens }.to_not change{ AccessToken.last }
-            expect { described_class.refresh_tokens }.to_not change{ RefreshToken.last }
+            expect { described_class.refresh_tokens }.to_not change{ Box::AccessToken.last }
+            expect { described_class.refresh_tokens }.to_not change{ Box::RefreshToken.last }
           rescue Rdr::BoxError
           end
         end

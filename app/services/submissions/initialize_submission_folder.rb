@@ -1,4 +1,4 @@
-module Box
+module Submissions
   class InitializeSubmissionFolder
 
     attr_reader :box_client, :deposit_agreement_path, :manifest_path, :user
@@ -14,7 +14,7 @@ module Box
     end
 
     def call
-      @box_client = Box::Client.new
+      @box_client = BoxClient.new
       submission_folder = create_submission_folder
       add_deposit_agreement(submission_folder) if deposit_agreement_path.present?
       add_manifest_file(submission_folder) if manifest_path.present?

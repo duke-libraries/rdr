@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-module Box
+module Submissions
   RSpec.describe InitializeSubmissionFolder do
 
     let(:user) { User.new(uid: 'abcdef@duke.edu') }
@@ -23,48 +23,48 @@ module Box
 
       describe 'submission folder creation' do
         before do
-          allow_any_instance_of(Box::Client).to receive(:add_deposit_agreement)
-          allow_any_instance_of(Box::Client).to receive(:add_manifest_file)
-          allow_any_instance_of(Box::Client).to receive(:add_collaborator)
+          allow_any_instance_of(BoxClient).to receive(:add_deposit_agreement)
+          allow_any_instance_of(BoxClient).to receive(:add_manifest_file)
+          allow_any_instance_of(BoxClient).to receive(:add_collaborator)
         end
         it 'creates a submission folder' do
-          expect_any_instance_of(Box::Client).to receive(:create_rdr_submission_folder).with(folder_name)
+          expect_any_instance_of(BoxClient).to receive(:create_rdr_submission_folder).with(folder_name)
           subject.call
         end
       end
 
       describe 'deposit agreement addition' do
         before do
-          allow_any_instance_of(Box::Client).to receive(:create_rdr_submission_folder) { submission_folder }
-          allow_any_instance_of(Box::Client).to receive(:add_manifest_file)
-          allow_any_instance_of(Box::Client).to receive(:add_collaborator)
+          allow_any_instance_of(BoxClient).to receive(:create_rdr_submission_folder) { submission_folder }
+          allow_any_instance_of(BoxClient).to receive(:add_manifest_file)
+          allow_any_instance_of(BoxClient).to receive(:add_collaborator)
         end
         it 'adds the deposit agreement to the submission folder' do
-          expect_any_instance_of(Box::Client).to receive(:add_deposit_agreement).with(submission_folder, deposit_agreement_path)
+          expect_any_instance_of(BoxClient).to receive(:add_deposit_agreement).with(submission_folder, deposit_agreement_path)
           subject.call
         end
       end
 
       describe 'manifest addition' do
         before do
-          allow_any_instance_of(Box::Client).to receive(:create_rdr_submission_folder) { submission_folder }
-          allow_any_instance_of(Box::Client).to receive(:add_deposit_agreement)
-          allow_any_instance_of(Box::Client).to receive(:add_collaborator)
+          allow_any_instance_of(BoxClient).to receive(:create_rdr_submission_folder) { submission_folder }
+          allow_any_instance_of(BoxClient).to receive(:add_deposit_agreement)
+          allow_any_instance_of(BoxClient).to receive(:add_collaborator)
         end
         it 'adds the manifest file to the submission folder' do
-          expect_any_instance_of(Box::Client).to receive(:add_manifest_file).with(submission_folder, manifest_path)
+          expect_any_instance_of(BoxClient).to receive(:add_manifest_file).with(submission_folder, manifest_path)
           subject.call
         end
       end
 
       describe 'collaborator setting' do
         before do
-          allow_any_instance_of(Box::Client).to receive(:create_rdr_submission_folder) { submission_folder }
-          allow_any_instance_of(Box::Client).to receive(:add_deposit_agreement)
-          allow_any_instance_of(Box::Client).to receive(:add_manifest_file)
+          allow_any_instance_of(BoxClient).to receive(:create_rdr_submission_folder) { submission_folder }
+          allow_any_instance_of(BoxClient).to receive(:add_deposit_agreement)
+          allow_any_instance_of(BoxClient).to receive(:add_manifest_file)
         end
         it 'sets the user as a collaborator on the submission folder' do
-          expect_any_instance_of(Box::Client).to receive(:add_collaborator).with(submission_folder, user.user_key)
+          expect_any_instance_of(BoxClient).to receive(:add_collaborator).with(submission_folder, user.user_key)
           subject.call
         end
       end
