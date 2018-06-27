@@ -15,16 +15,32 @@ RSpec.describe SearchBuilder do
     subject { builder.query }
 
     context "adds the correct query filter" do
-      context "param latest_version is present" do
-        let(:params) { { "latest_version" => 'true' } }
-        it "adds latest version filter" do
-          expect(subject[:fq]).to include("-#{Rdr::Index::Fields::IS_REPLACED_BY}:*")
+      context 'latest version param' do
+        context "param latest_version is present" do
+          let(:params) { { "latest_version" => 'true' } }
+          it "adds latest version filter" do
+            expect(subject[:fq]).to include("-#{Rdr::Index::Fields::IS_REPLACED_BY}:*")
+          end
+        end
+        context "param latest_version is not present" do
+          let(:params) { { } }
+          it "does not add latest version filter" do
+            expect(subject[:fq]).to_not include("-#{Rdr::Index::Fields::IS_REPLACED_BY}:*")
+          end
         end
       end
-      context "param latest_version is not present" do
-        let(:params) { { } }
-        it "does not add latest version filter" do
-          expect(subject[:fq]).to_not include("-#{Rdr::Index::Fields::IS_REPLACED_BY}:*")
+      context 'top level param' do
+        context "param top_level is present" do
+          let(:params) { { "top_level" => 'true' } }
+          it "adds top level filter" do
+            expect(subject[:fq]).to include("#{Rdr::Index::Fields::TOP_LEVEL}:True")
+          end
+        end
+        context "param top_level is not present" do
+          let(:params) { { } }
+          it "does not add top level filter" do
+            expect(subject[:fq]).to_not include("#{Rdr::Index::Fields::TOP_LEVEL}:True")
+          end
         end
       end
     end
