@@ -12,7 +12,7 @@ class MintPublishArk
 
   def call
     ark.assign! unless ark.assigned?
-    ark.target! if ark.assigned?
+    ark.target! if ark.assigned? && ark.reserved?
     ark.publish! if ark.assigned? && !ark.public?
   end
 
