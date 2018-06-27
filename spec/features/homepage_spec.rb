@@ -12,7 +12,7 @@ RSpec.feature 'Display homepage' do
 
     scenario do
       visit '/'
-      expect(page).to have_content('Recently Uploaded Datasets')
+      expect(page).to have_content(I18n.t('hyrax.homepage.recently_uploaded.title'))
       expect(page).to_not have_content('Depositor')
       expect(page).to have_content('Analysis')
       expect(page).to have_content('Citation')
