@@ -5,7 +5,7 @@ module RdrSubmissionHelper
   end
 
   def submission_entry(submission, field)
-    label = t("rdr.submissions.label.#{field}")
+    label = t("rdr.submissions.email.label.#{field}")
     "#{label}: #{submission.send(field)}"
   end
 

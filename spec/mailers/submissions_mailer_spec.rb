@@ -28,7 +28,7 @@ RSpec.describe SubmissionsMailer, type: :mailer do
       errors.full_messages.each do |msg|
         expect(mail.body.encoded).to match(msg)
       end
-      expect(mail.body.encoded).to match("#{I18n.t('rdr.submissions.label.deposit_agreement')}: #{submission_attrs[:deposit_agreement]}")
+      expect(mail.body.encoded).to match("#{I18n.t('rdr.submissions.email.label.deposit_agreement')}: #{submission_attrs[:deposit_agreement]}")
     end
   end
 
@@ -43,8 +43,8 @@ RSpec.describe SubmissionsMailer, type: :mailer do
       expect(mail.subject).to eq(I18n.t('rdr.submissions.email.screened_out.subject'))
       expect(mail.body.encoded).to match("Submitter: #{submitter.display_name}")
       expect(mail.body.encoded).to match("Net ID: #{submitter.netid}")
-      expect(mail.body.encoded).to match("#{I18n.t('rdr.submissions.label.screening_pii')}: #{submission_attrs[:screening_pii]}")
-      expect(mail.body.encoded).to_not match("#{I18n.t('rdr.submissions.label.screening_funding')}:")
+      expect(mail.body.encoded).to match("#{I18n.t('rdr.submissions.email.label.screening_pii')}: #{submission_attrs[:screening_pii]}")
+      expect(mail.body.encoded).to_not match("#{I18n.t('rdr.submissions.email.label.screening_funding')}:")
     end
   end
 
@@ -74,10 +74,10 @@ RSpec.describe SubmissionsMailer, type: :mailer do
       expect(mail.body.encoded).to match("Submission Folder Name: #{submission_folder.name}")
       expect(mail.body.encoded).to match("Submission Folder URL: #{submission_folder_url}")
       expect(mail.body.encoded).to match(submission_instructions)
-      expect(mail.body.encoded).to match("#{I18n.t('rdr.submissions.label.screening_pii')}: #{submission_attrs[:screening_pii]}")
-      expect(mail.body.encoded).to match("#{I18n.t('rdr.submissions.label.title')}: #{submission_attrs[:title]}")
-      expect(mail.body.encoded).to match("#{I18n.t('rdr.submissions.label.authors')}: #{submission_attrs[:authors]}")
-      expect(mail.body.encoded).to_not match("#{I18n.t('rdr.submissions.label.contributors')}:")
+      expect(mail.body.encoded).to match("#{I18n.t('rdr.submissions.email.label.screening_pii')}: #{submission_attrs[:screening_pii]}")
+      expect(mail.body.encoded).to match("#{I18n.t('rdr.submissions.email.label.title')}: #{submission_attrs[:title]}")
+      expect(mail.body.encoded).to match("#{I18n.t('rdr.submissions.email.label.authors')}: #{submission_attrs[:authors]}")
+      expect(mail.body.encoded).to_not match("#{I18n.t('rdr.submissions.email.label.contributors')}:")
     end
   end
 

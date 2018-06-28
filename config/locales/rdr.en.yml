@@ -33,34 +33,34 @@ en:
         error:
           subject: 'Research Data Form Submission Error'
           message: 'The following errors were encountered while processing a form submission'
+        label:
+          screening_guidelines: Submission Guidelines Read
+          screening_pii: Sensitive Data
+          screening_license: Right to Assign License
+          screening_funding: Grant Funded
+          screening_funded_size: Funded Data Size
+          screening_nonfunded_size: Non-Funded Data Size
+          deposit_agreement: Deposit Agreement
+          title: Title
+          authors: Creators/Authors
+          contributors: Additional Contributors
+          affiliations: Affiliation
+          contact_info: Contact Info
+          description: Description
+          keywords: Keywords
+          geo_areas: Geographic Areas
+          dates: Data Collection Dates
+          languages: Languages
+          formats: Formats
+          related_materials: Related Materials
+          doi_exists: DOI Exists
+          doi: DOI
+          using_cco: Use CC0
+          cc_license: CC License
         screened_out:
           subject: 'Research Data Form Submission'
         success:
           subject: 'Depositing Data in the Duke Digital Repository'
-      label:
-        screening_guidelines: Submission Guidelines Read
-        screening_pii: Sensitive Data
-        screening_license: Right to Assign License
-        screening_funding: Grant Funded
-        screening_funded_size: Funded Data Size
-        screening_nonfunded_size: Non-Funded Data Size
-        deposit_agreement: Deposit Agreement
-        title: Title
-        authors: Creators/Authors
-        contributors: Additional Contributors
-        affiliations: Affiliation
-        contact_info: Contact Info
-        description: Description
-        keywords: Keywords
-        geo_areas: Geographic Areas
-        dates: Data Collection Dates
-        languages: Languages
-        formats: Formats
-        related_materials: Related Materials
-        doi_exists: DOI Exists
-        doi: DOI
-        using_cco: Use CC0
-        cc_license: CC License
       warnings:
         required_question_html: 'Please answer this question.'
         required_questions_html: 'Please complete the fields marked below.'

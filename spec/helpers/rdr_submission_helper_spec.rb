@@ -22,7 +22,7 @@ RSpec.describe RdrSubmissionHelper, type: :helper do
     let(:authors_value) { 'Spade, Sam; Fletcher, Jessica' }
     let(:submission) { Submission.new(authors: authors_value) }
     before do
-      allow(helper).to receive(:t).with('rdr.submissions.label.authors') { 'Authors' }
+      allow(helper).to receive(:t).with('rdr.submissions.email.label.authors') { 'Authors' }
     end
     it 'returns the label and value' do
       expect(helper.submission_entry(submission, :authors)).to eq("#{authors_label}: #{authors_value}")
