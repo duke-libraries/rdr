@@ -22,11 +22,11 @@ RSpec.describe Submission, type: :model do
         let(:args) do
           { deposit_agreement: 'I agree',
             title: 'Submission Title',
-            authors: 'Spade, Sam',
+            creator: 'Spade, Sam',
             description: 'Description of my research',
-            keywords: 'awesome',
+            keyword: 'awesome',
             doi_exists: 'no',
-            using_cco: 'will use cc0'
+            using_cc0: 'will use cc0'
           }
         end
         specify { expect(subject.valid?).to be true }
@@ -42,11 +42,11 @@ RSpec.describe Submission, type: :model do
         let(:args) do
           { deposit_agreement: 'I agree',
             title: 'Submission Title',
-            authors: 'Spade, Sam',
+            creator: 'Spade, Sam',
             description: 'Description of my research',
-            keywords: 'awesome',
+            keyword: 'awesome',
             doi_exists: 'yes',
-            using_cco: 'yes'
+            using_cc0: 'will use cc0'
           }
         end
         specify { expect(subject.valid?).to be false }
@@ -55,11 +55,11 @@ RSpec.describe Submission, type: :model do
         let(:args) do
           { deposit_agreement: 'I agree',
             title: 'Submission Title',
-            authors: 'Spade, Sam',
+            creator: 'Spade, Sam',
             description: 'Description of my research',
-            keywords: 'awesome',
+            keyword: 'awesome',
             doi_exists: 'no',
-            using_cco: 'no'
+            using_cc0: 'will not use cc0'
           }
         end
         specify { expect(subject.valid?).to be false }

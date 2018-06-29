@@ -4,15 +4,15 @@ RSpec.describe RdrSubmissionHelper, type: :helper do
 
   describe '#include_submission_entry?' do
     let(:authors_value) { 'Spade, Sam; Fletcher, Jessica' }
-    let(:submission) { Submission.new(authors: authors_value) }
+    let(:submission) { Submission.new(creator: authors_value) }
     describe 'has value' do
       it 'returns true' do
-        expect(helper.include_submission_entry?(submission, :authors)).to be true
+        expect(helper.include_submission_entry?(submission, :creator)).to be true
       end
     end
     describe 'does not have value' do
       it 'returns true' do
-        expect(helper.include_submission_entry?(submission, :contributors)).to be false
+        expect(helper.include_submission_entry?(submission, :contributor)).to be false
       end
     end
   end
@@ -20,12 +20,12 @@ RSpec.describe RdrSubmissionHelper, type: :helper do
   describe '#submission_entry' do
     let(:authors_label) { 'Authors' }
     let(:authors_value) { 'Spade, Sam; Fletcher, Jessica' }
-    let(:submission) { Submission.new(authors: authors_value) }
+    let(:submission) { Submission.new(creator: authors_value) }
     before do
-      allow(helper).to receive(:t).with('rdr.submissions.email.label.authors') { 'Authors' }
+      allow(helper).to receive(:t).with('rdr.submissions.email.label.creator') { 'Authors' }
     end
     it 'returns the label and value' do
-      expect(helper.submission_entry(submission, :authors)).to eq("#{authors_label}: #{authors_value}")
+      expect(helper.submission_entry(submission, :creator)).to eq("#{authors_label}: #{authors_value}")
     end
   end
 

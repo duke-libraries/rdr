@@ -267,29 +267,29 @@
 
               <!-- Authors -->
               <div class="form-group">
-                <%= f.label :authors, t("rdr.submissions.labels.question8_label"), :class => 'required' %>
-                <%= f.text_area :authors, :required => true, :class => 'form-control' %>
+                <%= f.label :creator, t("rdr.submissions.labels.question8_label"), :class => 'required' %>
+                <%= f.text_area :creator, :required => true, :class => 'form-control' %>
               </div>
 
 
               <!-- Contributors -->
               <div class="form-group">
-                <%= f.label :contributors, t("rdr.submissions.labels.question9_label"), :class => '' %>
-                <%= f.text_area :contributors, :class => 'form-control' %>
+                <%= f.label :contributor, t("rdr.submissions.labels.question9_label"), :class => '' %>
+                <%= f.text_area :contributor, :class => 'form-control' %>
               </div>
 
 
               <!-- Affiliations -->
               <div class="form-group">
-                <%= f.label :affiliations, t("rdr.submissions.labels.question10_label"), :class => '' %>
-                <%= f.text_area :affiliations, :class => 'form-control' %>
+                <%= f.label :affiliation, t("rdr.submissions.labels.question10_label"), :class => '' %>
+                <%= f.text_area :affiliation, :class => 'form-control' %>
               </div>
 
 
               <!-- Contact Info -->
               <div class="form-group">
-                <%= f.label :contact_info, t("rdr.submissions.labels.question11_label"), :class => '' %>
-                <%= f.text_area :contact_info, :class => 'form-control' %>
+                <%= f.label :contact, t("rdr.submissions.labels.question11_label"), :class => '' %>
+                <%= f.text_area :contact, :class => 'form-control' %>
               </div>
 
 
@@ -302,44 +302,44 @@
 
               <!-- Keywords -->
               <div class="form-group">
-                <%= f.label :keywords, t("rdr.submissions.labels.question13_label"), :class => 'required' %>
-                <%= f.text_area :keywords, :required => true, :class => 'form-control' %>
+                <%= f.label :keyword, t("rdr.submissions.labels.question13_label"), :class => 'required' %>
+                <%= f.text_area :keyword, :required => true, :class => 'form-control' %>
               </div>
 
 
               <!-- Geo Areas -->
               <div class="form-group">
-                <%= f.label :geo_areas, t("rdr.submissions.labels.question14_label"), :class => '' %>
-                <%= f.text_area :geo_areas, :class => 'form-control' %>
+                <%= f.label :based_near, t("rdr.submissions.labels.question14_label"), :class => '' %>
+                <%= f.text_area :based_near, :class => 'form-control' %>
               </div>
 
 
               <!-- Dates -->
               <div class="form-group">
-                <%= f.label :dates, t("rdr.submissions.labels.question15_label"), :class => '' %>
-                <%= f.text_area :dates, :class => 'form-control' %>
+                <%= f.label :temporal, t("rdr.submissions.labels.question15_label"), :class => '' %>
+                <%= f.text_area :temporal, :class => 'form-control' %>
               </div>
 
 
               <!-- Languages -->
               <div class="form-group">
-                <%= f.label :languages, t("rdr.submissions.labels.question16_label"), :class => '' %>
-                <%= f.text_area :languages, :class => 'form-control' %>
+                <%= f.label :language, t("rdr.submissions.labels.question16_label"), :class => '' %>
+                <%= f.text_area :language, :class => 'form-control' %>
               </div>
 
 
               <!-- Formats -->
               <div class="form-group">
-                <%= f.label :formats, t("rdr.submissions.labels.question17_label"), :class => '' %>
-                <%= f.text_area :formats, :class => 'form-control' %>
+                <%= f.label :format, t("rdr.submissions.labels.question17_label"), :class => '' %>
+                <%= f.text_area :format, :class => 'form-control' %>
               </div>
 
 
 
               <!-- Related Materials -->
               <div class="form-group">
-                <%= f.label :related_materials, t("rdr.submissions.labels.question18_label"), :class => '' %>
-                <%= f.text_area :related_materials, :class => 'form-control' %>
+                <%= f.label :related_url, t("rdr.submissions.labels.question18_label"), :class => '' %>
+                <%= f.text_area :related_url, :class => 'form-control' %>
               </div>
 
             </fieldset>
@@ -403,21 +403,21 @@
 
               <div class="btn-group" data-toggle="buttons">
 
-                <%= f.label :using_cco, :class => 'btn btn-default btn-lg btn-block', :onclick => 'hideMy("cc_license");' do %>
-                  <%= f.radio_button :using_cco, 'will use cc0', {:required => true} %> <%= t("rdr.submissions.labels.question21_label1") %>
+                <%= f.label :using_cc0, :class => 'btn btn-default btn-lg btn-block', :onclick => 'hideMy("license");' do %>
+                  <%= f.radio_button :using_cc0, 'will use cc0', {:required => true} %> <%= t("rdr.submissions.labels.question21_label1") %>
                 <% end %>
 
-                <%= f.label :using_cco, :class => 'btn btn-default btn-lg btn-block', :onclick => 'showMy("cc_license");' do %>
-                  <%= f.radio_button :using_cco, 'will not use cc0', {:required => true} %> <%= t("rdr.submissions.labels.question21_label2") %>
+                <%= f.label :using_cc0, :class => 'btn btn-default btn-lg btn-block', :onclick => 'showMy("license");' do %>
+                  <%= f.radio_button :using_cc0, 'will not use cc0', {:required => true} %> <%= t("rdr.submissions.labels.question21_label2") %>
                 <% end %>
 
               </div>
 
 
               <!-- show/hide based on above -->
-              <div class="form-group hidden" id="cc_license_wrapper">
-                <%= f.label :cc_license, t("rdr.submissions.labels.question22_label") %>
-                <%= f.text_field :cc_license, disabled: true, :required => true, :class => 'form-control' %>
+              <div class="form-group hidden" id="license_wrapper">
+                <%= f.label :license, t("rdr.submissions.labels.question22_label") %>
+                <%= f.text_field :license, disabled: true, :required => true, :class => 'form-control' %>
               </div>
 
 

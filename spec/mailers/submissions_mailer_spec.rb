@@ -50,7 +50,7 @@ RSpec.describe SubmissionsMailer, type: :mailer do
 
   describe 'notify success' do
     let(:submission_attrs) { { submitter: submitter, title: 'My Research Data Project', screening_pii: 'false',
-                               authors: 'Spade, Sam; Tracy, Dick; Fletcher, Jessica' } }
+                               creator: 'Spade, Sam; Tracy, Dick; Fletcher, Jessica' } }
     let(:submission_folder_id) { '1234567890' }
     let(:submission_folder_name) { "#{submitter.netid}_201804211423" }
     let(:submission_folder) { double('BoxrMash', etag: '0',  id: submission_folder_id, name: submission_folder_name,
@@ -76,8 +76,8 @@ RSpec.describe SubmissionsMailer, type: :mailer do
       expect(mail.body.encoded).to match(submission_instructions)
       expect(mail.body.encoded).to match("#{I18n.t('rdr.submissions.email.label.screening_pii')}: #{submission_attrs[:screening_pii]}")
       expect(mail.body.encoded).to match("#{I18n.t('rdr.submissions.email.label.title')}: #{submission_attrs[:title]}")
-      expect(mail.body.encoded).to match("#{I18n.t('rdr.submissions.email.label.authors')}: #{submission_attrs[:authors]}")
-      expect(mail.body.encoded).to_not match("#{I18n.t('rdr.submissions.email.label.contributors')}:")
+      expect(mail.body.encoded).to match("#{I18n.t('rdr.submissions.email.label.creator')}: #{submission_attrs[:creator]}")
+      expect(mail.body.encoded).to_not match("#{I18n.t('rdr.submissions.email.label.contributor')}:")
     end
   end
 

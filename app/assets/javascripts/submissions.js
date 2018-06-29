@@ -140,9 +140,9 @@ function validateForm() {
         }
 
         if (currentTab == 9 && y[i].value == "will not use cc0") {
-          if (document.getElementById("submission_cc_license").value == "") {
+          if (document.getElementById("submission_license").value == "") {
             document
-              .getElementById("submission_cc_license")
+              .getElementById("submission_license")
               .classList.add("text-area-empty");
             document
               .getElementById("t" + currentTab)
@@ -154,9 +154,9 @@ function validateForm() {
             break;
           }
 
-          if (document.getElementById("submission_cc_license").value != "") {
+          if (document.getElementById("submission_license").value != "") {
             document
-              .getElementById("submission_cc_license")
+              .getElementById("submission_license")
               .classList.remove("text-area-empty");
           }
         }

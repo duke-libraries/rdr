@@ -42,21 +42,21 @@ en:
           screening_nonfunded_size: Non-Funded Data Size
           deposit_agreement: Deposit Agreement
           title: Title
-          authors: Creators/Authors
-          contributors: Additional Contributors
-          affiliations: Affiliation
-          contact_info: Contact Info
+          creator: Creators/Authors
+          contributor: Additional Contributors
+          affiliation: Affiliation
+          contact: Contact Info
           description: Description
-          keywords: Keywords
-          geo_areas: Geographic Areas
-          dates: Data Collection Dates
-          languages: Languages
-          formats: Formats
-          related_materials: Related Materials
+          keyword: Keywords
+          based_near: Geographic Areas
+          tempoarl: Data Collection Dates
+          language: Languages
+          format: Formats
+          related_url: Related Materials
           doi_exists: DOI Exists
           doi: DOI
-          using_cco: Use CC0
-          cc_license: CC License
+          using_cc0: Use CC0
+          license: CC License
         screened_out:
           subject: 'Research Data Form Submission'
         success:
