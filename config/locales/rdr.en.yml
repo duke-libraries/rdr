@@ -49,7 +49,7 @@ en:
           description: Description
           keyword: Keywords
           based_near: Geographic Areas
-          tempoarl: Data Collection Dates
+          temporal: Data Collection Dates
           language: Languages
           format: Formats
           related_url: Related Materials
