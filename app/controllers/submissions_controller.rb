@@ -8,17 +8,20 @@ class SubmissionsController < ApplicationController
 
   def create
     @submission.submitter = current_user
-    if @submission.past_screening?
-      if @submission.valid?
+    if @submission.valid?
+      if @submission.passed_screening?
+        deposit_agreement_path = Submissions::DocumentDepositAgreement.call(@submission.submitter)
+        Submissions::InitializeSubmissionFolder.call(@submission.submitter,
+                                                     deposit_agreement: deposit_agreement_path)
         SubmissionsMailer.notify_success(@submission)
         render :create
       else
-        SubmissionsMailer.notify_error(@submission)
-        render :error
+        SubmissionsMailer.notify_screened_out(@submission)
+        render :screened_out
       end
     else
-      SubmissionsMailer.notify_screened_out(@submission)
-      render :screened_out
+      SubmissionsMailer.notify_error(@submission)
+      render :error
     end
   end
 

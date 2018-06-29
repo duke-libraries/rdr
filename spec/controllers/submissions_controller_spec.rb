@@ -24,7 +24,59 @@ RSpec.describe SubmissionsController, type: :controller do
       expect_any_instance_of(Submission).to receive(:valid?)
       post :create, params: { submission: { deposit_agreement: 'I agree' } }
     end
-    describe 'submission valid'
+    describe 'submission valid' do
+      before do
+        allow_any_instance_of(Submission).to receive(:valid?) { true }
+      end
+      describe 'submission passed screening' do
+        let(:deposit_agreement_path) { '/tmp/deposit_agreement.txt' }
+        before do
+          allow(Submissions::DocumentDepositAgreement).to receive(:call) { deposit_agreement_path }
+          allow(Submissions::InitializeSubmissionFolder).to receive(:call)
+        end
+        describe 'deposit agreement' do
+          it 'documents the deposit agreement' do
+            expect(Submissions::DocumentDepositAgreement).to receive(:call).with(user)
+            post :create, params: { submission: { deposit_agreement: 'I agree' } }
+          end
+        end
+        describe 'manifest file' do
+          it 'generates a manifest file'
+        end
+        describe 'submission folder initialization' do
+          it 'initializes a submission folder' do
+            expect(Submissions::InitializeSubmissionFolder).to receive(:call)
+                                                                   .with(user,
+                                                                         deposit_agreement: deposit_agreement_path)
+            post :create, params: { submission: { deposit_agreement: 'I agree' } }
+          end
+        end
+        describe 'notifications' do
+          before do
+            allow(Submissions::DocumentDepositAgreement).to receive(:call)
+            allow(Submissions::InitializeSubmissionFolder).to receive(:call)
+          end
+          it 'emails a success message' do
+            expect(SubmissionsMailer).to receive(:notify_success)
+            post :create, params: { submission: { deposit_agreement: 'I agree' } }
+          end
+          it 'renders the create page' do
+            post :create, params: { submission: { deposit_agreement: 'I agree' } }
+            expect(response).to render_template(:create)
+          end
+        end
+      end
+      describe 'submission did not pass screening' do
+        it 'emails a screened out message' do
+          expect(SubmissionsMailer).to receive(:notify_screened_out)
+          post :create, params: { submission: { screening_guidelines: 'no' } }
+        end
+        it 'renders the screened out page' do
+          post :create, params: { submission: { screening_guidelines: 'no' } }
+          expect(response).to render_template(:screened_out)
+        end
+      end
+    end
     describe 'submission not valid' do
       before do
         allow_any_instance_of(Submission).to receive(:valid?) { false }

@@ -6,19 +6,19 @@ RSpec.describe Submission, type: :model do
 
   describe 'validation' do
 
-    describe '#past_screening?' do
+    describe '#passed_screening?' do
       describe 'deposit agreement accepted' do
         let(:args) { { deposit_agreement: 'I agree' } }
-        specify { expect(subject.past_screening?).to be true }
+        specify { expect(subject.passed_screening?).to be true }
       end
       describe 'deposit agreement not accepted' do
         let(:args) { { } }
-        specify { expect(subject.past_screening?).to be false }
+        specify { expect(subject.passed_screening?).to be false }
       end
     end
 
     describe 'valid submission' do
-      describe 'past screening' do
+      describe 'passed screening' do
         let(:args) do
           { deposit_agreement: 'I agree',
             title: 'Submission Title',
@@ -26,12 +26,12 @@ RSpec.describe Submission, type: :model do
             description: 'Description of my research',
             keywords: 'awesome',
             doi_exists: 'no',
-            using_cco: 'will use cco'
+            using_cco: 'will use cc0'
           }
         end
         specify { expect(subject.valid?).to be true }
       end
-      describe 'not past screening' do
+      describe 'did not pass screening' do
         let(:args) { { } }
         specify { expect(subject.valid?).to be true }
       end

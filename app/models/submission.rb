@@ -12,13 +12,13 @@ class Submission
 
   attr_accessor :submitter, *ATTRIBUTES
 
-  with_options if: :past_screening? do |completed|
+  with_options if: :passed_screening? do |completed|
     completed.validates_presence_of :title, :authors, :description, :keywords, :doi_exists, :using_cco
     completed.validates_presence_of :doi, if: :existing_doi?
     completed.validates_presence_of :cc_license, unless: :use_cc0?
   end
 
-  def past_screening?
+  def passed_screening?
     deposit_agreement == 'I agree'
   end
 
@@ -29,7 +29,7 @@ class Submission
   end
 
   def use_cc0?
-    using_cco == 'will use cco'
+    using_cco == 'will use cc0'
   end
 
 end
