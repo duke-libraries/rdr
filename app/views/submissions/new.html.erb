@@ -56,11 +56,11 @@
               <div class="btn-group" data-toggle="buttons">
 
                 <%= f.label :screening_guidelines, :class => 'btn btn-default btn-lg btn-block' do %>
-                  <%= f.radio_button :screening_guidelines, 'ready', {:required => true} %> <%= t("rdr.submissions.labels.question1_label1") %>
+                  <%= f.radio_button :screening_guidelines, Submission::READY, {:required => true} %> <%= t("rdr.submissions.labels.question1_label1") %>
                 <% end %>
 
                 <%= f.label :screening_guidelines, :class => 'btn btn-default btn-lg btn-block' do %>
-                  <%= f.radio_button :screening_guidelines, 'not ready', {:required => true} %> <%= t("rdr.submissions.labels.question1_label2") %>
+                  <%= f.radio_button :screening_guidelines, Submission::NOT_READY, {:required => true} %> <%= t("rdr.submissions.labels.question1_label2") %>
                 <% end %>
 
               </div>
@@ -176,11 +176,11 @@
                   <div class="btn-group" data-toggle="buttons">
 
                     <%= f.label :screening_funded_size, :class => 'btn btn-default btn-lg btn-block' do %>
-                      <%= f.radio_button :screening_funded_size, 'less than 10 GB', :id =>'funded-size-1' %> <%= t("rdr.submissions.labels.question5a_label1") %>
+                      <%= f.radio_button :screening_funded_size, Submission::LESS_THAN_10_GB, :id =>'funded-size-1' %> <%= t("rdr.submissions.labels.question5a_label1") %>
                     <% end %>
 
                     <%= f.label :screening_funded_size, :class => 'btn btn-default btn-lg btn-block' do %>
-                      <%= f.radio_button :screening_funded_size, 'more than 10 GB', :id =>'funded-size-2' %> <%= t("rdr.submissions.labels.question5a_label2") %>
+                      <%= f.radio_button :screening_funded_size, Submission::MORE_THAN_10_GB, :id =>'funded-size-2' %> <%= t("rdr.submissions.labels.question5a_label2") %>
                     <% end %>
 
                   </div>
@@ -196,11 +196,11 @@
                   <div class="btn-group" data-toggle="buttons">
 
                     <%= f.label :screening_nonfunded_size, :class => 'btn btn-default btn-lg btn-block' do %>
-                      <%= f.radio_button :screening_nonfunded_size, 'less than 2.5 GB', :id =>'nonfunded-size-1' %> <%= t("rdr.submissions.labels.question5b_label1") %>
+                      <%= f.radio_button :screening_nonfunded_size, Submission::LESS_THAN_2_5_GB, :id =>'nonfunded-size-1' %> <%= t("rdr.submissions.labels.question5b_label1") %>
                     <% end %>
 
                     <%= f.label :screening_nonfunded_size, :class => 'btn btn-default btn-lg btn-block' do %>
-                      <%= f.radio_button :screening_nonfunded_size, 'more than 2.5 GB', :id =>'nonfunded-size-2' %> <%= t("rdr.submissions.labels.question5b_label2") %>
+                      <%= f.radio_button :screening_nonfunded_size, Submission::MORE_THAN_2_5_GB, :id =>'nonfunded-size-2' %> <%= t("rdr.submissions.labels.question5b_label2") %>
                     <% end %>
 
                   </div>
@@ -229,11 +229,11 @@
               <div class="btn-group" data-toggle="buttons">
 
                 <%= f.label :deposit_agreement, :class => 'btn btn-default btn-lg btn-block' do %>
-                  <%= f.radio_button :deposit_agreement, 'I agree', {:required => true, :id =>'deposit-agreement-1'} %> <%= t("rdr.submissions.labels.question6_label1") %>
+                  <%= f.radio_button :deposit_agreement, Submission::AGREE, {:required => true, :id =>'deposit-agreement-1'} %> <%= t("rdr.submissions.labels.question6_label1") %>
                 <% end %>
 
                 <%= f.label :deposit_agreement, :class => 'btn btn-default btn-lg btn-block' do %>
-                  <%= f.radio_button :deposit_agreement, 'I do not agree', {:required => true, :id =>'deposit-agreement-2'} %> <%= t("rdr.submissions.labels.question6_label2") %>
+                  <%= f.radio_button :deposit_agreement, Submission::NOT_AGREE, {:required => true, :id =>'deposit-agreement-2'} %> <%= t("rdr.submissions.labels.question6_label2") %>
                 <% end %>
 
               </div>
@@ -404,11 +404,11 @@
               <div class="btn-group" data-toggle="buttons">
 
                 <%= f.label :using_cc0, :class => 'btn btn-default btn-lg btn-block', :onclick => 'hideMy("license");' do %>
-                  <%= f.radio_button :using_cc0, 'will use cc0', {:required => true} %> <%= t("rdr.submissions.labels.question21_label1") %>
+                  <%= f.radio_button :using_cc0, Submission::USE_CC0, {:required => true} %> <%= t("rdr.submissions.labels.question21_label1") %>
                 <% end %>
 
                 <%= f.label :using_cc0, :class => 'btn btn-default btn-lg btn-block', :onclick => 'showMy("license");' do %>
-                  <%= f.radio_button :using_cc0, 'will not use cc0', {:required => true} %> <%= t("rdr.submissions.labels.question21_label2") %>
+                  <%= f.radio_button :using_cc0, Submission::NOT_USE_CC0, {:required => true} %> <%= t("rdr.submissions.labels.question21_label2") %>
                 <% end %>
 
               </div>

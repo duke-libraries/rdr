@@ -10,6 +10,24 @@ class Submission
 
   ATTRIBUTES = SCREENING_ATTRIBUTES + SUBMISSION_ATTRIBUTES
 
+  # Readiness to submit data
+  READY = 'ready'
+  NOT_READY = 'not ready'
+
+  # Data size
+  LESS_THAN_2_5_GB = 'less than 2.5 GB'
+  MORE_THAN_2_5_GB = 'more than 2.5 GB'
+  LESS_THAN_10_GB = 'less than 10 GB'
+  MORE_THAN_10_GB = 'more than 10 GB'
+
+  # Agreement to deposit agreement
+  AGREE = 'I agree'
+  NOT_AGREE = 'I do not agree'
+
+  # Willingness to use cc0
+  USE_CC0 = 'will use cc0'
+  NOT_USE_CC0 = 'will not use cc0'
+
   attr_accessor :submitter, *ATTRIBUTES
 
   with_options if: :passed_screening? do |completed|
@@ -19,7 +37,7 @@ class Submission
   end
 
   def passed_screening?
-    deposit_agreement == 'I agree'
+    deposit_agreement == AGREE
   end
 
   private
@@ -29,7 +47,7 @@ class Submission
   end
 
   def use_cc0?
-    using_cc0 == 'will use cc0'
+    using_cc0 == USE_CC0
   end
 
 end

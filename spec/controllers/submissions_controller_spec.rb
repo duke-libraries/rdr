@@ -22,7 +22,7 @@ RSpec.describe SubmissionsController, type: :controller do
     end
     it 'validates the submission object' do
       expect_any_instance_of(Submission).to receive(:valid?)
-      post :create, params: { submission: { deposit_agreement: 'I agree' } }
+      post :create, params: { submission: { deposit_agreement: Submission::AGREE } }
     end
     describe 'submission valid' do
       before do
@@ -37,7 +37,7 @@ RSpec.describe SubmissionsController, type: :controller do
         describe 'deposit agreement' do
           it 'documents the deposit agreement' do
             expect(Submissions::DocumentDepositAgreement).to receive(:call).with(user)
-            post :create, params: { submission: { deposit_agreement: 'I agree' } }
+            post :create, params: { submission: { deposit_agreement: Submission::AGREE } }
           end
         end
         describe 'manifest file' do
@@ -48,7 +48,7 @@ RSpec.describe SubmissionsController, type: :controller do
             expect(Submissions::InitializeSubmissionFolder).to receive(:call)
                                                                    .with(user,
                                                                          deposit_agreement: deposit_agreement_path)
-            post :create, params: { submission: { deposit_agreement: 'I agree' } }
+            post :create, params: { submission: { deposit_agreement: Submission::AGREE } }
           end
         end
         describe 'notifications' do
@@ -58,10 +58,10 @@ RSpec.describe SubmissionsController, type: :controller do
           end
           it 'emails a success message' do
             expect(SubmissionsMailer).to receive(:notify_success)
-            post :create, params: { submission: { deposit_agreement: 'I agree' } }
+            post :create, params: { submission: { deposit_agreement: Submission::AGREE } }
           end
           it 'renders the create page' do
-            post :create, params: { submission: { deposit_agreement: 'I agree' } }
+            post :create, params: { submission: { deposit_agreement: Submission::AGREE } }
             expect(response).to render_template(:create)
           end
         end
@@ -83,10 +83,10 @@ RSpec.describe SubmissionsController, type: :controller do
       end
       it 'emails an error message' do
         expect(SubmissionsMailer).to receive(:notify_error)
-        post :create, params: { submission: { deposit_agreement: 'I agree' } }
+        post :create, params: { submission: { deposit_agreement: Submission::AGREE } }
       end
       it 'renders the error page' do
-        post :create, params: { submission: { deposit_agreement: 'I agree' } }
+        post :create, params: { submission: { deposit_agreement: Submission::AGREE } }
         expect(response).to render_template(:error)
       end
     end

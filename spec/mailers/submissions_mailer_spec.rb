@@ -10,7 +10,7 @@ RSpec.describe SubmissionsMailer, type: :mailer do
   end
 
   describe 'notify error' do
-    let(:submission_attrs) { { submitter: submitter, deposit_agreement: 'I agree' } }
+    let(:submission_attrs) { { submitter: submitter, deposit_agreement: Submission::AGREE } }
     let(:errors) { ActiveModel::Errors.new(submission) }
     before do
       errors.add(:title, :blank, message: "can't be blank")
