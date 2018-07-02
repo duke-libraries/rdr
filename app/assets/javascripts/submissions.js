@@ -53,6 +53,13 @@ function nextPrev(n) {
   showTab(currentTab);
 }
 
+// string values passed from rails constants
+var t1_exclude = document.getElementById("submission-values").getAttribute("data-t1-not-ready");
+var t5a_exclude = document.getElementById("submission-values").getAttribute("data-t5-more-than-2-5");
+var t5b_exclude = document.getElementById("submission-values").getAttribute("data-t5-more-than-10");
+var t6_exclude = document.getElementById("submission-values").getAttribute("data-t6-not-agree");
+var t9_exclude = document.getElementById("submission-values").getAttribute("data-t9-not-use");
+
 function validateForm() {
   var x,
     y,
@@ -71,7 +78,7 @@ function validateForm() {
       if (y[i].checked == true) {
         // Submit early for certain responses
 
-        if (currentTab == 1 && y[i].value == "not ready") {
+        if (currentTab == 1 && y[i].value == t1_exclude) {
           submitForm = true;
         }
 
@@ -83,15 +90,15 @@ function validateForm() {
           submitForm = true;
         }
 
-        if (currentTab == 5 && y[i].value == "more than 10 GB") {
+        if (currentTab == 5 && y[i].value == t5b_exclude) {
           submitForm = true;
         }
 
-        if (currentTab == 5 && y[i].value == "more than 2.5 GB") {
+        if (currentTab == 5 && y[i].value == t5a_exclude) {
           submitForm = true;
         }
 
-        if (currentTab == 6 && y[i].value == "I do not agree") {
+        if (currentTab == 6 && y[i].value == t6_exclude) {
           submitForm = true;
         }
 
@@ -139,7 +146,7 @@ function validateForm() {
           }
         }
 
-        if (currentTab == 9 && y[i].value == "will not use cc0") {
+        if (currentTab == 9 && y[i].value == t9_exclude) {
           if (document.getElementById("submission_license").value == "") {
             document
               .getElementById("submission_license")
