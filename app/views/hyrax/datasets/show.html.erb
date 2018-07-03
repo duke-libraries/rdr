@@ -16,7 +16,9 @@
         <%= render 'work_description', presenter: @presenter %>
         <%= render 'metadata', presenter: @presenter %>
         <%= render 'items', presenter: @presenter %>
-        <%= render 'dataset_versions', presenter: @presenter %>
+        <% if @presenter.dataset_versions.length > 1 %>
+          <%= render 'dataset_versions', presenter: @presenter %>
+        <% end %>
       </div>
       <div class="contextual-info col-sm-3 text-center">
         <%= render 'representative_media', presenter: @presenter, viewer: false unless @presenter.universal_viewer? %>
