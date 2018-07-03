@@ -19,6 +19,7 @@ module Submissions
       add_deposit_agreement(submission_folder) if deposit_agreement_path.present?
       add_manifest_file(submission_folder) if manifest_path.present?
       add_submitter_as_collaborator(submission_folder)
+      submission_folder
     end
 
     private

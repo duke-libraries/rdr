@@ -30,9 +30,11 @@ RSpec.describe SubmissionsController, type: :controller do
       end
       describe 'submission passed screening' do
         let(:deposit_agreement_path) { '/tmp/deposit_agreement.txt' }
+        let(:folder_name) { "abcdef_201806141734" }
+        let(:submission_folder) { double('BoxrMash', etag: '0',  id: '48011140270', name: folder_name, type: 'folder') }
         before do
           allow(Submissions::DocumentDepositAgreement).to receive(:call) { deposit_agreement_path }
-          allow(Submissions::InitializeSubmissionFolder).to receive(:call)
+          allow(Submissions::InitializeSubmissionFolder).to receive(:call) { submission_folder }
         end
         describe 'deposit agreement' do
           it 'documents the deposit agreement' do
@@ -52,12 +54,9 @@ RSpec.describe SubmissionsController, type: :controller do
           end
         end
         describe 'notifications' do
-          before do
-            allow(Submissions::DocumentDepositAgreement).to receive(:call)
-            allow(Submissions::InitializeSubmissionFolder).to receive(:call)
-          end
           it 'emails a success message' do
-            expect(SubmissionsMailer).to receive(:notify_success)
+            expect(SubmissionsMailer).to receive(:notify_success).and_call_original
+            expect_any_instance_of(ActionMailer::MessageDelivery).to receive(:deliver_now)
             post :create, params: { submission: { deposit_agreement: Submission::AGREE } }
           end
           it 'renders the create page' do
@@ -68,7 +67,8 @@ RSpec.describe SubmissionsController, type: :controller do
       end
       describe 'submission did not pass screening' do
         it 'emails a screened out message' do
-          expect(SubmissionsMailer).to receive(:notify_screened_out)
+          expect(SubmissionsMailer).to receive(:notify_screened_out).and_call_original
+          expect_any_instance_of(ActionMailer::MessageDelivery).to receive(:deliver_now)
           post :create, params: { submission: { screening_guidelines: 'no' } }
         end
         it 'renders the screened out page' do
@@ -82,7 +82,8 @@ RSpec.describe SubmissionsController, type: :controller do
         allow_any_instance_of(Submission).to receive(:valid?) { false }
       end
       it 'emails an error message' do
-        expect(SubmissionsMailer).to receive(:notify_error)
+        expect(SubmissionsMailer).to receive(:notify_error).and_call_original
+        expect_any_instance_of(ActionMailer::MessageDelivery).to receive(:deliver_now)
         post :create, params: { submission: { deposit_agreement: Submission::AGREE } }
       end
       it 'renders the error page' do

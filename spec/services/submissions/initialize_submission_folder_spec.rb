@@ -27,9 +27,10 @@ module Submissions
           allow_any_instance_of(BoxClient).to receive(:add_manifest_file)
           allow_any_instance_of(BoxClient).to receive(:add_collaborator)
         end
-        it 'creates a submission folder' do
-          expect_any_instance_of(BoxClient).to receive(:create_rdr_submission_folder).with(folder_name)
-          subject.call
+        it 'creates and returns a submission folder' do
+          expect_any_instance_of(BoxClient).to receive(:create_rdr_submission_folder).with(folder_name) { submission_folder }
+          response = subject.call
+          expect(response).to eq(submission_folder)
         end
       end
 
