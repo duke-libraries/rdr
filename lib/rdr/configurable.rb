@@ -75,15 +75,6 @@ module Rdr
         ENV["GEONAMES_USER"] || "NOT_SET"
       end
 
-      # The point at which to truncate the display of the description field in index views
-      mattr_accessor :description_truncation_length_index_view do
-        if ENV["DESCRIPTION_TRUNCATION_LENGTH_INDEX_VIEW"].present?
-          ENV["DESCRIPTION_TRUNCATION_LENGTH_INDEX_VIEW"].to_i
-        else
-          250
-        end
-      end
-
       # The base Box folder for RDR Submissions
       mattr_accessor :box_base_folder_rdr_submissions do
         ENV["BOX_BASE_FOLDER_RDR_SUBMISSIONS"] || "NOT_SET"
