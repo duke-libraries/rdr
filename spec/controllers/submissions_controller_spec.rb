@@ -31,9 +31,11 @@ RSpec.describe SubmissionsController, type: :controller do
       describe 'submission passed screening' do
         let(:deposit_agreement_path) { '/tmp/deposit_agreement.txt' }
         let(:folder_name) { "abcdef_201806141734" }
+        let(:manifest_path) { '/tmp/manifest.csv' }
         let(:submission_folder) { double('BoxrMash', etag: '0',  id: '48011140270', name: folder_name, type: 'folder') }
         before do
           allow(Submissions::DocumentDepositAgreement).to receive(:call) { deposit_agreement_path }
+          allow(Submissions::CreateManifest).to receive(:call) { manifest_path }
           allow(Submissions::InitializeSubmissionFolder).to receive(:call) { submission_folder }
         end
         describe 'deposit agreement' do
@@ -43,13 +45,17 @@ RSpec.describe SubmissionsController, type: :controller do
           end
         end
         describe 'manifest file' do
-          it 'generates a manifest file'
+          it 'generates a manifest file' do
+            expect(Submissions::CreateManifest).to receive(:call)
+            post :create, params: { submission: { deposit_agreement: Submission::AGREE } }
+          end
         end
         describe 'submission folder initialization' do
           it 'initializes a submission folder' do
             expect(Submissions::InitializeSubmissionFolder).to receive(:call)
                                                                    .with(user,
-                                                                         deposit_agreement: deposit_agreement_path)
+                                                                         deposit_agreement: deposit_agreement_path,
+                                                                         manifest: manifest_path)
             post :create, params: { submission: { deposit_agreement: Submission::AGREE } }
           end
         end

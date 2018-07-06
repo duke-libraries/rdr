@@ -11,8 +11,10 @@ class SubmissionsController < ApplicationController
     if @submission.valid?
       if @submission.passed_screening?
         deposit_agreement_path = Submissions::DocumentDepositAgreement.call(@submission.submitter)
+        manifest_path = Submissions::CreateManifest.call(@submission)
         submission_folder = Submissions::InitializeSubmissionFolder.call(@submission.submitter,
-                                                                         deposit_agreement: deposit_agreement_path)
+                                                                         deposit_agreement: deposit_agreement_path,
+                                                                         manifest: manifest_path)
         SubmissionsMailer.notify_success(@submission, submission_folder).deliver_now
         render :create
       else
