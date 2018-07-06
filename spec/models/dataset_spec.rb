@@ -53,6 +53,17 @@ RSpec.describe Dataset do
         expect(ability).to be_able_to(:edit, subject.file_sets.first)
       end
     end
+
+    context "nested work" do
+      let(:parent) { FactoryBot.create(:dataset, user: depositor) }
+      let(:attrs) { { title: ['test work'], depositor: depositor.user_key, in_works_ids: [ parent.id ] } }
+      before do
+        allow(User).to receive(:curators).and_return([depositor.user_key])
+      end
+      it "is not indexed as top level" do
+        expect(SolrDocument.find(subject.id).top_level).to be false
+      end
+    end
   end
 
   describe "#latest_dataset_version?" do

@@ -283,3 +283,4 @@ Qa::Authorities::Local.register_subauthority('languages', 'Qa::Authorities::Loca
 Qa::Authorities::Local.register_subauthority('genres', 'Qa::Authorities::Local::TableBasedAuthority')
 
 Hyrax::CurationConcern.actor_factory.insert_after Hyrax::Actors::OptimisticLockValidator, DepositorAccessActor
+Hyrax::CurationConcern.actor_factory.insert_after Hyrax::Actors::OptimisticLockValidator, NestedWorkIndexingActor
