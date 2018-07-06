@@ -79,11 +79,7 @@ module Rdr
       # a long metadata value; click a Read More link to expand.
       # E.g., Description field on a work show page.
       mattr_accessor :expandable_text_word_cutoff do
-        if ENV["EXPANDABLE_TEXT_WORD_CUTOFF"].present?
-          ENV["EXPANDABLE_TEXT_WORD_CUTOFF"].to_i
-        else
-          105
-        end
+        ENV.fetch("EXPANDABLE_TEXT_WORD_CUTOFF", 105).to_i
       end
 
       # The base Box folder for RDR Submissions
