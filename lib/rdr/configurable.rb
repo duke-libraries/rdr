@@ -75,6 +75,17 @@ module Rdr
         ENV["GEONAMES_USER"] || "NOT_SET"
       end
 
+      # The number of words (space-delimited) at which to collapse the display of
+      # a long metadata value; click a Read More link to expand.
+      # E.g., Description field on a work show page.
+      mattr_accessor :expandable_text_word_cutoff do
+        if ENV["EXPANDABLE_TEXT_WORD_CUTOFF"].present?
+          ENV["EXPANDABLE_TEXT_WORD_CUTOFF"].to_i
+        else
+          105
+        end
+      end
+
       # The base Box folder for RDR Submissions
       mattr_accessor :box_base_folder_rdr_submissions do
         ENV["BOX_BASE_FOLDER_RDR_SUBMISSIONS"] || "NOT_SET"

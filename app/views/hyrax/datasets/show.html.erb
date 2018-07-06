@@ -9,11 +9,12 @@
 
     <div class="row work-show-columns">
 
-      <div class="col-sm-9">
+      <div class="col-sm-9 main-column">
         <% if @presenter.universal_viewer? %>
           <%= render 'representative_media', presenter: @presenter, viewer: true %>
         <% end %>
         <%= render 'work_description', presenter: @presenter %>
+        <%= render 'work_citation', presenter: @presenter %>
         <%= render 'metadata', presenter: @presenter %>
         <%= render 'items', presenter: @presenter %>
         <% if @presenter.dataset_versions.length > 1 %>

@@ -22,3 +22,4 @@
 //= require_tree .
 //= stub submissions.js
 //= require hyrax
+//= require rdr-show.js
