@@ -32,5 +32,17 @@ RSpec.describe User do
       expect(User.audit_user.can_receive_deposits_from).to be_empty
       expect(User.batch_user.can_receive_deposits_from).to be_empty
      end
+ end
+
+  describe '#netid' do
+    subject { described_class.new(uid: uid) }
+    describe 'Duke user' do
+      let(:uid) { 'user1@duke.edu' }
+      its(:netid) { is_expected.to eq 'user1' }
+    end
+    describe 'non-Duke user' do
+      let(:uid) { 'user1@inst.edu' }
+      its(:netid) { is_expected.to be nil }
+    end
   end
 end

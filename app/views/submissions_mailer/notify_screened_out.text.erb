@@ -1,0 +1,10 @@
+<%= t('rdr.submissions.email.screened_out.subject') %>
+
+Submitter: <%= @submission.submitter.display_name %>
+Net ID: <%= @submission.submitter.user_key.split('@').first %>
+
+<% Submission::ATTRIBUTES.each do |attr| %>
+  <% if include_submission_entry?(@submission, attr) %>
+    <%= submission_entry(@submission, attr) %>
+  <% end %>
+<% end %>

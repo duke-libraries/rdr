@@ -1,11 +1,11 @@
 <%# NOTE: Overrides Hyrax partial %>
 <div class="col-md-6 column-extra-padding">
 
-  <p class="lead text-center">This is the prototype for the Duke University Libraries Archive of Research Collections.</p>
+  <p class="lead text-center">This repository provides access to data created in support of research at Duke. It is a service of Duke University Libraries.</p>
 
   <div class="text-center">
     <%= link_to "Get Started Sharing Your Data",
-        "https://duke.qualtrics.com/jfe/form/SV_3W1a7Zkar5BmmLb",
+        main_app.new_submission_path,
         class: "btn btn-primary" %>
   </div>
 
@@ -16,7 +16,7 @@
 
   <div id="recently_uploaded">
 
-    <h4 class="text-center">Recently Uploaded Datasets</h4>
+    <h4 class="text-center"><%= t('hyrax.homepage.recently_uploaded.title') %></h4>
 
     <%= render 'recently_uploaded', recent_documents: @recent_documents %>
 

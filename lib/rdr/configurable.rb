@@ -75,13 +75,31 @@ module Rdr
         ENV["GEONAMES_USER"] || "NOT_SET"
       end
 
-      # The point at which to truncate the display of the description field in index views
-      mattr_accessor :description_truncation_length_index_view do
-        if ENV["DESCRIPTION_TRUNCATION_LENGTH_INDEX_VIEW"].present?
-          ENV["DESCRIPTION_TRUNCATION_LENGTH_INDEX_VIEW"].to_i
-        else
-          250
-        end
+      # The number of words (space-delimited) at which to collapse the display of
+      # a long metadata value; click a Read More link to expand.
+      # E.g., Description field on a work show page.
+      mattr_accessor :expandable_text_word_cutoff do
+        ENV.fetch("EXPANDABLE_TEXT_WORD_CUTOFF", 105).to_i
+      end
+
+      # The base Box folder for RDR Submissions
+      mattr_accessor :box_base_folder_rdr_submissions do
+        ENV["BOX_BASE_FOLDER_RDR_SUBMISSIONS"] || "NOT_SET"
+      end
+
+      # The base URL for accessing the Box instance used for RDR Submissions
+      mattr_accessor :box_base_url_rdr_submissions do
+        ENV["BOX_BASE_URL_RDR_SUBMISSIONS"] || "NOT_SET"
+      end
+
+      # The email address for the curation group
+      mattr_accessor :curation_group_email do
+        ENV["CURATION_GROUP_EMAIL"] || 'curators@example.org'
+      end
+
+      # Submission instructions to include in email after RDR Submissions form completion
+      mattr_accessor :submission_instructions do
+        ENV["SUBMISSION_INSTRUCTIONS"] || 'Submission instructions NOT SET'
       end
 
     end

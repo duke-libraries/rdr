@@ -53,6 +53,17 @@ RSpec.describe Dataset do
         expect(ability).to be_able_to(:edit, subject.file_sets.first)
       end
     end
+
+    context "nested work" do
+      let(:parent) { FactoryBot.create(:dataset, user: depositor) }
+      let(:attrs) { { title: ['test work'], depositor: depositor.user_key, in_works_ids: [ parent.id ] } }
+      before do
+        allow(User).to receive(:curators).and_return([depositor.user_key])
+      end
+      it "is not indexed as top level" do
+        expect(SolrDocument.find(subject.id).top_level).to be false
+      end
+    end
   end
 
   describe "#latest_dataset_version?" do
@@ -226,6 +237,38 @@ RSpec.describe Dataset do
     describe "does not have required metadata" do
       before { allow(subject).to receive(:doi_required_metadata_present?) { false } }
       it { is_expected.not_to be_doi_registerable }
+    end
+  end
+
+  describe "dataset update" do
+    describe "dataset nesting", integration: true do
+      let(:user) { FactoryBot.create(:user) }
+      let!(:datasets) { FactoryBot.create_list(:dataset, 2, user: user) }
+      let(:ability) { Ability.new(user) }
+      let(:env) { Hyrax::Actors::Environment.new(datasets[0], ability, attrs) }
+
+      describe "nest existing top-level dataset within another dataset" do
+        let(:attrs) { { title: [ datasets[0].title.first ],
+                        work_members_attributes: { "0"=>{ "id"=>"#{datasets[1].id}", "_destroy"=>"false" } } } }
+        specify "the newly nested work is not indexed as top-level" do
+          Hyrax::CurationConcern.actor.update(env)
+          expect(SolrDocument.find(datasets[1].id).top_level).to be false
+        end
+      end
+
+      describe "remove nested dataset so that it is now top-level" do
+        let(:attrs) { { title: [ datasets[0].title.first ],
+                        work_members_attributes: { "0"=>{ "id"=>"#{datasets[1].id}", "_destroy"=>"true" } } } }
+        before do
+          datasets[0].ordered_members << datasets[1]
+          datasets[0].save!
+          datasets[1].update_index
+        end
+        specify "the newly unnested work is indexed as top-level" do
+          Hyrax::CurationConcern.actor.update(env)
+          expect(SolrDocument.find(datasets[1].id).top_level).to be true
+        end
+      end
     end
   end
 

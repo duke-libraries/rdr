@@ -113,6 +113,9 @@ module Importer
         expect(ds1.works).to match_array([ ds2, ds3 ])
         expect(ds2.in_works).to eq([ ds1 ])
         expect(ds3.in_works).to eq([ ds1 ])
+        expect(SolrDocument.find(ds1.id).top_level).to be true
+        expect(SolrDocument.find(ds2.id).top_level).to be false
+        expect(SolrDocument.find(ds3.id).top_level).to be false
         expect(ds1.visibility).to eq(Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC)
         expect(ds2.visibility).to eq(Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE)
         expect(ds3.visibility).to eq(Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_AUTHENTICATED)

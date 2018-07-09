@@ -20,7 +20,7 @@ RSpec.describe MintPublishArk do
       describe 'ARK already assigned' do
         before do
           allow(subject.ark).to receive(:assigned?) { true }
-          allow(subject.ark).to receive(:identifier) { double(public?: true) }
+          allow(subject.ark).to receive(:identifier) { double(reserved?: false, public?: true) }
         end
         it 'does not assign an ARK' do
           expect(subject.ark).to_not receive(:assign!)
@@ -41,11 +41,25 @@ RSpec.describe MintPublishArk do
       describe 'when ARK is assigned' do
         before do
           allow(subject.ark).to receive(:assigned?) { true }
-          allow(subject.ark).to receive(:identifier) { double(public?: true) }
         end
-        it 'calls the method to set a target' do
-          expect(subject.ark).to receive(:target!)
-          subject.call
+        describe 'when the ARK is reserved' do
+          before do
+            allow(subject.ark).to receive(:identifier) { double(public?: false, reserved?: true) }
+            allow(subject.ark).to receive(:publish!)
+          end
+          it 'calls the method to set a target' do
+            expect(subject.ark).to receive(:target!)
+            subject.call
+          end
+        end
+        describe 'when the ARK is not reserved' do
+          before do
+            allow(subject.ark).to receive(:identifier) { double(public?: true, reserved?: false) }
+          end
+          it 'does not call the method to set a target' do
+            expect(subject.ark).to_not receive(:target!)
+            subject.call
+          end
         end
       end
     end
@@ -66,7 +80,7 @@ RSpec.describe MintPublishArk do
         describe 'ARK not public' do
           before do
             allow(subject.ark).to receive(:assigned?) { true }
-            allow(subject.ark).to receive(:identifier) { double(public?: false) }
+            allow(subject.ark).to receive(:identifier) { double(reserved?: true, public?: false) }
           end
           it 'publishes the ARK' do
             expect(subject.ark).to receive(:publish!)
@@ -76,7 +90,7 @@ RSpec.describe MintPublishArk do
         describe 'ARK is public' do
           before do
             allow(subject.ark).to receive(:assigned?) { true }
-            allow(subject.ark).to receive(:identifier) { double(public?: true) }
+            allow(subject.ark).to receive(:identifier) { double(reserved?: false, public?: true) }
           end
           it 'does not publish the ARK' do
             expect(subject.ark).to_not receive(:publish!)

@@ -1,0 +1,17 @@
+<%= t('rdr.submissions.email.error.subject') %>
+
+Submitter: <%= @submission.submitter.display_name %>
+Net ID: <%= @submission.submitter.user_key.split('@').first %>
+
+<% if @submission.errors.any? %>
+  <%= t('rdr.submissions.email.error.message') %>
+  <% @submission.errors.full_messages.each do |error_msg| %>
+    <%= error_msg %>
+  <% end %>
+<% end %>
+
+<% Submission::ATTRIBUTES.each do |attr| %>
+  <% if include_submission_entry?(@submission, attr) %>
+    <%= submission_entry(@submission, attr) %>
+  <% end %>
+<% end %>

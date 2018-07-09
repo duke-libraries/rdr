@@ -1,4 +1,7 @@
 en:
+  activefedora:
+    models:
+      dataset: Dataset
   blacklight:
     search:
       fields:
@@ -70,6 +73,7 @@ en:
       service_html: A service of <a href="http://samvera.org/" class="navbar-link" target="_blank">Samvera</a>.
     homepage:
       recently_uploaded:
+        title: 'Recently Added Datasets'
         document:
           keyword_missing: '' #left blank intentionally
     icons:

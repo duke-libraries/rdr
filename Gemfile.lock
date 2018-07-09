@@ -67,6 +67,7 @@ GEM
       execjs
     awesome_nested_set (3.1.4)
       activerecord (>= 4.0.0, < 5.3)
+    awesome_print (1.8.0)
     aws-eventstream (1.0.0)
     aws-partitions (1.89.1)
     aws-sdk-core (3.21.2)
@@ -546,7 +547,7 @@ GEM
       rails (~> 5.0)
       rdf
     rack (2.0.5)
-    rack-protection (2.0.1)
+    rack-protection (2.0.3)
       rack
     rack-test (1.0.0)
       rack (>= 1.0, < 3)
@@ -734,10 +735,10 @@ GEM
     simple_form (3.5.0)
       actionpack (> 4, < 5.2)
       activemodel (> 4, < 5.2)
-    sinatra (2.0.1)
+    sinatra (2.0.3)
       mustermann (~> 1.0)
       rack (~> 2.0)
-      rack-protection (= 2.0.1)
+      rack-protection (= 2.0.3)
       tilt (~> 2.0)
     slop (4.6.2)
     solr_wrapper (1.2.0)
@@ -833,6 +834,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  awesome_print
   bagit
   boxr
   byebug

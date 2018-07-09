@@ -10,7 +10,7 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= 
+//=
 //
 // Required by Blacklight
 //= require jquery
@@ -20,5 +20,6 @@
 //= require blacklight/blacklight
 
 //= require_tree .
+//= stub submissions.js
 //= require hyrax
-
+//= require rdr-show.js

@@ -19,4 +19,7 @@ module Rdr
   # None found when at least one expected
   class NotFoundError < Error; end
 
+  # Error interacting with Box API
+  class BoxError < Error; end
+
 end

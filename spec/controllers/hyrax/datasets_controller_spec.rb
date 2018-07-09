@@ -31,7 +31,7 @@ RSpec.describe Hyrax::DatasetsController do
       subject { get :show, params: { id: v1 } }
       describe "when the dataset has one version" do
         let(:v1) { FactoryBot.create(:dataset, :public) }
-        it { is_expected.to render_template(partial: '_dataset_versions') }
+        it { is_expected.to_not render_template(partial: '_dataset_versions') }
       end
       describe "when the dataset has multiple versions" do
         let!(:v1) { FactoryBot.create(:dataset, :public, doi: "http://example.com/my_doi_v1", is_replaced_by: "http://example.com/my_doi_v2") }

@@ -28,6 +28,8 @@ gem 'resque'
 gem 'resque-pool'
 gem 'resque-web', require: 'resque_web'
 
+gem 'awesome_print'
+
 gem 'bagit'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

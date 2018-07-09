@@ -62,14 +62,8 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
     config.add_index_field Rdr::Index::Fields.title.to_s, label: I18n.t("rdr.show.fields.title"), itemprop: 'name', if: false
-    config.add_index_field Rdr::Index::Fields.description.to_s, label: I18n.t("rdr.show.fields.description"),
-                           itemprop: 'description', helper_method: :truncate_description_and_iconify_auto_link
-    config.add_index_field Rdr::Index::Fields.creator.to_s, label: I18n.t("rdr.show.fields.creator"), itemprop: 'creator', link_to_search: solr_name("creator", :facetable)
-    config.add_index_field Rdr::Index::Fields.subject.to_s, label: I18n.t("rdr.show.fields.subject"), itemprop: 'about', link_to_search: solr_name("subject", :facetable)
-    config.add_index_field Rdr::Index::Fields.available.to_s, label: I18n.t("rdr.show.fields.available"), itemprop: 'datePublished', helper_method: :human_readable_date
     config.add_index_field Rdr::Index::Fields.bibliographic_citation.to_s, label: I18n.t("rdr.show.fields.bibliographic_citation"), itemprop: 'citation'
-    config.add_index_field Rdr::Index::Fields.doi.to_s, label: I18n.t("rdr.show.fields.doi")
-    config.add_index_field Rdr::Index::Fields.ark.to_s, label: I18n.t("rdr.show.fields.ark")
+
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
@@ -122,14 +116,29 @@ class CatalogController < ApplicationController
       title_name = solr_name("title", :stored_searchable)
       field.solr_parameters = {
         # qf: "#{all_names} file_format_tesim all_text_timv",
-        qf: [ solr_name("title", :stored_searchable),
-              solr_name("description", :stored_searchable),
-              solr_name("subject", :stored_searchable),
-              solr_name("creator", :stored_searchable),
-              solr_name("contributor", :stored_searchable),
-              solr_name("identifier", :stored_searchable),
-              solr_name("doi", :stored_sortable),
-              solr_name("ark", :stored_sortable),
+        qf: [ Rdr::Index::Fields.affiliation,
+              Rdr::Index::Fields.alternative,
+              Rdr::Index::Fields.ark,
+              solr_name("based_near_label", :stored_searchable),
+              Rdr::Index::Fields.bibliographic_citation,
+              Rdr::Index::Fields.contact,
+              Rdr::Index::Fields.contributor,
+              Rdr::Index::Fields.creator,
+              Rdr::Index::Fields.description,
+              Rdr::Index::Fields.doi,
+              Rdr::Index::Fields.format,
+              Rdr::Index::Fields.funding_agency,
+              Rdr::Index::Fields.grant_number,
+              Rdr::Index::Fields.language,
+              Rdr::Index::Fields.provenance,
+              Rdr::Index::Fields.publisher,
+              Rdr::Index::Fields.related_url,
+              Rdr::Index::Fields.resource_type,
+              Rdr::Index::Fields.rights_note,
+              Rdr::Index::Fields.rights_statement,
+              Rdr::Index::Fields.source,
+              Rdr::Index::Fields.subject,
+              Rdr::Index::Fields.title,
             ].map(&:to_s),
         pf: title_name.to_s
       }
