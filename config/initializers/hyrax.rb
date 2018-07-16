@@ -13,7 +13,7 @@ Hyrax.config do |config|
   # When an admin set is created, we need to activate a workflow.
   # The :default_active_workflow_name is the name of the workflow we will activate.
   # @see Hyrax::Configuration for additional details and defaults.
-  # config.default_active_workflow_name = 'default'
+  config.default_active_workflow_name = 'curated'
 
   # Which RDF term should be used to relate objects to an admin set?
   # If this is a new repository, you may want to set a custom predicate term here to
@@ -282,5 +282,4 @@ Qa::Authorities::Local.register_subauthority('subjects', 'Qa::Authorities::Local
 Qa::Authorities::Local.register_subauthority('languages', 'Qa::Authorities::Local::TableBasedAuthority')
 Qa::Authorities::Local.register_subauthority('genres', 'Qa::Authorities::Local::TableBasedAuthority')
 
-Hyrax::CurationConcern.actor_factory.insert_after Hyrax::Actors::OptimisticLockValidator, DepositorAccessActor
 Hyrax::CurationConcern.actor_factory.insert_after Hyrax::Actors::OptimisticLockValidator, NestedWorkIndexingActor
