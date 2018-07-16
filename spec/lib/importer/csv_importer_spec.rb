@@ -67,7 +67,7 @@ module Importer
       let(:checksum_file_template) { File.join(fixture_path, 'importer', 'dataset', 'checksums.txt') }
       let(:checksum_file) { File.join(tmp_dir, 'checksums.txt') }
       let(:model) { 'Dataset' }
-      let(:depositor) { FactoryBot.create(:user) }
+      let!(:depositor) { FactoryBot.create(:user) }
       let(:on_behalf_of) { FactoryBot.create(:user) }
       let(:dataset_titles) { [ [ 'Test 1' ], [ 'Test 2' ], [ 'Test 3' ] ] }
       let(:ds1_checksums) { [ '4c4665b408134d8f6995d1640a7f2d4eeee5c010', 'ab84c8b1187123c4d627bea511714dd723b56dbe', '94631dfa806987fa6c01880d59303519f23c5609' ] }
@@ -79,6 +79,7 @@ module Importer
       before do
         ezid_test_mode!
         AdminSet.find_or_create_default_admin_set_id
+        allow(User).to receive(:curators) { [ depositor.user_key ] }
         allow(CharacterizeJob).to receive(:perform_later)
         manifest_template = File.read(manifest_file_template)
         manifest_data = manifest_template.gsub('PARENT_ARK', parent_ark.id)
