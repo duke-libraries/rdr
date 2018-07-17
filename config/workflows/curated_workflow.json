@@ -1,0 +1,21 @@
+{
+    "workflows": [
+        {
+            "name": "curated",
+            "label": "Curated workflow",
+            "description": "A single submission step, curated workflow",
+            "allows_access_grant": true,
+            "actions": [
+                {
+                    "name": "deposit",
+                    "from_states": [],
+                    "transition_to": "deposited",
+                    "methods": [
+                        "Workflow::GrantAccessToDepositor",
+                        "Hyrax::Workflow::ActivateObject"
+                    ]
+                }
+            ]
+        }
+    ]
+}
