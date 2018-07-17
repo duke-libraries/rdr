@@ -12,7 +12,7 @@ RSpec.describe Dataset do
       Dataset.find('test_work')
     end
 
-    let(:depositor) { FactoryBot.create(:user) }
+    let!(:depositor) { FactoryBot.create(:user) }
     let(:remote_file) { File.join(fixture_path, "data.csv") }
     let(:remote_files) { { url: "file:#{remote_file}", file_name: File.basename(remote_file) } }
     let(:attrs) { { title: ['test work'], depositor: depositor.user_key, remote_files: [remote_files] } }
@@ -42,7 +42,7 @@ RSpec.describe Dataset do
 
     context "depositor is a curator" do
       before do
-        allow(User).to receive(:curators).and_return([depositor.user_key])
+        allow(User).to receive(:curators).and_return([ depositor.user_key ])
       end
 
       it "grants the depositor edit rights on the work" do
@@ -58,7 +58,7 @@ RSpec.describe Dataset do
       let(:parent) { FactoryBot.create(:dataset, user: depositor) }
       let(:attrs) { { title: ['test work'], depositor: depositor.user_key, in_works_ids: [ parent.id ] } }
       before do
-        allow(User).to receive(:curators).and_return([depositor.user_key])
+        allow(User).to receive(:curators).and_return([ depositor.user_key ])
       end
       it "is not indexed as top level" do
         expect(SolrDocument.find(subject.id).top_level).to be false
@@ -242,13 +242,22 @@ RSpec.describe Dataset do
 
   describe "dataset update" do
     describe "dataset nesting", integration: true do
-      let(:user) { FactoryBot.create(:user) }
+      let!(:user) { FactoryBot.create(:user) }
       let!(:datasets) { FactoryBot.create_list(:dataset, 2, user: user) }
       let(:ability) { Ability.new(user) }
       let(:env) { Hyrax::Actors::Environment.new(datasets[0], ability, attrs) }
 
+      before do
+        allow(User).to receive(:curators) { [ user.user_key ] }
+        datasets.each do |ds|
+          ds.edit_users += [ user.user_key ]
+          ds.save!
+        end
+      end
+
       describe "nest existing top-level dataset within another dataset" do
         let(:attrs) { { title: [ datasets[0].title.first ],
+                        depositor: user.user_key,
                         work_members_attributes: { "0"=>{ "id"=>"#{datasets[1].id}", "_destroy"=>"false" } } } }
         specify "the newly nested work is not indexed as top-level" do
           Hyrax::CurationConcern.actor.update(env)
@@ -258,6 +267,7 @@ RSpec.describe Dataset do
 
       describe "remove nested dataset so that it is now top-level" do
         let(:attrs) { { title: [ datasets[0].title.first ],
+                        depositor: user.user_key,
                         work_members_attributes: { "0"=>{ "id"=>"#{datasets[1].id}", "_destroy"=>"true" } } } }
         before do
           datasets[0].ordered_members << datasets[1]
