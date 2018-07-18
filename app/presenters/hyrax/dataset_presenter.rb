@@ -8,7 +8,7 @@ module Hyrax
               :bibliographic_citation, :contact, :doi, :format,
               :funding_agency, :grant_number,
               :in_works_ids, :is_replaced_by, :members, :provenance,
-              :related_url, :replaces, :resource_type, :rights_note, :temporal, to: :solr_document
+              :related_url, :replaces, :resource_type, :rights_note, :temporal, :top_level, to: :solr_document
 
     delegate *(Rdr::DatasetVersioning.public_instance_methods), to: :solr_document
 
@@ -22,6 +22,18 @@ module Hyrax
 
     def assignable_doi?
       current_ability.can?(:assign_register_doi, solr_document)
+    end
+
+    def file_scan
+      @file_scan ||= WorkFilesScanner.call(id)
+    end
+
+    def file_count
+      file_scan.file_count
+    end
+
+    def file_size_total
+      file_scan.file_size_total
     end
 
     # Overrides 'Hyrax::WorkShowPresenter#grouped_presenters' to add in the presenters for works in which the current

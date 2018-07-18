@@ -18,6 +18,9 @@ en:
     unexpected_multiple_results: "Unexpected multiple results for %{identifier}"
     user_not_found: "User %{user_key} could not be found"
     not_found: "%{target} could not be found"
+    work_files_stats:
+      one: "%{count} file (%{size})"
+      other: "%{count} files (%{size})"
     batch_import:
       heading: "Batch Import"
       invalid_metadata_header: "Invalid header: %{header}"

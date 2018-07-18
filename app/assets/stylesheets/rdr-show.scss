@@ -19,6 +19,17 @@ a.toggle-extended-text {
   }
 }
 
+.work-files {
+  & dt {
+    color: #666;
+    margin-bottom: 10px;
+  }
+  & dd {
+    border-left: 10px solid #eee;
+    padding-left: 8px;
+  }
+}
+
 .work-citation {
   & dt {
     color: #666;

@@ -14,6 +14,9 @@
           <%= render 'representative_media', presenter: @presenter, viewer: true %>
         <% end %>
         <%= render 'work_description', presenter: @presenter %>
+        <% if @presenter.top_level %>
+          <%= render 'work_files', presenter: @presenter %>
+        <% end %>
         <%= render 'work_citation', presenter: @presenter %>
         <%= render 'metadata', presenter: @presenter %>
         <%= render 'items', presenter: @presenter %>

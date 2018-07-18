@@ -8,7 +8,7 @@ RSpec.describe ExportFilesMailer do
   describe "notify_success" do
     before do
       allow(ActiveFedora::Base).to receive(:find).with(repo_id) { double(id: repo_id) }
-      allow_any_instance_of(ExportFiles::Scanner).to receive(:scan) {}
+      allow_any_instance_of(WorkFilesScanner).to receive(:scan) {}
     end
     it "works" do
       export = ExportFiles::Package.new(repo_id)
