@@ -49,4 +49,53 @@ RSpec.describe Hyrax::DatasetPresenter do
     end
   end
 
+  describe '#ancestor_trail' do
+    context 'work is top-level (has no ancestors)' do
+      let(:solr_document) { SolrDocument.new(id: 'abc', Rdr::Index::Fields.in_works_ids => []) }
+      it 'returns an empty array' do
+        expect(subject.ancestor_trail).to eq([])
+      end
+    end
+    context 'work has multiple parent works' do
+      let(:solr_document) { SolrDocument.new(id: 'abc', Rdr::Index::Fields.in_works_ids => ['def','ghi']) }
+      it 'returns an empty array' do
+        expect(subject.ancestor_trail).to eq([])
+      end
+    end
+    context 'work has an ancestor with multiple parents' do
+      let(:solr_document) { SolrDocument.new(id: 'abc', Rdr::Index::Fields.in_works_ids => ['def']) }
+      let(:solr_document_parent) { SolrDocument.new( id: 'def', Rdr::Index::Fields.in_works_ids => ['ghi','jkl']) }
+      before do
+        allow(::SolrDocument).to receive(:find).with('def') { solr_document_parent }
+      end
+      it 'returns an empty array' do
+        expect(subject.ancestor_trail).to eq([])
+      end
+    end
+    context 'work has one ancestor' do
+      let(:solr_document) { SolrDocument.new(id:'abc', Rdr::Index::Fields.in_works_ids => ['def']) }
+      let(:solr_document_parent) { SolrDocument.new(id:'def', Rdr::Index::Fields.in_works_ids => []) }
+      before do
+        allow(::SolrDocument).to receive(:find).with('def').and_return(solr_document_parent)
+      end
+      it 'returns the ancestor document' do
+        expect(subject.ancestor_trail).to eq([solr_document_parent])
+      end
+    end
+    context 'work has a single trail of several ancestors' do
+      let(:solr_document) { SolrDocument.new(id:'abc', Rdr::Index::Fields.in_works_ids => ['def']) }
+      let(:solr_document_parent) { SolrDocument.new(id:'def', Rdr::Index::Fields.in_works_ids => ['ghi']) }
+      let(:solr_document_grandparent) { SolrDocument.new(id:'ghi', Rdr::Index::Fields.in_works_ids => ['jkl']) }
+      let(:solr_document_great_grandparent) { SolrDocument.new(id:'jkl', Rdr::Index::Fields.in_works_ids => []) }
+      before do
+        allow(::SolrDocument).to receive(:find).with('def').and_return(solr_document_parent)
+        allow(::SolrDocument).to receive(:find).with('ghi').and_return(solr_document_grandparent)
+        allow(::SolrDocument).to receive(:find).with('jkl').and_return(solr_document_great_grandparent)
+      end
+      it 'returns the ancestor document nodes' do
+        expect(subject.ancestor_trail).to eq([ solr_document_great_grandparent, solr_document_grandparent, solr_document_parent ])
+      end
+    end
+  end
+
 end

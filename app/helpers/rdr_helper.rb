@@ -39,4 +39,17 @@ module RdrHelper
     fullmarkup
   end
 
+  # For nested works, characterize each node in the vertical/hierarchical breadcrumb trail to drive
+  # collapse/expand behavior and presentation (e.g,. always show top-level work and direct parent work).
+  def vertical_breadcrumb_node_position(pos,total_nodes)
+    case
+    when (total_nodes <= 3) || (pos == total_nodes)
+      'close-ancestor'
+    when pos == 1 && total_nodes > 3
+      'top-of-many-ancestors'
+    else
+      'middle-ancestor'
+    end
+  end
+
 end

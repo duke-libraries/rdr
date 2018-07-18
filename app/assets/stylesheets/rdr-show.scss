@@ -74,7 +74,7 @@ dl.work-show {
 .contextual-info {
   background: #fafafa;
   border-left: 2px solid #eee;
-  padding: 30px 10px;
+  padding: 30px 15px;
   @media screen and (max-width: $screen-xs-max) {
     border-left: none;
   }
@@ -90,6 +90,51 @@ dl.work-show {
     font-size: 22px;
     border-bottom: 1px dotted #ccc;
     padding-bottom: 10px;
+  }
+}
+
+.vertical-breadcrumb {
+  font-size: 15px;
+  color: #666;
+  border-bottom: 2px solid #a1b70d;
+  padding-bottom: 20px;
+  & a.vertical-breadcrumb-expander {
+    color: #666;
+  }
+  & .you-are-here {
+    margin-top: 15px;
+  }
+}
+
+.vertical-breadcrumb-node {
+  &.collapsed {
+    display: none;
+  }
+  &.current-node {
+    margin-top: -6px;
+  }
+}
+
+.vertical-breadcrumb-separator {
+  position: relative;
+  display: block;
+  width: 1px;
+  margin: 6px auto;
+  color: #ccc;
+  height: 15px;
+
+  & .fa {
+    font-size: 19px;
+    position: absolute;
+    bottom: -2px;
+    left: -3px;
+    &.fa-map-marker {
+      font-size: 19px;
+      color: $brand-success;
+      background-color: white;
+      bottom: -10px;
+      left: -4px;
+    }
   }
 }
 

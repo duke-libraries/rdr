@@ -45,5 +45,22 @@ module Hyrax
                                  presenter_class: work_presenter_class,
                                  presenter_args: presenter_factory_arguments)
     end
+
+    def ancestor_trail
+      docs = ancestor_trail_ids(solr_document).map { |id| ::SolrDocument.find(id) }
+      docs.reverse
+    end
+
+    private
+
+    # Recursively assemble an array of this work's ancestor work ids, provided it
+    # has ancestor works, and neither it nor any of its ancestors has multiple parents.
+    def ancestor_trail_ids(document, ancestors=[])
+      return ancestors if document.in_works_ids.blank?
+      return [] if document.in_works_ids.count > 1
+      ancestors.concat document.in_works_ids
+      ancestor_trail_ids(::SolrDocument.find(document.in_works_ids.first), ancestors)
+    end
+
   end
 end
