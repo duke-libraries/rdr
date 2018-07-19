@@ -6,10 +6,18 @@ body {
     margin-bottom: 25px;
 }
 
+.skip-to-content a {
+ color: $mast-primary;
+}
+
 .dul-masthead-bar, #dul-masthead-filler {
   width: 100%;
   text-align: center;
   background-color: #053482;
+}
+
+.dul-masthead-auxHelp {
+  color: $gray !important;
 }
 
 .dul-masthead-wrapper {
@@ -33,6 +41,11 @@ body {
   line-height: auto;
   height: auto;
   text-transform: uppercase;
+  color: $mast-primary;
+
+    :hover {
+      color: $link-hover-color;
+    }
 
   & .product-name-primary {
     font-weight: bold;
@@ -45,10 +58,22 @@ body {
 .navbar-toggle, .facets-toggle {
     margin-right: 0;
     margin-top: 16px;
-    background-color: #ddd;
+    background-color: $mast-primary;
     & .icon-bar {
       background-color: white;
     }
+}
+
+.navbar-nav a {
+  color: $mast-primary;
+
+    :hover {
+      color: $link-hover-color;
+    }
+}
+
+.notify-number .label {
+  color: $mast-primary;
 }
 
 #content-wrapper {
@@ -60,9 +85,34 @@ body {
   margin: 0 0 22px 0;
 }
 
+.alert-success a,
+.alert-warning a,
+.alert-danger a, {
+  color: #fff;
+  text-decoration: underline;
+
+  :hover {
+    color: #021738;
+  }
+}
+
+#content-wrapper .alert {
+  margin: -15px -30px 22px -30px;
+}
+
+#content-wrapper .row .alert,
+#content-wrapper .main-content .alert {
+  margin: 0 0 22px 0;
+}
+
 .breadcrumb {
   background-color: transparent;
   padding-left: 0;
+
+  li:first-of-type {
+    padding-left: 10px;
+  }
+
 }
 
 .site-footer {
@@ -90,6 +140,10 @@ body {
   text-align: center;
 }
 
+.resp-sharing-button__link span {
+  color: $link-color;
+}
+
 /* ============== */
 /* Search Results */
 /* ============== */
@@ -98,6 +152,15 @@ body {
   & .attribute-label.h4 {
       font-size: 18px;
   }
+}
+
+.pagination > .active > a,
+.pagination > .active > a:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span,
+.pagination > .active > span:hover,
+.pagination > .active > span:focus {
+  color: $gray;
 }
 
 
@@ -188,8 +251,8 @@ body {
   font-size: 16px;
   padding: 10px;
   min-width: 60px;
-  background-color: #286090;
-  border-color: #265b89;
+  background-color: $mast-primary;
+  border-color: darken($mast-primary, 3%);
   color: #fff;
 }
 
@@ -257,14 +320,14 @@ body {
 //https://github.com/duke-libraries/ddr-public/blob/develop/app/assets/stylesheets/ddr.scss#L1242-L1284
 
 .footer {
-    background: #eee;
+    background: $gray-lighter;
     margin-bottom: 0;
     border: 0;
   }
 
 
   .footer h3 {
-    color: #999;
+    color: lighten($gray, 5%);
     text-transform: uppercase;
   }
 
@@ -275,6 +338,7 @@ body {
 
   .footer li::before {
     content: '';
+    margin-left: -1em;
   }
 
   .footer li {

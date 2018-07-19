@@ -61,6 +61,9 @@ en:
           subject_tesim: Subject
           title_tesim: Title
   hyrax:
+    collection:
+      select_form:
+        select_label:       "Collections"
     product_name:           "Research Data"
     product_twitter_handle: "@DukeLibraries"
     institution_name:       "Duke"

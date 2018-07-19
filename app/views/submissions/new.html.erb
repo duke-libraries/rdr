@@ -60,11 +60,11 @@
 
               <div class="btn-group" data-toggle="buttons">
 
-                <%= f.label :screening_guidelines, :class => 'btn btn-default btn-lg btn-block' do %>
+                <%= f.label :screening_guidelines, :for => 'submission_screening_guidelines_ready', :class => 'btn btn-default btn-lg btn-block' do %>
                   <%= f.radio_button :screening_guidelines, Submission::READY, {:required => true} %> <%= t("rdr.submissions.labels.question1_label1") %>
                 <% end %>
 
-                <%= f.label :screening_guidelines, :class => 'btn btn-default btn-lg btn-block' do %>
+                <%= f.label :screening_guidelines, :for => 'submission_screening_guidelines_not_ready', :class => 'btn btn-default btn-lg btn-block' do %>
                   <%= f.radio_button :screening_guidelines, Submission::NOT_READY, {:required => true} %> <%= t("rdr.submissions.labels.question1_label2") %>
                 <% end %>
 
@@ -89,11 +89,11 @@
 
               <div class="btn-group" data-toggle="buttons">
 
-                <%= f.label :screening_pii, :class => 'btn btn-default btn-lg btn-block' do %>
+                <%= f.label :screening_pii, :for => 'submission_screening_pii_no', :class => 'btn btn-default btn-lg btn-block' do %>
                   <%= f.radio_button :screening_pii, 'no', {:required => true} %> <%= t("rdr.submissions.labels.question2_label1") %>
                 <% end %>
 
-                <%= f.label :screening_guidelines, :class => 'btn btn-default btn-lg btn-block' do %>
+                <%= f.label :screening_guidelines, :for => 'submission_screening_pii_yes', :class => 'btn btn-default btn-lg btn-block' do %>
                   <%= f.radio_button :screening_pii, 'yes', {:required => true} %> <%= t("rdr.submissions.labels.question2_label2") %>
                 <% end %>
 
@@ -118,11 +118,11 @@
 
               <div class="btn-group" data-toggle="buttons">
 
-                <%= f.label :screening_license, :class => 'btn btn-default btn-lg btn-block' do %>
+                <%= f.label :screening_license, :for => 'submission_screening_license_yes', :class => 'btn btn-default btn-lg btn-block' do %>
                   <%= f.radio_button :screening_license, 'yes', {:required => true} %> <%= t("rdr.submissions.labels.question3_label1") %>
                 <% end %>
 
-                <%= f.label :screening_guidelines, :class => 'btn btn-default btn-lg btn-block' do %>
+                <%= f.label :screening_guidelines, :for => 'submission_screening_license_no', :class => 'btn btn-default btn-lg btn-block' do %>
                   <%= f.radio_button :screening_license, 'no', {:required => true} %> <%= t("rdr.submissions.labels.question3_label2") %>
                 <% end %>
 
@@ -147,11 +147,11 @@
 
               <div class="btn-group" data-toggle="buttons">
 
-                <%= f.label :screening_funding, :class => 'btn btn-default btn-lg btn-block' do %>
+                <%= f.label :screening_funding, :for => 'submission_screening_funding_yes', :class => 'btn btn-default btn-lg btn-block' do %>
                   <%= f.radio_button :screening_funding, 'yes', {:required => true} %> <%= t("rdr.submissions.labels.question4_label1") %>
                 <% end %>
 
-                <%= f.label :screening_funding, :class => 'btn btn-default btn-lg btn-block' do %>
+                <%= f.label :screening_funding, :for => 'submission_screening_funding_no', :class => 'btn btn-default btn-lg btn-block' do %>
                   <%= f.radio_button :screening_funding, 'no', {:required => true} %> <%= t("rdr.submissions.labels.question4_label2") %>
                 <% end %>
 
@@ -180,11 +180,11 @@
 
                   <div class="btn-group" data-toggle="buttons">
 
-                    <%= f.label :screening_funded_size, :class => 'btn btn-default btn-lg btn-block' do %>
+                    <%= f.label :screening_funded_size, :for => 'funded-size-1', :class => 'btn btn-default btn-lg btn-block' do %>
                       <%= f.radio_button :screening_funded_size, Submission::LESS_THAN_10_GB, :id =>'funded-size-1' %> <%= t("rdr.submissions.labels.question5a_label1") %>
                     <% end %>
 
-                    <%= f.label :screening_funded_size, :class => 'btn btn-default btn-lg btn-block' do %>
+                    <%= f.label :screening_funded_size, :for => 'funded-size-2', :class => 'btn btn-default btn-lg btn-block' do %>
                       <%= f.radio_button :screening_funded_size, Submission::MORE_THAN_10_GB, :id =>'funded-size-2' %> <%= t("rdr.submissions.labels.question5a_label2") %>
                     <% end %>
 
@@ -200,11 +200,11 @@
 
                   <div class="btn-group" data-toggle="buttons">
 
-                    <%= f.label :screening_nonfunded_size, :class => 'btn btn-default btn-lg btn-block' do %>
+                    <%= f.label :screening_nonfunded_size, :for => 'nonfunded-size-1', :class => 'btn btn-default btn-lg btn-block' do %>
                       <%= f.radio_button :screening_nonfunded_size, Submission::LESS_THAN_2_5_GB, :id =>'nonfunded-size-1' %> <%= t("rdr.submissions.labels.question5b_label1") %>
                     <% end %>
 
-                    <%= f.label :screening_nonfunded_size, :class => 'btn btn-default btn-lg btn-block' do %>
+                    <%= f.label :screening_nonfunded_size, :for => 'nonfunded-size-2', :class => 'btn btn-default btn-lg btn-block' do %>
                       <%= f.radio_button :screening_nonfunded_size, Submission::MORE_THAN_2_5_GB, :id =>'nonfunded-size-2' %> <%= t("rdr.submissions.labels.question5b_label2") %>
                     <% end %>
 
@@ -233,11 +233,11 @@
 
               <div class="btn-group" data-toggle="buttons">
 
-                <%= f.label :deposit_agreement, :class => 'btn btn-default btn-lg btn-block' do %>
+                <%= f.label :deposit_agreement, :for => 'deposit-agreement-1', :class => 'btn btn-default btn-lg btn-block' do %>
                   <%= f.radio_button :deposit_agreement, Submission::AGREE, {:required => true, :id =>'deposit-agreement-1'} %> <%= t("rdr.submissions.labels.question6_label1") %>
                 <% end %>
 
-                <%= f.label :deposit_agreement, :class => 'btn btn-default btn-lg btn-block' do %>
+                <%= f.label :deposit_agreement, :for => 'deposit-agreement-2', :class => 'btn btn-default btn-lg btn-block' do %>
                   <%= f.radio_button :deposit_agreement, Submission::NOT_AGREE, {:required => true, :id =>'deposit-agreement-2'} %> <%= t("rdr.submissions.labels.question6_label2") %>
                 <% end %>
 
@@ -368,11 +368,11 @@
 
               <div class="btn-group" data-toggle="buttons">
 
-                <%= f.label :doi_exists, :class => 'btn btn-default btn-lg btn-block', :onclick => 'showMy("doi")' do %>
+                <%= f.label :doi_exists, :for => 'submission_doi_exists_yes', :class => 'btn btn-default btn-lg btn-block', :onclick => 'showMy("doi")' do %>
                   <%= f.radio_button :doi_exists, 'yes', :required => true %> <%= t("rdr.submissions.labels.question19_label1") %>
                 <% end %>
 
-                <%= f.label :doi_exists, :class => 'btn btn-default btn-lg btn-block', :onclick => 'hideMy("doi");' do %>
+                <%= f.label :doi_exists, :for => 'submission_doi_exists_no', :class => 'btn btn-default btn-lg btn-block', :onclick => 'hideMy("doi");' do %>
                   <%= f.radio_button :doi_exists, 'no', :required => true %> <%= t("rdr.submissions.labels.question19_label2") %>
                 <% end %>
 
@@ -408,11 +408,11 @@
 
               <div class="btn-group" data-toggle="buttons">
 
-                <%= f.label :using_cc0, :class => 'btn btn-default btn-lg btn-block', :onclick => 'hideMy("license");' do %>
+                <%= f.label :using_cc0, :for => 'submission_using_cc0_will_use_cc0', :class => 'btn btn-default btn-lg btn-block', :onclick => 'hideMy("license");' do %>
                   <%= f.radio_button :using_cc0, Submission::USE_CC0, {:required => true} %> <%= t("rdr.submissions.labels.question21_label1") %>
                 <% end %>
 
-                <%= f.label :using_cc0, :class => 'btn btn-default btn-lg btn-block', :onclick => 'showMy("license");' do %>
+                <%= f.label :using_cc0, :for => 'submission_using_cc0_will_not_use_cc0', :class => 'btn btn-default btn-lg btn-block', :onclick => 'showMy("license");' do %>
                   <%= f.radio_button :using_cc0, Submission::NOT_USE_CC0, {:required => true} %> <%= t("rdr.submissions.labels.question21_label2") %>
                 <% end %>
 
