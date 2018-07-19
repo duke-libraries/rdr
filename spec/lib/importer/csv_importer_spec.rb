@@ -97,6 +97,7 @@ module Importer
         subject.import_all
         datasets = Dataset.all
         expect(datasets.size).to eq(3)
+        expect(datasets.map(&:admin_set).map(&:id)).to all(eq(AdminSet::DEFAULT_ID))
         expect(datasets.map(&:depositor)).to all(eq(on_behalf_of.user_key))
         expect(datasets.map(&:on_behalf_of)).to all(eq(on_behalf_of.user_key))
         expect(datasets.map(&:proxy_depositor)).to all(eq(depositor.user_key))

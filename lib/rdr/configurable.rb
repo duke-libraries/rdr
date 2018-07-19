@@ -52,9 +52,6 @@ module Rdr
         ENV["HOST_NAME"]
       end
 
-      # ID of AdminSet to use unless otherwise specified
-      mattr_accessor :preferred_admin_set_id
-
       # Crossref login_id
       mattr_accessor :crossref_user do
         ENV["CROSSREF_USER"] || "NOT_SET"
