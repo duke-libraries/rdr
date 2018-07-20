@@ -10,67 +10,6 @@ body {
  color: $mast-primary;
 }
 
-.dul-masthead-bar, #dul-masthead-filler {
-  width: 100%;
-  text-align: center;
-  background-color: #053482;
-}
-
-.dul-masthead-auxHelp {
-  color: $gray !important;
-}
-
-.dul-masthead-wrapper {
-  height: 105px;
-  margin: 0 auto;
-  padding-left:0;
-}
-
-#dul-masthead-dul-megamenu .dul-masthead-megamenu_container ul .dul-masthead-mega_toplevel a {
-    font-weight: 400 !important;
-}
-
-#masthead {
-  padding-top: 10px;
-  margin-bottom: 0;
-}
-
-.navbar-brand {
-  padding: 5px 15px 18px 15px;
-  font-size: 20px;
-  line-height: auto;
-  height: auto;
-  text-transform: uppercase;
-  color: $mast-primary;
-
-    :hover {
-      color: $link-hover-color;
-    }
-
-  & .product-name-primary {
-    font-weight: bold;
-  }
-  & .product-name-secondary {
-    font-size: 16px;
-  }
-}
-
-.navbar-toggle, .facets-toggle {
-    margin-right: 0;
-    margin-top: 16px;
-    background-color: $mast-primary;
-    & .icon-bar {
-      background-color: white;
-    }
-}
-
-.navbar-nav a {
-  color: $mast-primary;
-
-    :hover {
-      color: $link-hover-color;
-    }
-}
 
 .notify-number .label {
   color: $mast-primary;
