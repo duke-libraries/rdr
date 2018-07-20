@@ -111,8 +111,8 @@ A generated Hyrax-based Research Data Repository application
 ## Environment (via rdr-vagrant)
 
 * Ubuntu 16.04 64-bit base machine
-* [Solr 6.6.0](http://lucene.apache.org/solr/): [http://localhost:8983/solr/](http://localhost:8983/solr/)
-* [Fedora 4.7.1](http://fedorarepository.org/): [http://localhost:8984/](http://localhost:8984/)
+* [Solr 7.1.0](http://lucene.apache.org/solr/): [http://localhost:8983/solr/](http://localhost:8983/solr/)
+* [Fedora 4.7.4](http://fedorarepository.org/): [http://localhost:8984/](http://localhost:8984/)
 * [Ruby 2.4.2](https://www.ruby-lang.org) (managed by RVM)
 * [Rails 5.1.4](http://rubyonrails.org/)
 
