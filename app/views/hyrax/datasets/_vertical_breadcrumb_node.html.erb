@@ -1,0 +1,14 @@
+<div class="vertical-breadcrumb-node<% if position == 'middle-ancestor'%> can-collapse collapsed<%- end -%>">
+  <div class='attribute attribute-title'>
+    <%= link_to document.title.first.truncate_words(8), url_for_document(document) %>
+  </div>
+  <div class="vertical-breadcrumb-separator">
+    <span class="fa fa-long-arrow-down"></span>
+  </div>
+  <% if position == 'top-of-many-ancestors' %>
+    <a href="#" class="vertical-breadcrumb-expander">[Show More...]</a>
+    <div class="vertical-breadcrumb-separator can-collapse">
+      <span class="fa fa-long-arrow-down"></span>
+    </div>
+  <% end %>
+</div>

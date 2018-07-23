@@ -45,6 +45,10 @@ FactoryBot.define do
       before(:create) { |work, evaluator| 2.times { work.ordered_members << FactoryBot.create(:file_set, user: evaluator.user) } }
     end
 
+    factory :public_dataset_with_public_files, traits: [:public] do
+      before(:create) { |work, evaluator| 2.times { work.ordered_members << FactoryBot.create(:file_set, user: evaluator.user, traits: [:public]) } }
+    end
+
     factory :dataset_with_ordered_files do
       before(:create) do |work, evaluator|
         work.ordered_members << FactoryBot.create(:file_set, user: evaluator.user)

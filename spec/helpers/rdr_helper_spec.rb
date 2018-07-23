@@ -75,4 +75,35 @@ RSpec.describe RdrHelper, type: :helper do
     end
   end
 
+  describe '#vertical_breadcrumb_node_position' do
+    context 'current work is not deeply nested (three or fewer total ancestor nodes)' do
+      let(:pos) { 2 }
+      let(:total_nodes) { 3 }
+      it 'should treat all nodes as close ancestors' do
+        expect(helper.vertical_breadcrumb_node_position(pos,total_nodes)).to eq('close-ancestor')
+      end
+    end
+    context 'work is the final ancestor (direct parent)' do
+      let(:pos) { 8 }
+      let(:total_nodes) { 8 }
+      it 'should consider the node to be a close ancestor' do
+        expect(helper.vertical_breadcrumb_node_position(pos,total_nodes)).to eq('close-ancestor')
+      end
+    end
+    context 'top-level work in a deeply nested hierarchy' do
+      let(:pos) { 1 }
+      let(:total_nodes) { 23 }
+      it 'should consider the node as top-level' do
+        expect(helper.vertical_breadcrumb_node_position(pos,total_nodes)).to eq('top-of-many-ancestors')
+      end
+    end
+    context 'work is neither top-level nor a direct parent, and is in a deep hierarchy' do
+      let(:pos) { 5 }
+      let(:total_nodes) { 17 }
+      it 'should consider the node middle-level (e.g., to collapse it in display)' do
+        expect(helper.vertical_breadcrumb_node_position(pos,total_nodes)).to eq('middle-ancestor')
+      end
+    end
+  end
+
 end

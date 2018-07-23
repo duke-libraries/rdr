@@ -36,7 +36,7 @@ module Importer
       end
 
       def create_attributes
-        transform_attributes.merge(admin_set_attributes)
+        transform_attributes
       end
 
       def log_created(obj)
@@ -90,10 +90,6 @@ module Importer
       def permitted_attribute_names
         klass.properties.keys.map(&:to_sym) +
             [ :admin_set_id, :parent_ark, :edit_users, :edit_groups, :read_groups, :visibility ]
-      end
-
-      def admin_set_attributes
-        attributes[:admin_set_id].present? ? {} : { admin_set_id: Rdr.preferred_admin_set_id }
       end
 
       def collection_membership_attributes

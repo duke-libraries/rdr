@@ -28,7 +28,7 @@ module ExportFiles
     end
 
     def scanner
-      @scanner ||= Scanner.new(repo_id, ability: ability)
+      @scanner ||= ::WorkFilesScanner.new(repo_id, ability)
     end
 
     def scan

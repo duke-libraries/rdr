@@ -1,0 +1,100 @@
+#masthead {
+  background-color: #053482;
+  height: 66px;
+  margin-bottom: 0;
+  padding: 10px 0;
+  @media (max-width: $screen-sm) {
+    height: auto;
+  }
+  & .logo-wrapper {
+    @media (max-width: $screen-sm) {
+      margin-bottom: 20px;
+    }
+  }
+  & #search-field-header {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  & #search-form-header {
+    margin-top: 0;
+    .input-group label {
+      color: #fff;
+    }
+  }
+  & button#search-submit-header {
+    background-color: #a1b70d;
+    border-color: #a1b70d;
+    color: #000;
+    &:hover, &:focus {
+     background-color: #77870a;
+     border-color: #77870a;
+    }
+    .glyphicon {
+      color: #fff;
+    }
+  }
+  & #top-navbar-collapse {
+    @media (max-width: $screen-md) {
+      position: absolute;
+      right: 0px;
+      min-width: 300px;
+      background: rgb(51, 51, 51);
+      z-index: 1001;
+    }
+  }
+  & #user_utility_links {
+    & span.hidden-xs {
+      display: inline !important;
+    }
+    & > .open > a:focus {
+      background: #032051;
+    }
+  }
+
+  & img.navbar-logo {
+    height: 44px;
+    @media (max-width: $screen-md) {
+      height: 36px;
+    }
+
+  }
+
+  & .navbar-dul {
+    margin-right: 20px;
+    float: left;
+    @media (max-width: $screen-sm) {
+      margin-right: 15px;
+    }
+  }
+
+  & .navbar-ddr {
+    float: left;
+    padding: 0;
+    margin: 0;
+    text-transform: uppercase;
+
+    & a.product-name-secondary {
+      display: block;
+      color: #bbb;
+      font-size: 21.5px;
+      line-height: 15px;
+      @media (max-width: $screen-md) {
+        font-size: 16px;
+        line-height: 13px;
+      }
+    }
+
+    & a.product-name-primary {
+      display: block;
+      font-weight: bold;
+      font-size: 27px;
+      line-height: 22px;
+      margin-top: 6px;
+      color: white;
+      @media (max-width: $screen-md) {
+        font-size: 20px;
+        line-height: 15px;
+      }
+    }
+  }
+}

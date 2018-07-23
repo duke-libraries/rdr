@@ -1,5 +1,6 @@
 <%# NOTE: Overrides Hyrax partial %>
 <div class="show-actions">
+  <form>
   <% if presenter.editor? %>
     <%= link_to "Edit", edit_polymorphic_path([main_app, presenter]), class: 'btn btn-default' %>
     <%= link_to "Delete", [main_app, presenter], class: 'btn btn-danger', data: { confirm: "Delete this #{presenter.human_readable_type}?" }, method: :delete %>
@@ -7,6 +8,7 @@
       <%= link_to t("hyrax.file_manager.link_text"), polymorphic_path([main_app, :file_manager, presenter]), class: 'btn btn-default' %>
     <% end %>
     <% if presenter.valid_child_concerns.length > 0 %>
+
       <div class="btn-group">
         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Attach Child <span class="caret"></span>
@@ -20,8 +22,9 @@
         </ul>
       </div>
     <% end %>
-    <input type="checkbox" style="display:none" name="batch_document_ids[]" id="batch_document_<%= presenter.id %>" value="<%= presenter.id %>" class="batch_document_selector" checked="checked"/>
-    <%= button_tag t('hyrax.dashboard.my.action.add_to_collection'),
+      <span class="sr-only"><label for="batch_document_<%= presenter.id %>"><%= presenter.id %></label></span><input type="checkbox" style="display:none" name="batch_document_ids[]" id="batch_document_<%= presenter.id %>" value="<%= presenter.id %>" class="batch_document_selector" checked="checked"/>
+      <%= button_tag t('hyrax.dashboard.my.action.add_to_collection'),
+                   type: 'button',
                    class: 'btn btn-default submits-batches submits-batches-add',
                    data: {toggle: "modal", target: "#collection-list-container"} %>
 <% end %>
@@ -37,6 +40,7 @@
   <% if presenter.assignable_doi? %>
     <%= link_to "Assign & Register DOI", [main_app, :assign_register_doi_hyrax_dataset], method: :post, class: 'btn btn-default' %>
   <% end %>
+  </form>
 </div>
 
   <!-- COinS hook for Zotero -->

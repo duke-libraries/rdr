@@ -13,4 +13,15 @@ $(document).ready(function() {
     }
   });
 
+  $('a.vertical-breadcrumb-expander').click(function(e){
+    e.preventDefault();
+    $(this).toggleClass('expanded');
+    $('.vertical-breadcrumb .can-collapse').slideToggle();
+    if ($(this).text() == '[Show More...]') {
+      $(this).text('[Collapse]');
+    } else {
+      $(this).text('[Show More...]');
+    }
+  });
+
 });

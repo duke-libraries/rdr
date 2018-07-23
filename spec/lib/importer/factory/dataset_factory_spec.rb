@@ -39,7 +39,7 @@ RSpec.describe Importer::Factory::DatasetFactory, :clean do
         describe "admin set ID provided" do
           let(:expected_admin_set_id) { 'w9505044z' }
           before { attributes.merge!({ admin_set_id: expected_admin_set_id }) }
-          it 'creates file sets with access controls' do
+          it 'creates file sets with provided admin set' do
             expect(actor).to receive(:create).with(Hyrax::Actors::Environment) do |k|
               expect(k.attributes).to include('member_of_collection_ids' => [ coll.id ],
                                               'remote_files' => remote_files,
@@ -49,28 +49,12 @@ RSpec.describe Importer::Factory::DatasetFactory, :clean do
           end
         end
         describe "admin set ID not provided" do
-          describe "preferred admin set configured" do
-            let(:expected_admin_set_id) { 'gq67jr16q' }
-            before { allow(Rdr).to receive(:preferred_admin_set_id) { expected_admin_set_id } }
-            it 'creates file sets with access controls' do
-              expect(actor).to receive(:create).with(Hyrax::Actors::Environment) do |k|
-                expect(k.attributes).to include('member_of_collection_ids' => [ coll.id ],
-                                                'remote_files' => remote_files,
-                                                'admin_set_id' => expected_admin_set_id)
-              end
-              factory.run
+          it 'creates file sets without specified admin set' do
+            expect(actor).to receive(:create).with(Hyrax::Actors::Environment) do |k|
+              expect(k.attributes).to include('member_of_collection_ids' => [ coll.id ],
+                                              'remote_files' => remote_files)
             end
-          end
-          describe "preferred admin set not configured" do
-            let(:expected_admin_set_id) { AdminSet::DEFAULT_ID }
-            it 'creates file sets with access controls' do
-              expect(actor).to receive(:create).with(Hyrax::Actors::Environment) do |k|
-                expect(k.attributes).to include('member_of_collection_ids' => [ coll.id ],
-                                                'remote_files' => remote_files,
-                                                'admin_set_id' => expected_admin_set_id)
-              end
-              factory.run
-            end
+            factory.run
           end
         end
       end

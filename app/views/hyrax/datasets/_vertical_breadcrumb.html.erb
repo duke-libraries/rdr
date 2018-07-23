@@ -1,0 +1,13 @@
+<div class="vertical-breadcrumb">
+  <% presenter.ancestor_trail.each_with_index do |doc,i| %>
+    <%= render 'vertical_breadcrumb_node', document: doc, position: vertical_breadcrumb_node_position(i+1, presenter.ancestor_trail.count) %>
+  <% end %>
+
+  <div class="vertical-breadcrumb-node current-node">
+    <div class="vertical-breadcrumb-separator">
+      <span class="fa fa-map-marker"></span>
+    </div>
+    <div class="you-are-here">This <%= presenter.model_name %></div>
+  </div>
+
+</div>
