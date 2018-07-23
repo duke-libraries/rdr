@@ -82,3 +82,6 @@ en:
     icons:
       collection: fa fa-th-large
       default: fa fa-square
+    search:
+      button:
+        html: <span class="glyphicon glyphicon-search"></span> <span class="sr-only">Go</span>

@@ -17,13 +17,20 @@
   }
   & #search-form-header {
     margin-top: 0;
+    .input-group label {
+      color: #fff;
+    }
   }
   & button#search-submit-header {
     background-color: #a1b70d;
     border-color: #a1b70d;
+    color: #000;
     &:hover, &:focus {
      background-color: #77870a;
      border-color: #77870a;
+    }
+    .glyphicon {
+      color: #fff;
     }
   }
   & #top-navbar-collapse {
