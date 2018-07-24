@@ -37,10 +37,7 @@ module Importer
     def extract_multi_value_field(header, val, processed, key = nil)
       key ||= header.to_sym
       processed[key] ||= []
-      val = val.strip
-      # Workaround for https://jira.duraspace.org/browse/FCREPO-2038
-      val.delete!("\r")
-      processed[key] << val
+      processed[key] += val.split(Rdr.csv_mv_separator).map(&:strip)
     end
 
     def as_csv_table

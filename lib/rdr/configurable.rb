@@ -99,6 +99,12 @@ module Rdr
         ENV["SUBMISSION_INSTRUCTIONS"] || 'Submission instructions NOT SET'
       end
 
+      # Value used in Importer manifest to separate multiple values in a single
+      # CSV cell.
+      mattr_accessor :csv_mv_separator do
+        ENV["CSV_MV_SEPARATOR"] || "|"
+      end
+
     end
 
     module ClassMethods
