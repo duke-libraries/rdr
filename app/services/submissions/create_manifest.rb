@@ -3,7 +3,7 @@ module Submissions
 
     attr_reader :submission, :hdr_arr, :data_arr, :manifest_path
 
-    SUBMISSION_MULTIPLES = [ :creator, :contributor, :affiliation, :keyword,
+    SUBMISSION_MULTIPLES = [ :creator, :contributor, :affiliation, :subject,
                              :based_near, :temporal, :language, :format, :related_url ]
 
     MANIFEST_ATTRS = Submission::SUBMISSION_ATTRIBUTES - [:doi_exists, :using_cc0]
