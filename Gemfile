@@ -73,5 +73,5 @@ end
 
 group :production do
   gem 'therubyracer', platforms: :ruby
-  gem 'passenger'
+  gem 'passenger', '>= 5.3.3', '< 6'
 end
