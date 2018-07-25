@@ -8,7 +8,7 @@ module Submissions
 
     MANIFEST_ATTRS = Submission::SUBMISSION_ATTRIBUTES - [:doi_exists, :using_cc0]
 
-    CC0_LICENSE = "https://creativecommons.org/publicdomain/zero/1.0/"
+    CC0_LICENSE = "http://creativecommons.org/publicdomain/zero/1.0/"
 
     FILENAME = 'manifest.csv'
     TEMP_DIR_PREFIX = 'manifest-'
@@ -37,6 +37,7 @@ module Submissions
     end
 
     def write_manifest
+      mint_ark
       MANIFEST_ATTRS.each do |attr|
         if submission.send(attr).present?
           value = submission.send(attr).strip
@@ -45,6 +46,11 @@ module Submissions
       end
       process_cc0_license unless submission.license.present?
       write_csv_file(hdr_arr, data_arr)
+    end
+
+    def mint_ark
+      ark = Ark.mint
+      write_fields_for_csv(:ark, ark)
     end
 
     def process_cc0_license
