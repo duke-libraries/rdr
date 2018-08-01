@@ -30,17 +30,25 @@ RSpec.describe SubmissionsController, type: :controller do
       end
       describe 'submission passed screening' do
         let(:deposit_agreement_path) { '/tmp/deposit_agreement.txt' }
+        let(:deposit_instructions_path) { '/tmp/deposit_instructions.txt' }
         let(:folder_name) { "abcdef_201806141734" }
         let(:manifest_path) { '/tmp/manifest.csv' }
         let(:submission_folder) { double('BoxrMash', etag: '0',  id: '48011140270', name: folder_name, type: 'folder') }
         before do
           allow(Submissions::DocumentDepositAgreement).to receive(:call) { deposit_agreement_path }
+          allow(Submissions::CreateDepositInstructions).to receive(:call) { deposit_instructions_path }
           allow(Submissions::CreateManifest).to receive(:call) { manifest_path }
           allow(Submissions::InitializeSubmissionFolder).to receive(:call) { submission_folder }
         end
         describe 'deposit agreement' do
           it 'documents the deposit agreement' do
             expect(Submissions::DocumentDepositAgreement).to receive(:call).with(user)
+            post :create, params: { submission: { deposit_agreement: Submission::AGREE } }
+          end
+        end
+        describe 'deposit instructions' do
+          it 'creates the deposit instructions text file' do
+            expect(Submissions::CreateDepositInstructions).to receive(:call)
             post :create, params: { submission: { deposit_agreement: Submission::AGREE } }
           end
         end
@@ -55,6 +63,7 @@ RSpec.describe SubmissionsController, type: :controller do
             expect(Submissions::InitializeSubmissionFolder).to receive(:call)
                                                                    .with(user,
                                                                          deposit_agreement: deposit_agreement_path,
+                                                                         deposit_instructions: deposit_instructions_path,
                                                                          manifest: manifest_path)
             post :create, params: { submission: { deposit_agreement: Submission::AGREE } }
           end

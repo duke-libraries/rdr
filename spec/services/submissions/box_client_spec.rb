@@ -130,6 +130,31 @@ module Submissions
       end
     end
 
+    describe '#add_deposit_instructions' do
+      let(:folder) { double('BoxrMash', etag: '0',  id: '48011140270', name: 'submission', type: 'folder') }
+      let(:deposit_instructions_path) { '/tmp/dep-inst/deposit_instructions.txt' }
+      it 'calls the Boxr client upload file method' do
+        expect(subject.boxr_client).to receive(:upload_file).with(deposit_instructions_path, folder)
+        subject.add_deposit_instructions(folder, deposit_instructions_path)
+      end
+      describe 'Boxr error' do
+        let(:action) { "adding deposit instructions #{deposit_instructions_path} to #{folder.name}" }
+        before do
+          allow(subject.boxr_client).to receive(:upload_file).with(deposit_instructions_path, folder).and_raise(Boxr::BoxrError)
+        end
+        it 'logs the error' do
+          begin
+            expect(Rails.logger).to receive(:error).with(/Error #{action}:/)
+            subject.add_deposit_instructions(folder, deposit_instructions_path)
+          rescue Rdr::BoxError
+          end
+        end
+        it 'raises a Rdr::BoxError' do
+          expect { subject.add_deposit_instructions(folder, deposit_instructions_path) }.to raise_error(Rdr::BoxError, /Error #{action}:/)
+        end
+      end
+    end
+
     describe '#add_manifest_file' do
       let(:folder) { double('BoxrMash', etag: '0',  id: '48011140270', name: 'submission', type: 'folder') }
       let(:manifest_path) { '/tmp/manifest.csv' }
