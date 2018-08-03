@@ -138,6 +138,7 @@ class CatalogController < ApplicationController
               Rdr::Index::Fields.rights_statement,
               Rdr::Index::Fields.source,
               Rdr::Index::Fields.subject,
+              Rdr::Index::Fields.temporal,
               Rdr::Index::Fields.title,
             ].map(&:to_s),
         pf: title_name.to_s

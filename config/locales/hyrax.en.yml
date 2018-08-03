@@ -19,7 +19,6 @@ en:
           publisher_sim: Publisher
           resource_type_sim: Type
           subject_sim: Subject
-          temporal_dtsim: Collection Dates
           top_level_bsi: Top-Level
         index:
           based_near_tesim: Location
