@@ -19,28 +19,6 @@ a.toggle-extended-text {
   }
 }
 
-.work-files {
-  & dt {
-    color: #666;
-    margin-bottom: 10px;
-  }
-  & dd {
-    border-left: 10px solid #eee;
-    padding-left: 8px;
-  }
-}
-
-.work-citation {
-  & dt {
-    color: #666;
-    margin-bottom: 10px;
-  }
-  & dd {
-    border-left: 10px solid #eee;
-    padding-left: 8px;
-  }
-}
-
 .work-show-columns {
   display: flex;
   @media screen and (max-width: $screen-sm-max) {
@@ -55,7 +33,7 @@ dl.work-show {
   &.dataset {
     border-top: 4px solid #a1b70d;
     padding-top: 25px;
-    margin-top: 20px;
+    margin-top: 25px;
     column-count: 2;
     column-gap: 20px;
     @media screen and (max-width: $screen-xs-max) {
@@ -79,6 +57,16 @@ dl.work-show {
     & ul {
       padding-left: 0;
     }
+  }
+}
+
+dl.work-citation {
+  & dt {
+    margin-bottom: 10px;
+  }
+  & dd {
+    border-left: 10px solid #eee;
+    padding-left: 8px;
   }
 }
 

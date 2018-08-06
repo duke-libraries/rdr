@@ -31,6 +31,11 @@ class Ark
     ark.assigned? ? ark : nil
   end
 
+  # Mints an ARK with the default status
+  def self.mint
+    self.identifier_class.mint
+  end
+
   def initialize(repo_object_or_id, identifier_or_id = nil)
     case repo_object_or_id
       when ActiveFedora::Base
@@ -70,7 +75,7 @@ class Ark
                     when String
                       find_identifier(id)
                     when nil
-                      mint_identifier
+                      self.class.mint
                   end
     repo_object.reload
     repo_object.ark = identifier.id
@@ -131,10 +136,6 @@ class Ark
     identifier_class.find(ark)
   rescue Ezid::IdentifierNotFoundError => e
     raise IdentifierNotFound, e.message
-  end
-
-  def mint_identifier(*args)
-    identifier_class.mint(*args)
   end
 
 end

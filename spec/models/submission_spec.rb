@@ -24,7 +24,7 @@ RSpec.describe Submission, type: :model do
             title: 'Submission Title',
             creator: 'Spade, Sam',
             description: 'Description of my research',
-            keyword: 'awesome',
+            subject: 'awesome',
             doi_exists: 'no',
             using_cc0: Submission::USE_CC0
           }
@@ -44,7 +44,7 @@ RSpec.describe Submission, type: :model do
             title: 'Submission Title',
             creator: 'Spade, Sam',
             description: 'Description of my research',
-            keyword: 'awesome',
+            subject: 'awesome',
             doi_exists: 'yes',
             using_cc0: Submission::USE_CC0
           }
@@ -57,7 +57,7 @@ RSpec.describe Submission, type: :model do
             title: 'Submission Title',
             creator: 'Spade, Sam',
             description: 'Description of my research',
-            keyword: 'awesome',
+            subject: 'awesome',
             doi_exists: 'no',
             using_cc0: Submission::NOT_USE_CC0
           }

@@ -13,12 +13,12 @@ module Rdr
 
     STORED_SEARCHABLE_FIELDS = (
       Hyrax::BasicMetadataIndexer.stored_fields +
-      %i[ alternative depositor funding_agency provenance rights_note ]
+      %i[ alternative depositor funding_agency provenance rights_note temporal ]
     ).freeze
 
     STORED_SORTABLE_FIELDS = %i[ ark contact doi is_replaced_by replaces ].freeze
 
-    DATEABLE_FIELDS = %i[ available temporal ].freeze
+    DATEABLE_FIELDS = %i[ available ].freeze
 
     # :stored_sortable, type: :date
     SORTABLE_DATE_FIELDS = %i[ date_modified date_uploaded ].freeze

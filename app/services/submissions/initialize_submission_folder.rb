@@ -1,15 +1,16 @@
 module Submissions
   class InitializeSubmissionFolder
 
-    attr_reader :box_client, :deposit_agreement_path, :manifest_path, :user
+    attr_reader :box_client, :deposit_agreement_path, :deposit_instructions_path, :manifest_path, :user
 
-    def self.call(user, deposit_agreement: nil, manifest: nil)
-      new(user, deposit_agreement: deposit_agreement, manifest: manifest).call
+    def self.call(user, deposit_agreement: nil, deposit_instructions: nil, manifest: nil)
+      new(user, deposit_agreement: deposit_agreement, deposit_instructions: deposit_instructions, manifest: manifest).call
     end
 
-    def initialize(user, deposit_agreement: nil, manifest: nil)
+    def initialize(user, deposit_agreement: nil, deposit_instructions: nil, manifest: nil)
       @user = user
       @deposit_agreement_path = deposit_agreement
+      @deposit_instructions_path = deposit_instructions
       @manifest_path = manifest
     end
 
@@ -17,6 +18,7 @@ module Submissions
       @box_client = BoxClient.new
       submission_folder = create_submission_folder
       add_deposit_agreement(submission_folder) if deposit_agreement_path.present?
+      add_deposit_instructions(submission_folder) if deposit_instructions_path.present?
       add_manifest_file(submission_folder) if manifest_path.present?
       add_submitter_as_collaborator(submission_folder)
       submission_folder
@@ -33,6 +35,10 @@ module Submissions
 
     def add_deposit_agreement(folder)
       box_client.add_deposit_agreement(folder, deposit_agreement_path)
+    end
+
+    def add_deposit_instructions(folder)
+      box_client.add_deposit_instructions(folder, deposit_instructions_path)
     end
 
     def add_manifest_file(folder)

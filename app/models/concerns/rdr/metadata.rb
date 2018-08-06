@@ -22,7 +22,7 @@ module Rdr
       end
 
       property :temporal, predicate: ::RDF::Vocab::DC.temporal do |index|
-        index.as :dateable
+        index.as :stored_searchable
       end
 
       property :format, predicate: ::RDF::Vocab::DC.format do |index|
