@@ -97,6 +97,7 @@ dl.work-citation {
   color: #666;
   border-bottom: 2px solid #a1b70d;
   padding-bottom: 20px;
+  margin-bottom: 20px;
   & a.vertical-breadcrumb-expander {
     color: #666;
   }
@@ -158,6 +159,18 @@ dl.work-citation {
 }
 
 .stats-button {
+  width: 100%;
+  background: #2e74b2;
+  border: 1px solid rgba(0,0,0,.2);
+  text-transform: uppercase;
+  color: #fff;
+  border-radius: 5px;
+
+  &:hover {
+    background: #021738;
+    color: #fff;
+  }
+
   &:before {
     content: "\f080";
     font-family: "FontAwesome";
