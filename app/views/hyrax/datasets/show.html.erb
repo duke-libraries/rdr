@@ -28,12 +28,9 @@
         <% if @presenter.ancestor_trail.present? %>
           <%= render 'vertical_breadcrumb', presenter: @presenter %>
         <% end %>
-        <%= render 'representative_media', presenter: @presenter, viewer: false unless @presenter.universal_viewer? %>
         <%= render 'altmetric_badge', presenter: @presenter %>
         <%# TODO: consider in future whether to add this partial back in %>
         <%#= render 'citations', presenter: @presenter %>
-        <%= render 'social_media' %>
-        <%= render 'relationships', presenter: @presenter %>
 
         <div>
           <small class="text-muted"><%= @presenter.permission_badge %> <%= @presenter.workflow.badge %></small>
