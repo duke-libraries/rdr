@@ -16,7 +16,6 @@
       <%= render partial: 'manifest_file', locals: { f: f } %>
       <%= render partial: 'files_directory', locals: { f: f } %>
       <%= render partial: 'checksum_file', locals: { f: f } %>
-      <%= render partial: 'on_behalf_of', locals: {f: f } %>
       <div class="form-group">
         <%= f.submit "Submit", id: "batch_imports_submit_button", class: "btn btn-primary" %>
       </div>
