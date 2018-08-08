@@ -158,7 +158,8 @@ dl.work-citation {
     display: none;
 }
 
-.stats-button {
+.stats-button,
+.stats-button:focus {
   width: 100%;
   background: #2e74b2;
   border: 1px solid rgba(0,0,0,.2);
@@ -166,7 +167,8 @@ dl.work-citation {
   color: #fff;
   border-radius: 5px;
 
-  &:hover {
+  &:hover,
+  &:active {
     background: #021738;
     color: #fff;
   }
