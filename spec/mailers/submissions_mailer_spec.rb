@@ -56,11 +56,9 @@ RSpec.describe SubmissionsMailer, type: :mailer do
     let(:submission_folder) { double('BoxrMash', etag: '0',  id: submission_folder_id, name: submission_folder_name,
                                      type: 'folder') }
     let(:submission_folder_url) { "#{Rdr.box_base_url_rdr_submissions}/folder/#{submission_folder_id}"}
-    let(:submission_instructions) { 'instructions to the researcher' }
 
     before do
       allow(Rdr).to receive(:box_base_url_rdr_submissions) { 'https://testbox.example.org' }
-      allow(Rdr).to receive(:submission_instructions) { submission_instructions }
     end
 
     it 'sends an appropriate email' do
@@ -73,7 +71,7 @@ RSpec.describe SubmissionsMailer, type: :mailer do
       expect(mail.body.encoded).to match("Net ID: #{submitter.netid}")
       expect(mail.body.encoded).to match("Submission Folder Name: #{submission_folder.name}")
       expect(mail.body.encoded).to match("Submission Folder URL: #{submission_folder_url}")
-      expect(mail.body.encoded).to match(submission_instructions)
+      expect(mail.body.encoded).to match(I18n.t('rdr.submissions.email.success.text', email: Rdr.curation_group_email))
       expect(mail.body.encoded).to match("#{I18n.t('rdr.submissions.email.label.screening_pii')}: #{submission_attrs[:screening_pii]}")
       expect(mail.body.encoded).to match("#{I18n.t('rdr.submissions.email.label.title')}: #{submission_attrs[:title]}")
       expect(mail.body.encoded).to match("#{I18n.t('rdr.submissions.email.label.creator')}: #{submission_attrs[:creator]}")

@@ -189,6 +189,33 @@ body {
   background-color: #f9f2f2;
 }
 
+.submission-form ul:not([class]) > *:before {
+  margin-left: -2em;
+  padding-right: 1.2em;
+}
+
+.submission-form ul {
+  padding-left: 1em;
+  li {
+    margin-bottom: .5em;
+  }
+}
+
+.submission-form ol {
+  padding-left: 2em;
+  li {
+    margin-bottom: .5em;
+  }
+}
+
+#t6.form-tab .btn-group {
+  margin-top: 1.5em;
+}
+
+.submission-form .pager {
+  padding-left: 0;
+}
+
 .submission-form .pager li > a {
   font-weight: bold;
   font-size: 16px;
