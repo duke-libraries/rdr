@@ -12,15 +12,12 @@ module Importer
     # @option opts [String] :depositor user_key of the User performing the deposit
     # @option opts [String, Class] :model the stringable first (Xxx) portion of the "XxxFactory" constant to be used
     #   for each row
-    # @option opts [String] :on_behalf_of user_key of the User on whose behalf the deposit is being made
-    #   (if proxy deposit)
     def initialize(manifest_file, files_directory, opts={})
       @manifest_file = manifest_file
       @files_directory = files_directory
       @checksum_file = opts.fetch(:checksum_file, nil)
       @depositor = opts.fetch(:depositor, nil)
       @model = opts.fetch(:model, 'Dataset')
-      @on_behalf_of = opts.fetch(:on_behalf_of, nil)
     end
 
     # @return [Integer] count of objects created
@@ -38,7 +35,7 @@ module Importer
     private
 
     def deposit_attributes
-      { depositor: depositor, on_behalf_of: on_behalf_of }
+      { depositor: depositor }
     end
 
     def parser
