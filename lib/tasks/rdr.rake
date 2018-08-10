@@ -19,5 +19,15 @@ namespace :rdr do
       script = Rdr::Scripts::Migration::MigrateComponentArks.new(args)
       script.execute
     end
+
+    desc "Update ARK target URLs (options: DRYRUN=true|false, LIMIT)"
+    task :update_ark_targets => :environment do
+      args = { }
+      args[:dryrun] = ENV['DRYRUN'] == "true"
+      args[:limit] = ENV['LIMIT'].to_i if ENV['LIMIT'].present?
+      update_ark_targets = Rdr::Scripts::Migration::UpdateArkTargets.new(args)
+      update_ark_targets.execute
+    end
   end
+
 end
