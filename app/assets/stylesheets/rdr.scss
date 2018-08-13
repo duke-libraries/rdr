@@ -87,6 +87,45 @@ body {
   color: $link-color;
 }
 
+/* ============================================ */
+/* Permission Badges (extends Bootstrap .label) */
+/* ============================================ */
+
+/* Don't show public badge in work show page */
+.work-permissions .permission-badge-open, .related-files .permission-badge-open {
+  display: none;
+}
+
+/* Add icons to some permission badges */
+.permission-badge-restricted:after {
+  content: "\f023";
+  font-family: FontAwesome;
+  margin-left:0.5em;
+  color: $brand-danger;
+}
+
+.permission-badge-embargo:after {
+  content: "\f023";
+  font-family: FontAwesome;
+  margin-left:0.5em;
+  color: $brand-warning-light;
+}
+
+.permission-badge-lease:after {
+  content: "\f09c";
+  font-family: FontAwesome;
+  margin-left:0.5em;
+  color: $brand-warning-light;
+}
+
+.permission-badge-authenticated:after {
+  content: "\f023";
+  font-family: FontAwesome;
+  margin-left:0.5em;
+  color: $brand-info;
+}
+
+
 /* ============== */
 /* Search Results */
 /* ============== */
@@ -114,7 +153,6 @@ body {
 .column-extra-padding {
   padding: 30px;
 }
-
 
 /* ========== */
 /*  Homepage  */

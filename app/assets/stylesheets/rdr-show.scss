@@ -6,6 +6,11 @@
   padding-right: 30px;
 }
 
+.work-permissions {
+  display: inline-block;
+  font-size:19px;
+}
+
 .expandable-extended-text {
   display: none;
 }
@@ -31,7 +36,7 @@ a.toggle-extended-text {
 
 dl.work-show {
   &.dataset {
-    border-top: 4px solid #a1b70d;
+    border-top: 4px solid $brand-success-light;
     padding-top: 25px;
     margin-top: 25px;
     column-count: 2;
@@ -95,7 +100,7 @@ dl.work-citation {
 .vertical-breadcrumb {
   font-size: 15px;
   color: #666;
-  border-bottom: 2px solid #a1b70d;
+  border-bottom: 2px solid $brand-success-light;
   padding-bottom: 20px;
   margin-bottom: 20px;
   & a.vertical-breadcrumb-expander {

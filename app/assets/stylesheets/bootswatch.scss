@@ -10,7 +10,7 @@
 
 
 .navbar-inverse {
-	
+
   background-color: $brand-primary;
 
   .badge {
@@ -179,7 +179,27 @@ table,
 
 .label {
   border-radius: 0;
+  background-color: white;
+  color: #333;
+  border-style: solid;
+  border-width: 1px 1px 1px 0.8em;
+  &.label-primary {
+    border-color: $brand-primary;
+  }
+  &.label-success {
+    border-color: $brand-success-light;
+  }
+  &.label-info {
+    border-color: $brand-info;
+  }
+  &.label-warning {
+    border-color: $brand-warning-light;
+  }
+  &.label-danger {
+    border-color: $brand-danger;
+  }
 }
+
 
 // Progress bars ==============================================================
 
@@ -222,7 +242,7 @@ table,
 ul { padding-left: 0.5em; }
 ul:not([class]) li { list-style-type: none; }
 ul:not([class])>*:before {
-	color: $brand-success;
+	color: $brand-success-light;
 	content: "\f04d";
 	font-family: "FontAwesome";
 	margin-left: -0.6em;

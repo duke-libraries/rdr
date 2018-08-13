@@ -18,5 +18,12 @@ module Rdr
     config.autoload_paths += %W(#{config.root}/lib)
 
     config.active_job.queue_adapter = :inline
+
+    # Inject/override behaviors in existing classes without having to override the entire class.
+    # Docs: http://samvera.github.io/patterns-presenters.html#overriding-and-custom-presenter-methods
+    config.to_prepare do
+      Hyrax::PermissionBadge.prepend PrependedPresenters::PermissionBadge
+    end
+
   end
 end

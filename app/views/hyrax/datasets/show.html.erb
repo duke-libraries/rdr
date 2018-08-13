@@ -5,6 +5,7 @@
 <div class="row work-type">
   <div itemscope itemtype="http://schema.org/CreativeWork" class="col-xs-12">
     <%= render 'work_title', presenter: @presenter %>
+    <div class="work-permissions"><%= @presenter.permission_badge %></div>
     <%= render "show_actions", presenter: @presenter %>
 
     <div class="row work-show-columns">
@@ -32,9 +33,6 @@
         <%# TODO: consider in future whether to add this partial back in %>
         <%#= render 'citations', presenter: @presenter %>
 
-        <div>
-          <small class="text-muted"><%= @presenter.permission_badge %> <%= @presenter.workflow.badge %></small>
-        </div>
         <% if Hyrax.config.analytics? %>
           <%= link_to "Usage Stats", @presenter.stats_path, id: 'stats', class: 'btn btn-default btn-link stats-button', data: { turbolinks: false } %>
         <% end %>
