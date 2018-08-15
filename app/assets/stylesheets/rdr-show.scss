@@ -118,6 +118,11 @@ dl.work-citation {
   &.current-node {
     margin-top: -6px;
   }
+  &.home-node {
+    & .fa {
+      font-size: 20px;
+    }
+  }
 }
 
 .vertical-breadcrumb-separator {
@@ -135,7 +140,7 @@ dl.work-citation {
     left: -3px;
     &.fa-map-marker {
       font-size: 19px;
-      color: $brand-success;
+      color: $brand-success-light;
       background-color: white;
       bottom: -10px;
       left: -4px;

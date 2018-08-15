@@ -26,9 +26,7 @@
         <% end %>
       </div>
       <div class="contextual-info col-sm-3 text-center">
-        <% if @presenter.ancestor_trail.present? %>
-          <%= render 'vertical_breadcrumb', presenter: @presenter %>
-        <% end %>
+        <%= render 'vertical_breadcrumb', presenter: @presenter %>
         <%= render 'altmetric_badge', presenter: @presenter %>
         <%# TODO: consider in future whether to add this partial back in %>
         <%#= render 'citations', presenter: @presenter %>
