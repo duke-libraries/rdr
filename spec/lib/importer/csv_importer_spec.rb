@@ -40,19 +40,16 @@ module Importer
     describe 'deposit attributes' do
       let(:csv_file) { "/tmp/manifest.csv" }
       let(:depositor_key) { 'a@b.edu' }
-      let(:on_behalf_of_key) { 'c@d.edu' }
       before do
         allow(subject).to receive(:parser) { [ {'title' => [ 'Test Title' ] } ] }
       end
-      subject { described_class.new(csv_file, files_directory, model: 'Dataset', depositor: depositor_key,
-                                    on_behalf_of: on_behalf_of_key) }
+      subject { described_class.new(csv_file, files_directory, model: 'Dataset', depositor: depositor_key ) }
       before do
         allow_any_instance_of(Importer::Factory::DatasetFactory).to receive(:run)
       end
       it 'passes the depositor and proxy depositor to the object factory' do
         expect(Importer::Factory::DatasetFactory).to receive(:new)
-                                                      .with(hash_including(depositor: depositor_key,
-                                                                           on_behalf_of: on_behalf_of_key),
+                                                      .with(hash_including(depositor: depositor_key),
                                                             any_args)
                                                       .and_call_original
         subject.import_all
@@ -75,14 +72,14 @@ module Importer
       let(:ds3_checksums) { [ '4c4665b408134d8f6995d1640a7f2d4eeee5c010' ] }
       let(:parent_ark) { Ezid::Identifier.mint }
       subject { described_class.new(manifest_file, files_directory, model: model, checksum_file: checksum_file,
-                                    depositor: depositor.user_key, on_behalf_of: on_behalf_of.user_key) }
+                                    depositor: depositor.user_key) }
       before do
         ezid_test_mode!
         AdminSet.find_or_create_default_admin_set_id
         allow(User).to receive(:curators) { [ depositor.user_key ] }
         allow(CharacterizeJob).to receive(:perform_later)
         manifest_template = File.read(manifest_file_template)
-        manifest_data = manifest_template.gsub('PARENT_ARK', parent_ark.id)
+        manifest_data = manifest_template.gsub('PARENT_ARK', parent_ark.id).gsub('ON_BEHALF_OF', on_behalf_of.user_key)
         File.open(manifest_file, 'w') do |f|
           f.write(manifest_data)
         end

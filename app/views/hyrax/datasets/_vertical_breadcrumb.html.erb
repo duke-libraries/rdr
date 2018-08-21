@@ -1,4 +1,17 @@
 <div class="vertical-breadcrumb">
+
+  <div class="vertical-breadcrumb-node home-node">
+    <div class='attribute attribute-title'>
+      <%= link_to root_path do %>
+        <span class="fa fa-home"></span><br/>
+        <span>Home</span>
+      <% end %>
+    </div>
+    <div class="vertical-breadcrumb-separator">
+      <span class="fa fa-long-arrow-down"></span>
+    </div>
+  </div>
+
   <% presenter.ancestor_trail.each_with_index do |doc,i| %>
     <%= render 'vertical_breadcrumb_node', document: doc, position: vertical_breadcrumb_node_position(i+1, presenter.ancestor_trail.count) %>
   <% end %>

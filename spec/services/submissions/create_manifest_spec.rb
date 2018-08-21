@@ -18,9 +18,11 @@ module Submissions
       let(:second_subject) { "more stuff" }
       let(:based_near) { "London, England" }
       let(:doi) { "123456789" }
+      let(:user) { FactoryBot.create(:user, uid: 'user2@duke.edu') }
 
       before do
         allow(Ark).to receive(:mint) { ark_identifier }
+        allow(submission).to receive(:submitter).and_return(user)
       end
 
       after do
@@ -38,9 +40,9 @@ module Submissions
                                             using_cc0: Submission::USE_CC0
                                           }) }
         let(:header_row) { [ "ark", "title", "creator", "creator", "affiliation", "subject", "subject", "based_near",
-                             "doi", "license" ] }
+                             "doi", "license", "on_behalf_of" ] }
         let(:data_row) { [ ark, title, first_creator, second_creator, affiliation, first_subject, second_subject,
-                           based_near, doi, license ] }
+                           based_near, doi, license, user.uid ] }
 
         it 'includes the CC0 license' do
           arr = []
@@ -64,9 +66,9 @@ module Submissions
                                             license: license
                                           }) }
         let(:header_row) { [ "ark", "title", "creator", "creator", "affiliation", "subject", "subject", "based_near",
-                             "doi", "license" ] }
+                             "doi", "license", "on_behalf_of" ] }
         let(:data_row) { [ ark, title, first_creator, second_creator, affiliation, first_subject, second_subject,
-                           based_near, doi, license ] }
+                           based_near, doi, license, user.uid ] }
 
         it 'includes the non-CC0 user-provided license' do
           arr = []

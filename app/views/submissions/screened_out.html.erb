@@ -9,7 +9,7 @@
         <h1><%= t("rdr.submissions.heading") %></h1>
 
         <!-- if form was ended early, display this: -->
-        <%= t("rdr.submissions.form_not_complete_html") %>
+        <%= t("rdr.submissions.form_not_complete_html", email: Rdr.curation_group_email) %>
 
       </div>
 

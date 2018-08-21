@@ -54,6 +54,10 @@ body {
 
 }
 
+#content-wrapper .breadcrumb {
+  display: none;
+}
+
 .site-footer {
   height: auto;
 }
@@ -83,6 +87,45 @@ body {
   color: $link-color;
 }
 
+/* ============================================ */
+/* Permission Badges (extends Bootstrap .label) */
+/* ============================================ */
+
+/* Don't show public badge in work show page */
+.work-permissions .permission-badge-open, .related-files .permission-badge-open {
+  display: none;
+}
+
+/* Add icons to some permission badges */
+.permission-badge-restricted:after {
+  content: "\f023";
+  font-family: FontAwesome;
+  margin-left:0.5em;
+  color: $brand-danger;
+}
+
+.permission-badge-embargo:after {
+  content: "\f023";
+  font-family: FontAwesome;
+  margin-left:0.5em;
+  color: $brand-warning-light;
+}
+
+.permission-badge-lease:after {
+  content: "\f09c";
+  font-family: FontAwesome;
+  margin-left:0.5em;
+  color: $brand-warning-light;
+}
+
+.permission-badge-authenticated:after {
+  content: "\f023";
+  font-family: FontAwesome;
+  margin-left:0.5em;
+  color: $brand-info;
+}
+
+
 /* ============== */
 /* Search Results */
 /* ============== */
@@ -110,7 +153,6 @@ body {
 .column-extra-padding {
   padding: 30px;
 }
-
 
 /* ========== */
 /*  Homepage  */
@@ -183,6 +225,33 @@ body {
   padding: 20px;
   margin: -20px;
   background-color: #f9f2f2;
+}
+
+.submission-form ul:not([class]) > *:before {
+  margin-left: -2em;
+  padding-right: 1.2em;
+}
+
+.submission-form ul {
+  padding-left: 1em;
+  li {
+    margin-bottom: .5em;
+  }
+}
+
+.submission-form ol {
+  padding-left: 2em;
+  li {
+    margin-bottom: .5em;
+  }
+}
+
+#t6.form-tab .btn-group {
+  margin-top: 1.5em;
+}
+
+.submission-form .pager {
+  padding-left: 0;
 }
 
 .submission-form .pager li > a {

@@ -94,11 +94,6 @@ module Rdr
         ENV["CURATION_GROUP_EMAIL"] || 'curators@example.org'
       end
 
-      # Submission instructions to include in email after RDR Submissions form completion
-      mattr_accessor :submission_instructions do
-        ENV["SUBMISSION_INSTRUCTIONS"] || 'Submission instructions NOT SET'
-      end
-
       # Value used in Importer manifest to separate multiple values in a single
       # CSV cell.
       mattr_accessor :csv_mv_separator do

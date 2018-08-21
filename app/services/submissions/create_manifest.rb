@@ -45,6 +45,7 @@ module Submissions
         end
       end
       process_cc0_license unless submission.license.present?
+      process_on_behalf_of if submission.submitter.present?
       write_csv_file(hdr_arr, data_arr)
     end
 
@@ -56,6 +57,12 @@ module Submissions
     def process_cc0_license
       attr = :license
       value = CC0_LICENSE
+      write_fields_for_csv(attr, value)
+    end
+
+    def process_on_behalf_of
+      attr = :on_behalf_of
+      value = submission.submitter.uid
       write_fields_for_csv(attr, value)
     end
 

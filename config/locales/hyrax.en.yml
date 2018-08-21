@@ -60,6 +60,9 @@ en:
           subject_tesim: Subject
           title_tesim: Title
   hyrax:
+    base:
+      items:
+        visibility: '' # blank heading
     collection:
       select_form:
         select_label:       "Collections"
@@ -84,3 +87,8 @@ en:
     search:
       button:
         html: <span class="glyphicon glyphicon-search"></span> <span class="sr-only">Go</span>
+    visibility:
+      embargo:
+        text: Embargoed
+      lease:
+        text: Leased

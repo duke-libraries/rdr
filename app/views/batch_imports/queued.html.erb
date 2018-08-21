@@ -30,12 +30,3 @@
     <%= @batch_import.checksum_file_full_path %>
   </div>
 </div>
-
-<div class="row">
-  <div class="col-md-2">
-    <%= t('helpers.label.batch_import.on_behalf_of') %>:
-  </div>
-  <div class="col-md-4">
-    <%= render_on_behalf_of(@batch_import.on_behalf_of) %>
-  </div>
-</div>

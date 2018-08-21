@@ -6,6 +6,11 @@
   padding-right: 30px;
 }
 
+.work-permissions {
+  display: inline-block;
+  font-size:19px;
+}
+
 .expandable-extended-text {
   display: none;
 }
@@ -31,7 +36,7 @@ a.toggle-extended-text {
 
 dl.work-show {
   &.dataset {
-    border-top: 4px solid #a1b70d;
+    border-top: 4px solid $brand-success-light;
     padding-top: 25px;
     margin-top: 25px;
     column-count: 2;
@@ -95,8 +100,9 @@ dl.work-citation {
 .vertical-breadcrumb {
   font-size: 15px;
   color: #666;
-  border-bottom: 2px solid #a1b70d;
+  border-bottom: 2px solid $brand-success-light;
   padding-bottom: 20px;
+  margin-bottom: 20px;
   & a.vertical-breadcrumb-expander {
     color: #666;
   }
@@ -111,6 +117,11 @@ dl.work-citation {
   }
   &.current-node {
     margin-top: -6px;
+  }
+  &.home-node {
+    & .fa {
+      font-size: 20px;
+    }
   }
 }
 
@@ -129,7 +140,7 @@ dl.work-citation {
     left: -3px;
     &.fa-map-marker {
       font-size: 19px;
-      color: $brand-success;
+      color: $brand-success-light;
       background-color: white;
       bottom: -10px;
       left: -4px;
@@ -157,7 +168,21 @@ dl.work-citation {
     display: none;
 }
 
-.stats-button {
+.stats-button,
+.stats-button:focus {
+  width: 100%;
+  background: #2e74b2;
+  border: 1px solid rgba(0,0,0,.2);
+  text-transform: uppercase;
+  color: #fff;
+  border-radius: 5px;
+
+  &:hover,
+  &:active {
+    background: #021738;
+    color: #fff;
+  }
+
   &:before {
     content: "\f080";
     font-family: "FontAwesome";

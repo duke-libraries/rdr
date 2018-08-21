@@ -16,4 +16,8 @@ body.dashboard {
     padding-left: 0.5em;
   }
 
+  & table.works-list a.visibility-link {
+    text-decoration: none;
+  }
+
 }
