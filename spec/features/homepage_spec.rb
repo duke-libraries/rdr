@@ -7,7 +7,7 @@ RSpec.feature 'Display homepage' do
     before do
       AdminSet.find_or_create_default_admin_set_id
       FactoryBot.create(:public_dataset, title: [ 'Analysis' ])
-      FactoryBot.create(:public_dataset, title: [ 'Discussion' ], bibliographic_citation: [ 'Citation' ])
+      FactoryBot.create(:public_dataset, title: [ 'Discussion' ], bibliographic_citation: [ 'Data Citation' ])
     end
 
     scenario do
@@ -15,7 +15,7 @@ RSpec.feature 'Display homepage' do
       expect(page).to have_content(I18n.t('hyrax.homepage.recently_uploaded.title'))
       expect(page).to_not have_content('Depositor')
       expect(page).to have_content('Analysis')
-      expect(page).to have_content('Citation')
+      expect(page).to have_content('Data Citation')
       expect(page).to_not have_content('Discussion')
     end
   end

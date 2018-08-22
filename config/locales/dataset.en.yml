@@ -19,7 +19,7 @@ en:
         ark: ARK
         available: Publication Date
         based_near: Geographic Coverage
-        bibliographic_citation: Citation
+        bibliographic_citation: Data Citation
         contact: Contact
         contributor: Contributor
         creator: Creator
@@ -50,7 +50,7 @@ en:
         ark: ARK
         available: Publication Date
         based_near: Geographic Coverage
-        bibliographic_citation: Citation
+        bibliographic_citation: Data Citation
         contact: Contact
         contributor: Contributor
         description: Description
