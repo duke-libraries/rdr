@@ -40,7 +40,6 @@ en:
         label:
           screening_guidelines: Submission Guidelines Read
           screening_pii: Sensitive Data
-          screening_license: Right to Assign License
           screening_funding: Grant Funded
           screening_funded_size: Funded Data Size
           screening_nonfunded_size: Non-Funded Data Size
@@ -57,6 +56,8 @@ en:
           language: Languages
           format: Formats
           related_url: Related Materials
+          funding_agency: Funding Agency
+          grant_number: Grant Number
           doi_exists: DOI Exists
           doi: DOI
           using_cc0: Use CC0
@@ -71,24 +72,22 @@ en:
         required_questions_html: 'Please complete the fields marked below.'
       fieldsets:
         legend1: 'Policy Review'
-        legend2: 'Personally Identifying Information'
-        legend3: 'Data Rights'
+        legend2: 'Personally Identifiable Information'
+        legend3: 'Grant Funding'
         legend4: 'Grant Funding'
-        legend5: 'Grant Funding'
-        legend6: 'DDR Data Deposit Agreement'
-        legend7: 'Submission Information'
-        legend8: 'DOI Information'
-        legend9: 'Creative Commons Information'
+        legend5: 'DDR Data Deposit Agreement'
+        legend6: 'Submission Information'
+        legend7: 'DOI Information'
+        legend8: 'Creative Commons Information'
       questions:
         intro_html: "Please complete the following questions to get started with your data deposit. Use the controls at the bottom to advance through the form."
-        question1_html: "By clicking this button you acknowledge that you have already reviewed the repository's <a href='https://library.duke.edu/data/sites/default/files/datagis/users/Sophia%20Lafferty-Hess/DDR_DataSubmissionGuidelines.pdf' target='_blank'>Submission Guidelines</a> and the <a href='https://library.duke.edu/data/ddr-research-data-policies-procedures' target='_blank'>DDR Research Data Policies and Procedures</a> and your data are finalized and ready to be deposited."
-        question2_html: 'Does the data you plan to deposit contain any personally identifying information (PII), personal health information (PHI), or data that could be classified as sensitive in any other way?'
-        question3_html: "I have the right to assign a <a href='https://library.duke.edu/data/ddr-research-data-policies-procedures#Licensing' target='_blank'>license </a>to this data"
-        question4_html: 'Was the project that generated this data funded either by a public or private grant?'
-        question5a_html: 'Funded projects are allotted up to 10GB of repository storage at no added cost. What is the approximate size of your data?'
-        question5b_html: 'Projects without funding are allotted up to 2.5 GB of repository storage at no added cost. What is the approximate size of your data?'
-        question19_html: "Do you already have a Digital Object Identifier (DOI) associated with this study/dataset?"
-        question21_html: '<p class="lead">Datasets will default to a CC0 public domain dedication. By applying a CC0 waiver to your data, you are releasing your data for reuse and redistribution without restrictions under copyright or database law. Users of data within the DDR are expected to properly attribute data producers in accordance with community and data citation norms. To learn more see the <a href="https://creativecommons.org/share-your-work/public-domain/cc0/" target="_blank">Creative Commons CC0 web page</a> or consult the <a href="https://duldev.atlassian.net/wiki/display/DDRDOC/Licensing+Policy+for+Research+Data" target="_blank">DDR Licensing Policy</a>.</p><p class="lead">If a CC0 waiver is not appropriate for your data, please see the <a href="https://creativecommons.org/licenses/" target="_blank">Creative Commons website</a> to identify another license, select "No I would not like to use CC0", and then enter the license you wish to use in the next box.</p>'
+        question1_html: "By clicking this button you acknowledge that you have already reviewed the repository's <a href='/help?locale=en' target='_blank'>Submission Guidelines</a> and the <a href='/about?locale=en' target='_blank'>DDR Research Data Policies and Procedures</a> and your data are finalized and ready to be deposited."
+        question2_html: 'Does the data you plan to deposit contain any personally identifiable information (PII), personal health information (PHI), or data that could be classified as sensitive in any other way?'
+        question3_html: 'Was the project that generated this data funded either by a public or private grant?'
+        question4a_html: 'Funded projects are allotted up to 10GB of repository storage at no added cost. What is the approximate size of your data?'
+        question4b_html: 'Projects without funding are allotted up to 2.5 GB of repository storage at no added cost. What is the approximate size of your data?'
+        question20_html: "Do you already have a Digital Object Identifier (DOI) associated with this study/dataset?"
+        question22_html: '<p class="lead">Datasets will default to a CC0 public domain dedication. By applying a CC0 waiver to your data, you are releasing your data for reuse and redistribution without restrictions under copyright or database law. Users of data within the DDR are expected to properly attribute data producers in accordance with community and data citation norms. To learn more see the <a href="https://creativecommons.org/share-your-work/public-domain/cc0/" target="_blank">Creative Commons CC0 web page</a> or consult the <a href="https://duldev.atlassian.net/wiki/display/DDRDOC/Licensing+Policy+for+Research+Data" target="_blank">DDR Licensing Policy</a>.</p><p class="lead">If a CC0 waiver is not appropriate for your data, please see the <a href="https://creativecommons.org/licenses/" target="_blank">Creative Commons website</a> to identify another license, select "No I would not like to use CC0", and then enter the license you wish to use in the next box.</p>'
       labels:
         question1_label1: "I've read all guidelines, policies and procedures and am ready to deposit"
         question1_label2: "I'm not ready to deposit"
@@ -96,33 +95,33 @@ en:
         question2_label2: "Yes"
         question3_label1: "Yes"
         question3_label2: "No"
-        question4_label1: "Yes"
-        question4_label2: "No"
-        question5a_label1: "less than 10 GB"
-        question5a_label2: "more than 10 GB"
-        question5b_label1: "less than 2.5 GB"
-        question5b_label2: "more than 2.5 GB"
-        question6_label1: "I agree"
-        question6_label2: "I do not agree"
-        question7_label: "Please enter the full title for the study/dataset"
-        question8_label: "Please enter the creators/authors (principal investigator, co-investigator(s)) of this study/dataset as follows: Lastname, Firstname (MI optional); Lastname, Firstname (MI optional); etc."
-        question9_label: "Please enter additional contributors (non-authors) to this study/dataset as follows:
+        question4a_label1: "less than 10 GB"
+        question4a_label2: "more than 10 GB"
+        question4b_label1: "less than 2.5 GB"
+        question4b_label2: "more than 2.5 GB"
+        question5_label1: "I agree"
+        question5_label2: "I do not agree"
+        question6_label: "Please enter the full title for the study/dataset"
+        question7_label: "Please enter the creators/authors (principal investigator, co-investigator(s)) of this study/dataset as follows: Lastname, Firstname (MI optional); Lastname, Firstname (MI optional); etc."
+        question8_label: "Please enter additional contributors (non-authors) to this study/dataset as follows:
 Lastname, Firstname (MI optional); Lastname, Firstname (MI optional); etc.  Please note contributors will not appear as creators/authors in the citation created for this deposit."
-        question10_label: "Please enter department, school, research center or other organizational affiliation.  Separate each with a semicolon."
-        question11_label: "Please list a name, phone number and/or email address for a designated contact for this study/dataset. This contact is responsible for answering questions about the data, documentation and/or code for this project."
-        question12_label: "Please enter a description for your study/dataset.  An abstract from a grant or publication is acceptable."
-        question13_label: "Please enter one or more key words to describe your study/dataset (e.g. Mechanical engineering, Sociology, Medical imaging, etc.). Please separate each key word with a semicolon."
-        question14_label: "Please list the geographic area(s) where your study data was collected if significant for the analysis of the data (country, state, locality)."
-        question15_label: "Please list the dates of data collection."
-        question16_label: "Please list any languages associated with this study/dataset.  If multiple languages, please separate each language with a semicolon."
-        question17_label: "Please list the formats associated with the materials in this deposit (e.g. PDF, CSV, DICOM, WAV, TIFF). Please separate each format with a semicolon."
-        question18_label: "Please list any related publications, datasets or other published materials that you would like to associate with the study/dataset record. Enter the citation and persistent identifier (DOI)."
-        question19_label1: "Yes"
-        question19_label2: "No"
-        question20_label: "Please enter your DOI"
-        question21_label1: "I will use CC0"
-        question21_label2: "No I would not like to use CC0"
-        question22_label: "I would like to apply this creative commons license (e.g. CC BY, CC BY-NC, etc.)"
+        question9_label: "Please enter department, school, research center or other organizational affiliation.  Separate each with a semicolon."
+        question10_label: "Please list a name, phone number and/or email address for a designated contact for this study/dataset. This contact is responsible for answering questions about the data, documentation and/or code for this project."
+        question11_label: "Please enter a description for your study/dataset.  An abstract from a grant or publication is acceptable."
+        question12_label: "Please enter one or more key words to describe your study/dataset (e.g. Mechanical engineering, Sociology, Medical imaging, etc.). Please separate each key word with a semicolon."
+        question13_label: "Please list the geographic area(s) where your study data was collected if significant for the analysis of the data (country, state, locality)."
+        question14_label: "Please list the dates of data collection."
+        question15_label: "Please list any languages associated with this study/dataset.  If multiple languages, please separate each language with a semicolon."
+        question16_label: "Please list the formats associated with the materials in this deposit (e.g. PDF, CSV, DICOM, WAV, TIFF). Please separate each format with a semicolon."
+        question17_label: "Please list any related publications, datasets or other published materials that you would like to associate with the study/dataset record. Enter the citation and persistent identifier (DOI)."
+        question18_label: "Please list the name of your funder or funding agency."
+        question19_label: "Please list your grant number."
+        question20_label1: "Yes"
+        question20_label2: "No"
+        question21_label: "Please enter your DOI"
+        question22_label1: "I will use CC0"
+        question22_label2: "No I would not like to use CC0"
+        question23_label: "I would like to apply this creative commons license (e.g. CC BY, CC BY-NC, etc.)"
       required_text_html: "<p class='lead'>Complete the fields below &mdash; note that those marked with an <span class='required-text'>*</span> are required.</p>"
-      form_complete_html: "<p class='lead'>What to Expect After You Complete the Data Deposit Form</p><ol><li>You will receive an email with a link to a Box folder and a record of your submitted metadata. You will be able to view and upload your files to this Box folder, but not re-download them. If you make an error, please just upload a replacement file. Once you have finished uploading your files, please send an email notification to <a href='mailto:%{email}'>%{email}</a>.</li><li>Research data curators will review your deposit to help ensure the data meet the submission requirements and are in a format and structure that supports long-term preservation, access, and reuse. This includes a review of the metadata and documentation for completeness and a cursory review for the presence of sensitive data.</li><li>If any changes are needed, you will be contacted.  Some changes may be required to be made by the depositor (data content-related) other minor changes may be made by DDR staff  (metadata normalization, transforming files to preservation-friendly formats).</li><li>When the files are ready for final ingest, the files will be processed and ingested into the repository.  Once the processing is complete, the depositor will be notified and provided with a link to their dataset record and persistent identifier.</li></ol><p>Our aim is to process all deposits in a timely fashion, but as we are in the early phases of research data curation services, processing time may vary depending on size and type of data. In the meantime, contact us if you have any questions at <a href='mailto:%{email}'>%{email}</a>.</p>"
+      form_complete_html: "<p class='lead'>What to Expect After You Complete the Data Deposit Form:</p><ol><li>You will receive a Box invitation to upload your data into a Box folder under your name. You will be able to view and upload but not re-download your files. If you make an error, just upload a replacement file. Once you have completed this upload, please send an email notification to <a href='mailto:%{email}'>%{email}</a>.</li><li>Research data curators will review your deposit to help ensure the data meet the submission requirements and are in a format and structure that supports long-term preservation, access, and reuse. This includes a review of the metadata and documentation for completeness and a cursory review for the presence of sensitive data.</li><li>If any changes are needed, you will be contacted. Some changes may be required to be made by the depositor (data content-related) other minor changes may be made by DDR staff (metadata normalization, transforming files to preservation-friendly formats).</li><li>When the files are ready for final ingest, the files will be processed and ingested into the repository. Once the processing is complete, the depositor will be notified and provided with a link to their dataset record and persistent identifier.</li></ol><p>Our aim is to process all deposits in a timely fashion and turnaround is usually one to three business days, however processing time may vary depending on size and type of data. Please contact us if you have any questions at <a href='mailto:%{email}'>%{email}</a>.</p>"
       form_not_complete_html: "Due to your answer on the previous question, your data might not yet meet the criteria for deposit. We would like to talk with you about your data, so one of our curators will follow up shortly to assist you. In the meantime, please review our submission guidelines and contact us if you have any questions at <a href='mailto:%{email}'>%{email}</a>."
