@@ -50,7 +50,7 @@ en:
           affiliation: Affiliation
           contact: Contact Info
           description: Description
-          keyword: Keywords
+          subject: Keywords
           based_near: Geographic Areas
           temporal: Data Collection Dates
           language: Languages
