@@ -65,8 +65,10 @@ module Importer
       # Override if we need to map the attributes from the parser in
       # a way that is compatible with how the factory needs them.
       def transform_attributes
+        based_near_values = attributes.delete(:based_near)
         sanitized_attributes
             .merge(file_attributes)
+            .merge(location_attributes(based_near_values))
             .merge(nesting_attributes)
             .merge(visibility_attributes)
             .merge(collection_membership_attributes)
@@ -98,6 +100,20 @@ module Importer
 
       def file_attributes
         files_directory.present? && files.present? ? { remote_files: remote_files } : {}
+      end
+
+      def location_attributes(based_near_values)
+        if based_near_values.present?
+          { 'based_near_attributes' => based_near_attrs(based_near_values) }
+        else
+          {}
+        end
+      end
+
+      def based_near_attrs(based_near_values)
+        based_near_values.each_with_object({}).with_index do |(val, hsh), idx|
+          hsh[idx.to_s] = { 'id' => val, '_destroy' => '' }
+        end
       end
 
       def nesting_attributes
