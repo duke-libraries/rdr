@@ -88,6 +88,20 @@ module Importer
         File.open(checksum_file, 'w') do |f|
           f.write(checksum_data)
         end
+        stub_request(:get, "http://sws.geonames.org/4464368/").
+            with(  headers: {
+                'Accept'=>'text/turtle, text/rdf+turtle, application/turtle;q=0.2, application/x-turtle;q=0.2, application/ld+json, application/x-ld+json, application/n-triples, text/plain;q=0.2, application/n-quads, text/x-nquads;q=0.2, application/rdf+json, text/html;q=0.5, application/xhtml+xml;q=0.7, image/svg+xml;q=0.4, text/n3, text/rdf+n3;q=0.2, application/rdf+n3;q=0.2, application/normalized+n-quads, application/x-normalized+n-quads, application/rdf+xml, text/csv;q=0.4, text/tab-separated-values;q=0.4, application/csvm+json, application/trig, application/x-trig;q=0.2, application/trix',
+                'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+                'User-Agent'=>'Ruby'
+            }).
+            to_return(status: 200, body: "", headers: {})
+        stub_request(:get, "http://sws.geonames.org/4460162/").
+            with(  headers: {
+                'Accept'=>'text/turtle, text/rdf+turtle, application/turtle;q=0.2, application/x-turtle;q=0.2, application/ld+json, application/x-ld+json, application/n-triples, text/plain;q=0.2, application/n-quads, text/x-nquads;q=0.2, application/rdf+json, text/html;q=0.5, application/xhtml+xml;q=0.7, image/svg+xml;q=0.4, text/n3, text/rdf+n3;q=0.2, application/rdf+n3;q=0.2, application/normalized+n-quads, application/x-normalized+n-quads, application/rdf+xml, text/csv;q=0.4, text/tab-separated-values;q=0.4, application/csvm+json, application/trig, application/x-trig;q=0.2, application/trix',
+                'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+                'User-Agent'=>'Ruby'
+            }).
+            to_return(status: 200, body: "", headers: {})
       end
       after { FileUtils.rmdir(tmp_dir)}
       it 'imports the objects' do
@@ -118,6 +132,10 @@ module Importer
         expect(ds1.visibility).to eq(Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC)
         expect(ds2.visibility).to eq(Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE)
         expect(ds3.visibility).to eq(Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_AUTHENTICATED)
+        expect(ds1.based_near).to contain_exactly(an_instance_of(Hyrax::ControlledVocabularies::Location),
+                                                  an_instance_of(Hyrax::ControlledVocabularies::Location))
+        expect(ds2.based_near).to be_empty
+        expect(ds3.based_near).to be_empty
         expect(ds1.file_sets.map(&:files).map(&:first).map(&:checksum).map(&:value)).to match_array(ds1_checksums)
         expect(ds2.file_sets.map(&:files).map(&:first).map(&:checksum).map(&:value)).to match_array(ds2_checksums)
         expect(ds3.file_sets.map(&:files).map(&:first).map(&:checksum).map(&:value)).to match_array(ds3_checksums)
