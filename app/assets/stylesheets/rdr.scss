@@ -87,6 +87,30 @@ body {
   color: $link-color;
 }
 
+
+
+/* ============================================ */
+/* Button Variations (extends Bootstrap) */
+/* ============================================ */
+
+.btn-emphasize {
+  font-weight: bold;
+  &:before {
+  content: "\f105";
+  font-family: FontAwesome;
+  margin-right: 0.5em;
+  color: $brand-success-light;
+  }
+}
+
+.btn-default-darker {
+  background: #ccc;
+  border-color: #cacaca;
+  &:hover {
+    background: #ddd;
+  }
+}
+
 /* ============================================ */
 /* Permission Badges (extends Bootstrap .label) */
 /* ============================================ */
@@ -152,32 +176,6 @@ body {
 
 .column-extra-padding {
   padding: 30px;
-}
-
-/* ========== */
-/*  Homepage  */
-/* ========== */
-
-.home-content #recent_docs {
-  margin-bottom: 10px;
-}
-
-.home-content #recent_docs .recent-item:hover {
-  background: #cccccc;
-}
-
-.home-content #recent_docs .recent-item img {
-  width: 45px;
-  border-radius: 6px;
-}
-
-.home-content #recent_docs a {
-  color: #333333;
-  text-decoration: none;
-}
-
-.home-content #recent_docs .media-left, .media-body {
-  vertical-align: top;
 }
 
 
@@ -328,9 +326,9 @@ body {
 //https://github.com/duke-libraries/ddr-public/blob/develop/app/assets/stylesheets/ddr.scss#L1242-L1284
 
 .footer {
-    background: $gray-lighter;
     margin-bottom: 0;
     border: 0;
+    padding: 20px;
   }
 
 

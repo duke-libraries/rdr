@@ -1,7 +1,8 @@
 #masthead {
-  background-color: #053482;
+  background-color: $dul-blue;
   height: 66px;
   margin-bottom: 0;
+  border-bottom: none;
   padding: 10px 0;
   @media (max-width: $screen-sm) {
     height: auto;
