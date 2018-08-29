@@ -18,6 +18,7 @@ en:
     unexpected_multiple_results: "Unexpected multiple results for %{identifier}"
     user_not_found: "User %{user_key} could not be found"
     not_found: "%{target} could not be found"
+    home_link: "Back to Research Data Repository Home"
     footer:
       label:
         have_data: "Have Data?"
