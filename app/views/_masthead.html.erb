@@ -33,3 +33,9 @@
 
   </div>
 </nav>
+
+<%# Uses a Hyrax helper to check that the Announcement block exists and has text %> 
+<%# See hyrax/app/helpers/hyrax/content_block_helper_behavior.rb %>
+<% if display_content_block? announcement %>
+  <%= render '/announcement' %>
+<% end %>

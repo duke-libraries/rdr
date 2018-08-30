@@ -18,6 +18,9 @@
   }
   & #search-form-header {
     margin-top: 0;
+    & .input-group {
+      margin-bottom: 0;
+    }
     .input-group label {
       color: #fff;
     }
@@ -98,4 +101,22 @@
       }
     }
   }
+}
+
+#masthead-alert {
+  margin-bottom: 0;
+  & .alert {
+    margin-bottom: 0;
+    & p:before {
+      content: "\f06a"; /* exclamation-circle */
+      font-family: FontAwesome;
+      margin-right: 0.4em;
+      font-size: 1.5em;
+    }
+    & a {
+      font-weight: bold;
+      color: white;
+    }
+  }
+
 }
