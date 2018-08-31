@@ -78,7 +78,7 @@ en:
       service_html: A service of <a href="http://samvera.org/" class="navbar-link" target="_blank">Samvera</a>.
     homepage:
       marquee:
-        tagline_html: "<strong>The Research Data Repository</strong> is a service of Duke University Libraries that provides curation, access, and preservation of research data produced by the Duke community. <a href='#about-rdr'>Learn more »</a>"
+        tagline_html: "<strong>The Research Data Repository</strong> is a service of the <a href='https://repository.duke.edu'>Duke Digital Repository</a> that provides curation, access, and preservation of research data produced by the Duke community. <a href='#about-rdr' class='learn-more'>Learn more »</a>"
         deposit_button: Deposit your data
         browse_button: Browse datasets
       recently_uploaded:
