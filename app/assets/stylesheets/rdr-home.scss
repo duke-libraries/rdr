@@ -28,9 +28,8 @@
   background: linear-gradient(to bottom, rgba(255,255,255,0.95), rgba(255,255,255,0.85));
   min-height: 150px;
   position: absolute;
-  font-size: 22px;
+  font-size: 21.5px;
   max-width: 80%;
-  /*bottom: 156px;*/
   top: 75px;
   left: 20px;
   right: 20px;
@@ -46,7 +45,7 @@
     top: 15px;
     font-size: 20px;
   }
-  & a {
+  & a.learn-more {
     font-size: 18px;
     margin-left: 0.5em;
   }
