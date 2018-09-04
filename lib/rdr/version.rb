@@ -1,3 +1,3 @@
 module Rdr
-  VERSION = "0.7.0.pre"
+  VERSION = "1.0.0"
 end
