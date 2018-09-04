@@ -52,4 +52,10 @@ module RdrHelper
     end
   end
 
+  # Adapted from Hyrax homepage controller in order to by used globally in UI:
+  # hyrax/app/controllers/hyrax/homepage_controller.rb
+  def announcement
+    ContentBlock.for(:announcement)
+  end
+
 end

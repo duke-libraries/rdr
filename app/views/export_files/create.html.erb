@@ -7,6 +7,12 @@
       You will receive an email notification when the job is complete.
     </p>
   </div>
+    <div class='btn btn-link'>
+      <%= link_to root_path do %>
+          <span><br/>&laquo; <%= t("rdr.home_link")%></span>
+      <% end %>
+    </div>
+
 <% else %>
   <%= form_tag controller: 'export_files', action: 'create' do %>
     <%= hidden_field_tag :repo_id, @repo_id %>
@@ -23,3 +29,4 @@
   <% end %>
 
 <% end %>
+

@@ -1,31 +1,30 @@
 <%# NOTE: Overrides Hyrax partial %>
-<div class="col-md-6 column-extra-padding">
 
-  <p class="lead text-center">This repository provides access to data created in support of research at Duke. It is a service of Duke University Libraries.</p>
+<div class="home-jumbotron">
+  <div class="home-jumbotron-overlay">
+    <%= t('hyrax.homepage.marquee.tagline_html') %>
+    <div class="text-center marquee-buttons">
+      <%= link_to t('hyrax.homepage.marquee.deposit_button'),
+          main_app.new_submission_path,
+          class: "btn btn-primary btn-lg btn-emphasize" %>
+      <%= link_to t('hyrax.homepage.marquee.browse_button'),
+          main_app.search_catalog_path(f: { has_model_ssim: ["Dataset"], Rdr::Index::Fields.top_level => ["True"] }, latest_version: true),
+          class: 'btn btn-default btn-default-darker btn-lg' %>
+    </div>
+  </div>
+</div>
 
-  <p class="text-center">
-    <%= link_to "Get Started Sharing Your Data",
-        main_app.new_submission_path,
-        class: "btn btn-primary" %>
-  </p>
+<div class="row home-content">
 
-  <p class="text-center">
-    <%= link_to "Learn More",
-                about_path,
-                class: "btn btn-primary" %>
-  </p>
-
-</div><!-- /.col-md-6 -->
-
-
-<div class="col-md-6 column-extra-padding">
-
-  <div id="recently_uploaded">
-
-    <h4 class="text-center"><%= t('hyrax.homepage.recently_uploaded.title') %></h4>
-
-    <%= render 'recently_uploaded', recent_documents: @recent_documents %>
-
+  <div class="col-md-5 col-md-push-7 col-sm-6 col-sm-push-6 col-xs-12 home-recently-uploaded">
+      <h3><%= t('hyrax.homepage.recently_uploaded.title') %></h3>
+      <%= render 'recently_uploaded', recent_documents: @recent_documents %>
   </div>
 
-</div><!-- /.col-md-6 -->
+  <div class="col-md-7 col-md-pull-5 col-sm-6 col-sm-pull-6 col-xs-12 home-marketing-text" id="about-rdr">
+    <% if display_content_block? @marketing_text %>
+        <%= displayable_content_block @marketing_text %>
+    <% end %>
+  </div>
+
+</div>

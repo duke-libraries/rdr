@@ -1,11 +1,11 @@
 class Submission
   include ActiveModel::Model
 
-  SCREENING_ATTRIBUTES = [ :screening_guidelines, :screening_pii, :screening_license, :screening_funding,
+  SCREENING_ATTRIBUTES = [ :screening_guidelines, :screening_pii, :screening_funding,
                            :screening_funded_size, :screening_nonfunded_size, :deposit_agreement ]
 
   SUBMISSION_ATTRIBUTES = [ :title, :creator, :contributor, :affiliation, :contact, :description, :subject,
-                            :based_near, :temporal, :language, :format, :related_url, :doi_exists, :doi, :using_cc0,
+                            :based_near, :temporal, :language, :format, :related_url, :funding_agency, :grant_number, :doi_exists, :doi, :using_cc0,
                             :license ]
 
   ATTRIBUTES = SCREENING_ATTRIBUTES + SUBMISSION_ATTRIBUTES

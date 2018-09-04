@@ -77,10 +77,19 @@ en:
       copyright_html: "<strong>Copyright &copy; 2018 Samvera</strong> Licensed under the Apache License, Version 2.0"
       service_html: A service of <a href="http://samvera.org/" class="navbar-link" target="_blank">Samvera</a>.
     homepage:
+      marquee:
+        tagline_html: "<strong>The Research Data Repository</strong> is a service of the <a href='https://repository.duke.edu'>Duke Digital Repository</a> that provides curation, access, and preservation of research data produced by the Duke community. <a href='#about-rdr' class='learn-more'>Learn more »</a>"
+        deposit_button: Deposit your data
+        browse_button: Browse datasets
       recently_uploaded:
         title: 'Recently Added Datasets'
         document:
           keyword_missing: '' #left blank intentionally
+      marketing:
+        caption_1: Fulfill funder and journal requirements
+        caption_2: Maximize research impact and increase visibility
+        caption_3: Ensure that your data are preserved and accessible
+        caption_4: Participate in Duke's Open Access community
     icons:
       collection: fa fa-th-large
       default: fa fa-square
