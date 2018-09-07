@@ -46,6 +46,7 @@ RSpec.describe BatchImport do
       allow(File).to receive(:read).and_call_original
       allow(File).to receive(:read).with(described_class::CONFIG_FILE) { "basepath: #{basepath}\n" }
       allow(User).to receive(:find_by_user_key).with(on_behalf_of_user.user_key) { on_behalf_of_user }
+      allow(User).to receive(:find_by_user_key).with('ON_BEHALF_OF') { on_behalf_of_user }
     end
 
     subject { described_class.new(args) }
