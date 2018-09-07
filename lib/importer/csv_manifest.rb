@@ -30,6 +30,7 @@ module Importer
     validate :metadata_headers
     validate :controlled_vocabulary_values
     validate :files_must_exist
+    validate :on_behalf_of_users_must_exist
 
     def initialize(manifest_file, files_directory)
       @manifest_file = manifest_file
@@ -85,7 +86,25 @@ module Importer
 
     def validate_file(file)
       unless File.exist?(File.join(files_directory, file))
-        errors.add(:files, "File not found: #{File.join(files_directory, file)}")
+        errors.add(:files, I18n.t('rdr.batch_import.nonexistent_file', path: File.join(files_directory, file)))
+      end
+    end
+
+    def on_behalf_of_users_must_exist
+      parser.each do |attributes|
+        users_must_exist attributes[:on_behalf_of] if attributes[:on_behalf_of]
+      end
+    end
+
+    def users_must_exist(user_keys)
+      user_keys.each do |ukey|
+        validate_user_exists(ukey)
+      end
+    end
+
+    def validate_user_exists(user_key)
+      unless User.find_by_user_key(user_key)
+        errors.add(:on_behalf_of, I18n.t('rdr.batch_import.nonexistent_user', user_key: user_key))
       end
     end
 

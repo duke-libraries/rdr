@@ -50,8 +50,18 @@ module Importer
         describe 'file does not exist' do
           it 'has a file existence error' do
             expect(subject).to_not be_valid
-            expect(subject.errors.messages[:files]).
-                                      to include("File not found: #{File.join(files_directory, 'data/data1.csv')}")
+            expect(subject.errors.messages[:files])
+                .to include(I18n.t('rdr.batch_import.nonexistent_file',
+                                   path: File.join(files_directory, 'data/data1.csv')))
+          end
+        end
+        describe 'on behalf of user does not exist' do
+          let(:manifest_file) do
+            File.join(fixture_path, 'importer', 'manifest_samples', 'nonexistent_user.csv')
+          end
+          it 'has a nonexistent user error' do
+            expect(subject).to_not be_valid
+            expect(subject.errors.messages[:on_behalf_of]).to include(I18n.t('rdr.batch_import.nonexistent_user', user_key: 'abc@inst.edu'))
           end
         end
       end
