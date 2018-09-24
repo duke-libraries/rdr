@@ -13,13 +13,17 @@ module Importer
         described_class.import_data(checksum_filepath)
         expect { described_class.import_data(checksum_filepath) }.to_not change{ described_class.count }
       end
+      it 'handles entries with spaces in the path' do
+        described_class.import_data(checksum_filepath)
+        expect(Importer::Checksum.all.map(&:path)).to include('/base/path/subpath/file01002 revised.dat')
+      end
     end
 
     describe '#checksum' do
       before { described_class.import_data(checksum_filepath) }
       describe 'provided' do
         it 'returns the provided checksum' do
-          expect(described_class.checksum('/base/path/subpath/file01002.dat')).
+          expect(described_class.checksum('/base/path/subpath/file01002 revised.dat')).
               to eq('ea14084df3e55b170e7063d6ac705b33423921fc69e4edcbc843743b6651b1cb')
         end
       end
