@@ -26,10 +26,19 @@ module Importer
       count = 0
       parser.each do |attributes|
         attrs = attributes.merge(deposit_attributes)
-        create_fedora_objects(attrs)
+        import_batch_object(attrs)
         count += 1
       end
       count
+    end
+
+    def import_batch_object(attributes)
+      ark = attributes[:ark]&.first
+      if ark.present? && parser.parent_arks.include?(ark)
+        BatchObjectImportJob.perform_now(model, attributes, files_directory)
+      else
+        BatchObjectImportJob.perform_later(model, attributes, files_directory)
+      end
     end
 
     private
@@ -40,19 +49,6 @@ module Importer
 
     def parser
       CSVParser.new(manifest_file)
-    end
-
-    # @return [Class] the factory class to be used
-    def factory_class(model)
-      Factory.for(model.to_s)
-    end
-
-    # Build a factory to create the objects in fedora.
-    # @param [Hash<Symbol => String>] attributes
-    def create_fedora_objects(attributes)
-      fc = factory_class(model)
-      f = fc.new(attributes, files_directory)
-      f.run
     end
 
     def load_checksums

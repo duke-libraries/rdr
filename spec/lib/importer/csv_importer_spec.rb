@@ -6,14 +6,37 @@ module Importer
   RSpec.describe CSVImporter do
     let(:files_directory) { '/tmp/files' }
 
-    describe 'factory invocation' do
-      let(:csv_file) { "#{fixture_path}/importer/manifest_samples/sample.csv" }
-      let(:factory) { double(run: true) }
+    describe 'batch object import' do
       subject { described_class.new(csv_file, files_directory) }
-      it 'creates new works' do
-        expect(Importer::Factory::DatasetFactory).to receive(:new)
-                                                         .with(any_args).and_return(factory).exactly(3).times
-        subject.import_all
+      let(:csv_file) { "#{fixture_path}/importer/manifest_samples/sample.csv" }
+      before do
+        allow(subject).to receive(:parser) { parser }
+      end
+      describe 'object has no ARK' do
+        let(:attributes) { { title: [ 'Test' ] } }
+        let(:parser) { double('Importer::CSVParser') }
+        it 'imports the object later' do
+          expect(BatchObjectImportJob).to receive(:perform_later).with(subject.model, attributes, files_directory)
+          subject.import_batch_object(attributes)
+        end
+      end
+      describe 'object has an ARK' do
+        let(:ark) { 'ark:/99999/fk4cg0xp0k' }
+        let(:attributes) { { ark: [ ark ], title: [ 'Test' ] } }
+        describe 'ARK is parent ARK' do
+          let(:parser) { double('Importer::CSVParser', parent_arks: [ ark ]) }
+          it 'imports the object now' do
+            expect(BatchObjectImportJob).to receive(:perform_now).with(subject.model, attributes, files_directory)
+            subject.import_batch_object(attributes)
+          end
+        end
+        describe 'ARK is not parent ARK' do
+          let(:parser) { double('Importer::CSVParser', parent_arks: [ ]) }
+          it 'imports the object later' do
+            expect(BatchObjectImportJob).to receive(:perform_later).with(subject.model, attributes, files_directory)
+            subject.import_batch_object(attributes)
+          end
+        end
       end
     end
 
