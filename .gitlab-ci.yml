@@ -1,0 +1,58 @@
+.test:
+  stage: test
+  script:
+    - whoami
+    - pwd
+    - export
+    - $RAILS_DEPLOY_PATH/bin/test.sh
+
+deploy_dev:
+  environment:
+    name: development
+    url: https://rdr-dev.lib.duke.edu/
+  stage: deploy
+  script:
+    - whoami
+    - pwd
+    - export
+    - $RAILS_DEPLOY_PATH/bin/deploy.sh $CI_PROJECT_DIR
+  after_script:
+    - $RAILS_DEPLOY_PATH/bin/after_deploy.sh
+  only:
+    - develop
+    - omniauth-headers
+  tags:
+    - development
+
+deploy_pre:
+  environment:
+    name: staging
+    url: https://rdr-pre.lib.duke.edu/
+  stage: deploy
+  when: manual
+  script:
+    - whoami
+    - pwd
+    - $RAILS_DEPLOY_PATH/bin/deploy.sh $CI_PROJECT_DIR
+  after_script:
+    - $RAILS_DEPLOY_PATH/bin/after_deploy.sh
+  only:
+    - tags
+    - omniauth-headers
+  tags:
+    - staging
+
+.deploy_prod:
+  environment:
+    name: production
+    url: https://research.repository.duke.edu/
+  stage: deploy
+  when: manual
+  script:
+    - $RAILS_DEPLOY_PATH/bin/deploy.sh $CI_PROJECT_DIR
+  after_script:
+    - $RAILS_DEPLOY_PATH/bin/after_deploy.sh
+  only:
+    - master
+  tags:
+    - production
