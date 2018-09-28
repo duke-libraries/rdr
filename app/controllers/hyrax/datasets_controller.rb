@@ -34,7 +34,7 @@ module Hyrax
         if params[:dataset_version] == 'latest'
           redirect_to [main_app, doc.latest_dataset_version]
         else
-          flash.now[:notice] = t('.previous_version') % latest_dataset_version_link.html_safe
+          flash.now[:error] = t('.previous_version') % latest_dataset_version_link.html_safe
         end
       end
     end
