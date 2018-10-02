@@ -22,7 +22,7 @@ gem 'devise-guests', '~> 0.6'
 gem 'omniauth-shibboleth'
 gem 'curb', '~> 0.9.4'
 
-gem 'hyrax', '2.3.2'
+gem 'hyrax', '2.3.3'
 
 gem 'resque'
 gem 'resque-pool'
