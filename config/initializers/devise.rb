@@ -255,6 +255,7 @@ Devise.setup do |config|
   # Regarding the lambda usage below, see
   # https://github.com/toyokazu/omniauth-shibboleth#more-flexible-attribute-configuration
   config.omniauth :shibboleth, {
+                    type: :header,
                     uid_field: lambda { |rpm| rpm.call("eppn") || rpm.call("duDukeID") },
                     name_field: "displayName",
                     info_fields: {
