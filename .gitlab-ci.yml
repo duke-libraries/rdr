@@ -13,7 +13,7 @@ deploy_dev:
     url: https://rdr-dev.lib.duke.edu/
   stage: deploy
   before_script:
-    - $RAILS_DEPLOY_PATH/bin/before_deploy.sh  
+    - $RAILS_DEPLOY_PATH/bin/before_deploy.sh
   script:
     - $RAILS_DEPLOY_PATH/bin/deploy.sh $CI_PROJECT_DIR
   after_script:
@@ -30,7 +30,7 @@ deploy_pre:
   stage: deploy
   when: manual
   before_script:
-    - $RAILS_DEPLOY_PATH/bin/before_deploy.sh  
+    - $RAILS_DEPLOY_PATH/bin/before_deploy.sh
   script:
     - $RAILS_DEPLOY_PATH/bin/deploy.sh $CI_PROJECT_DIR
   after_script:
