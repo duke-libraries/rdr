@@ -10,6 +10,11 @@ namespace :rdr do
     end
   end
 
+  desc "Refresh access and refresh tokens for Box Submissions"
+  task :refresh_box_tokens => :environment do
+    Submissions::BoxClient.refresh_tokens
+  end
+
   namespace :migration do
     desc 'Migrate DDR Component ARKs to RDR FileSets (ARK_MAP_FILE, DRYRUN)'
     task :migrate_component_arks => :environment do
