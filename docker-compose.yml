@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 
 volumes:
   solr:
@@ -14,10 +14,7 @@ services:
       - .:/APPROOT
     ports:
       - "3000:3000"
-    environment:
-      SOLR_BASE_URL: http://solr:8983/solr
-      FCREPO_URL: http://fcrepo:8080/rest
-      DATABASE_URL: postgresql://hydra:hydra@db/
+    env_file: docker-rails.env
     depends_on:
       - db
       - solr
@@ -27,14 +24,17 @@ services:
   queues:
     image: rdr
     depends_on:
+      - app
       - redis
     volumes:
       - .:/APPROOT
+    env_file: docker-rails.env
     environment:
-      SOLR_BASE_URL: http://solr:8983/solr
-      FCREPO_URL: http://fcrepo:8080/rest
-      DATABASE_URL: postgresql://hydra:hydra@db/
-    command: ["bundle", "exec", "resque-pool", "-d", "--single-process-group"]
+      QUEUE: "*"
+    entrypoint:
+      - bundle
+      - install
+    command: ["bundle", "exec", "rails", "resque:work"]
 
   db:
     image: postgres
