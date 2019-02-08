@@ -1,20 +1,14 @@
-default: &default
+docker: &docker
   user: fedoraAdmin
   password: fedoraAdmin
-  url: http://fcrepo:8080/rest
+  url: <%= ENV['FCREPO_URL'] %>
 
 development:
-  <<: *default
-  # user: fedoraAdmin
-  # password: fedoraAdmin
-  # url: http://127.0.0.1:<%= ENV['FCREPO_DEVELOPMENT_PORT'] || 8984 %>/rest
+  <<: *docker
   base_path: /dev
 
 test:
-  <<: *default
-  # user: fedoraAdmin
-  # password: fedoraAdmin
-  # url: http://127.0.0.1:<%= ENV['FCREPO_TEST_PORT'] || 8986 %>/rest
+  <<: *docker
   base_path: /test
 
 production:

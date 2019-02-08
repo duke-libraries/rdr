@@ -34,6 +34,7 @@ RSpec.describe MintPublishArk do
           allow(subject.ark).to receive(:assigned?) { false }
         end
         it 'does not call the method to set a target' do
+          allow(subject.ark).to receive(:assign!) { nil }
           expect(subject.ark).to_not receive(:target!)
           subject.call
         end

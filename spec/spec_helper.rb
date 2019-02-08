@@ -22,4 +22,4 @@ RSpec.configure do |config|
 end
 
 require 'webmock/rspec'
-WebMock.disable_net_connect!(allow_localhost: true, allow: 'ezid.cdlib.org')
+WebMock.disable_net_connect!(allow_localhost: true, allow: ['ezid.cdlib.org', 'fcrepo', 'solr'])

@@ -10,22 +10,30 @@ services:
     image: rdr
     build:
       context: .
+    volumes:
+      - .:/APPROOT
     ports:
       - "3000:3000"
+    environment:
+      SOLR_BASE_URL: http://solr:8983/solr
+      FCREPO_URL: http://fcrepo:8080/rest
+      DATABASE_URL: postgresql://hydra:hydra@db/
     depends_on:
       - db
       - solr
       - fcrepo
-    environment:
-      POSTGRESQL_HOST: db
     command: ["bundle", "exec", "puma", "-b", "tcp://0.0.0.0:3000"]
 
   queues:
     image: rdr
     depends_on:
       - redis
+    volumes:
+      - .:/APPROOT
     environment:
-      POSTGRESQL_HOST: db
+      SOLR_BASE_URL: http://solr:8983/solr
+      FCREPO_URL: http://fcrepo:8080/rest
+      DATABASE_URL: postgresql://hydra:hydra@db/
     command: ["bundle", "exec", "resque-pool", "-d", "--single-process-group"]
 
   db:
@@ -40,12 +48,8 @@ services:
     image: solr:7.1.0
     volumes:
       - solr:/opt/solr/server/solr/mycores
-    # ports:
-    #   - "8983:8983"
-    entrypoint:
-      - docker-entrypoint.sh
-      - solr-precreate
-      - hydra
+      - ./solr/config:/myconfig
+      - ./solr/docker:/docker-entrypoint-initdb.d
 
   redis:
     image: redis
@@ -54,5 +58,3 @@ services:
     image: nulib/fcrepo4:4.7.5
     volumes:
       - fcrepo:/data
-    # ports:
-    #   - "8080:8080"
