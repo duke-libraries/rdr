@@ -56,3 +56,6 @@
 
 # Ignore spec example status persistance file
 /spec/examples.txt
+
+# fcrepo data
+/fcrepo4-data
