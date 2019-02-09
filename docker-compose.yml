@@ -14,12 +14,19 @@ services:
       - .:/APPROOT
     ports:
       - "3000:3000"
+    entrypoint: docker-entrypoint-app.sh
     env_file: docker-rails.env
     depends_on:
       - db
       - solr
       - fcrepo
     command: ["bundle", "exec", "puma", "-b", "tcp://0.0.0.0:3000"]
+
+  admin:
+    image: rdr
+    volumes:
+      - .:/APPROOT
+    env_file: docker-rails.env
 
   queues:
     image: rdr
@@ -31,9 +38,7 @@ services:
     env_file: docker-rails.env
     environment:
       QUEUE: "*"
-    entrypoint:
-      - bundle
-      - install
+    entrypoint: docker-entrypoint-resque.sh
     command: ["bundle", "exec", "rails", "resque:work"]
 
   db:

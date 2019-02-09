@@ -30,7 +30,6 @@ COPY . .
 RUN gem install bundler -N && \
 	bundle install
 
-COPY docker-entrypoint.sh /usr/bin/
-RUN chmod +x /usr/bin/docker-entrypoint.sh
-ENTRYPOINT ["docker-entrypoint.sh"]
+COPY docker-entrypoint-*.sh /usr/bin/
+RUN chmod +x /usr/bin/docker-entrypoint-*.sh
 EXPOSE 3000
