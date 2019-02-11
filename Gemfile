@@ -24,6 +24,8 @@ gem 'curb', '~> 0.9.4'
 
 gem 'hyrax', '2.4.1'
 
+gem 'clamav'
+
 gem 'resque'
 gem 'resque-pool'
 gem 'resque-web', require: 'resque_web'
