@@ -16,9 +16,8 @@ RUN apt-get update -qq && \
 	openjdk-8-jdk \
 	postgresql-client \
 	vim \
-	zip \
-	&& \
-	freshclam
+	zip
+RUN /usr/bin/freshclam
 
 WORKDIR /usr/local/src
 RUN wget -q https://projects.iq.harvard.edu/files/fits/files/fits-1.1.1.zip && \

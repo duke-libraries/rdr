@@ -20,7 +20,7 @@ services:
       - db
       - solr
       - fcrepo
-    command: ["bundle", "exec", "puma", "-b", "tcp://0.0.0.0:3000"]
+    command: ["bundle", "exec", "puma", "-b", "tcp://0.0.0.0:3000", "--pidfile", "/var/run/puma.pid"]
 
   admin:
     image: rdr
