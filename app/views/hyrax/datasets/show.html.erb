@@ -11,7 +11,7 @@
     <div class="row work-show-columns">
 
       <div class="col-sm-9 main-column">
-        <% if @presenter.universal_viewer? %>
+        <% if @presenter.iiif_viewer? %>
           <%= render 'representative_media', presenter: @presenter, viewer: true %>
         <% end %>
         <%= render 'work_description', presenter: @presenter %>
