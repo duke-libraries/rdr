@@ -14,14 +14,10 @@ class ChecksumVerificationService
 
   def verify_checksum
     fileset = wrapper.file_set
-    if fileset.files.empty?
-      raise Rdr::ChecksumInvalid, I18n.t('rdr.fileset_without_files', fs_id: fileset.id)
-    else
-      if provided_checksum = Importer::Checksum.checksum(wrapper.path)
-        verify_provided_checksum(fileset, provided_checksum)
-      end
-      verify_repository_checksum(fileset)
+    if provided_checksum = Importer::Checksum.checksum(wrapper.path)
+      verify_provided_checksum(fileset, provided_checksum)
     end
+    verify_repository_checksum(fileset)
   end
 
   # Verifies the checksum stored in the repository against a provided checksum.
