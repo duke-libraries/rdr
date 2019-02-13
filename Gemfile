@@ -24,7 +24,7 @@ gem 'curb', '~> 0.9.4'
 
 gem 'hyrax', '2.4.1'
 
-gem 'clamav'
+gem 'ddr-antivirus'
 
 gem 'resque'
 gem 'resque-pool'
