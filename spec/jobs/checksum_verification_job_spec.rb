@@ -29,35 +29,4 @@ RSpec.describe ChecksumVerificationJob do
     end
   end
 
-  describe '#user_to_notify' do
-    let(:user) { FactoryBot.create(:user) }
-    let(:file_set_id) { '1g05fb60f' }
-    let(:file_set) { double('FileSet') }
-    let(:wrapper) { double('JobIOWrapper', file_set_id: file_set_id) }
-    before do
-      allow(FileSet).to receive(:find).with(file_set_id) { file_set }
-      allow(file_set).to receive(:parent) { work }
-    end
-    describe 'proxy depositor on parent work' do
-      let(:work) { double('Dataset', proxy_depositor: user.user_key) }
-      it 'is the proxy depositor' do
-        expect(subject.user_to_notify(wrapper)).to eq(user)
-      end
-    end
-    describe 'depositor on parent work (but no proxy depositor)' do
-      let(:work) { double('Dataset', depositor: user.user_key, proxy_depositor: nil) }
-      it 'is the depositor' do
-        expect(subject.user_to_notify(wrapper)).to eq(user)
-      end
-    end
-    # edge case that may not be possible in reality
-    describe 'neither depositor nor proxy depositor on parent work' do
-      let(:wrapper) { double('JobIOWrapper', file_set_id: file_set_id, user: user) }
-      let(:work) { double('Dataset', depositor: nil, proxy_depositor: nil) }
-      it 'is the user from the wrapper' do
-        expect(subject.user_to_notify(wrapper)).to eq(user)
-      end
-    end
-
-  end
 end
