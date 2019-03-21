@@ -26,7 +26,7 @@ gem 'hyrax', '2.4.1'
 gem 'ddr-antivirus'
 
 gem 'resque'
-gem 'resque-pool'
+gem 'resque-pool', '~> 0.7.0'
 gem 'resque-web', require: 'resque_web'
 
 gem 'awesome_print'
