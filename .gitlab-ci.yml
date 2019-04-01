@@ -1,25 +1,35 @@
-test:
+stages:
+  - build
+  - test
+  - deploy
+
+build_job:
+  stage: build
+  script:
+    - $RAILS_DEPLOY_PATH/bin/build.sh
+  artifacts:
+    paths:
+      - vendor/bundle/
+      - .bundle/
+
+test_job:
   stage: test
-  before_script:
-    - $RAILS_DEPLOY_PATH/bin/before_test.sh
   script:
     - $RAILS_DEPLOY_PATH/bin/test.sh
-  after_script:
-    - $RAILS_DEPLOY_PATH/bin/after_test.sh
 
 deploy_dev:
   environment:
     name: development
     url: https://rdr-dev.lib.duke.edu/
   stage: deploy
-  before_script:
-    - $RAILS_DEPLOY_PATH/bin/before_deploy.sh
   script:
-    - $RAILS_DEPLOY_PATH/bin/deploy.sh $CI_PROJECT_DIR
+    - $RAILS_DEPLOY_PATH/bin/deploy.sh
   after_script:
     - $RAILS_DEPLOY_PATH/bin/after_deploy.sh
   only:
     - develop
+    - gitlab-ci
+    - /^hotfix-/
   tags:
     - development
 
@@ -29,10 +39,8 @@ deploy_pre:
     url: https://rdr-pre.lib.duke.edu/
   stage: deploy
   when: manual
-  before_script:
-    - $RAILS_DEPLOY_PATH/bin/before_deploy.sh
   script:
-    - $RAILS_DEPLOY_PATH/bin/deploy.sh $CI_PROJECT_DIR
+    - $RAILS_DEPLOY_PATH/bin/deploy.sh
   after_script:
     - $RAILS_DEPLOY_PATH/bin/after_deploy.sh
   only:
@@ -47,7 +55,7 @@ deploy_prod:
   stage: deploy
   when: manual
   script:
-    - $RAILS_DEPLOY_PATH/bin/deploy.sh $CI_PROJECT_DIR
+    - $RAILS_DEPLOY_PATH/bin/deploy.sh
   after_script:
     - $RAILS_DEPLOY_PATH/bin/after_deploy.sh
   only:
