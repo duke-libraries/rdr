@@ -5,30 +5,47 @@ stages:
 
 build_job:
   stage: build
+  before_script:
+    - scl_source enable $RH_RUBY_VERSION
+    - gem install bundler -N
+    - bundle version
   script:
-    - $RAILS_DEPLOY_PATH/bin/build.sh
+    - bundle install --path=vendor/bundle --without=development --binstubs=bin --no-cache
+    - bundle binstubs bundler --force
   artifacts:
     paths:
-      - vendor/bundle/
       - .bundle/
+      - bin/
+      - vendor/bundle/
 
 test_job:
   stage: test
+  before_script:
+    - scl_source enable $RH_RUBY_VERSION
+    - source $TEST_ENV_FILE
+    - 'env | sort'
+    - rm config/database.yml
+    - bin/rake db:reset
   script:
-    - $RAILS_DEPLOY_PATH/bin/test.sh
+    - bin/rake ci
 
 deploy_dev:
   environment:
     name: development
     url: https://rdr-dev.lib.duke.edu/
   stage: deploy
-  script:
-    - $RAILS_DEPLOY_PATH/bin/deploy.sh
-  after_script:
-    - $RAILS_DEPLOY_PATH/bin/after_deploy.sh
+  script: &deploy_script
+    - rsync -r --delete --exclude-from=EXCLUDE ./ $RAILS_ROOT/
+    - ln -s -t $RAILS_ROOT/config $RAILS_DEPLOY_PATH/etc/analytics.yml
+    - ln -s -t $RAILS_ROOT/config $RAILS_DEPLOY_PATH/etc/batch_import.yml
+    - 'sudo -u $RAILS_USER -n -i $RAILS_ROOT/bin/rake -f $RAILS_ROOT/Rakefile db:setup || true'
+    - sudo -u $RAILS_USER -n -i $RAILS_ROOT/bin/rake -f $RAILS_ROOT/Rakefile db:migrate
+    - sudo -u $RAILS_USER -n -i $RAILS_ROOT/bin/rake -f $RAILS_ROOT/Rakefile assets:precompile assets:clean tmp:cache:clear
+    - sudo -u $RAILS_USER -n -i $RAILS_ROOT/bin/rake -f $RAILS_ROOT/Rakefile hyrax:workflow:load
+  after_script: &after_deploy
+    - sudo /usr/bin/systemctl restart $RAILS_SERVICE_UNIT
   only:
     - develop
-    - gitlab-ci
     - /^hotfix-/
   tags:
     - development
@@ -39,12 +56,11 @@ deploy_pre:
     url: https://rdr-pre.lib.duke.edu/
   stage: deploy
   when: manual
-  script:
-    - $RAILS_DEPLOY_PATH/bin/deploy.sh
-  after_script:
-    - $RAILS_DEPLOY_PATH/bin/after_deploy.sh
+  script: *deploy_script
+  after_script: *after_deploy
   only:
     - tags
+    - /^hotfix-/
   tags:
     - staging
 
@@ -54,10 +70,8 @@ deploy_prod:
     url: https://research.repository.duke.edu/
   stage: deploy
   when: manual
-  script:
-    - $RAILS_DEPLOY_PATH/bin/deploy.sh
-  after_script:
-    - $RAILS_DEPLOY_PATH/bin/after_deploy.sh
+  script: *deploy_script
+  after_script: *after_deploy
   only:
     - /^v\d+\.\d+\.\d+$/
   tags:
