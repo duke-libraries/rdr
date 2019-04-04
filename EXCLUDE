@@ -1,0 +1,5 @@
+/.git/
+/config/database.yml
+/public/assets/
+/public/branding
+/tmp/
