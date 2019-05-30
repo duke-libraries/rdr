@@ -20,7 +20,7 @@ gem 'devise-guests', '~> 0.6'
 gem 'omniauth-shibboleth'
 gem 'curb', '~> 0.9.4'
 
-gem 'hyrax', '2.5.0'
+gem 'hyrax', '2.5.1'
 
 gem 'ddr-antivirus'
 
