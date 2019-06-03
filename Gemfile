@@ -6,14 +6,12 @@ git_source(:github) do |repo_name|
 end
 
 gem 'rails', '~> 5.1.4'
-gem 'sqlite3'
 gem 'puma', '~> 3.7'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
-gem 'figaro'
 gem 'redis', '~> 3.0'
 gem 'rsolr', '>= 1.0'
 gem 'jquery-rails'
@@ -22,12 +20,12 @@ gem 'devise-guests', '~> 0.6'
 gem 'omniauth-shibboleth'
 gem 'curb', '~> 0.9.4'
 
-gem 'hyrax', '2.4.1'
+gem 'hyrax', '2.5.1'
 
 gem 'ddr-antivirus'
 
 gem 'resque'
-gem 'resque-pool'
+gem 'resque-pool', '~> 0.7.0'
 gem 'resque-web', require: 'resque_web'
 
 gem 'awesome_print'
@@ -75,5 +73,4 @@ end
 
 group :production do
   gem 'therubyracer', platforms: :ruby
-  gem 'passenger', '>= 5.3.3', '< 6'
 end
