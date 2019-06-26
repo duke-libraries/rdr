@@ -3,45 +3,65 @@ stages:
   - test
   - deploy
 
+variables:
+  # RAKE_COMMAND is for deploy jobs
+  RAKE_COMMAND: sudo -u $RAILS_USER -n -i $RAILS_ROOT/bin/rake -f $RAILS_ROOT/Rakefile
+
 build_job:
   stage: build
   before_script:
-    - scl_source enable $RH_RUBY_VERSION
-    - gem install bundler -N
+    - ruby -v
+    - gem install bundler -v '~> 2.0'
     - bundle version
   script:
-    - bundle install --path=vendor/bundle --without=development --binstubs=bin --no-cache
+    - cp $RAILS_DEPLOY_PATH/etc/database.yml config/
+    - cp $RAILS_DEPLOY_PATH/etc/batch_import.yml config/
+    - cp $RAILS_DEPLOY_PATH/etc/analytics.yml config/
+    - bundle install --path=vendor/bundle --binstubs=bin --no-cache --clean
     - bundle binstubs bundler --force
+    - bundle exec rake assets:precompile
   artifacts:
     paths:
       - .bundle/
       - bin/
+      - config/analytics.yml
+      - config/batch_import.yml
+      - config/database.yml
+      - public/assets/
       - vendor/bundle/
+  cache:
+    key: gems
+    paths:
+      - vendor/bundle/ruby
 
 test_job:
   stage: test
   before_script:
-    - scl_source enable $RH_RUBY_VERSION
-    - source $TEST_ENV_FILE
-    - 'env | sort'
-    - rm config/database.yml
-    - bin/rake db:reset
+    - source $RAILS_DEPLOY_PATH/etc/export-test.env
+    - ruby -v
+    - gem install bundler -v '~> 2.0'
+    - bundle version
   script:
-    - bin/rake ci
+    - bin/rake db:reset ci
+  cache:
+    key: solr
+    paths:
+      - tmp/solr-*.zip
 
 deploy_dev:
   environment:
     name: development
     url: https://rdr-dev.lib.duke.edu/
   stage: deploy
+  before_script: &before_deploy
+    - source $RAILS_DEPLOY_PATH/etc/export-rails.env
+    - ruby -v
+    - gem install bundler -v '~> 2.0'
+    - bundle version
   script: &deploy_script
-    - rsync -r --delete --exclude-from=EXCLUDE ./ $RAILS_ROOT/
-    - ln -s -t $RAILS_ROOT/config $RAILS_DEPLOY_PATH/etc/analytics.yml
-    - ln -s -t $RAILS_ROOT/config $RAILS_DEPLOY_PATH/etc/batch_import.yml
-    - 'sudo -u $RAILS_USER -n -i $RAILS_ROOT/bin/rake -f $RAILS_ROOT/Rakefile db:setup || true'
-    - sudo -u $RAILS_USER -n -i $RAILS_ROOT/bin/rake -f $RAILS_ROOT/Rakefile db:migrate
-    - sudo -u $RAILS_USER -n -i $RAILS_ROOT/bin/rake -f $RAILS_ROOT/Rakefile assets:precompile assets:clean tmp:cache:clear
-    - sudo -u $RAILS_USER -n -i $RAILS_ROOT/bin/rake -f $RAILS_ROOT/Rakefile hyrax:workflow:load
+    - rsync -rl --delete --exclude-from=EXCLUDE ./ $RAILS_ROOT/
+    - '$RAKE_COMMAND db:setup || true'
+    - $RAKE_COMMAND db:migrate tmp:cache:clear hyrax:workflow:load
   after_script: &after_deploy
     - sudo /usr/bin/systemctl restart $RAILS_SERVICE_UNIT
   only:
@@ -56,6 +76,7 @@ deploy_pre:
     url: https://rdr-pre.lib.duke.edu/
   stage: deploy
   when: manual
+  before_script: *before_deploy
   script: *deploy_script
   after_script: *after_deploy
   only:
@@ -70,6 +91,7 @@ deploy_prod:
     url: https://research.repository.duke.edu/
   stage: deploy
   when: manual
+  before_script: *before_deploy
   script: *deploy_script
   after_script: *after_deploy
   only:
