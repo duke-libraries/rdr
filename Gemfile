@@ -5,47 +5,34 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'rails', '~> 5.1.4'
-gem 'puma', '~> 3.7'
-gem 'sass-rails', '~> 5.0'
-gem 'uglifier', '>= 1.3.0'
+gem 'awesome_print'
+gem 'bagit'
+gem 'boxr'
 gem 'coffee-rails', '~> 4.2'
-gem 'turbolinks', '~> 5'
-gem 'jbuilder', '~> 2.5'
-gem 'redis', '~> 3.0'
-gem 'rsolr', '>= 1.0'
-gem 'jquery-rails'
+gem 'curb', '~> 0.9.4'
+gem 'ddr-antivirus'
 gem 'devise', '>= 4.6.0'
 gem 'devise-guests', '~> 0.6'
-gem 'omniauth-shibboleth'
-gem 'curb', '~> 0.9.4'
-
+gem 'ezid-client'
+gem 'hydra-role-management'
 gem 'hyrax', '2.5.1'
-
-gem 'ddr-antivirus'
-
+gem 'jbuilder', '~> 2.5'
+gem 'jquery-rails'
+gem 'nokogiri', '>= 1.10.4'
+gem 'mini_magick', '>= 4.9.4'
+gem 'omniauth-shibboleth'
+gem 'pg'
+gem 'puma', '~> 3.7'
+gem 'rails', '~> 5.1.4'
+gem 'redis', '~> 3.0'
 gem 'resque'
 gem 'resque-pool', '~> 0.7.0'
 gem 'resque-web', require: 'resque_web'
-
-gem 'awesome_print'
-
-gem 'bagit'
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'rsolr', '>= 1.0'
+gem 'sass-rails', '~> 5.0'
+gem 'turbolinks', '~> 5'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
-# Use postgresql for all environments, not just production
-gem 'pg'
-
-# for group management
-gem 'hydra-role-management'
-
-# for ARK's
-gem 'ezid-client'
-
-# for Box API
-gem 'boxr'
+gem 'uglifier', '>= 1.3.0'
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
