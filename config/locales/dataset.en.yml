@@ -23,6 +23,7 @@ en:
         contact: Contact
         contributor: Contributor
         creator: Creator
+        date_created: Date Created
         description: Description
         doi: DOI
         format: Format
