@@ -46,7 +46,7 @@ FactoryBot.define do
     end
 
     factory :public_dataset_with_public_files, traits: [:public] do
-      before(:create) { |work, evaluator| 2.times { work.ordered_members << FactoryBot.create(:file_set, user: evaluator.user, traits: [:public]) } }
+      before(:create) { |work, evaluator| 2.times { work.ordered_members << FactoryBot.create(:public_file_set, user: evaluator.user) } }
     end
 
     factory :dataset_with_ordered_files do
@@ -66,6 +66,13 @@ FactoryBot.define do
       before(:create) do |work, evaluator|
         work.ordered_members << FactoryBot.create(:dataset, user: evaluator.user, title: ['A Contained Work'], id: "BlahBlah1")
         work.ordered_members << FactoryBot.create(:dataset, user: evaluator.user, title: ['Another Contained Work'], id: "BlahBlah2")
+      end
+    end
+
+    factory :dataset_with_two_public_children do
+      before(:create) do |work, evaluator|
+        work.ordered_members << FactoryBot.create(:public_dataset, user: evaluator.user, title: ['A Public Contained Work'], id: "BlahBlah3")
+        work.ordered_members << FactoryBot.create(:public_dataset, user: evaluator.user, title: ['Another Public Contained Work'], id: "BlahBlah4")
       end
     end
 
