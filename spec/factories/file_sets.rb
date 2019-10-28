@@ -14,6 +14,8 @@ FactoryBot.define do
       end
     end
 
+    factory :public_file_set, traits: [:public]
+
     trait :public do
       read_groups ["public"]
     end
