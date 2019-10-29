@@ -22,6 +22,7 @@ class ExportFilesController < ApplicationController
       if @confirmed
         ExportFilesJob.perform_later(@repo_id,
                                      current_user.id,
+                                     nil,
                                      @export.basename)
       else
         @export.scan

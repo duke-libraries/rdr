@@ -38,6 +38,8 @@ en:
       assigment_registration_job_enqueued: 'Queued up DOI assignment and registration job'
       not_assignable: 'DOI cannot be assigned -- object either already has a DOI or does not have an ARK'
       assignment_failed: 'DOI assignment failed'
+    export_files:
+      job_user_id_and_email_error: 'Cannot provide both user ID and email address'
     submissions:
       heading: 'Data Submission Form'
       form_error_html: "We encountered an error processing your request. One of our curators will follow up with you shortly. In the meantime, please contact us if you have any questions at <a href='mailto:%{email}'>%{email}</a>."
