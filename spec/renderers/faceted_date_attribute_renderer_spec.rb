@@ -15,13 +15,15 @@ RSpec.describe FacetedDateAttributeRenderer do
       <tr><th>Available</th>
       <td><ul class='tabular'>
       <li class="attribute attribute-available">
-      <a href="/catalog?f%5Bavailable_dtsim%5D%5B%5D=2017-09-21T00%3A00%3A00Z">2017-09-21</a>
+        <span itemprop="datePublished">
+          <a href="/catalog?f%5Bavailable_dtsim%5D%5B%5D=2017-09-21T00%3A00%3A00Z">2017-09-21</a>
+        </span>
       </li>
       </ul></td></tr>
     )
     end
 
-    it { expect(renderer).not_to be_microdata(field) }
+    it { expect(renderer).to be_microdata(field) }
     it { expect(subject).to be_equivalent_to(expected) }
   end
 
