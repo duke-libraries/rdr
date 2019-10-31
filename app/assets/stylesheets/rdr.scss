@@ -177,6 +177,12 @@ body {
   color: $gray;
 }
 
+.list-thumbnail {
+  @media screen and (max-width: $screen-sm-max) {
+    display: none;
+  }
+}
+
 
 /* ========= */
 /*  Columns  */
