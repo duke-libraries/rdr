@@ -63,6 +63,16 @@ dl.work-show {
       padding-left: 0;
     }
   }
+
+  & .attribute {
+
+    /* Styles for specific fields */
+    &.attribute-related_url {
+      &:not(:first-child) {
+        margin-top: 0.8em;
+      }
+    }
+  }
 }
 
 dl.work-citation {
