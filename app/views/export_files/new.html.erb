@@ -1,6 +1,7 @@
 <h2>Export Files</h2>
 
 <%= form_tag controller: 'export_files', action: 'create' do %>
+  <%= hidden_field_tag :email, @email %>
   <div class="form-group">
     <%= label_tag :basename, "Base Name" %>
     <%= text_field_tag :basename, params[:basename], maxlength: ExportFiles::Package::BASENAME_MAX_LENGTH,

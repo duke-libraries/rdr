@@ -1,0 +1,20 @@
+<h2>Export Files</h2>
+
+<h4>Log in prior to exporting files</h4>
+<div>To log in prior to exporting files, click here.  Not yet implemented</div>
+
+<h4>Export files without logging in</h4>
+<div>To export files without logging in, provide email address to which link to exported files should be sent and click
+  Continue.</div>
+<%= form_tag({ controller: 'export_files', action: 'new' }, { method: :get }) do %>
+  <%= hidden_field_tag :repo_id, @repo_id %>
+  <div class="form-group">
+    <%= label_tag :email, "Email Address" %>
+    <%= email_field_tag :email, params[:email], value: @email, class: "form_control",
+                                                        "aria-describedby"=>"export_files_email_address_help" %>
+    <span id="export_files_email_address_help" class="help-block">
+    Email address to which link to exported files is to be sent.
+  </span>
+  </div>
+  <%= submit_tag "Continue", class: "btn btn-primary" %>
+<% end %>

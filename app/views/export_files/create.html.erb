@@ -15,6 +15,7 @@
 
 <% else %>
   <%= form_tag controller: 'export_files', action: 'create' do %>
+    <%= hidden_field_tag :email, @email %>
     <%= hidden_field_tag :repo_id, @repo_id %>
     <%= hidden_field_tag :basename, @export.basename %>
     <%= hidden_field_tag :confirmed, 1 %>

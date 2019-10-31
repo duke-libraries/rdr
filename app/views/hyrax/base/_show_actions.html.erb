@@ -33,7 +33,7 @@
     <%= link_to "Request Modifications",  Rdr.depositor_request_form, class: 'btn btn-default', target: "_blank" %>
   <% end %>
 
-  <% if current_user && presenter.members %>
+  <% if presenter.members %>
     <%= link_to "Export Files", [main_app, :export_files], class: 'btn btn-default' %>
   <% end %>
 
