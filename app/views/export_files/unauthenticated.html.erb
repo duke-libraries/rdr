@@ -1,7 +1,12 @@
 <h2>Export Files</h2>
 
 <h4>Log in prior to exporting files</h4>
-<div>To log in prior to exporting files, click here.  Not yet implemented</div>
+<div>To log in prior to exporting files, click "Login and Continue"</div>
+<%= form_tag({ controller: 'export_files', action: 'new' }, { method: :get }) do %>
+  <%= hidden_field_tag :repo_id, @repo_id %>
+  <%= hidden_field_tag :login, 1 %>
+  <%= submit_tag "Login and Continue", class: "btn btn-primary" %>
+<% end %>
 
 <h4>Export files without logging in</h4>
 <div>To export files without logging in, provide email address to which link to exported files should be sent and click
