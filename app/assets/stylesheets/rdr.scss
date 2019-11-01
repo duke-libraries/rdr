@@ -162,6 +162,9 @@ body {
 /* Search Results */
 /* ============== */
 
+#facets h3 {
+  font-size: 1.3em;
+}
 .metadata {
   & .attribute-label.h4 {
       font-size: 18px;
@@ -181,6 +184,30 @@ body {
   @media screen and (max-width: $screen-sm-max) {
     display: none;
   }
+}
+
+/*
+  Hack for Bootstrap 3 to have multiple navbars that don't snap into mobile
+  collapse mode at the same breakpoint (the other is in masthead). Note this
+  is easier in BS4; see https://tinyurl.com/y5qrrhql.
+*/
+@media (max-width: $screen-md-max) and (min-width: $screen-sm-min) {
+  #facets .top-panel-heading {
+    border: none;
+    margin-bottom: 0 !important;
+  }
+  #facet-panel-collapse {
+    display: block !important;
+    height: auto !important;
+  }
+  #facets .facets-toggle {
+    display: none;
+  }
+}
+
+.facets-toggle {
+  background-color: $btn-default-bg;
+  border-color: $btn-default-border;
 }
 
 
