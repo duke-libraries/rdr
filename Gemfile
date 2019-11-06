@@ -55,6 +55,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rspec-its'
   gem 'rails-controller-testing'
+  gem 'rubocop-rspec'
   gem 'factory_bot_rails', '~> 4.8'
   gem 'webmock'
 end

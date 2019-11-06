@@ -126,7 +126,7 @@ module Importer
             }).
             to_return(status: 200, body: "", headers: {})
       end
-      after { FileUtils.rmdir(tmp_dir)}
+      after { FileUtils.rm_rf(File.dirname(tmp_dir)) }
       it 'imports the objects' do
         subject.import_all
         datasets = Dataset.all
