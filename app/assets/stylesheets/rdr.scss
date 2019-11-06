@@ -111,6 +111,16 @@ body {
   }
 }
 
+.btn-download {
+  font-weight: bold;
+  &:before {
+  content: "\f019";
+  font-family: FontAwesome;
+  margin-right: 0.5em;
+  color: $brand-success;
+  }
+}
+
 /* ============================================ */
 /* Background variations (extends Bootstrap)    */
 /* ============================================ */
