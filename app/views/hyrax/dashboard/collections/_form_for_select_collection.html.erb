@@ -1,3 +1,6 @@
+<%# NOTE: Overrides Hyrax core partial to address accessibility issues. %>
+<%# Last checked for core changes: Hyrax v2.6.0 %>
+
 <div role="dialog" class="modal collection-list-modal fade" id="collection-list-container" tabindex="-1" aria-labelledby="col_add_title">
   <div class="modal-dialog text-left">
       <div class="modal-content">
@@ -16,7 +19,7 @@
                   <div class="form-group">
                     <% if @add_works_to_collection.present? %>
                       <%= label_tag 'member_of_collection_label' %>
-                      <%= text_field_tag 'member_of_collection_label', @add_works_to_collection_label, disabled: true %>
+                      <%= text_field_tag 'member_of_collection_label', @add_works_to_collection_label, size: '90', disabled: true %>
                       <%= hidden_field_tag 'member_of_collection_ids', @add_works_to_collection %>
                     <% else %>
                       <%= label_tag 'member_of_collection_ids', t('hyrax.collection.select_form.select_label'), class: 'sr-only' %>
