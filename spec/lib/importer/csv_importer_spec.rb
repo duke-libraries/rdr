@@ -1,6 +1,6 @@
 require 'rails_helper'
 require 'importer'
-require 'ezid/test_helper'
+require 'support/ezid_mock_identifier'
 
 module Importer
   RSpec.describe CSVImporter do
@@ -93,11 +93,16 @@ module Importer
       let(:ds1_checksums) { [ '4c4665b408134d8f6995d1640a7f2d4eeee5c010', 'ab84c8b1187123c4d627bea511714dd723b56dbe', '94631dfa806987fa6c01880d59303519f23c5609' ] }
       let(:ds2_checksums) { [ '37a0502601ed54f31d119d5355ade2c29ea530ea', '8376ba1d652cee933cc7cff95d8c049fb7a9a855' ] }
       let(:ds3_checksums) { [ '4c4665b408134d8f6995d1640a7f2d4eeee5c010' ] }
-      let(:parent_ark) { Ezid::Identifier.mint }
+      let(:parent_ark) { Ezid::MockIdentifier.mint }
       subject { described_class.new(manifest_file, files_directory, model: model, checksum_file: checksum_file,
                                     depositor: depositor.user_key) }
+      around(:example) do |example|
+        ark_identifier_class = Ark.identifier_class
+        Ark.identifier_class = Ezid::MockIdentifier
+        example.run
+        Ark.identifier_class = ark_identifier_class
+      end
       before do
-        ezid_test_mode!
         AdminSet.find_or_create_default_admin_set_id
         allow(User).to receive(:curators) { [ depositor.user_key ] }
         allow(CharacterizeJob).to receive(:perform_later)
@@ -137,12 +142,6 @@ module Importer
         expect(datasets.map(&:proxy_depositor)).to all(eq(depositor.user_key))
         expect(datasets.map(&:title)).to match_array(dataset_titles)
         expect(datasets.map(&:ark)).to all(be_a(String))
-        datasets.map(&:ark).each do |ark|
-          ark_id_obj = Ezid::Identifier.find(ark)
-          url = ["https://", Rdr.host_name, '/id/', ark_id_obj.id ].join
-          expect(ark_id_obj.status).to eq(Ezid::Status::PUBLIC)
-          expect(ark_id_obj.target).to eq(url)
-        end
         ds1 = Dataset.where(title: 'Test 1').first
         ds2 = Dataset.where(title: 'Test 2').first
         ds3 = Dataset.where(title: 'Test 3').first

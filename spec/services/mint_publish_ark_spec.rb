@@ -32,9 +32,20 @@ RSpec.describe MintPublishArk do
       describe 'when no ARK assigned' do
         before do
           allow(subject.ark).to receive(:assigned?) { false }
+          stub_request(:post, "https://ezid.cdlib.org/shoulder/ark:/99999/fk4").
+              with(
+                  body: "_profile: dc\n_export: no\n_status: reserved",
+                  headers: {
+                      'Accept'=>'*/*',
+                      'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+                      'Authorization'=>'Basic YXBpdGVzdDphcGl0ZXN0',
+                      'Content-Type'=>'text/plain; charset=UTF-8',
+                      'Host'=>'ezid.cdlib.org',
+                      'User-Agent'=>'Ruby'
+                  }).
+              to_return(status: 201, body: "success: ark:/99999/fk4b86j23c", headers: {})
         end
-        # TO DO: Need to fix issue Ezid::Error: bad request - password required
-        skip 'does not call the method to set a target' do
+        it 'does not call the method to set a target' do
           expect(subject.ark).to_not receive(:target!)
           subject.call
         end
