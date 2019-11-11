@@ -8,7 +8,7 @@
     </timestamp>
     <depositor>
       <depositor_name>Duke University Libraries</depositor_name>
-      <email_address>ddrhelp@duke.edu</email_address>
+      <email_address>datamanagement@duke.edu</email_address>
     </depositor>
     <registrant>Duke University Libraries</registrant>
   </head>
@@ -16,7 +16,7 @@
     <database>
       <database_metadata language="en">
         <titles>
-          <title>Duke Digital Repository</title>
+          <title>Research Data Repository, Duke University</title>
         </titles>
         <institution>
           <institution_name>Duke University Libraries</institution_name>
