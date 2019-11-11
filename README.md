@@ -149,7 +149,7 @@ Previously we were using the default role management in Hyrax which used <code>c
 
     and then exit the console: `exit`
     
-3. start up the server `bin/rails hydra:server`, sign in using the 'admin' user you assigned above, and visit [localhost:3000/roles](http://localhost:3000/roles) which should allow you to view existing roles, create new ones, and assign users to them. 
+3. start up the server `rails server -b 0.0.0.0`, sign in using the 'admin' user you assigned above, and visit [localhost:3000/roles](http://localhost:3000/roles) which should allow you to view existing roles, create new ones, and assign users to them. 
 
     **Note: if you had established other user roles in the role_map.yml file, you'll need to manually assign those users using this process**
 
