@@ -100,7 +100,7 @@ A generated Hyrax-based Research Data Repository application
 It is best to run Solr, Fedora, and Rails in three separate tabs:
 * startup the vagrant instance: ```vagrant up```
 * ssh into vagrant ```vagrant ssh```
-* move to the correct folder ```cd /vagrant/rsr```
+* move to the correct folder ```cd /vagrant/rdr```
 * start Fedora ```fcrepo_wrapper```
 * open a new terminal tab, ssh in, move to correct folder, and startup Solr ```solr_wrapper```
 * open one more terminal tab, ssh in, move to correct folder, and startup rails ```rails server -b 0.0.0.0```
