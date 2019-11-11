@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   concern :searchable, Blacklight::Routes::Searchable.new
 
   # Resque web
-  mount ResqueWeb::Engine => "/queues"
+  authenticate(:user, lambda {|u| u.admin?}) do
+    mount ResqueWeb::Engine => "/queues"
+  end
 
   resource :catalog, only: [:index], as: 'catalog', path: '/catalog', controller: 'catalog' do
     concerns :searchable
