@@ -95,10 +95,15 @@ A generated Hyrax-based Research Data Repository application
 * to shut down the app, stop the rails server by pressing Ctrl-C, logout of vagrant `logout`, and then shutdown the VM `vagrant halt`
 
 
-### Start up the application
+### Starting up the application
 
-* to startup again, run `vagrant up`, `vagrant ssh`, `cd /vagrant/rdr`, and `bin/rails hydra:server`
-
+It is best to run Solr, Fedora, and Rails in three separate tabs:
+* startup the vagrant instance: ```vagrant up```
+* ssh into vagrant ```vagrant ssh```
+* move to the correct folder ```cd /vagrant/rsr```
+* start Fedora ```fcrepo_wrapper```
+* open a new terminal tab, ssh in, move to correct folder, and startup Solr ```solr_wrapper```
+* open one more terminal tab, ssh in, move to correct folder, and startup rails ```rails server -b 0.0.0.0```
 
 
 ## Solr and Fedora
