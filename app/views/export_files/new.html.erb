@@ -1,17 +1,18 @@
-<h2>Export Files</h2>
+<h1><%= t("rdr.batch_export.heading") %></h1>
 
 <%= form_tag controller: 'export_files', action: 'create' do %>
   <%= hidden_field_tag :email, @email %>
   <div class="form-group">
-    <%= label_tag :basename, "Base Name" %>
-    <%= text_field_tag :basename, params[:basename], maxlength: ExportFiles::Package::BASENAME_MAX_LENGTH,
-                       value: @basename, class: "form-control", "aria-describedby"=>"export_files_basename_help" %>.zip
-    <span id="export_files_basename_help" class="help-block">
-    REQUIRED: Name to be used as the name of the zip archive (without the .zip extension).
+    <%= label_tag :basename, t("rdr.batch_export.basename.label") %>
 
-    Accepted characters include letters, numbers, underscore, hyphen, or dot.
-    All other characters will be converted to underscores.
-  </span>
+    <div class="input-group export-filename">
+      <%= text_field_tag :basename, params[:basename], maxlength: ExportFiles::Package::BASENAME_MAX_LENGTH,
+                         value: @basename, class: "form-control", "aria-describedby"=>"export_files_basename_help" %>
+      <span class="input-group-addon">.zip</span>
+    </div>
+    <span id="export_files_basename_help" class="help-block">
+      <%= t("rdr.batch_export.basename.help") %>
+    </span>
   </div>
-  <%= submit_tag "Export", class: "btn btn-primary" %>
+  <%= submit_tag t("rdr.batch_export.basename.submit"), class: "btn btn-primary" %>
 <% end %>

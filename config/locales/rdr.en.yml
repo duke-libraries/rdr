@@ -28,6 +28,25 @@ en:
     work_files_stats:
       one: "%{count} file (%{size})"
       other: "%{count} files (%{size})"
+    batch_export:
+      heading: "Export Files"
+      separator: "or"
+      duke:
+        subheading: "Log In with Duke NetID"
+        help: "We'll send you a link to the exported ZIP file when it's ready."
+        submit: "Login and Continue"
+      nonduke:
+        subheading: "Export Using Email"
+        help: "Provide any valid email address. We'll send you a link to the exported ZIP file when it's ready."
+        submit: "Continue"
+      confirm:
+        size_warning: "You are preparing to export <strong>%{num_files} files</strong> at a total size of <strong>%{total_size}</strong>. Continue?"
+        submit: "Yes, Export"
+      basename:
+        label: "Name your exported ZIP file:"
+        help: "REQUIRED. Accepted characters include letters, numbers, underscore, hyphen, or dot. All other characters will be converted to underscores."
+        submit: "Export"
+      in_process: "Files are being prepared for export. When ready, you will receive an email notification at <strong>%{email}</strong> with a link to download your ZIP file."
     batch_import:
       heading: "Batch Import"
       invalid_metadata_header: "Invalid header: %{header}"
