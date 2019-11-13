@@ -46,7 +46,7 @@ en:
         subject: "Duke Research Data Repository File Export Email Verification (%{repo_id})"
         message: |
           An Export Files request has been initiated in the Duke Research Data Repository for this email address.
-          To verify this email address and proceed with the export request, click the link below.  This link is valid for 48 hours and can only be used once.
+          To verify this email address and proceed with the export request, click the link below.  This link is valid for %{lifespan} and can only be used once.
 
           %{verification_url}
 

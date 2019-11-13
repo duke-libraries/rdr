@@ -77,6 +77,7 @@ RSpec.describe ExportFilesController, type: :controller do
         expect{ post :unverified_email, params: { id: work.id, email: "test@bar.com" } }
                                                               .to change(ActionMailer::Base.deliveries, :count).by(1)
         sent_email = ActionMailer::Base.deliveries.last
+        expect(sent_email.body).to include(Rdr.email_verification_token_lifespan.inspect)
         expect(sent_email.body).to include(Rdr.host_name)
       end
       it "renders the unverified email template" do

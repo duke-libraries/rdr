@@ -1,2 +1,2 @@
 <%= I18n.t("rdr.batch_export.email_verification.message", verification_url: @verification_url,
-           contact_email: Rdr.curation_group_email) %>
+           contact_email: Rdr.curation_group_email, lifespan: Rdr.email_verification_token_lifespan.inspect) %>
