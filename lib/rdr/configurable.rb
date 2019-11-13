@@ -19,6 +19,16 @@ module Rdr
         ENV["DEPOSITOR_REQUEST_FORM"]
       end
 
+      # Email verification token lifespan as an ActiveSupport::Duration
+      # Currently used only in relation to Export Files functionality
+      mattr_accessor :email_verification_token_lifespan do
+        if value = ENV["EMAIL_VERIFICATION_TOKEN_LIFESPAN"]
+          eval(value)
+        else
+          48.hours
+        end
+      end
+
       # Base URL for export files - include trailing slash
       mattr_accessor :export_files_base_url do
         ENV["EXPORT_FILES_BASE_URL"] || "/export_files/"
