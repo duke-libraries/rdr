@@ -19,7 +19,7 @@
   <div class="col-sm-7">
     <h2><%= t("rdr.batch_export.nonduke.subheading") %></h2>
     <p><%= t("rdr.batch_export.nonduke.help") %></p>
-    <%= form_tag({ controller: 'export_files', action: 'new' }, { method: :get }) do %>
+    <%= form_tag({ controller: 'export_files', action: 'unverified_email' }) do %>
       <%= hidden_field_tag :repo_id, @repo_id %>
       <div class="form-group">
         <%= label_tag :email, "Email Address" %>

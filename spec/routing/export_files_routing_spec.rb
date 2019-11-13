@@ -16,4 +16,8 @@ RSpec.describe 'export files routing', type: :routing do
     expect(:post => export_files_path(id)).to route_to(route)
   end
 
+  it 'has an unverified email route' do
+    route = { controller: 'export_files', action: 'unverified_email', id: id }
+    expect(post: "export_files/#{id}/unverified_email").to route_to(route)
+  end
 end

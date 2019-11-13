@@ -46,7 +46,9 @@ Rails.application.routes.draw do
     end
   end
 
+  # Export Files
   get 'export_files/:id', to: 'export_files#new', as: 'export_files'
+  post 'export_files/:id/unverified_email', to: 'export_files#unverified_email'
   post 'export_files/:id', to: 'export_files#create'
 
   resources :batch_imports, only: [ :new, :create ]

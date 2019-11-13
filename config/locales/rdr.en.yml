@@ -39,6 +39,20 @@ en:
         subheading: "Export Using Email"
         help: "Provide any valid email address. We'll send you a link to the exported ZIP file when it's ready."
         submit: "Continue"
+      unverified_email:
+        subheading: "Email Verification Required"
+        message: "A verification email has been sent to <strong>%{email}</strong>.  When you receive the email, click the link in the message to verify your email address and continue with the Export Files process."
+      email_verification:
+        subject: "Duke Research Data Repository File Export Email Verification (%{repo_id})"
+        message: |
+          An Export Files request has been initiated in the Duke Research Data Repository for this email address.
+          To verify this email address and proceed with the export request, click the link below.  This link is valid for 48 hours and can only be used once.
+
+          %{verification_url}
+
+          If you did not initiate this export from the Duke Research Data Repository, please contact %{contact_email}.
+        invalid_token_error: "Invalid email verification token: %{token}"
+        invalid_token_user_message: "Your Export Files request could not be processed because your email address could not be verified. The verification token is either invalid or expired."
       confirm:
         size_warning: "You are preparing to export <strong>%{num_files} files</strong> at a total size of <strong>%{total_size}</strong>. Continue?"
         submit: "Yes, Export"
