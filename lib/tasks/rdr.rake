@@ -22,7 +22,7 @@ namespace :rdr do
 
   desc "Delete expired email verification tokens"
   task :delete_expired_email_verification_tokens => :environment do
-    EmailVerification.where("updated_at < '#{Time.now - Rdr.email_verification_token_lifespan}'").destroy_all
+    EmailVerification.where("updated_at < '#{Time.zone.now - Rdr.email_verification_token_lifespan}'").destroy_all
   end
 
   namespace :migration do
