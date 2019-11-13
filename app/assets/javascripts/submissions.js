@@ -2,7 +2,7 @@
 
 var submitForm = false;
 var currentTab = 0; // First tab is 0
-var totalTabs = 8;
+var totalTabs = 7;
 showTab(currentTab); // Display the current tab
 
 function showTab(n) {
@@ -33,8 +33,6 @@ function nextPrev(n) {
     document.getElementById("new_submission").submit();
 
     // reset radio button values
-    document.getElementById("submission_screening_guidelines_ready").checked = false;
-    document.getElementById("submission_screening_guidelines_not_ready").checked = false;
     document.getElementById("submission_screening_pii_no").checked = false;
     document.getElementById("submission_screening_pii_yes").checked = false;
     document.getElementById("submission_screening_funding_yes").checked = false;
@@ -60,6 +58,7 @@ function nextPrev(n) {
     document.getElementById("form_alert" + currentTab).classList.add("hidden");
     document.getElementById("nextBtn").innerHTML =
       "<span class='sr-only'>Next</span><span aria-hidden='true'>&gt;&gt;</span>";
+    document.getElementById("t" + currentTab).focus(); // focus on content
   }
 
   currentTab = currentTab + n;
@@ -70,7 +69,6 @@ function nextPrev(n) {
 }
 
 // string values passed from rails constants
-var t1_exclude = document.getElementById("submission-values").getAttribute("data-t1-not-ready");
 var t4a_exclude = document.getElementById("submission-values").getAttribute("data-t4-more-than-2-5");
 var t4b_exclude = document.getElementById("submission-values").getAttribute("data-t4-more-than-10");
 var t5_exclude = document.getElementById("submission-values").getAttribute("data-t5-not-agree");
@@ -94,49 +92,45 @@ function validateForm() {
       if (y[i].checked == true) {
         // Submit early for certain responses
 
-        if (currentTab == 1 && y[i].value == t1_exclude) {
+        if (currentTab == 1 && y[i].value == "yes") {
           submitForm = true;
         }
 
-        if (currentTab == 2 && y[i].value == "yes") {
+        if (currentTab == 3 && y[i].value == t4b_exclude) {
           submitForm = true;
         }
 
-        if (currentTab == 4 && y[i].value == t4b_exclude) {
+        if (currentTab == 3 && y[i].value == t4a_exclude) {
           submitForm = true;
         }
 
-        if (currentTab == 4 && y[i].value == t4a_exclude) {
-          submitForm = true;
-        }
-
-        if (currentTab == 5 && y[i].value == t5_exclude) {
+        if (currentTab == 4 && y[i].value == t5_exclude) {
           submitForm = true;
         }
 
         // Implement skip logic
 
-        if (currentTab == 3 && y[i].value == "no") {
-          document.getElementById("screening-4a").classList.add("hidden");
-          document.getElementById("screening-4b").classList.remove("hidden");
-          document.getElementById("funded-size-1").disabled = false;
-          document.getElementById("funded-size-2").disabled = false;
-          document.getElementById("nonfunded-size-1").disabled = true;
-          document.getElementById("nonfunded-size-2").disabled = true;
-        }
-
-        if (currentTab == 3 && y[i].value == "yes") {
-          document.getElementById("screening-4a").classList.remove("hidden");
-          document.getElementById("screening-4b").classList.add("hidden");
+        if (currentTab == 2 && y[i].value == "no") {
+          document.getElementById("screening-3a").classList.add("hidden");
+          document.getElementById("screening-3b").classList.remove("hidden");
           document.getElementById("funded-size-1").disabled = true;
           document.getElementById("funded-size-2").disabled = true;
           document.getElementById("nonfunded-size-1").disabled = false;
           document.getElementById("nonfunded-size-2").disabled = false;
         }
 
+        if (currentTab == 2 && y[i].value == "yes") {
+          document.getElementById("screening-3a").classList.remove("hidden");
+          document.getElementById("screening-3b").classList.add("hidden");
+          document.getElementById("funded-size-1").disabled = false;
+          document.getElementById("funded-size-2").disabled = false;
+          document.getElementById("nonfunded-size-1").disabled = true;
+          document.getElementById("nonfunded-size-2").disabled = true;
+        }
+
         // Manually check text field inputs
 
-        if (currentTab == 7 && y[i].value == "yes") {
+        if (currentTab == 6 && y[i].value == "yes") {
           if (document.getElementById("submission_doi").value == "") {
             document
               .getElementById("submission_doi")
@@ -158,7 +152,7 @@ function validateForm() {
           }
         }
 
-        if (currentTab == 8 && y[i].value == t8_exclude) {
+        if (currentTab == 7 && y[i].value == t8_exclude) {
           if (document.getElementById("submission_license").value == "") {
             document
               .getElementById("submission_license")
@@ -188,6 +182,7 @@ function validateForm() {
         document
           .getElementById("form_alert" + currentTab)
           .classList.add("hidden");
+        document.getElementById("t" + currentTab).focus();
 
         break;
       } else if (y[i].checked == false) {
@@ -198,6 +193,7 @@ function validateForm() {
         document
           .getElementById("form_alert" + currentTab)
           .classList.remove("hidden");
+        window.location.hash = "#form_alert" + currentTab;
       }
     }
   }
