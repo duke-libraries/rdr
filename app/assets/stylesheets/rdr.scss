@@ -369,6 +369,11 @@ body {
   background-color: $mast-primary;
   border-color: darken($mast-primary, 3%);
   color: #fff;
+
+  &.disabled span {
+    color: #fff;
+    background-color: $mast-primary;
+  }
 }
 
 .submission-form .pager li > a:hover,
@@ -423,7 +428,6 @@ body {
   line-height: .25;
   vertical-align: bottom;
 }
-
 
 
 /* ------------------------

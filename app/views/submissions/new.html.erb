@@ -1,7 +1,7 @@
-<%= content_tag :div, id: "submission-values", data: { t4_more_than_2_5: Submission::MORE_THAN_2_5_GB,
-                                                          t4_more_than_10: Submission::MORE_THAN_10_GB,
-                                                          t5_not_agree: Submission::NOT_AGREE,
-                                                          t8_not_use: Submission::NOT_USE_CC0 } do %>
+<%= content_tag :div, id: "submission-values", data: { t3_more_than_2_5: Submission::MORE_THAN_2_5_GB,
+                                                          t3_more_than_10: Submission::MORE_THAN_10_GB,
+                                                          t4_not_agree: Submission::NOT_AGREE,
+                                                          t7_not_use: Submission::NOT_USE_CC0 } do %>
 <% end %>
 
 <div class="row submission-form">
@@ -37,7 +37,7 @@
         <%= form_for @submission, :html => {'role' => 'form', 'aria-labelledby' => 'data-submission-form' } do |f| %>
 
           <!-- intro -->
-          <div class="form-tab" id="intro">
+          <div class="form-tab" id="t0" class="intro">
 
               <p class="lead"><%= t("rdr.submissions.questions.intro_html") %></p>
 
