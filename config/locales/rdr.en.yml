@@ -37,7 +37,7 @@ en:
         submit: "Login and Continue"
       nonduke:
         subheading: "Export Using Email"
-        help: "Provide any valid email address. We'll send you a link to the exported ZIP file when it's ready."
+        help: "Provide any valid email address. We'll send you a link to the exported ZIP file when it's ready.  The email address you submit through this form will only be used for the stated purpose of completing the file export process."
         submit: "Continue"
       unverified_email:
         subheading: "Email Verification Required"
