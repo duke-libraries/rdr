@@ -5,6 +5,14 @@ var currentTab = 0; // First tab is 0
 var totalTabs = 7;
 showTab(currentTab); // Display the current tab
 
+// slow down double clicking
+$('#nextBtn, #prevBtn').click(function() {
+  var mySelf = $(this);
+  mySelf.addClass('disabled');
+  setTimeout(function(){
+    mySelf.removeClass('disabled');
+  }, 350);
+});
 
 function showTab(n) {
   var theFormTab = document.getElementsByClassName("form-tab");
@@ -71,8 +79,6 @@ function showTab(n) {
   }
 
 }
-
-
 
 function nextPrev(n) {
   var theFormTab = document.getElementsByClassName("form-tab");
