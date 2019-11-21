@@ -66,3 +66,5 @@ end
 group :production do
   gem 'therubyracer', platforms: :ruby
 end
+
+gem 'riiif', '~> 2.0'

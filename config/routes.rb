@@ -1,11 +1,10 @@
 require 'resque_web'
 
 Rails.application.routes.draw do
-
   concern :range_searchable, BlacklightRangeLimit::Routes::RangeSearchable.new
-  mount Blacklight::Engine => '/'
-
   concern :searchable, Blacklight::Routes::Searchable.new
+  mount Riiif::Engine => 'images', as: :riiif if Hyrax.config.iiif_image_server?
+  mount Blacklight::Engine => '/'
 
   # Resque web
   authenticate(:user, lambda {|u| u.admin?}) do
