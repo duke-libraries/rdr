@@ -45,7 +45,7 @@ RSpec.describe 'hyrax/datasets/_attribute_rows.html.erb', type: :view do
       expect(page).to have_css '.attribute-ark [itemprop="identifier"]', text: 'ark:/99999/fk41c36t18'
     end
     it "available -> datePublished" do
-      expect(page).to have_css '.attribute-available [itemprop="datePublished"]', text: '2018-07-05'
+      expect(page).to have_css '.attribute-available [itemprop="datePublished"]', text: 'July 5, 2018'
     end
     it "contributor -> contributor" do
       expect(page).to have_css '.attribute-contributor[itemprop="contributor"] [itemprop="name"]', text: 'Jones, Sam'
@@ -79,7 +79,7 @@ RSpec.describe 'hyrax/datasets/_attribute_rows.html.erb', type: :view do
       expect(page).to have_css '.attribute-subject[itemprop="about"] [itemprop="name"]', text: 'Oranges'
     end
     it "temporal -> temporalCoverage" do
-      expect(page).to have_css '.attribute-temporal [itemprop="temporalCoverage"]', text: '1984-06-20'
+      expect(page).to have_css '.attribute-temporal [itemprop="temporalCoverage"]', text: 'June 20, 1984'
     end
   end
 

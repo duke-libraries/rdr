@@ -204,6 +204,26 @@ body {
   }
 }
 
+/* Blacklight Range Filter Overrides */
+.range_limit {
+  & .slider-handle {
+    background-color: #a1b70d;
+    background-image: none;
+  }
+  & input.range_begin, input.range_end {
+    font-size: 14px;
+  }
+  & input.form-control {
+    padding:10px 16px;
+  }
+  & input.btn {
+    padding: 10px 14px;
+  }
+  & .missing {
+    display: none;
+  }
+}
+
 /*
   Hack for Bootstrap 3 to have multiple navbars that don't snap into mobile
   collapse mode at the same breakpoint (the other is in masthead). Note this

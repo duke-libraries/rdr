@@ -23,3 +23,5 @@
 //= stub submissions.js
 //= require hyrax
 //= require rdr-show.js
+
+//= require 'blacklight_range_limit'

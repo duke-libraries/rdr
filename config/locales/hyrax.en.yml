@@ -16,6 +16,7 @@ en:
           has_model_ssim: Browse
           keyword_sim: Keyword
           language_sim: Language
+          pub_year_iim: Publication Year
           publisher_sim: Publisher
           resource_type_sim: Type
           subject_sim: Subject

@@ -45,6 +45,10 @@ module Rdr::Index
       register field, :dateable
     end
 
+    SEARCHABLE_INTEGER_FIELDS.each do |field|
+      register field, :searchable, type: :integer # _iim
+    end
+
     BOOLEAN_FIELDS.each do |field|
       register field, type: :boolean
     end

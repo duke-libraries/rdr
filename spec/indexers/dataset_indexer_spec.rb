@@ -25,4 +25,24 @@ RSpec.describe DatasetIndexer do
     end
   end
 
+  context 'with Publication Date (available)' do
+    before { allow(work).to receive(:available).and_return(["2019-11-21"]) }
+    it 'indexes years' do
+      expect(solr_document[Rdr::Index::Fields.pub_year]).to eq [2019]
+    end
+  end
+
+  context 'with Publication Date (available) using EDTF fuzzy syntax' do
+    before { allow(work).to receive(:available).and_return(["201X"]) }
+    it 'indexes each year in range' do
+      expect(solr_document[Rdr::Index::Fields.pub_year]).to match_array((2010..2019).to_a)
+    end
+  end
+
+  context 'with missing Publication Date (available)' do
+    before { allow(work).to receive(:available).and_return(nil) }
+    it 'does not index years' do
+      expect(solr_document[Rdr::Index::Fields.pub_year]).to eq []
+    end
+  end
 end
