@@ -27,10 +27,13 @@ module Importer
 
     attr_reader :files_directory, :manifest_file
 
-    validate :metadata_headers
-    validate :controlled_vocabulary_values
-    validate :files_must_exist
-    validate :on_behalf_of_users_must_exist
+    validate :csv_well_formed
+    with_options if: :error_free? do |csv|
+      csv.validate :metadata_headers
+      csv.validate :controlled_vocabulary_values
+      csv.validate :files_must_exist
+      csv.validate :on_behalf_of_users_must_exist
+    end
 
     def initialize(manifest_file, files_directory)
       @manifest_file = manifest_file
@@ -39,6 +42,18 @@ module Importer
 
     def parser
       @parser ||= CSVParser.new(manifest_file)
+    end
+
+    def error_free?
+      errors.empty?
+    end
+
+    def csv_well_formed
+      begin
+        parser.send(:as_csv_table)
+      rescue CSV::MalformedCSVError => e
+        errors.add(:base, I18n.t('rdr.batch_import.malformed_csv_manifest', error: e.message))
+      end
     end
 
     def metadata_headers

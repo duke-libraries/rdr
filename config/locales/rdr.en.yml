@@ -63,6 +63,7 @@ en:
       in_process: "Files are being prepared for export. When ready, you will receive an email notification at <strong>%{email}</strong> with a link to download your ZIP file."
     batch_import:
       heading: "Batch Import"
+      malformed_csv_manifest: "CSV manifest is malformed: %{error}"
       invalid_metadata_header: "Invalid header: %{header}"
       invalid_metadata_value: "Invalid value: %{value}"
       nonexistent_file: "File not found: %{path}"
