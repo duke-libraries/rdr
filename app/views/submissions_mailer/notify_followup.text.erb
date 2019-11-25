@@ -1,0 +1,6 @@
+<%= t('rdr.followup.email.subject') %>
+
+Submitter: <%= @submission.submitter.display_name %>
+Net ID: <%= @submission.submitter.user_key.split('@').first %>
+
+<%= @submission.more_information %>

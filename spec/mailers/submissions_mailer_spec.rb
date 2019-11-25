@@ -48,6 +48,21 @@ RSpec.describe SubmissionsMailer, type: :mailer do
     end
   end
 
+  describe 'notify followup' do
+    let(:submission_attrs) { { submitter: submitter, followup: 'true', more_information: 'here is some more information for you' } }
+
+    it 'sends an appropriate email' do
+      described_class.notify_followup(submission).deliver_now!
+      mail = ActionMailer::Base.deliveries.last
+      expect(mail.to).to match_array([ Rdr.curation_group_email ])
+      expect(mail.from).to match_array([ Rdr.curation_group_email ])
+      expect(mail.subject).to eq(I18n.t('rdr.followup.email.subject'))
+      expect(mail.body.encoded).to match("Submitter: #{submitter.display_name}")
+      expect(mail.body.encoded).to match("Net ID: #{submitter.netid}")
+      expect(mail.body.encoded).to match("#{submission_attrs[:more_information]}")
+    end
+  end
+
   describe 'notify success' do
     let(:submission_attrs) { { submitter: submitter, title: 'My Research Data Project', screening_pii: 'false',
                                creator: 'Spade, Sam; Tracy, Dick; Fletcher, Jessica' } }

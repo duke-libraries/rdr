@@ -8,7 +8,9 @@ class Submission
                             :based_near, :temporal, :language, :format, :related_url, :funding_agency, :grant_number, :doi_exists, :doi, :using_cc0,
                             :license ]
 
-  ATTRIBUTES = SCREENING_ATTRIBUTES + SUBMISSION_ATTRIBUTES
+  FOLLOWUP_ATTRIBUTES = [ :more_information, :followup, :display_name, :netid]
+
+  ATTRIBUTES = SCREENING_ATTRIBUTES + SUBMISSION_ATTRIBUTES + FOLLOWUP_ATTRIBUTES
 
   # Readiness to submit data
   READY = 'ready'
@@ -38,6 +40,10 @@ class Submission
 
   def passed_screening?
     deposit_agreement == AGREE
+  end
+
+  def followup?
+    followup == 'true'
   end
 
   private

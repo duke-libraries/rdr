@@ -6,10 +6,56 @@
 
       <div class="col-md-8 col-md-offset-2">
 
-        <h1><%= t("rdr.submissions.heading") %></h1>
+        <h1 id="data-submission-form"><%= t("rdr.followup.heading") %></h1>
 
-        <!-- if form was ended early, display this: -->
-        <%= t("rdr.submissions.form_not_complete_html", email: Rdr.curation_group_email) %>
+      </div>
+
+    </div>
+
+    <div class="row">
+
+      <div class="col-md-8 col-md-offset-2" id="fields">
+
+        <%= form_for @submission, :html => {'role' => 'form', 'aria-labelledby' => 'data-submission-followup-form' } do |f| %>
+
+
+          <fieldset>
+
+            <legend><%= t("rdr.followup.legend") %></legend>
+
+            <% if @submission.screening_pii == 'yes' %>
+              <!-- if washed out early for sensitive data, display this message: -->
+              <%= t("rdr.followup.form_not_complete_pii_html", email: Rdr.curation_group_email) %>
+            <% end %>
+
+
+            <% if @submission.screening_funded_size == t("rdr.submissions.labels.question3a_label2") || @submission.screening_nonfunded_size == t("rdr.submissions.labels.question3b_label2") %>
+              <!-- if washed out early for storage requirements, display this message: -->
+              <%= t("rdr.followup.form_not_complete_storage_html", email: Rdr.curation_group_email) %>
+            <% end %>
+
+            <!-- followup textarea -->
+            <div class="form-group">
+              <%= f.label :more_information, t("rdr.followup.question1_label"), :class => 'required' %>
+              <%= f.text_area :more_information, :required => true, :class => 'form-control' %>
+            </div>
+
+          </fieldset>
+
+          <!-- hidden fields for submitter -->
+          <%= f.hidden_field(:followup, value: 'true') %>
+          <%= f.hidden_field(:display_name, value: @submission.submitter.display_name) %>
+          <%= f.hidden_field(:netid, value: @submission.submitter.user_key.split('@').first) %>
+
+
+          <!-- Submit Button -->
+          <nav aria-label="form controls" class="submission-nav">
+            <%= f.button 'Submit', id: 'submission_followup_submit_button', class: 'btn btn-primary', type: 'submit' do %>
+              Submit &gt;&gt;
+            <% end %>
+          </nav>
+
+        <% end %>
 
       </div>
 
