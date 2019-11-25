@@ -23,6 +23,9 @@ module Rdr
     # :stored_sortable, type: :date
     SORTABLE_DATE_FIELDS = %i[ date_modified date_uploaded ].freeze
 
+    # :searchable, type: :integer (_iim)
+    SEARCHABLE_INTEGER_FIELDS = %i[ pub_year ].freeze
+
     SYMBOL_FIELDS = (
       Hyrax::BasicMetadataIndexer.symbol_fields +
       %i[ grant_number in_works_ids ]
