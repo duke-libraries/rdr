@@ -76,7 +76,7 @@ en:
       job_user_id_and_email_error: 'Cannot provide both user ID and email address'
     submissions:
       heading: 'Data Submission Form'
-      form_error_html: "We encountered an error processing your request. One of our curators will follow up with you shortly. In the meantime, please contact us if you have any questions at <a href='mailto:%{email}'>%{email}</a>."
+      form_error_html: "We're sorry you've encountered a problem. Please contact <a href='mailto:%{email}'>%{email}</a> for assistance."
       instructions_text: "Thank you for depositing with the Duke Research Data Repository. When you have finished uploading your files, please send a reply to the email you received confirming your submission, or email us at %{email}. If you have any questions, please review our Submission guidelines or contact us.\n\nResearch data curators will review your deposit to help ensure the data meet the submission requirements and are in a format and structure that supports long-term preservation, access, and reuse. If any changes are needed, you will be contacted. Once the processing is complete, the depositor will be notified and provided with a link to their dataset record and persistent identifier. Our aim is to process all deposits in a timely fashion and turnaround is usually one to three business days, however processing time may vary depending on size and type of data."
       email:
         error:
