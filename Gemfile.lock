@@ -674,6 +674,8 @@ GEM
       rdf (~> 3.0, >= 3.0.11)
     rdf-xsd (3.0.1)
       rdf (~> 3.0)
+    recaptcha (5.2.1)
+      json
     redic (1.5.3)
       hiredis
     redis (3.3.5)
@@ -908,6 +910,7 @@ DEPENDENCIES
   puma (~> 3.7)
   rails (~> 5.1.4)
   rails-controller-testing
+  recaptcha
   redis (~> 3.0)
   resque
   resque-pool (~> 0.7.0)

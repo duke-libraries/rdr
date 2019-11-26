@@ -55,14 +55,18 @@ class ExportFilesController < ApplicationController
   end
 
   def unverified_email
-    repo_id = new_params.require(:id)
-    @email = ActionController::Base.helpers.sanitize(params.permit(:email)[:email])
-    code = SecureRandom.hex(6)
-    EmailVerification.create(email: @email, code: code)
-    verification_token = encode_verification_token(@email, code)
-    verification_url = "https://#{Rdr.host_name}/export_files/#{repo_id}?token=#{verification_token}"
-    ExportFilesEmailVerificationMailer.with(email_address: @email, repo_id: repo_id, verification_url: verification_url)
+    if verify_recaptcha
+      repo_id = new_params.require(:id)
+      @email = ActionController::Base.helpers.sanitize(params.permit(:email)[:email])
+      code = SecureRandom.hex(6)
+      EmailVerification.create(email: @email, code: code)
+      verification_token = encode_verification_token(@email, code)
+      verification_url = "https://#{Rdr.host_name}/export_files/#{repo_id}?token=#{verification_token}"
+      ExportFilesEmailVerificationMailer.with(email_address: @email, repo_id: repo_id, verification_url: verification_url)
                                                                                   .send_verification_email.deliver_now
+    else
+      render 'export_files/unauthenticated'
+    end
   end
 
   private
