@@ -296,10 +296,10 @@ class CatalogController < ApplicationController
     # except in the relevancy case).
     # label is key, solr field is value
     config.add_sort_field "score desc, #{uploaded_field} desc", label: "relevance"
-    config.add_sort_field "#{uploaded_field} desc", label: "date uploaded \u25BC"
-    config.add_sort_field "#{uploaded_field} asc", label: "date uploaded \u25B2"
-    config.add_sort_field "#{modified_field} desc", label: "date modified \u25BC"
-    config.add_sort_field "#{modified_field} asc", label: "date modified \u25B2"
+    config.add_sort_field "#{uploaded_field} desc", label: "date uploaded (new to old)"
+    config.add_sort_field "#{uploaded_field} asc", label: "date uploaded (old to new)"
+    config.add_sort_field "#{modified_field} desc", label: "date modified (new to old)"
+    config.add_sort_field "#{modified_field} asc", label: "date modified (old to new)"
 
     # If there are more than this many search results, no spelling ("did you
     # mean") suggestion is offered.
