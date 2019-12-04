@@ -19,6 +19,7 @@ en:
         ark: ARK
         available: Publication Date
         based_near: Geographic Coverage
+        based_near_label: Location
         bibliographic_citation: Data Citation
         contact: Contact
         contributor: Contributor

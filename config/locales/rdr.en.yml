@@ -61,6 +61,13 @@ en:
         help: "REQUIRED. Accepted characters include letters, numbers, underscore, hyphen, or dot. All other characters will be converted to underscores."
         submit: "Export"
       in_process: "Files are being prepared for export. When ready, you will receive an email notification at <strong>%{email}</strong> with a link to download your ZIP file."
+      metadata_report:
+        first_line: "== Dataset: %{title} =="
+        source_organization: 'Source Organization'
+        contact_email: 'Contact Email'
+        file_count: 'File Count'
+        file_size: 'File Size'
+        export_timestamp: 'Files Exported'
     batch_import:
       heading: "Batch Import"
       malformed_csv_manifest: "CSV manifest is malformed: %{error}"

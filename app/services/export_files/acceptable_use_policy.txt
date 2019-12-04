@@ -1,0 +1,20 @@
+What users of files agree to:
+
+  - You will not attempt to identify any individuals included in the data or otherwise infringe the privacy or
+    confidentiality rights of individuals discovered inadvertently or intentionally in the data
+
+  - If you should identify anyone unintentionally, you will contact datamanagement@duke.edu
+
+  - You will abide by the Creative Commons license (https://creativecommons.org/licenses) conditions applied to the
+    data (if any).
+
+  - You will properly cite the data by including a data citation (https://datacite.org/cite-your-data.html) in any
+    publication or presentation resulting from the use of the data.
+
+Content within the files are governed by the RDR Data Deposit Agreement
+(https://research.repository.duke.edu/about?locale=en#h_44065734841538163998805). Data are offered with no warranty or
+claim of fitness for any purpose. In no event shall Duke University be liable for any actual, incidental or
+consequential damages arising from use of these files.
+
+If you discover that a link is broken or that you are not able to download the files you need, please contact
+datamanagement@duke.edu.
