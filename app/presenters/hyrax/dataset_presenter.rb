@@ -25,7 +25,7 @@ module Hyrax
     end
 
     def file_scan
-      @file_scan ||= WorkFilesScanner.call(id)
+      @file_scan ||= WorkFilesScanner.call(id, current_ability)
     end
 
     def file_count
