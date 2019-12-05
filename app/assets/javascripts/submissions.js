@@ -168,7 +168,7 @@ function validateForm() {
         }
 
         if (currentTab == 4 && myInput[i].value == t4_exclude) {
-          submitForm = true;
+          //submitForm = true;
         }
 
         // Implement skip logic

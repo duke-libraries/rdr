@@ -122,6 +122,7 @@ en:
       warnings:
         required_question_html: 'Please answer this question.'
         required_questions_html: 'Please complete the fields marked below.'
+        required_agreement_html: 'You must agree to the conditions of deposit<br />in order to submit your data to the RDR.'
       fieldsets:
         legend1: 'Restricted or Sensitive Information'
         legend2: 'Grant Funding'

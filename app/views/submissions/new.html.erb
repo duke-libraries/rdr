@@ -165,7 +165,7 @@
           <div class="form-tab" id="t4" aria-live="polite">
 
             <div id="form_alert4" class="hidden form_alert" role="alertdialog">
-              <%= t("rdr.submissions.warnings.required_question_html") %>
+              <%= t("rdr.submissions.warnings.required_agreement_html") %>
             </div>
 
             <fieldset>
@@ -178,10 +178,6 @@
 
                 <%= f.label :deposit_agreement, :for => 'deposit-agreement-1', :class => 'btn btn-default btn-lg btn-block' do %>
                   <%= f.radio_button :deposit_agreement, Submission::AGREE, {:required => true, :id =>'deposit-agreement-1'} %> <%= t("rdr.submissions.labels.question4_label1") %>
-                <% end %>
-
-                <%= f.label :deposit_agreement, :for => 'deposit-agreement-2', :class => 'btn btn-default btn-lg btn-block' do %>
-                  <%= f.radio_button :deposit_agreement, Submission::NOT_AGREE, {:required => true, :id =>'deposit-agreement-2'} %> <%= t("rdr.submissions.labels.question4_label2") %>
                 <% end %>
 
               </div>
