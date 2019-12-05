@@ -13,8 +13,6 @@ module ExportFiles
 
     def generate
       r = [ I18n.t('rdr.batch_export.metadata_report.first_line', title: work_doc.title.first) ]
-      r << "#{I18n.t('rdr.batch_export.metadata_report.source_organization')}: #{Rdr.export_files_source_organization}"
-      r << "#{I18n.t('rdr.batch_export.metadata_report.contact_email')}: #{Rdr.export_files_contact_email}"
       report_entries.each do |entry|
         if work_doc.send(entry).present?
           label = I18n.t("rdr.show.fields.#{entry}")
@@ -22,6 +20,9 @@ module ExportFiles
           r << "#{label}: #{value}"
         end
       end
+      r << "#{I18n.t('rdr.show.fields.available')}: #{publication_date}" if publication_date.present?
+      r << "#{I18n.t('rdr.batch_export.metadata_report.source_organization')}: #{Rdr.export_files_source_organization}"
+      r << "#{I18n.t('rdr.batch_export.metadata_report.contact_email')}: #{Rdr.export_files_contact_email}"
       size, count = file_size_and_count
       human_size = ActiveSupport::NumberHelper.number_to_human_size(size)
       r << "#{I18n.t('rdr.batch_export.metadata_report.file_count')}: #{count.to_i}"
@@ -31,15 +32,21 @@ module ExportFiles
       r.join("\n\n")
     end
 
+    def publication_date
+      if work_doc.available.present?
+        Array(work_doc.available.map { |entry| DateTime.parse(entry).strftime('%Y-%m-%d') }).join('; ')
+      end
+    end
+
     def file_size_and_count
       pkg.bag.payload_oxum.split('.')
     end
 
     def report_entries
-      [ 'affiliation', 'alternative', 'ark', 'temporal', 'contact', 'contributor', 'creator', 'bibliographic_citation',
+      [ 'creator', 'affiliation', 'alternative', 'ark', 'temporal', 'contact', 'contributor', 'bibliographic_citation',
         'description', 'doi', 'format', 'funding_agency', 'grant_number', 'is_replaced_by', 'language',
-        'based_near_label', 'provenance', 'available', 'publisher', 'related_url', 'replaces', 'license', 'rights_note',
-        'subject', 'title', 'resource_type' ]
+        'based_near_label', 'provenance', 'publisher', 'related_url', 'replaces', 'license', 'rights_note', 'subject',
+        'title', 'resource_type' ]
     end
 
     def acceptable_use_policy

@@ -4,7 +4,7 @@ module ExportFiles
   RSpec.describe MetadataReport do
 
     describe '#generate' do
-      let(:dataset) { FactoryBot.create(:dataset_with_files, creator: [ 'a', 'b' ]) }
+      let(:dataset) { FactoryBot.create(:dataset_with_files, creator: [ 'a', 'b' ], available: [ '2019-12-04' ]) }
       let(:user) { FactoryBot.create(:user) }
       let(:ability) { Ability.new(user) }
       let(:basename) { 'test_export' }
@@ -31,6 +31,8 @@ module ExportFiles
         expect(rpt).to start_with(I18n.t('rdr.batch_export.metadata_report.first_line', title: dataset.title.first))
         # contains the creators
         expect(rpt).to match(/.*#{I18n.t('rdr.show.fields.creator')}: [a; b|b; a].*/)
+        # publication date shows date only
+        expect(rpt).to match(/.*#{I18n.t('rdr.show.fields.available')}: \d\d\d\d-\d\d-\d\d$/)
         # contains file count
         expect(rpt).to include("#{I18n.t('rdr.batch_export.metadata_report.file_count')}: #{file_count}")
         # contains file size
