@@ -1,0 +1,15 @@
+# -*-YAML-*-
+version: '3.7'
+
+networks:
+  default:
+    name: rdr-test
+
+services:
+  fcrepo:
+    ports:
+      - "8081:8080"
+
+  solr:
+    ports:
+      - "8984:8983"

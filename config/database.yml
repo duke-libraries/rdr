@@ -1,17 +1,8 @@
-default: &default
-  adapter: postgresql
-  host: localhost
-  encoding: UTF8
-  username: hydra
-  password: hydra
-
 development:
-  <<: *default
-  database: development
+  adapter: postgresql
 
 test:
-  <<: *default
-  database: test
+  adapter: postgresql
 
 production:
   adapter: postgresql

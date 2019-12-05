@@ -1,0 +1,9 @@
+.bundle
+.docker
+!.docker/include
+.git
+.gitlab-ci.yml
+log/*
+public/assets
+public/branding
+tmp/*

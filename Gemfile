@@ -32,6 +32,7 @@ gem 'redis', '~> 3.0'
 gem 'resque'
 gem 'resque-pool', '~> 0.7.0'
 gem 'resque-web', require: 'resque_web'
+gem 'riiif', '~> 2.0'
 gem 'rsolr', '>= 1.0'
 gem 'sass-rails', '~> 5.0'
 gem 'turbolinks', '~> 5'
@@ -53,8 +54,6 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
-  gem 'solr_wrapper', '>= 0.3'
-  gem 'fcrepo_wrapper'
   gem 'rspec-rails'
   gem 'rspec-its'
   gem 'rails-controller-testing'
@@ -66,5 +65,3 @@ end
 group :production do
   gem 'therubyracer', platforms: :ruby
 end
-
-gem 'riiif', '~> 2.0'

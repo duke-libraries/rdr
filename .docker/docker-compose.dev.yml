@@ -1,0 +1,46 @@
+# -*-YAML-*-
+version: '3.7'
+
+networks:
+  default:
+    name: rdr-dev
+
+volumes:
+  fcrepo_home:
+  fcrepo_binaries:
+  fcrepo_db_data:
+  solr_data:
+  pg_data:
+
+services:
+  fcrepo:
+    ports:
+      - "8080:8080"
+    volumes:
+      - fcrepo_home:/var/lib/fcrepo/data
+      - fcrepo_binaries:/var/lib/fcrepo/binaries
+
+  fcrepo_db:
+    volumes:
+      - fcrepo_db_data:/var/lib/postgresql/data
+
+  solr:
+    ports:
+      - "8983:8983"
+    volumes:
+      - solr_data:/opt/solr/server/solr/mycores
+
+  clamav:
+    image: gitlab-registry.oit.duke.edu/devops/containers/clamav:latest
+
+  db:
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  app:
+    volumes:
+      - ..:/usr/src/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - clamav

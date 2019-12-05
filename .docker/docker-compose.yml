@@ -1,0 +1,53 @@
+# -*-YAML-*-
+version: '3.7'
+
+services:
+  fcrepo:
+    image: gitlab-registry.oit.duke.edu/devops/containers/fcrepo4:latest
+    volumes:
+      - ./fcrepo/repository.json:/etc/fcrepo/repository.json
+    depends_on:
+      - fcrepo_db
+
+  fcrepo_db:
+    image: postgres:9.5-alpine
+    shm_size: 256M
+    environment:
+      POSTGRES_DB: fcrepo
+      POSTGRES_USER: fcrepo
+      POSTGRES_PASSWORD: fcrepo
+
+  solr:
+    image: solr:7.7.2
+    volumes:
+      - ../solr/config:/solr_config:ro
+    entrypoint:
+      - docker-entrypoint.sh
+      - solr-precreate
+      - rdr
+      - /solr_config
+
+  db:
+    image: postgres:9.5-alpine
+    shm_size: 256M
+    environment:
+      POSTGRES_DB: rdr
+      POSTGRES_USER: hydra
+      POSTGRES_PASSWORD: hydra
+
+  app:
+    image: rdr
+    build:
+      context: ..
+      dockerfile: .docker/Dockerfile
+    depends_on:
+      - db
+      - solr
+      - fcrepo
+    environment:
+      - RAILS_ENV
+      - RAILS_LOG_TO_STDOUT=1
+      - SOLR_URL=http://solr:8983/solr/rdr
+      - FCREPO_URL=http://fcrepo:8080/fcrepo/rest
+      - FCREPO_ADMIN_PASSWORD=fedoraAdmin
+      - DATABASE_URL=postgresql://hydra:hydra@db/rdr
