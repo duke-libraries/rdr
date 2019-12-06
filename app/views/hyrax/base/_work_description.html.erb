@@ -1,5 +1,5 @@
 <% presenter.description.each do |description| %>
     <p class="work_description">
-      <%= expandable_iconify_auto_link(description) %>
+      <%= presenter.attribute_to_html(:description, label: '', render_as: :formatted) %>
     </p>
 <% end %>
