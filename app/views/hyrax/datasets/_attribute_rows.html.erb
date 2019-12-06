@@ -69,17 +69,13 @@
 </div>
 
 
-<%# Render the main metadata elements from the top of the page again in the metadata section %>
-<%# but hide them with CSS. This ensures schema.org properties are mapped for these fields. %>
+<%# Render the title metadata element from the top of the page again in the metadata section %>
+<%# but hide it with CSS. This ensures schema.org properties are mapped for this field. %>
 <%# See Hyrax::Renderers::AttributeRenderer & Hyrax::PresentsAttributes#attribute_to_html %>
 
 <div class="hide">
   <%= presenter.attribute_to_html(:title, label: I18n.t("rdr.show.fields.title"), html_dl: true) %>
 </div>
-<div class="hide">
-  <%= presenter.attribute_to_html(:description, label: I18n.t("rdr.show.fields.description"), html_dl: true) %>
-</div>
-
 
 <%# Render the license URI with valid schema.org markup. %>
 <div class="hide">

@@ -31,6 +31,9 @@ a.toggle-extended-text {
   &:focus {
    color: #2e74b2;
   }
+  &.expanded {
+    display: block;
+  }
 }
 
 .work-show-columns {

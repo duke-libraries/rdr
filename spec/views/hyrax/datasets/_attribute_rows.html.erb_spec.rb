@@ -87,9 +87,6 @@ RSpec.describe 'hyrax/datasets/_attribute_rows.html.erb', type: :view do
     it "title -> name" do
       expect(page).to have_css '.attribute-title [itemprop="name"]', text: 'Example Work With Lots of Metadata Values'
     end
-    it "description -> description" do
-      expect(page).to have_css '.attribute-description [itemprop="description"]', text: /^Bicycle rights/
-    end
     it "license -> license" do
       expect(page).to have_css '.attribute-license [itemprop="license"]', text: 'http://creativecommons.org/publicdomain/mark/1.0/'
     end
