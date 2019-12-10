@@ -73,29 +73,35 @@ A generated Hyrax-based Research Data Repository application
 
 12. load default workflow `rake hyrax:workflow:load`
 
-13. start the server(s)
-`bin/rails hydra:server`
+13. export environmental variables (DEPOSITOR_REQUEST_FORM and EZID_TEST_PASSWORD): 
+    like so: `export DEPOSITOR_REQUEST_FORM="https://whatever-url-you-want"`
 
-    *This starts Solr, Fedora, and Rails*
+14. start the server(s):
 
-14. create default admin set &mdash; open a new terminal tab (Ctrl-T or ⌘-T), shell into vagrant `vagrant ssh`, and move to the correct folder `cd /vagrant/rdr`
+    open a new terminal tab, ssh into vagrant ```vagrant ssh```, move to the correct folder ```cd /vagrant/rdr```, start Fedora ```fcrepo_wrapper```
+  
+    open a new terminal tab, ssh in, move to correct folder, and startup Solr ```solr_wrapper```
+  
+    open one more terminal tab, ssh in, move to correct folder, and startup rails ```rails server -b 0.0.0.0```
+
+15. create default admin set &mdash; open a new terminal tab (Ctrl-T or ⌘-T), shell into vagrant `vagrant ssh`, and move to the correct folder `cd /vagrant/rdr`
 
     then run `bin/rails hyrax:default_admin_set:create`
 
     you can close the tab when it's done
 
 
-15. The application should now be running at [localhost:3000](http://localhost:3000). You can try to do some things like [creating a new user account](http://localhost:3000/users/sign_up?locale=en) and [depositing an object](http://localhost:3000/concern/works/new?locale=en)
+16. The application should now be running at [localhost:3000](http://localhost:3000). You can try to do some things like [creating a new user account](http://localhost:3000/users/sign_up?locale=en) and [depositing an object](http://localhost:3000/concern/works/new?locale=en)
 
     *Note that if you would like to give your user account admin rights, you'll need follow the [instructions below](#3212018----changes-to-role-management)
 
 
-### Shut down the application
+## Shutting down the application
 
 * to shut down the app, stop the rails server by pressing Ctrl-C, logout of vagrant `logout`, and then shutdown the VM `vagrant halt`
 
 
-### Starting up the application
+## Starting up the application
 
 It is best to run Solr, Fedora, and Rails in three separate tabs:
 * startup the vagrant instance: ```vagrant up```
