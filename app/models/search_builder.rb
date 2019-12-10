@@ -20,7 +20,8 @@ class SearchBuilder < Blacklight::SearchBuilder
   def top_level_filter(solr_parameters)
     solr_parameters[:fq] ||= []
     if blacklight_params["top_level"] == 'true'
-      solr_parameters[:fq] << "#{Rdr::Index::Fields::TOP_LEVEL}:True"
+      # Amended to include Collections as well as top-level Datasets -- https://duldev.atlassian.net/browse/RDR-431
+      solr_parameters[:fq] << "(#{Rdr::Index::Fields::TOP_LEVEL}:True OR has_model_ssim:Collection)"
     end
   end
 
