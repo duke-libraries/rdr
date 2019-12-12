@@ -1,13 +1,13 @@
 <%# NOTE: Modified copy of Hyrax (v2.6.0) partial for local overrides %>
 <% provide :page_title, construct_page_title(@presenter.title) %>
-<div class="hyc-container" itemscope itemtype="http://schema.org/CollectionPage">
-  <div class="row hyc-header">
+<section class="hyc-container" itemscope itemtype="http://schema.org/CollectionPage">
+  <header class="row hyc-header">
     <div class="col-md-12">
 
       <% unless @presenter.banner_file.blank? %>
-          <header class="hyc-banner" style="background-image:url(<%= @presenter.banner_file %>)">
+          <div class="hyc-banner" style="background-image:url(<%= @presenter.banner_file %>)">
       <% else %>
-          <header class="hyc-generic">
+          <div class="hyc-generic">
       <% end %>
 
       <div class="hyc-title">
@@ -23,7 +23,7 @@
                 <% if lr[:linkurl].blank? %>
                     <img alt="<%= lr[:alttext] %>" src="<%= lr[:file_location] %>" />
                 <% else %>
-                    <a href="<%= lr[:linkurl] %>">
+                    <a href="<%= lr[:linkurl] %>" target="_blank" title="<%= lr[:alttext] %>">
                       <img alt="<%= lr[:alttext] %>" src="<%= lr[:file_location] %>" />
                     </a>
                 <% end %>
@@ -49,10 +49,10 @@
           <!-- </div> -->
       <%# end %>
       
-      </header>
+      </div>
 
     </div>
-  </div>
+  </header>
 
   <div class="row hyc-body">
 
@@ -83,11 +83,9 @@
       <!-- Search results label -->
       <% if @members_count > 0 || @presenter.subcollection_count > 0 %>
         <div class="hyc-blacklight hyc-bl-title">
-          <h2>
-            <% if has_collection_search_parameters? %>
-                <%= t('hyrax.dashboard.collections.show.search_results') %>
-            <% end %>
-          </h2>
+          <% if has_collection_search_parameters? %>
+            <h2><%= t('hyrax.dashboard.collections.show.search_results') %></h2>
+          <% end %>
         </div>
       <% end %>
 
@@ -141,4 +139,4 @@
         <%= render 'paginate' %>
       </div>
   <% end # if @members_count > 0 %>
-</div>
+</section>
