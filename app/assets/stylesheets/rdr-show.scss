@@ -225,3 +225,81 @@ table.related-files {
     font-size: 85%;
   }
 }
+
+/* Collections Show page */
+
+.hyc-description {
+  text-align: left;
+  padding: 0;
+}
+
+.hyc-metadata h3 {
+  border-top: 4px solid $brand-success-light;
+  padding-top: 25px;
+  margin-top: 25px;
+}
+
+.hyc-metadata {
+  padding: 0;
+  
+  & div {
+    border-bottom: none;
+  }
+}
+
+dl.collection-show {
+  margin-bottom: 0;
+  
+  & dt {
+    color: #666;
+  }
+}
+
+.hyc-metadata dl {
+  column-count: 2;
+  column-gap: 20px;
+  border-top: none;
+  @media screen and (max-width: $screen-xs-max) {
+    column-count: auto;
+  }
+  & > div {
+    break-inside: avoid;
+    border-bottom: none;
+    display: block;
+    padding: 0;
+    margin-bottom: 11px;
+  }
+  & dt {
+    padding: 0;
+    margin: 0;
+    color: #666;
+    &:not(:first-child) {
+      margin-top: 15px;
+    }
+  }
+  & dd {
+    padding: 0;
+    margin: 0;
+    & span {
+      padding-left: 0;
+    }
+  }
+
+  & .attribute {
+
+    /* Styles for specific fields */
+    &.attribute-related_url {
+      &:not(:first-child) {
+        margin-top: 0.8em;
+      }
+    }
+  }
+}
+
+.hyc-bl-results .table > tbody > tr > td {
+  border-top: none !important;
+}
+
+.hyc-blacklight {
+  padding: 0;
+}

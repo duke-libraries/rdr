@@ -1,0 +1,56 @@
+<%# Modified version of Hyrax core partial _show_descriptions.html.erb replaced with local modifications %>
+<%# Last checked for udpates: Hyrax v2.6.0 %>
+
+<dl>
+
+  <%# present_terms(@presenter, @presenter.terms_with_values) do |r, term| %>
+    <%# <div> %>
+      <%# <dt> %><%#= r.label(term) %><%# </dt> %>
+      <%# <dd> %><%#= r.value(term) %><%# </dd> %>
+    <%# </div> %>
+  <%# end %>
+
+  <div>
+    <%= @presenter.attribute_to_html(:creator, render_as: :faceted, label: I18n.t("rdr.show.fields.creator"), html_dl: true) %>
+  </div>
+
+  <div>
+    <%= @presenter.attribute_to_html(:contributor, render_as: :faceted, label: I18n.t("rdr.show.fields.contributor"), html_dl: true) %>
+  </div>
+
+  <div>
+    <%= @presenter.attribute_to_html(:keyword, render_as: :faceted, label: I18n.t("rdr.show.fields.keyword"), html_dl: true) %>
+  </div>
+
+  <div>
+    <%= @presenter.attribute_to_html(:license, label: I18n.t("rdr.show.fields.license"), render_as: :license, html_dl: true) %>
+  </div>
+
+  <div>
+    <%= @presenter.attribute_to_html(:publisher, render_as: :faceted, label: I18n.t("rdr.show.fields.publisher"), html_dl: true) %>
+  </div>
+
+  <div>
+    <%= @presenter.attribute_to_html(:date_created, render_as: :edtf_humanized, label: I18n.t("rdr.show.fields.date_created"), html_dl: true) %>
+  </div>
+
+  <div>
+    <%= @presenter.attribute_to_html(:subject, render_as: :faceted, label: I18n.t("rdr.show.fields.subject"), html_dl: true) %>
+  </div>
+
+  <div>
+    <%= @presenter.attribute_to_html(:language, render_as: :faceted, label: I18n.t("rdr.show.fields.language"), html_dl: true) %>
+  </div>
+
+  <div>
+    <%= @presenter.attribute_to_html(:related_url, render_as: :external_link, label: I18n.t("rdr.show.fields.related_url"), html_dl: true) %>
+  </div>
+
+  <div>
+    <%= @presenter.attribute_to_html(:resource_type, render_as: :faceted, label: I18n.t("rdr.show.fields.resource_type"), html_dl: true) %>
+  </div>
+
+</dl>
+
+
+

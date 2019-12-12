@@ -67,6 +67,12 @@ en:
     collection:
       select_form:
         select_label:       "Collections"
+    collections:
+      search_form:
+        placeholder: 'Search datasets in this collection'
+      show:
+        label:
+          total_items: 'Total Items'
     product_name:           "Research Data"
     product_twitter_handle: "@DukeLibraries"
     institution_name:       "Duke"
