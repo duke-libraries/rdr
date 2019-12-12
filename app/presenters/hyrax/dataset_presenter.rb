@@ -58,6 +58,16 @@ module Hyrax
                                  presenter_args: presenter_factory_arguments)
     end
 
+    # Uses '#member_of_collection_presenters' in Hyrax::WorkShowPresenter
+    # but only includes collections that are of the custom RDR type "Collection"
+    # This ensures other kinds of collections (admin sets, user collections, etc.)
+    # do not appear in the vertical breadcrumb.
+    #
+    # @return [Array<CollectionPresenter>] presenters
+    def member_of_rdr_collection_presenters
+      member_of_collection_presenters.select {|p| p.collection_type.machine_id == 'collection' }
+    end
+
     def ancestor_trail
       docs = ancestor_trail_ids(solr_document).map { |id| ::SolrDocument.find(id) }
       docs.reverse
@@ -73,6 +83,5 @@ module Hyrax
       ancestors.concat document.in_works_ids
       ancestor_trail_ids(::SolrDocument.find(document.in_works_ids.first), ancestors)
     end
-
   end
 end
