@@ -58,14 +58,12 @@ module Hyrax
                                  presenter_args: presenter_factory_arguments)
     end
 
-    # Uses '#member_of_collection_presenters' in Hyrax::WorkShowPresenter
-    # but only includes collections that are of the custom RDR type "Collection"
-    # This ensures other kinds of collections (admin sets, user collections, etc.)
-    # do not appear in the vertical breadcrumb.
+    # Get the presenters for the collections in which the top-level work is a member
+    # Collection must be the custom RDR type "Collection" (omit admin sets, user collections, etc.)
     #
     # @return [Array<CollectionPresenter>] presenters
-    def member_of_rdr_collection_presenters
-      member_of_collection_presenters.select {|p| p.collection_type.machine_id == 'collection' }
+    def toplevel_rdr_collection_presenters
+      toplevel_work_collection_presenters.select {|p| p.collection_type.machine_id == 'collection' }
     end
 
     def ancestor_trail
@@ -74,6 +72,28 @@ module Hyrax
     end
 
     private
+
+    # Modeled on '#member_of_collection_presenters' in Hyrax::WorkShowPresenter
+    # Get the presenters for all the collections in which the top-level work is a
+    # member, no matter what collection type or how deeply nested the current work is.
+    # Limit to collections the current user can access.
+    #
+    # @return [Array<CollectionPresenter>] presenters
+    def toplevel_work_collection_presenters
+      return [] unless toplevel_work_id.present?
+      PresenterFactory.build_for(ids: toplevel_authorized_collections,
+                                 presenter_class: collection_presenter_class,
+                                 presenter_args: presenter_factory_arguments)
+    end
+
+    # Modeled on '#member_of_authorized_parent_collections' in Hyrax::WorkShowPresenter
+    def toplevel_authorized_collections
+      Hyrax::CollectionMemberService.run(::SolrDocument.find(toplevel_work_id), current_ability).map(&:id)
+    end
+
+    def toplevel_work_id
+      (id if top_level) || ancestor_trail_ids(solr_document).last || nil
+    end
 
     # Recursively assemble an array of this work's ancestor work ids, provided it
     # has ancestor works, and neither it nor any of its ancestors has multiple parents.

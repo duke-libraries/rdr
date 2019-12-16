@@ -110,4 +110,15 @@ FactoryBot.define do
   factory :admin_set_collection_type, class: Hyrax::CollectionType do
     initialize_with { Hyrax::CollectionType.find_or_create_admin_set_type }
   end
+
+  # DUL CUSTOM Collection Type
+  # Collection type must be named "Collection"
+  factory :rdr_collection_type, class: Hyrax::CollectionType do
+    initialize_with {
+      Hyrax::CollectionType::find_by(machine_id: 'collection') || Hyrax::CollectionTypes::CreateService.create_collection_type(
+        machine_id: 'collection',
+        title: 'Collection'
+      )
+    }
+  end
 end
