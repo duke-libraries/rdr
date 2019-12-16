@@ -49,6 +49,54 @@ RSpec.describe Hyrax::DatasetPresenter do
     end
   end
 
+  describe '#toplevel_rdr_collection_presenters' do
+
+    context 'work is top-level & in one RDR collection' do
+      let(:collection) { build(:rdr_collection)}
+      let(:work) { create(:public_dataset, member_of_collections: [collection])}
+      before { allow(subject).to receive(:toplevel_work_id) { work.id } }
+      it "returns the RDR collection presenter" do
+        expect(subject.toplevel_rdr_collection_presenters.count).to eq 1
+        expect(subject.toplevel_rdr_collection_presenters.first.collection_type.title).to eq "Collection"
+        expect(subject.toplevel_rdr_collection_presenters.first.title).to include(/^RDR Collection Title/)
+      end
+    end
+
+    context 'work is top-level, in 2 RDR collections, & 1 generic collection' do
+      let(:collection_1) { build(:rdr_collection) }
+      let(:collection_2) { build(:rdr_collection) }
+      let(:collection_3) { build(:public_collection_lw) }
+      let(:work) { create(:public_dataset, member_of_collections: [collection_1, collection_2, collection_3 ])}
+      before { allow(subject).to receive(:toplevel_work_id) { work.id } }
+      it "returns both RDR collection presenters, no others" do
+        expect(subject.toplevel_rdr_collection_presenters.count).to eq 2
+      end
+    end
+
+    context 'work is nested & its top-level ancestor is in an RDR collection' do
+      let(:collection) { build(:rdr_collection) }
+      let(:parent) { create(:dataset_with_one_child, member_of_collections: [collection]) }
+      let(:work) { parent.ordered_works.first }
+      before { allow(subject).to receive(:toplevel_work_id) { parent.id } }
+      it "returns the top-level ancestor's RDR collection presenter" do
+        expect(subject.toplevel_rdr_collection_presenters.first.collection_type.title).to eq "Collection"
+        expect(subject.toplevel_rdr_collection_presenters.first.title).to include(/^RDR Collection Title/)
+      end
+    end
+
+    context 'work is nested & its top level work is unknowable' do
+      # happens if it or any ancestor dataset has more than one parent dataset
+      let(:collection) { build(:rdr_collection) }
+      let(:parent) { create(:dataset_with_one_child, member_of_collections: [collection]) }
+      let(:work) { parent.ordered_works.first }
+      before { allow(subject).to receive(:toplevel_work_id) { nil } }
+      it "returns no collection presenters" do
+        expect(subject.toplevel_rdr_collection_presenters).to eq []
+        expect(subject.toplevel_rdr_collection_presenters.count).to eq 0
+      end
+    end
+  end
+
   describe '#ancestor_trail' do
     context 'work is top-level (has no ancestors)' do
       let(:solr_document) { SolrDocument.new(id: 'abc', Rdr::Index::Fields.in_works_ids => []) }

@@ -12,9 +12,9 @@
     </div>
   </div>
 
-  <% if presenter.member_of_rdr_collection_presenters.present? %>
+  <% if presenter.toplevel_rdr_collection_presenters.length == 1 %>
     <div class="vertical-breadcrumb-node">
-    <% presenter.member_of_rdr_collection_presenters.each do |p| %>
+    <% presenter.toplevel_rdr_collection_presenters.each do |p| %>
       <div class='attribute attribute-title'>
         <%= link_to p.to_s, collection_path(p.id), class: 'collection-link' %>
       </div>
