@@ -201,7 +201,7 @@ ul.tabular {
   color: $gray;
 }
 
-.list-thumbnail {
+.list-thumbnail, .collection-icon-search {
   @media screen and (max-width: $screen-sm-max) {
     display: none;
   }
@@ -249,6 +249,19 @@ ul.tabular {
 .facets-toggle {
   background-color: $btn-default-bg;
   border-color: $btn-default-border;
+}
+
+.search-result-wrapper {
+  .collection-counts-wrapper {
+    .collection-counts-item {
+      margin-left: 0;
+      margin-bottom: 10px;
+      width: 100%;
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
 }
 
 
