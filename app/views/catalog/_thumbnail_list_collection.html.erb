@@ -1,0 +1,10 @@
+<%# NOTE: Copy of a Hyrax core partial, in order to add .list-thumbnail wrapper %>
+<%# for styling consistency with work thumbnails in search results. %>
+<%# https://github.com/samvera/hyrax/blob/master/app/views/catalog/_thumbnail_list_collection.html.erb %>
+<%# Last checked for updates: Hyrax v2.6.0 %>
+
+<div class="col-md-2">
+  <div class="list-thumbnail">
+    <%= render_thumbnail_tag document, {}, suppress_link: true %>
+  </div>
+</div>
