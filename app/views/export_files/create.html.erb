@@ -25,7 +25,9 @@
     <div>
       <p><%= t("rdr.batch_export.confirm.size_warning", num_files: @export.expected_num_files, total_size: number_to_human_size(@export.expected_payload_size, prefix: :si)).html_safe %></p>
 
-      <%= submit_tag t("rdr.batch_export.confirm.submit"), class: "btn btn-primary" %>
+      <%= submit_tag t("rdr.batch_export.confirm.submit"), class: "btn btn-primary",
+             id: 'bulk_export_confirm',
+             data: { label: params[:id] } %>
     </div>
   <% end %>
 

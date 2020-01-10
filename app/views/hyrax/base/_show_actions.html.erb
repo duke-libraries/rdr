@@ -3,7 +3,10 @@
   <form>
 
   <% if presenter.members %>
-    <%= link_to "Export Files", [main_app, :export_files], class: 'btn btn-default btn-download' %>
+    <%= link_to "Export Files", [main_app, :export_files],
+          class: 'btn btn-default btn-download',
+          id: 'bulk_export_begin',
+          data: { label: presenter.id } %>
   <% end %>
 
   <% if presenter.editor? %>
