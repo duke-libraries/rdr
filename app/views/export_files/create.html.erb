@@ -7,7 +7,7 @@
       <span class="fa fa-check-circle-o"></span>
     </div>
     <div class="media-body">
-      <p><%= t("rdr.batch_export.in_process", email: (current_user&.email || @email)).html_safe %></p>
+      <p><%= t("rdr.batch_export.in_process", email: (@email || current_user&.email)).html_safe %></p>
     </div>
   </div>
 

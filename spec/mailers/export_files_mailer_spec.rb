@@ -12,7 +12,7 @@ RSpec.describe ExportFilesMailer do
     end
     it "works" do
       export = ExportFiles::Package.new(repo_id)
-      described_class.notify_success(export, user).deliver_now!
+      described_class.notify_success(export, user.email).deliver_now!
       mail = ActionMailer::Base.deliveries.last
       expect(mail.subject).to match /COMPLETED/
     end
