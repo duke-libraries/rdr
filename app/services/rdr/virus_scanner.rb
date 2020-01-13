@@ -9,6 +9,9 @@ module Rdr
       rescue Ddr::Antivirus::ScannerError => e
         Rails.logger&.error(e)
         raise e
+      rescue Ddr::Antivirus::MaxFileSizeExceeded => e
+        Rails.logger&.warn(e.message)
+        false
       rescue Ddr::Antivirus::VirusFoundError => e
         Rails.logger&.warn(I18n.t('rdr.virus_found', file: file, error_msg: e.message))
         true
