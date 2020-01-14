@@ -10,6 +10,10 @@ RSpec.describe Hyrax::DatasetPresenter do
 
   subject { described_class.new(solr_document, ability, request) }
 
+  before do
+    allow_any_instance_of(Collection).to receive(:mint_ark_for_collection) {}
+  end
+
   describe '#doi_assignable?' do
     describe 'can assign/register DOIs' do
       before do

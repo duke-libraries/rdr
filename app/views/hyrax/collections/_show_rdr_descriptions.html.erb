@@ -50,6 +50,10 @@
     <%= @presenter.attribute_to_html(:resource_type, render_as: :faceted, label: I18n.t("rdr.show.fields.resource_type"), html_dl: true) %>
   </div>
 
+  <div>
+    <%= @presenter.attribute_to_html(:ark, label: I18n.t("rdr.show.fields.ark"), html_dl: true) %>
+  </div>
+
 </dl>
 
 

@@ -23,6 +23,7 @@ module Rdr
     # Docs: http://samvera.github.io/patterns-presenters.html#overriding-and-custom-presenter-methods
     config.to_prepare do
       Hyrax::PermissionBadge.prepend PrependedPresenters::PermissionBadge
+      Hyrax::CollectionPresenter.prepend PrependedPresenters::CollectionPresenter
     end
 
   end
