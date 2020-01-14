@@ -39,4 +39,13 @@ module RdrHelper
     ContentBlock.for(:announcement)
   end
 
+  # @return the email address to display on the export files create page, which is the email address that will be
+  # notified when the export package is ready for download
+  # If 'provided_email' is present, that is the email address that is returned
+  # If 'provided_email' is not present, the email address of the 'user' is returned
+  # (If neither 'provided_email' nor 'user' is provided, `nil` is returned.  This is not an expected scenario.)
+  def export_package_ready_email_address(provided_email, user)
+    provided_email.present? ? provided_email : user&.email
+  end
+
 end

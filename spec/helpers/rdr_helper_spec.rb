@@ -82,4 +82,34 @@ RSpec.describe RdrHelper, type: :helper do
     end
   end
 
+  describe 'export_package_ready_email_address' do
+    describe 'email address is present' do
+      let(:email) { 'test@bar.com' }
+      describe 'user is provided' do
+        let(:user) { build(:user) }
+        it 'returns the provided email address' do
+          expect(helper.export_package_ready_email_address(email, user)).to eq(email)
+        end
+      end
+      describe 'user is not provided' do
+        it 'returns the provided email address' do
+          expect(helper.export_package_ready_email_address(email, nil)).to eq(email)
+        end
+      end
+    end
+    describe 'email address is not present' do
+      let(:email) { '' }
+      describe 'user is provided' do
+        let(:user) { build(:user) }
+        it 'returns the user email address' do
+          expect(helper.export_package_ready_email_address(email, user)).to eq(user.email)
+        end
+      end
+      describe 'user is not provided' do
+        it 'returns nil' do
+          expect(helper.export_package_ready_email_address(email, nil)).to be_nil
+        end
+      end
+    end
+  end
 end
