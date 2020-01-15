@@ -227,6 +227,12 @@ ul.tabular {
   }
 }
 
+.panel-success, .facet_limit-active {
+  & > .panel-heading.collapse-toggle .panel-title:after {
+    color: white;
+  }
+}
+
 /*
   Hack for Bootstrap 3 to have multiple navbars that don't snap into mobile
   collapse mode at the same breakpoint (the other is in masthead). Note this
