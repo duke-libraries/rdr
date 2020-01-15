@@ -7,7 +7,7 @@
   </div>
 
   <%= link_to "Browse more",
-      main_app.search_catalog_path(f: { has_model_ssim: ["Dataset"], Rdr::Index::Fields.top_level => ["True"] }, latest_version: true),
+      main_app.search_catalog_path(latest_version: true, top_level: true),
       class: 'btn btn-default btn-sm' %>
 
 <% end %>

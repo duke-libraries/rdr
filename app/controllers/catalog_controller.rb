@@ -51,7 +51,7 @@ class CatalogController < ApplicationController
     config.add_facet_field Rdr::Index::Fields.affiliation_facet.to_s, label: I18n.t("blacklight.search.fields.facet.affiliation_sim"), limit: 5
     config.add_facet_field Rdr::Index::Fields.resource_type_facet.to_s, label: I18n.t("blacklight.search.fields.facet.resource_type_sim"), limit: 5
     config.add_facet_field Rdr::Index::Fields.pub_year.to_s, label: I18n.t("blacklight.search.fields.facet.pub_year_iim"), range: true
-    config.add_facet_field solr_name('member_of_collection_ids', :symbol), limit: 5, label: 'Collections', helper_method: :collection_title_by_id
+    config.add_facet_field solr_name('member_of_collection_ids', :symbol), show: false, limit: 5, label: 'Collections', helper_method: :collection_title_by_id
 
 
     # The generic_type isn't displayed on the facet list
