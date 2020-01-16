@@ -26,7 +26,7 @@
       <% if collection_presenter.total_viewable_collections.positive? %>
         <div class="collection-counts-item">
           <span><%= collection_presenter.total_viewable_collections %></span>
-          <%= "Collection".pluralize(collection_presenter.total_viewable_collection) %>
+          <%= "Collection".pluralize(collection_presenter.total_viewable_collections) %>
         </div>
       <% end %>
       <%# TODO: Revise in future if RDR includes works that aren't Datasets  %>
