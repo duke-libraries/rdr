@@ -1,0 +1,10 @@
+<%# Copied from Hyrax 2.6.0 in order to change default UniversalViewer config %>
+<%# Note that this will be significantly different in Hyrax 3.0.0, which uses %>
+<%# an updated version of UV and replaces pul_uv_rails. Remove or replace the %>
+<%# public/uv-config.json file when on 3.0.0 as well. %>
+
+<%= PulUvRails::UniversalViewer.script_tag %>
+<div class="viewer-wrapper">
+  <div class="uv viewer" data-uri="<%= main_app.polymorphic_url [main_app, :manifest, presenter], { locale: nil } %>"
+      data-config="/uv-config.json"></div>
+</div>
