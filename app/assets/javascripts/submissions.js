@@ -88,6 +88,17 @@ function nextPrev(n) {
   }
 
   if ((n == 1 && submitForm == true) || (n == 1 && currentTab == totalTabs)) {
+
+    // disable submit button to prevent weird things from happening
+    document.getElementById("nextBtn").classList.add("disabled");
+    document.getElementById("nextBtn").disabled = true;
+
+    // display modal about submission having happened
+    $('#submitModal').modal({backdrop: 'static', keyboard: false});
+
+
+
+    // submit the form
     document.getElementById("new_submission").submit();
 
     // reset radio button values
@@ -100,7 +111,6 @@ function nextPrev(n) {
     document.getElementById("nonfunded-size-1").checked = false;
     document.getElementById("nonfunded-size-2").checked = false;
     document.getElementById("deposit-agreement-1").checked = false;
-    document.getElementById("deposit-agreement-2").checked = false;
 
     return false;
   }

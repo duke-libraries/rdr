@@ -406,4 +406,23 @@
   </div>
 </div>
 
+<!-- submission modal -->
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="submit-modal-title" id="submitModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      
+      <div class="modal-body">
+        <div>
+          
+          <h2 id="submit-modal-title" class="text-center"><%= t("rdr.submissions.submit_modal_header") %></h2>
+
+          <p class="text-center"><%= t("rdr.submissions.submit_modal_content_html") %></p>
+
+        </div>
+      </div>
+      
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <%= javascript_include_tag params[:controller] %>
