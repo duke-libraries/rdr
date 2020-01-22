@@ -117,8 +117,8 @@ en:
         screened_out:
           subject: 'Research Data Form Submission'
         success:
-          subject: 'Depositing Data in the Duke Digital Repository'
-          text: 'Thank you for your submission to Duke’s Research Data Repository. The link above is to a Box folder for your deposit. Please upload your files and send a brief reply to this confirmation email when you have finished, or drop us a line at %{email}.'
+          subject: 'Depositing Data in the Duke Research Data Repository'
+          text: 'Thank you for depositing with the Duke Research Data Repository. The link below is to a Box folder for your deposit. You will also receive an invitation to collaborate from Box (please feel free to use either link). Please upload your files and send a brief reply to this confirmation email when you have finished, or drop us a line at %{email}.'
       warnings:
         required_question_html: 'Please answer this question.'
         required_questions_html: 'Please complete the fields marked below.'

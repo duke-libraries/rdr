@@ -1,12 +1,12 @@
 <%= t('rdr.submissions.email.success.subject') %>
 
+<%= t('rdr.submissions.email.success.text', email: Rdr.curation_group_email) %>
+
 Submitter: <%= @submission.submitter.display_name %>
 Net ID: <%= @submission.submitter.user_key.split('@').first %>
 
 Submission Folder Name: <%= @submission_folder.name %>
 Submission Folder URL: <%= submission_folder_url(@submission_folder.id) %>
-
-<%= t('rdr.submissions.email.success.text', email: Rdr.curation_group_email) %>
 
 <% Submission::ATTRIBUTES.each do |attr| %>
   <% if include_submission_entry?(@submission, attr) %>
