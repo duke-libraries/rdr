@@ -12,7 +12,7 @@ What users of files agree to:
     publication or presentation resulting from the use of the data.
 
 Content within the files are governed by the RDR Data Deposit Agreement
-(https://research.repository.duke.edu/about?locale=en#h_44065734841538163998805). Data are offered with no warranty or
+(https://research.repository.duke.edu/about#data-deposit-agreement). Data are offered with no warranty or
 claim of fitness for any purpose. In no event shall Duke University be liable for any actual, incidental or
 consequential damages arising from use of these files.
 
