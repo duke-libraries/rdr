@@ -68,6 +68,8 @@ en:
         file_count: 'File Count'
         file_size: 'File Size'
         export_timestamp: 'Files Exported'
+        dataset_metadata_title: "==DATASET METADATA=="
+        deposit_agreement_title: "==DEPOSIT AGREEMENT=="
     batch_import:
       heading: "Batch Import"
       malformed_csv_manifest: "CSV manifest is malformed: %{error}"
