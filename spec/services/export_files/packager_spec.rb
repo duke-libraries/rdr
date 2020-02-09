@@ -38,7 +38,7 @@ module ExportFiles
 
       it 'builds the appropriate bag data' do
         subject.build!
-        expect(Dir.entries(base_path)).to include('metadata-report.txt')
+        expect(Dir.entries(base_path)).to include('README.txt')
         expect(Dir.entries(File.join(files_path, '0001_Test_title'))).to contain_exactly( *file_names[0], '.', '..' )
         expect(Dir.entries(File.join(files_path, '0002_Test_title'))).to contain_exactly( *file_names[1], '.', '..' )
       end

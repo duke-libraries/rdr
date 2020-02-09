@@ -13,6 +13,8 @@ module ExportFiles
 
     def generate
       r = [ I18n.t('rdr.batch_export.metadata_report.first_line', title: work_doc.title.first) ]
+      r << export_package_info
+      r << I18n.t('rdr.batch_export.metadata_report.dataset_metadata_title')
       report_entries.each do |entry|
         if work_doc.send(entry).present?
           label = I18n.t("rdr.show.fields.#{entry}")
@@ -28,6 +30,7 @@ module ExportFiles
       r << "#{I18n.t('rdr.batch_export.metadata_report.file_count')}: #{count.to_i}"
       r << "#{I18n.t('rdr.batch_export.metadata_report.file_size')}: #{human_size}"
       r << "#{I18n.t('rdr.batch_export.metadata_report.export_timestamp')}: #{Time.now}"
+      r << I18n.t('rdr.batch_export.metadata_report.deposit_agreement_title')
       r << acceptable_use_policy
       r.join("\n\n")
     end
@@ -47,6 +50,10 @@ module ExportFiles
         'description', 'doi', 'format', 'funding_agency', 'grant_number', 'is_replaced_by', 'language',
         'based_near_label', 'provenance', 'publisher', 'related_url', 'replaces', 'license', 'rights_note', 'subject',
         'title', 'resource_type' ]
+    end
+
+    def export_package_info
+      File.read(File.join(File.dirname(__FILE__), 'export_package_info.txt'))
     end
 
     def acceptable_use_policy

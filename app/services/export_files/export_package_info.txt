@@ -1,0 +1,29 @@
+To access the downloaded data, please see the "data" folder.
+
+This README file contains all associated metadata for the dataset and a description
+of the files packaged with the data export.
+
+
+==DATA EXPORT==
+
+All data packages exported from the Duke Research Data Repository (RDR) will be arranged
+according to the Library of Congress BagIt specification for disk-based
+storage and network transfer of digital content.
+
+A "bag" consists of a "payload" (the content) and "tags", which are metadata files
+intended to document the storage and transfer of the bag. Data packages downloaded
+from the RDR will contain:
+
+  - a "data" directory that contains the files and content associated with the dataset
+
+  - a "bag-info.txt" file which details metadata for the bag, including the date
+  the bag was compiled
+
+  - a "bagit.txt" file that identifies the directory as a bag, the version of the
+  BagIt specification that it adheres to, and the character encoding used for tag files
+
+  - 2 manifest files that itemize the files in the "data" directory along with their
+  checksums--"manifest-md5.txt" lists checksums calculated with the MD5 algorithm,
+  "manifest-sha1.txt" lists checksums calculated using the SHA-1 algorithm
+
+  - 2 tag manifest files, which list checksums for the tag files enumerated above

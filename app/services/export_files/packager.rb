@@ -16,7 +16,7 @@ module ExportFiles
     def build!
       work_doc = SolrDocument.find(work_id)
       handle_work(work_doc, PayloadFilePackager::PAYLOAD_PATH)
-      add_tag_file("metadata-report.txt") do |f|
+      add_tag_file("README.txt") do |f|
         f.write(metadata_report)
       end
     end

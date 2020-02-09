@@ -15,6 +15,9 @@ module ExportFiles
       let(:timestamp_regex) do
         '[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9] [+-]\d{4}'
       end
+      let(:export_pkg_info) do
+        File.read(File.join(Rails.root, 'app', 'services', 'export_files', 'export_package_info.txt'))
+      end
       let(:policy) do
         File.read(File.join(Rails.root, 'app', 'services', 'export_files', 'acceptable_use_policy.txt'))
       end
@@ -29,6 +32,8 @@ module ExportFiles
         rpt = subject.generate
         # has a first line with the dataset title
         expect(rpt).to start_with(I18n.t('rdr.batch_export.metadata_report.first_line', title: dataset.title.first))
+        expect(rpt).to include(export_pkg_info)
+        expect(rpt).to include("#{I18n.t('rdr.batch_export.metadata_report.dataset_metadata_title')}")
         # contains the creators
         expect(rpt).to match(/.*#{I18n.t('rdr.show.fields.creator')}: [a; b|b; a].*/)
         # publication date shows date only
@@ -39,6 +44,7 @@ module ExportFiles
         expect(rpt).to include("#{I18n.t('rdr.batch_export.metadata_report.file_size')}: #{human_file_size}")
         # contains a timestamp for the export
         expect(rpt).to match(/.*#{I18n.t('rdr.batch_export.metadata_report.export_timestamp')}: #{timestamp_regex}.*/)
+        expect(rpt).to include("#{I18n.t('rdr.batch_export.metadata_report.deposit_agreement_title')}")
         # contains the text of acceptable use policy
         expect(rpt).to include(policy)
       end
