@@ -22,4 +22,7 @@ module Rdr
   # Error interacting with Box API
   class BoxError < Error; end
 
+  # Invalid email verification token
+  class InvalidEmailVerificationToken < Error; end
+
 end

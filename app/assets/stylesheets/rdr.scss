@@ -17,7 +17,7 @@ body {
 
 #content-wrapper {
   background: #fff;
-  padding: 15px 30px;
+  padding: 15px 30px 30px 30px;
 }
 
 .alert {
@@ -62,6 +62,9 @@ body {
   height: auto;
 }
 
+ul.tabular {
+  padding-left: 0;
+}
 
 /* ===== */
 /* Items */
@@ -109,6 +112,24 @@ body {
   &:hover {
     background: #ddd;
   }
+}
+
+.btn-download {
+  font-weight: bold;
+  &:before {
+  content: "\f019";
+  font-family: FontAwesome;
+  margin-right: 0.5em;
+  color: $brand-success;
+  }
+}
+
+.btn-duke-logo, .btn-duke-logo:active {
+  background-image: asset-url("logos/duke-tr.png");
+  background-repeat: no-repeat;
+  background-size: 50px auto;
+  background-position: 10px 50%;
+  padding-left: 70px;
 }
 
 /* ============================================ */
@@ -162,6 +183,9 @@ body {
 /* Search Results */
 /* ============== */
 
+#facets h3 {
+  font-size: 1.3em;
+}
 .metadata {
   & .attribute-label.h4 {
       font-size: 18px;
@@ -177,6 +201,75 @@ body {
   color: $gray;
 }
 
+.list-thumbnail, .collection-icon-search {
+  @media screen and (max-width: $screen-sm-max) {
+    display: none;
+  }
+}
+
+/* Blacklight Range Filter Overrides */
+.range_limit {
+  & .slider-handle {
+    background-color: #a1b70d;
+    background-image: none;
+  }
+  & input.range_begin, input.range_end {
+    font-size: 14px;
+  }
+  & input.form-control {
+    padding:10px 16px;
+  }
+  & input.btn {
+    padding: 10px 14px;
+  }
+  & .missing {
+    display: none;
+  }
+}
+
+.panel-success, .facet_limit-active {
+  & > .panel-heading.collapse-toggle .panel-title:after {
+    color: white;
+  }
+}
+
+/*
+  Hack for Bootstrap 3 to have multiple navbars that don't snap into mobile
+  collapse mode at the same breakpoint (the other is in masthead). Note this
+  is easier in BS4; see https://tinyurl.com/y5qrrhql.
+*/
+@media (max-width: $screen-md-max) and (min-width: $screen-sm-min) {
+  #facets .top-panel-heading {
+    border: none;
+    margin-bottom: 0 !important;
+  }
+  #facet-panel-collapse {
+    display: block !important;
+    height: auto !important;
+  }
+  #facets .facets-toggle {
+    display: none;
+  }
+}
+
+.facets-toggle {
+  background-color: $btn-default-bg;
+  border-color: $btn-default-border;
+}
+
+.search-result-wrapper {
+  .collection-counts-wrapper {
+    .collection-counts-item {
+      margin-left: 0;
+      margin-bottom: 10px;
+      width: 100%;
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+}
+
 
 /* ========= */
 /*  Columns  */
@@ -190,6 +283,56 @@ body {
 /* ======= */
 /*  Forms  */
 /* ======= */
+
+.export-filename {
+  max-width: 37em;
+}
+
+.export-confirmed {
+  & .media-left {
+    vertical-align: top;
+    padding-right: 15px;
+  }
+  & .fa {
+    font-size: 50px;
+    color: $brand-success;
+  }
+}
+
+.vertical-line {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  border: 1px solid #ddd;
+  height: 250px;
+  @media screen and (max-width: $screen-xs-max) {
+    position: static;
+    transform: none;
+    height: 1px;
+    margin: 40px auto;
+  }
+}
+
+.vl-innertext {
+  position: absolute;
+  top: 30%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  color: #888;
+  padding: 6px;
+  text-align: center;
+  width: 2.5em;
+  height: 2.5em;
+  font-weight: bold;
+  @media screen and (max-width: $screen-xs-max) {
+    left: 50%;
+    top: -1.25em;
+    transform: none;
+  }
+}
+
 
 .submission-form #new_submission .btn-group {
   width: 100%;
@@ -268,6 +411,11 @@ body {
   background-color: $mast-primary;
   border-color: darken($mast-primary, 3%);
   color: #fff;
+
+  &.disabled span {
+    color: #fff;
+    background-color: $mast-primary;
+  }
 }
 
 .submission-form .pager li > a:hover,
@@ -322,7 +470,6 @@ body {
   line-height: .25;
   vertical-align: bottom;
 }
-
 
 
 /* ------------------------

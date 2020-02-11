@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :file_set do
     transient do
       user { FactoryBot.create(:user) }
-      content nil
+      content { nil }
     end
     after(:build) do |fs, evaluator|
       fs.apply_depositor_metadata evaluator.user.user_key
@@ -14,12 +14,14 @@ FactoryBot.define do
       end
     end
 
+    factory :public_file_set, traits: [:public]
+
     trait :public do
-      read_groups ["public"]
+      read_groups { ["public"] }
     end
 
     trait :registered do
-      read_groups ["registered"]
+      read_groups { ["registered"] }
     end
 
     factory :file_with_work do

@@ -12,6 +12,19 @@
     </div>
   </div>
 
+  <% if presenter.toplevel_rdr_collection_presenters.length == 1 %>
+    <div class="vertical-breadcrumb-node">
+    <% presenter.toplevel_rdr_collection_presenters.each do |p| %>
+      <div class='attribute attribute-title'>
+        <%= link_to p.to_s, collection_path(p.id), class: 'collection-link' %>
+      </div>
+    <% end %>
+        <div class="vertical-breadcrumb-separator">
+          <span class="fa fa-long-arrow-down"></span>
+        </div>
+    </div>
+  <% end %>
+
   <% presenter.ancestor_trail.each_with_index do |doc,i| %>
     <%= render 'vertical_breadcrumb_node', document: doc, position: vertical_breadcrumb_node_position(i+1, presenter.ancestor_trail.count) %>
   <% end %>

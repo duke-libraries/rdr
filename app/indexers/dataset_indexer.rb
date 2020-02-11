@@ -9,12 +9,17 @@ class DatasetIndexer < Hyrax::WorkIndexer
   # this behavior
   include Hyrax::IndexesLinkedMetadata
 
+  # Extract years out of date fields for faceting
+  include EdtfYearIndexer
+
   # Add custom indexing behavior:
-  # Enable queries to distinguish top-level vs. nested datasets
   def generate_solr_document
-   super.tap do |solr_doc|
-     solr_doc[Rdr::Index::Fields.top_level] = object.in_works_ids.blank?
-     solr_doc[Rdr::Index::Fields.in_works_ids] = object.in_works_ids
-   end
+    super.tap do |solr_doc|
+      solr_doc[Rdr::Index::Fields.top_level] = object.in_works_ids.blank?
+      solr_doc[Rdr::Index::Fields.in_works_ids] = object.in_works_ids
+      solr_doc[Rdr::Index::Fields.pub_year] = Array(object.available)&.map do |date|
+        EdtfYearIndexer.edtf_years(date)
+      end.flatten.uniq
+    end
   end
 end

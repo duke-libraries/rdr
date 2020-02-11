@@ -24,8 +24,8 @@ RSpec.describe Dataset do
     }
 
     before do
-      ezid_test_mode!
       allow(CharacterizeJob).to receive(:perform_later)
+      allow(Ark).to receive(:mint) { Ezid::Identifier.new }
     end
 
     context "depositor is not a curator" do

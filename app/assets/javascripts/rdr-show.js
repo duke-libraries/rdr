@@ -1,7 +1,9 @@
 $(document).ready(function() {
 
-  /* Toggle expand/collapse long text, e.g., description field on show page */
-  /* Used in concert with expandable_iconify_auto_link helper method */
+  /* Toggle expand/collapse long text, e.g., description field on show page  */
+  /* Used in concert with formatted_attribute_renderer.rb which creates the */
+  /* accompanying markup. */
+
   $('a.toggle-extended-text').click(function(e){
     e.preventDefault();
     $(this).toggleClass('expanded');

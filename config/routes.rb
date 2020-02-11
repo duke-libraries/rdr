@@ -1,16 +1,20 @@
 require 'resque_web'
 
 Rails.application.routes.draw do
-
+  concern :range_searchable, BlacklightRangeLimit::Routes::RangeSearchable.new
+  concern :searchable, Blacklight::Routes::Searchable.new
+  mount Riiif::Engine => 'images', as: :riiif if Hyrax.config.iiif_image_server?
   mount Blacklight::Engine => '/'
 
-  concern :searchable, Blacklight::Routes::Searchable.new
-
   # Resque web
-  mount ResqueWeb::Engine => "/queues"
+  authenticate(:user, lambda {|u| u.admin?}) do
+    mount ResqueWeb::Engine => "/queues"
+  end
 
   resource :catalog, only: [:index], as: 'catalog', path: '/catalog', controller: 'catalog' do
     concerns :searchable
+    concerns :range_searchable
+
   end
 
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
@@ -44,7 +48,9 @@ Rails.application.routes.draw do
     end
   end
 
+  # Export Files
   get 'export_files/:id', to: 'export_files#new', as: 'export_files'
+  post 'export_files/:id/unverified_email', to: 'export_files#unverified_email'
   post 'export_files/:id', to: 'export_files#create'
 
   resources :batch_imports, only: [ :new, :create ]
@@ -52,5 +58,11 @@ Rails.application.routes.draw do
   get 'id/*local_url_id', to: 'local_urls#show'
 
   resources :submissions, only: [ :new, :create ]
+
+  namespace :api, defaults: {format: 'json'} do
+    namespace :v1 do
+      resources :status, only: :index
+    end
+  end
 
 end

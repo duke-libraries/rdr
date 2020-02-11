@@ -28,8 +28,51 @@ en:
     work_files_stats:
       one: "%{count} file (%{size})"
       other: "%{count} files (%{size})"
+    batch_export:
+      heading: "Export Files"
+      separator: "or"
+      duke:
+        subheading: "Log In with Duke NetID"
+        help: "We'll send you a link to the exported ZIP file when it's ready."
+        submit: "Login and Continue"
+      nonduke:
+        subheading: "Export Using Email"
+        help: "Provide any valid email address. We'll send you a link to the exported ZIP file when it's ready.  The email address you submit through this form will only be used for the stated purpose of completing the file export process."
+        submit: "Continue"
+      unverified_email:
+        subheading: "Email Verification Required"
+        message: "A verification email has been sent to <strong>%{email}</strong>.  When you receive the email, click the link in the message to verify your email address and continue with the Export Files process."
+      email_verification:
+        subject: "Duke Research Data Repository File Export Email Verification (%{repo_id})"
+        message: |
+          An Export Files request has been initiated in the Duke Research Data Repository for this email address.
+          To verify this email address and proceed with the export request, click the link below.  This link is valid for %{lifespan} and can only be used once.
+
+          %{verification_url}
+
+          If you did not initiate this export from the Duke Research Data Repository, please contact %{contact_email}.
+        invalid_token_error: "Invalid email verification token: %{token}"
+        invalid_token_user_message: "Your Export Files request could not be processed because your email address could not be verified. The verification token is either invalid or expired."
+      confirm:
+        size_warning: "You are preparing to export <strong>%{num_files} files</strong> at a total size of <strong>%{total_size}</strong>. Continue?"
+        submit: "Yes, Export"
+      basename:
+        label: "Name your exported ZIP file:"
+        help: "REQUIRED. Accepted characters include letters, numbers, underscore, hyphen, or dot. All other characters will be converted to underscores."
+        submit: "Export"
+      in_process: "Files are being prepared for export. When ready, you will receive an email notification at <strong>%{email}</strong> with a link to download your ZIP file."
+      metadata_report:
+        first_line: "== Dataset: %{title} =="
+        source_organization: 'Source Organization'
+        contact_email: 'Contact Email'
+        file_count: 'File Count'
+        file_size: 'File Size'
+        export_timestamp: 'Files Exported'
+        dataset_metadata_title: "==DATASET METADATA=="
+        deposit_agreement_title: "==DEPOSIT AGREEMENT=="
     batch_import:
       heading: "Batch Import"
+      malformed_csv_manifest: "CSV manifest is malformed: %{error}"
       invalid_metadata_header: "Invalid header: %{header}"
       invalid_metadata_value: "Invalid value: %{value}"
       nonexistent_file: "File not found: %{path}"
@@ -38,10 +81,12 @@ en:
       assigment_registration_job_enqueued: 'Queued up DOI assignment and registration job'
       not_assignable: 'DOI cannot be assigned -- object either already has a DOI or does not have an ARK'
       assignment_failed: 'DOI assignment failed'
+    export_files:
+      job_user_id_and_email_error: 'Cannot provide both user ID and email address'
     submissions:
       heading: 'Data Submission Form'
-      form_error_html: "We encountered an error processing your request. One of our curators will follow up with you shortly. In the meantime, please contact us if you have any questions at <a href='mailto:%{email}'>%{email}</a>."
-      instructions_text: "Thank you for depositing with the Duke Research Data Repository. When you have finished uploading your files, please send a reply to the email you received confirming your submission, or email us at %{email}. If you have any questions, please review our Submission guidelines or contact us.\n\nResearch data curators will review your deposit to help ensure the data meet the submission requirements and are in a format and structure that supports long-term preservation, access, and reuse. If any changes are needed, you will be contacted. Once the processing is complete, the depositor will be notified and provided with a link to their dataset record and persistent identifier. Our aim is to process all deposits in a timely fashion and turnaround is usually one to three business days, however processing time may vary depending on size and type of data."
+      form_error_html: "We're sorry you've encountered a problem. Please contact <a href='mailto:%{email}'>%{email}</a> for assistance."
+      instructions_text: "Please follow these instructions to finish your deposit with the Duke Research Data Repository:\n\n1. Upload your files by clicking the Upload button in the upper right hand corner or drag-and-drop onto the folder page. You may either upload your files directly to this folder or within sub-folder(s).\n\n2. Let us know when you are done uploading by responding to the email you received with the Box link or email us directly at %{email}.\n\n3. We will be in contact with any questions. We will send you a persistent identifier (DOI) once the files are published.\n\nOur aim is to process all deposits in a timely fashion and turnaround time is usually one to three business days, however processing time may vary depending on size and type of data.\n\nIf you have any questions, contact us at %{email}."
       email:
         error:
           subject: 'Research Data Form Submission Error'
@@ -74,63 +119,81 @@ en:
         screened_out:
           subject: 'Research Data Form Submission'
         success:
-          subject: 'Depositing Data in the Duke Digital Repository'
-          text: 'Thank you for depositing with the Duke Digital Repository. The link above is to a Box folder for your deposit. Please upload your files and send a brief reply to this confirmation email when you have finished, or drop us a line at %{email}.'
+          subject: 'Depositing Data in the Duke Research Data Repository'
+          text: 'Thank you for depositing with the Duke Research Data Repository. The link below is to a Box folder for your deposit. You will also receive an invitation to collaborate from Box (please feel free to use either link). Please upload your files and send a brief reply to this confirmation email when you have finished, or drop us a line at %{email}.'
       warnings:
         required_question_html: 'Please answer this question.'
         required_questions_html: 'Please complete the fields marked below.'
+        required_agreement_html: 'You must agree to the conditions of deposit<br />in order to submit your data to the RDR.'
       fieldsets:
-        legend1: 'Policy Review'
-        legend2: 'Personally Identifiable Information'
+        legend1: 'Restricted or Sensitive Information'
+        legend2: 'Grant Funding'
         legend3: 'Grant Funding'
-        legend4: 'Grant Funding'
-        legend5: 'DDR Data Deposit Agreement'
-        legend6: 'Submission Information'
-        legend7: 'DOI Information'
-        legend8: 'Creative Commons Information'
+        legend4: 'Data Deposit Agreement'
+        legend5: 'Submission Information'
+        legend6: 'DOI Information'
+        legend7: 'Creative Commons Information'
       questions:
-        intro_html: "Please complete the following questions to get started with your data deposit. Use the controls at the bottom to advance through the form."
-        question1_html: "By clicking this button you acknowledge that you have already reviewed the repository's <a href='/help?locale=en' target='_blank'>Submission Guidelines</a> and the <a href='/about?locale=en' target='_blank'>DDR Research Data Policies and Procedures</a> and your data are finalized and ready to be deposited."
-        question2_html: 'Does the data you plan to deposit contain any personally identifiable information (PII), personal health information (PHI), or data that could be classified as sensitive in any other way?'
-        question3_html: 'Was the project that generated this data funded either by a public or private grant?'
-        question4a_html: 'Funded projects are allotted up to 10GB of repository storage at no added cost. What is the approximate size of your data?'
-        question4b_html: 'Projects without funding are allotted up to 2.5 GB of repository storage at no added cost. What is the approximate size of your data?'
-        question20_html: "Do you already have a Digital Object Identifier (DOI) associated with this study/dataset?"
-        question22_html: '<p class="lead">Datasets will default to a CC0 public domain dedication. By applying a CC0 waiver to your data, you are releasing your data for reuse and redistribution without restrictions under copyright or database law. Users of data within the DDR are expected to properly attribute data producers in accordance with community and data citation norms. To learn more see the <a href="https://creativecommons.org/share-your-work/public-domain/cc0/" target="_blank">Creative Commons CC0 web page</a> or consult the <a href="https://duldev.atlassian.net/wiki/display/DDRDOC/Licensing+Policy+for+Research+Data" target="_blank">DDR Licensing Policy</a>.</p><p class="lead">If a CC0 waiver is not appropriate for your data, please see the <a href="https://creativecommons.org/licenses/" target="_blank">Creative Commons website</a> to identify another license, select "No I would not like to use CC0", and then enter the license you wish to use in the next box.</p>'
+        intro_html: "Before you begin, it may be helpful to consult our <a href='/about?locale=en' target='_blank'>policies</a> and <a href='/help?locale=en' target='_blank'>guidelines</a>."
+        question1_html: "Does the data you plan to deposit contain any personally identifiable information (PII), personal health information (PHI), or data that could be classified as <a href='https://security.duke.edu/policies/data-classification-standard' target='_blank'>restricted or sensitive</a> in any way?"
+        question2_html: 'Was the project that generated this data funded either by a public or private grant?'
+        question3a_html: 'Funded projects are allotted up to 10GB of repository storage at no added cost. What is the approximate size of your data?'
+        question3b_html: 'Projects without funding are allotted up to 2.5 GB of repository storage at no added cost. What is the approximate size of your data?'
+        question19_html: "Do you already have a <a href='/about#persistent-identifiers' target='_blank'>Digital Object Identifier (DOI)</a> associated with this study/dataset?"
+        question21_html: '<p class="lead">Datasets will default to a CC0 public domain dedication. By applying a CC0 waiver to your data, you are releasing your data for reuse and redistribution without restrictions under copyright or database law. Users of data found in the RDR are expected to adhere to our <a href="https://duldev.atlassian.net/wiki/spaces/DDRDOC/pages/828080132/Acceptable+Use+Policy+for+Research+Data" target="_blank">terms of Acceptable Use</a>, as well as properly attribute data producers in accordance with community and data citation norms. To learn more see the <a href="https://creativecommons.org/share-your-work/public-domain/cc0/" target="_blank">Creative Commons CC0</a> web page or consult our <a href="https://duldev.atlassian.net/wiki/spaces/DDRDOC/pages/31529908/Licensing+Policy+for+Research+Data" target="_blank">Licensing Policy</a>.</p>
+        <p class="lead">If a CC0 waiver is not appropriate for your data, please review the <a href="https://creativecommons.org/licenses/" target="_blank">Creative Commons website</a> to identify another license, select "No I would not like to use CC0", and then select the license you wish to use.</p>'
       labels:
-        question1_label1: "I've read all guidelines, policies and procedures and am ready to deposit"
-        question1_label2: "I'm not ready to deposit"
-        question2_label1: "No"
-        question2_label2: "Yes"
-        question3_label1: "Yes"
-        question3_label2: "No"
-        question4a_label1: "less than 10 GB"
-        question4a_label2: "more than 10 GB"
-        question4b_label1: "less than 2.5 GB"
-        question4b_label2: "more than 2.5 GB"
-        question5_label1: "I agree"
-        question5_label2: "I do not agree"
-        question6_label: "Please enter the full title for the study/dataset"
-        question7_label: "Please enter the creators/authors (principal investigator, co-investigator(s)) of this study/dataset as follows: Lastname, Firstname (MI optional); Lastname, Firstname (MI optional); etc."
-        question8_label: "Please enter additional contributors (non-authors) to this study/dataset as follows:
+        question1_label1: "No"
+        question1_label2: "Yes"
+        question2_label1: "Yes"
+        question2_label2: "No"
+        question3a_label1: "less than 10 GB"
+        question3a_label2: "more than 10 GB"
+        question3b_label1: "less than 2.5 GB"
+        question3b_label2: "more than 2.5 GB"
+        question4_label1: "I agree"
+        question4_label2: "I do not agree"
+        question5_label: "Enter the full title for the study/dataset"
+        question6_label: "Enter the creators/authors (principal investigator, co-investigator(s)) of this study/dataset as follows: Lastname, Firstname (MI optional); Lastname, Firstname (MI optional); etc."
+        question7_label: "Enter additional contributors (non-authors) to this study/dataset as follows:
 Lastname, Firstname (MI optional); Lastname, Firstname (MI optional); etc.  Please note contributors will not appear as creators/authors in the citation created for this deposit."
-        question9_label: "Please enter department, school, research center or other organizational affiliation.  Separate each with a semicolon."
-        question10_label: "Please list a name, phone number and/or email address for a designated contact for this study/dataset. This contact is responsible for answering questions about the data, documentation and/or code for this project."
-        question11_label: "Please enter a description for your study/dataset.  An abstract from a grant or publication is acceptable."
-        question12_label: "Please enter one or more key words to describe your study/dataset (e.g. Mechanical engineering, Sociology, Medical imaging, etc.). Please separate each key word with a semicolon."
-        question13_label: "Please list the geographic area(s) where your study data was collected if significant for the analysis of the data (country, state, locality)."
-        question14_label: "Please list the dates of data collection."
-        question15_label: "Please list any languages associated with this study/dataset.  If multiple languages, please separate each language with a semicolon."
-        question16_label: "Please list the formats associated with the materials in this deposit (e.g. PDF, CSV, DICOM, WAV, TIFF). Please separate each format with a semicolon."
-        question17_label: "Please list any related publications, datasets or other published materials that you would like to associate with the study/dataset record. Enter the citation and persistent identifier (DOI)."
-        question18_label: "Please list the name of your funder or funding agency."
-        question19_label: "Please list your grant number."
-        question20_label1: "Yes"
-        question20_label2: "No"
-        question21_label: "Please enter your DOI"
-        question22_label1: "I will use CC0"
-        question22_label2: "No I would not like to use CC0"
-        question23_label: "I would like to apply this creative commons license (e.g. CC BY, CC BY-NC, etc.)"
-      required_text_html: "<p class='lead'>Complete the fields below &mdash; note that those marked with an <span class='required-text'>*</span> are required.</p>"
-      form_complete_html: "<p class='lead'>What to Expect After You Complete the Data Deposit Form:</p><ol><li>You will receive a Box invitation to upload your data into a Box folder under your name. You will be able to view and upload but not re-download your files. If you make an error, just upload a replacement file. Once you have completed this upload, please send an email notification to <a href='mailto:%{email}'>%{email}</a>.</li><li>Research data curators will review your deposit to help ensure the data meet the submission requirements and are in a format and structure that supports long-term preservation, access, and reuse. This includes a review of the metadata and documentation for completeness and a cursory review for the presence of sensitive data.</li><li>If any changes are needed, you will be contacted. Some changes may be required to be made by the depositor (data content-related) other minor changes may be made by DDR staff (metadata normalization, transforming files to preservation-friendly formats).</li><li>When the files are ready for final ingest, the files will be processed and ingested into the repository. Once the processing is complete, the depositor will be notified and provided with a link to their dataset record and persistent identifier.</li></ol><p>Our aim is to process all deposits in a timely fashion and turnaround is usually one to three business days, however processing time may vary depending on size and type of data. Please contact us if you have any questions at <a href='mailto:%{email}'>%{email}</a>.</p>"
+        question8_label: "Enter department, school, research center or other organizational affiliation.  Separate each with a semicolon."
+        question9_label_html: "List a name, <a href='https://scholarworks.duke.edu/orcid/' target='_blank'>ORCiD identifier</a>, phone number and/or email address for a designated contact for this study/dataset. This contact is responsible for answering questions about the data, documentation and/or code for this project."
+        question10_label: "Enter a description for your study/dataset.  An abstract from a grant or publication is acceptable."
+        question11_label: "Enter one or more key words to describe your study/dataset (e.g. Mechanical engineering, Sociology, Medical imaging, etc.). Please separate each key word with a semicolon."
+        question12_label: "List the geographic area(s) where your study data was collected if significant for the analysis of the data (country, state, locality)."
+        question13_label: "List the dates of data collection."
+        question14_label: "List any languages associated with this study/dataset.  If multiple languages, please separate each language with a semicolon."
+        question15_label: "List the formats associated with the materials in this deposit (e.g. PDF, CSV, DICOM, WAV, TIFF). Please separate each format with a semicolon."
+        question16_label: "List any related publications, datasets or other published materials that you would like to associate with the study/dataset record. Enter the citation and persistent identifier (DOI)."
+        question17_label: "List the name of your funder or funding agency."
+        question18_label: "List your grant number."
+        question19_label1: "Yes"
+        question19_label2: "No"
+        question20_label: "Please enter your DOI"
+        question21_label1: "I will use CC0"
+        question21_label2: "No I would not like to use CC0"
+        question22_label: "I would like to apply this creative commons license (e.g. CC BY, CC BY-NC, etc.)"
+        question22_option_prompt: "-- select your CC license type --"
+        question22_option1: "Attribution (CC BY)"
+        question22_option2: "Attribution-ShareAlike (CC BY-SA)"
+        question22_option3: "Attribution-NoDerivs (CC BY-ND)"
+        question22_option4: "Attribution-NonCommercial (CC BY-NC)"
+        question22_option5: "Attribution-NonCommercial-ShareAlike (CC BY-NC-SA)"
+        question22_option6: "Attribution-NonCommercial-NoDerivs (CC BY-NC-ND)"
+      submit_modal_content_html: "We are processing your submission &mdash; please do not leave this page."
+      submit_modal_header: "The form has been submitted"
+      required_text_html: "<p class='lead'>Please complete the fields below &mdash; note that those marked with an <span class='required-text'>*</span> are required.</p>"
+      form_complete_html: "<p class='lead'>Data Deposit Next Steps:</p><ol><li>You will receive an invitation via email to upload your data into a Box folder under your NetID and submission date/time.</li><li>Once you have completed your upload, please send an email notification to <a href='mailto:%{email}'>%{email}</a>.</li><li>Research data curators will review your deposit to help ensure the data meet the submission guidelines and are as complete, understandable, and accessible as possible to enable preservation and reuse. You will be contacted if we have any recommended changes for your deposit.</li><li>Once the data are published, you will be notified and provided with a link to your dataset record and a persistent identifier (DOI).</li></ol><p>Our aim is to process all deposits in a timely fashion and turnaround is usually one to three business days, however processing time may vary depending on size and type of data. Please contact us if you have any questions at <a href='mailto:%{email}'>%{email}</a>.</p>"
       form_not_complete_html: "Due to your answer on the previous question, your data might not yet meet the criteria for deposit. We would like to talk with you about your data, so one of our curators will follow up shortly to assist you. In the meantime, please review our submission guidelines and contact us if you have any questions at <a href='mailto:%{email}'>%{email}</a>."
+    followup:
+      heading: 'Data Submission Followup Form'
+      form_complete_html: "<p class='lead'>Thank you!</p><p>Thank you for sending us more information. Please contact us if you have any questions at <a href='mailto:%{email}'>%{email}</a>.</p>"
+      form_error_html: "We encountered an error processing your request. One of our curators will follow up with you shortly. In the meantime, please contact us if you have any questions at <a href='mailto:%{email}'>%{email}</a>."
+      form_not_complete_pii_html: "You indicated that your data contains sensitive or restricted information. Our repository does not currently accept these types of data. Please describe your data below and one of our curators will follow up shortly to assist you. In the meantime, if you have any questions, please contact <a href='mailto:%{email}'>%{email}</a>."
+      form_not_complete_storage_html: "Our repository has a <a href='/about?locale=en#h_2633098391211538164740290' target='_blank'>policy related to storage allocations</a> for data deposits. Please provide us with a little more information about the size of your data and our curators will follow up shortly to assist you. In the meantime, if you have any questions please contact <a href='mailto:%{email}'>%{email}</a>."
+      legend: "More information needed"
+      question1_label: "Please provide more information:"
+      email:
+        subject: 'Research Data Submission Followup'
+      

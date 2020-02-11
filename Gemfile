@@ -7,23 +7,27 @@ end
 
 gem 'awesome_print'
 gem 'bagit'
+gem 'blacklight_range_limit', '6.3.3'
 gem 'boxr'
+gem 'browse-everything', '< 1.0.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'curb', '~> 0.9.4'
 gem 'ddr-antivirus'
 gem 'devise', '>= 4.7.1'
 gem 'devise-guests', '~> 0.6'
+gem 'edtf-humanize', '0.0.7'
 gem 'ezid-client'
 gem 'hydra-role-management'
-gem 'hyrax', '2.5.1'
+gem 'hyrax', '2.6.0'
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
 gem 'nokogiri', '>= 1.10.4'
 gem 'mini_magick', '>= 4.9.4'
 gem 'omniauth-shibboleth'
 gem 'pg'
-gem 'puma', '~> 3.7'
+gem 'puma', '~> 3.12'
 gem 'rails', '~> 5.1.4'
+gem 'recaptcha'
 gem 'redis', '~> 3.0'
 gem 'resque'
 gem 'resque-pool', '~> 0.7.0'
@@ -54,6 +58,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rspec-its'
   gem 'rails-controller-testing'
+  gem 'rubocop-rspec'
   gem 'factory_bot_rails', '~> 4.8'
   gem 'webmock'
 end
@@ -61,3 +66,5 @@ end
 group :production do
   gem 'therubyracer', platforms: :ruby
 end
+
+gem 'riiif', '~> 2.0'

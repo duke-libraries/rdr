@@ -1,0 +1,41 @@
+<%# NOTE: Collection-specific substitute for Hyrax's default index_list_default.html.erb %>
+<%# See https://github.com/samvera/hyrax/blob/master/app/views/catalog/_index_list_default.html.erb %>
+<%# Last checked for updates: Hyrax v2.6.0 %>
+
+<% if document.collection? %>
+  <% collection_presenter = Hyrax::CollectionPresenter.new(document, current_ability) %>
+
+  <div class="col-md-8">
+    <div class="metadata">
+      <dl class="dl-horizontal">
+        <%= collection_presenter.attribute_to_html(:description, label: '', render_as: :formatted) %>
+        <% doc_presenter = index_presenter(document) %>
+        <% index_fields(document).each do |field_name, field| -%>
+          <% if should_render_index_field? document, field %>
+            <dt><%= render_index_field_label document, field: field_name %></dt>
+            <dd><%= doc_presenter.field_value field %></dd>
+          <% end %>
+        <% end %>
+      </dl>
+    </div>
+  </div>
+
+  <div class="col-md-2">
+    <div class="collection-counts-wrapper">
+      <%# DUL CUSTOMIZATION: Don't show these badges if zero member collections or works %>
+      <% if collection_presenter.total_viewable_collections.positive? %>
+        <div class="collection-counts-item">
+          <span><%= collection_presenter.total_viewable_collections %></span>
+          <%= "Collection".pluralize(collection_presenter.total_viewable_collections) %>
+        </div>
+      <% end %>
+      <%# TODO: Revise in future if RDR includes works that aren't Datasets  %>
+      <% if collection_presenter.total_viewable_works.positive? %>
+        <div class="collection-counts-item">
+          <span><%= collection_presenter.total_viewable_works %></span>
+          <%= "Dataset".pluralize(collection_presenter.total_viewable_works) %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

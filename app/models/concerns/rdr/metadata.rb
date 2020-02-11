@@ -15,10 +15,8 @@ module Rdr
         index.as :dateable
       end
 
-      property :contact,
-               predicate: ::RDF::Vocab::FOAF.mbox,
-               multiple: false do |index|
-        index.as :stored_sortable
+      property :contact, predicate: ::RDF::Vocab::FOAF.mbox do |index|
+        index.as :stored_searchable
       end
 
       property :temporal, predicate: ::RDF::Vocab::DC.temporal do |index|

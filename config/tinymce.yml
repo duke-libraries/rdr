@@ -1,7 +1,5 @@
 default: &default
   setup: tinymce_nav_safety # onChange event init
-content_block:
-  <<: *default
   menubar: false
   toolbar1: styleselect | bold italic | numlist bullist | link | undo redo | table hr | image | code |
   plugins:
@@ -11,5 +9,7 @@ content_block:
     - image
     - hr
     - code
+content_block:
+  <<: *default
 custom:
   <<: *default

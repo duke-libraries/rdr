@@ -16,6 +16,7 @@ en:
           has_model_ssim: Browse
           keyword_sim: Keyword
           language_sim: Language
+          pub_year_iim: Publication Year
           publisher_sim: Publisher
           resource_type_sim: Type
           subject_sim: Subject
@@ -66,6 +67,12 @@ en:
     collection:
       select_form:
         select_label:       "Collections"
+    collections:
+      search_form:
+        placeholder: 'Search datasets in this collection'
+      show:
+        label:
+          total_items: 'Total Items'
     product_name:           "Research Data"
     product_twitter_handle: "@DukeLibraries"
     institution_name:       "Duke"
@@ -78,7 +85,7 @@ en:
       service_html: A service of <a href="http://samvera.org/" class="navbar-link" target="_blank">Samvera</a>.
     homepage:
       marquee:
-        tagline_html: "<strong>The Research Data Repository</strong> is a service of the <a href='https://repository.duke.edu'>Duke Digital Repository</a> that provides curation, access, and preservation of research data produced by the Duke community. <a href='#about-rdr' class='learn-more'>Learn more »</a>"
+        tagline_html: "<strong>The Research Data Repository</strong> is a service of the Duke University Libraries that provides curation, access, and preservation of research data produced by the Duke community. <a href='/about' class='learn-more'>Learn more »</a>"
         deposit_button: Deposit your data
         browse_button: Browse datasets
       recently_uploaded:

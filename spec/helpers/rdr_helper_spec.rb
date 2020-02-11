@@ -51,30 +51,6 @@ RSpec.describe RdrHelper, type: :helper do
     end
   end
 
-  describe '#expandable_iconify_auto_link' do
-    before do
-      Rdr.expandable_text_word_cutoff = 10
-      allow(helper).to receive(:iconify_auto_link).and_return('Foo &lt; <a href="http://www.example.com"><span class="glyphicon glyphicon-new-window"></span> http://www.example.com</a>. &amp; More text')
-    end
-    context "value has more words than the cutoff" do
-      let(:value) { 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.' }
-      it "should have a Read More link" do
-        expect(helper.expandable_iconify_auto_link(value)).to include('[Read More]')
-      end
-      it "should call Hyrax's iconify_auto_link method for each part of the split string" do
-        expect(helper).to receive(:iconify_auto_link).with('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod')
-        expect(helper).to receive(:iconify_auto_link).with('tempor incididunt ut labore.')
-        helper.expandable_iconify_auto_link(value)
-      end
-    end
-    context "value has fewer words than the cutoff" do
-      let(:value) { 'Aenean eu convallis mi.' }
-      it "should not have a Read More link" do
-        expect(helper.expandable_iconify_auto_link(value)).not_to include('[Read More]')
-      end
-    end
-  end
-
   describe '#vertical_breadcrumb_node_position' do
     context 'current work is not deeply nested (three or fewer total ancestor nodes)' do
       let(:pos) { 2 }
@@ -106,4 +82,34 @@ RSpec.describe RdrHelper, type: :helper do
     end
   end
 
+  describe 'export_package_ready_email_address' do
+    describe 'email address is present' do
+      let(:email) { 'test@bar.com' }
+      describe 'user is provided' do
+        let(:user) { build(:user) }
+        it 'returns the provided email address' do
+          expect(helper.export_package_ready_email_address(email, user)).to eq(email)
+        end
+      end
+      describe 'user is not provided' do
+        it 'returns the provided email address' do
+          expect(helper.export_package_ready_email_address(email, nil)).to eq(email)
+        end
+      end
+    end
+    describe 'email address is not present' do
+      let(:email) { '' }
+      describe 'user is provided' do
+        let(:user) { build(:user) }
+        it 'returns the user email address' do
+          expect(helper.export_package_ready_email_address(email, user)).to eq(user.email)
+        end
+      end
+      describe 'user is not provided' do
+        it 'returns nil' do
+          expect(helper.export_package_ready_email_address(email, nil)).to be_nil
+        end
+      end
+    end
+  end
 end

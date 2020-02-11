@@ -48,6 +48,21 @@ RSpec.describe SubmissionsMailer, type: :mailer do
     end
   end
 
+  describe 'notify followup' do
+    let(:submission_attrs) { { submitter: submitter, followup: 'true', more_information: 'here is some more information for you' } }
+
+    it 'sends an appropriate email' do
+      described_class.notify_followup(submission).deliver_now!
+      mail = ActionMailer::Base.deliveries.last
+      expect(mail.to).to match_array([ Rdr.curation_group_email ])
+      expect(mail.from).to match_array([ Rdr.curation_group_email ])
+      expect(mail.subject).to eq(I18n.t('rdr.followup.email.subject'))
+      expect(mail.body.encoded).to match("Submitter: #{submitter.display_name}")
+      expect(mail.body.encoded).to match("Net ID: #{submitter.netid}")
+      expect(mail.body.encoded).to match("#{submission_attrs[:more_information]}")
+    end
+  end
+
   describe 'notify success' do
     let(:submission_attrs) { { submitter: submitter, title: 'My Research Data Project', screening_pii: 'false',
                                creator: 'Spade, Sam; Tracy, Dick; Fletcher, Jessica' } }
@@ -67,15 +82,15 @@ RSpec.describe SubmissionsMailer, type: :mailer do
       expect(mail.to).to match_array([ submitter.email, Rdr.curation_group_email ])
       expect(mail.from).to match_array([ Rdr.curation_group_email ])
       expect(mail.subject).to eq(I18n.t('rdr.submissions.email.success.subject'))
-      expect(mail.body.encoded).to match("Submitter: #{submitter.display_name}")
-      expect(mail.body.encoded).to match("Net ID: #{submitter.netid}")
-      expect(mail.body.encoded).to match("Submission Folder Name: #{submission_folder.name}")
-      expect(mail.body.encoded).to match("Submission Folder URL: #{submission_folder_url}")
-      expect(mail.body.encoded).to match(I18n.t('rdr.submissions.email.success.text', email: Rdr.curation_group_email))
-      expect(mail.body.encoded).to match("#{I18n.t('rdr.submissions.email.label.screening_pii')}: #{submission_attrs[:screening_pii]}")
-      expect(mail.body.encoded).to match("#{I18n.t('rdr.submissions.email.label.title')}: #{submission_attrs[:title]}")
-      expect(mail.body.encoded).to match("#{I18n.t('rdr.submissions.email.label.creator')}: #{submission_attrs[:creator]}")
-      expect(mail.body.encoded).to_not match("#{I18n.t('rdr.submissions.email.label.contributor')}:")
+      expect(mail.body.encoded).to include(I18n.t('rdr.submissions.email.success.text', email: Rdr.curation_group_email))
+      expect(mail.body.encoded).to include("Submitter: #{submitter.display_name}")
+      expect(mail.body.encoded).to include("Net ID: #{submitter.netid}")
+      expect(mail.body.encoded).to include("Submission Folder Name: #{submission_folder.name}")
+      expect(mail.body.encoded).to include("Submission Folder URL: #{submission_folder_url}")
+      expect(mail.body.encoded).to include("#{I18n.t('rdr.submissions.email.label.screening_pii')}: #{submission_attrs[:screening_pii]}")
+      expect(mail.body.encoded).to include("#{I18n.t('rdr.submissions.email.label.title')}: #{submission_attrs[:title]}")
+      expect(mail.body.encoded).to include("#{I18n.t('rdr.submissions.email.label.creator')}: #{submission_attrs[:creator]}")
+      expect(mail.body.encoded).to_not include("#{I18n.t('rdr.submissions.email.label.contributor')}:")
     end
   end
 

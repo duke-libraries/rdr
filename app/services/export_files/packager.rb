@@ -3,7 +3,7 @@ module ExportFiles
 
     attr_reader :ability, :package, :work_id
 
-    delegate :add_payload_file, to: :package
+    delegate :add_payload_file, :add_tag_file, :metadata_report, to: :package
 
     WORK_PATH_MAX_LENGTH = 30
 
@@ -16,6 +16,9 @@ module ExportFiles
     def build!
       work_doc = SolrDocument.find(work_id)
       handle_work(work_doc, PayloadFilePackager::PAYLOAD_PATH)
+      add_tag_file("README.txt") do |f|
+        f.write(metadata_report)
+      end
     end
 
     def handle_work(work_doc, nested_path=nil)

@@ -25,7 +25,7 @@ module Hyrax
     end
 
     def file_scan
-      @file_scan ||= WorkFilesScanner.call(id)
+      @file_scan ||= WorkFilesScanner.call(id, current_ability)
     end
 
     def file_count
@@ -58,12 +58,42 @@ module Hyrax
                                  presenter_args: presenter_factory_arguments)
     end
 
+    # Get the presenters for the collections in which the top-level work is a member
+    # Collection must be the custom RDR type "Collection" (omit admin sets, user collections, etc.)
+    #
+    # @return [Array<CollectionPresenter>] presenters
+    def toplevel_rdr_collection_presenters
+      toplevel_work_collection_presenters.select {|p| p.collection_type.machine_id == 'collection' }
+    end
+
     def ancestor_trail
       docs = ancestor_trail_ids(solr_document).map { |id| ::SolrDocument.find(id) }
       docs.reverse
     end
 
     private
+
+    # Modeled on '#member_of_collection_presenters' in Hyrax::WorkShowPresenter
+    # Get the presenters for all the collections in which the top-level work is a
+    # member, no matter what collection type or how deeply nested the current work is.
+    # Limit to collections the current user can access.
+    #
+    # @return [Array<CollectionPresenter>] presenters
+    def toplevel_work_collection_presenters
+      return [] unless toplevel_work_id.present?
+      PresenterFactory.build_for(ids: toplevel_authorized_collections,
+                                 presenter_class: collection_presenter_class,
+                                 presenter_args: presenter_factory_arguments)
+    end
+
+    # Modeled on '#member_of_authorized_parent_collections' in Hyrax::WorkShowPresenter
+    def toplevel_authorized_collections
+      Hyrax::CollectionMemberService.run(::SolrDocument.find(toplevel_work_id), current_ability).map(&:id)
+    end
+
+    def toplevel_work_id
+      (id if top_level) || ancestor_trail_ids(solr_document).last || nil
+    end
 
     # Recursively assemble an array of this work's ancestor work ids, provided it
     # has ancestor works, and neither it nor any of its ancestors has multiple parents.
@@ -73,6 +103,5 @@ module Hyrax
       ancestors.concat document.in_works_ids
       ancestor_trail_ids(::SolrDocument.find(document.in_works_ids.first), ancestors)
     end
-
   end
 end

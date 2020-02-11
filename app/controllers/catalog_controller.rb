@@ -1,4 +1,6 @@
 class CatalogController < ApplicationController
+
+  include BlacklightRangeLimit::ControllerOverride
   include Hydra::Catalog
   include Hydra::Controller::ControllerBehavior
 
@@ -41,14 +43,16 @@ class CatalogController < ApplicationController
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
-    config.add_facet_field Rdr::Index::Fields.available.to_s, label: I18n.t("blacklight.search.fields.facet.available_dtsim"), limit: 5, helper_method: :readable_date
+
+
     config.add_facet_field Rdr::Index::Fields.subject_facet.to_s, label: I18n.t("blacklight.search.fields.facet.subject_sim"), limit: 5
     config.add_facet_field Rdr::Index::Fields.creator_facet.to_s, label: I18n.t("blacklight.search.fields.facet.creator_sim"), limit: 5
     config.add_facet_field Rdr::Index::Fields.format_facet.to_s, label: I18n.t("blacklight.search.fields.facet.format_sim"), limit: 5
     config.add_facet_field Rdr::Index::Fields.affiliation_facet.to_s, label: I18n.t("blacklight.search.fields.facet.affiliation_sim"), limit: 5
     config.add_facet_field Rdr::Index::Fields.resource_type_facet.to_s, label: I18n.t("blacklight.search.fields.facet.resource_type_sim"), limit: 5
+    config.add_facet_field Rdr::Index::Fields.pub_year.to_s, label: I18n.t("blacklight.search.fields.facet.pub_year_iim"), range: true
+    config.add_facet_field solr_name('member_of_collection_ids', :symbol), show: false, limit: 5, label: 'Collections', helper_method: :collection_title_by_id
 
-    config.add_facet_field solr_name('member_of_collection_ids', :symbol), limit: 5, label: 'Collections', helper_method: :collection_title_by_id
 
     # The generic_type isn't displayed on the facet list
     # It's used to give a label to the filter that comes from the user profile
@@ -292,10 +296,10 @@ class CatalogController < ApplicationController
     # except in the relevancy case).
     # label is key, solr field is value
     config.add_sort_field "score desc, #{uploaded_field} desc", label: "relevance"
-    config.add_sort_field "#{uploaded_field} desc", label: "date uploaded \u25BC"
-    config.add_sort_field "#{uploaded_field} asc", label: "date uploaded \u25B2"
-    config.add_sort_field "#{modified_field} desc", label: "date modified \u25BC"
-    config.add_sort_field "#{modified_field} asc", label: "date modified \u25B2"
+    config.add_sort_field "#{uploaded_field} desc", label: "date uploaded (new to old)"
+    config.add_sort_field "#{uploaded_field} asc", label: "date uploaded (old to new)"
+    config.add_sort_field "#{modified_field} desc", label: "date modified (new to old)"
+    config.add_sort_field "#{modified_field} asc", label: "date modified (old to new)"
 
     # If there are more than this many search results, no spelling ("did you
     # mean") suggestion is offered.

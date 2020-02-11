@@ -23,6 +23,17 @@ module Rdr
           expect(described_class.infected?(file_path)).to be false
         end
       end
+      describe 'file too large to scan' do
+        before do
+          allow_any_instance_of(Ddr::Antivirus::NullScannerAdapter).to receive(:scan).
+              and_raise(Ddr::Antivirus::MaxFileSizeExceeded)
+        end
+        it 'logs a warning and returns false' do
+          expect(Rails.logger).to receive(:warn)
+          result = described_class.infected?(file_path)
+          expect(result).to be false
+        end
+      end
     end
   end
 end

@@ -1,4 +1,6 @@
 <%# NOTE: Overrides Hyrax view %>
+<%# Last checked for core changes: Hyrax v2.6.0 %>
+
 <% provide :page_title, t("hyrax.admin.sidebar.works") %>
 
 <% provide :head do %>
@@ -71,7 +73,7 @@
       </div>
       <div class="panel-body">
         <%= render 'search_header' %>
-        <h2 class="sr-only">Works listing</h2>
+        <h2 class="sr-only"><%= t('hyrax.my.count.works.works_listing') %></h2>
         <%= render 'document_list' %>
 
         <%= render 'results_pagination' %>

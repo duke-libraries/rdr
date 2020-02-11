@@ -30,16 +30,19 @@ RSpec.describe SearchBuilder do
         end
       end
       context 'top level param' do
+        let(:top_level_or_collection_filter) do
+          "(#{Rdr::Index::Fields::TOP_LEVEL}:True OR has_model_ssim:Collection)"
+        end
         context "param top_level is present" do
           let(:params) { { "top_level" => 'true' } }
-          it "adds top level filter" do
-            expect(subject[:fq]).to include("#{Rdr::Index::Fields::TOP_LEVEL}:True")
+          it "adds top level or collection filter" do
+            expect(subject[:fq]).to include(top_level_or_collection_filter)
           end
         end
         context "param top_level is not present" do
           let(:params) { { } }
-          it "does not add top level filter" do
-            expect(subject[:fq]).to_not include("#{Rdr::Index::Fields::TOP_LEVEL}:True")
+          it "does not add top level or collection filter" do
+            expect(subject[:fq]).to_not include(top_level_or_collection_filter)
           end
         end
       end

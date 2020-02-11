@@ -10,7 +10,7 @@ module ExportFiles
     attr_accessor :scan_results
     attr_reader :ability, :archive, :basename, :builder, :repo_id
 
-    delegate :add_file, :data_dir, :manifest!, to: :bag
+    delegate :add_file, :add_tag_file, :data_dir, :manifest!, to: :bag
     delegate :path, to: :storage
 
     validates_presence_of :basename, :repo_id
@@ -49,12 +49,6 @@ module ExportFiles
       archive!
     end
 
-    def bag_info
-      { 'Source-Organization' => Rdr.export_files_source_organization,
-        'Contact-Email' => Rdr.export_files_contact_email,
-        'External-Identifier' => work_doc.doi }.compact
-    end
-
     def work_doc
       @work_doc ||= SolrDocument.find(repo_id)
     end
@@ -64,7 +58,7 @@ module ExportFiles
     end
 
     def bag
-      @bag ||= BagIt::Bag.new(path, bag_info)
+      @bag ||= BagIt::Bag.new(path)
     end
 
     def archive!
@@ -91,6 +85,10 @@ module ExportFiles
 
     def add_payload_file(payload_file)
       PayloadFilePackager.call(self, payload_file)
+    end
+
+    def metadata_report
+      MetadataReport.call(self)
     end
 
     def self.normalize_work_title(title, max_length)

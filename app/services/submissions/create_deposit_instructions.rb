@@ -1,7 +1,7 @@
 module Submissions
   class CreateDepositInstructions
 
-    FILENAME = 'RDR-DEPOSIT-INSTRUCTIONS.txt'
+    FILENAME = 'FILE_UPLOAD_INSTRUCTIONS.txt'
     TEMP_DIR_PREFIX = 'deposit-instructions-'
 
     def self.call

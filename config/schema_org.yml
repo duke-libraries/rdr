@@ -1,0 +1,27 @@
+# Overrides & extensions for default Schema.org metadata mappings:
+# https://github.com/samvera/hyrax/blob/master/config/schema_org.yml
+schema_org:
+  alternative:
+    property: alternateName
+  ark:
+    property: identifier
+  available:
+    property: datePublished
+  based_near:
+    property: spatialCoverage
+  doi:
+    property: identifier
+  format:
+    property: encodingFormat
+  funding_agency:
+    property: funder
+    type: "http://schema.org/Organization"
+    value: name
+  license:
+    property: license
+  related_url:
+    property: citation
+  rights_note:
+    property: conditionsOfAccess
+  temporal:
+    property: temporalCoverage

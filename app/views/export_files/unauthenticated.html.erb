@@ -1,0 +1,37 @@
+<h1><%= t("rdr.batch_export.heading") %></h1>
+
+<div class="row">
+
+  <div class="col-sm-4">
+    <h2><%= t("rdr.batch_export.duke.subheading") %></h2>
+    <p><%= t("rdr.batch_export.duke.help") %></p>
+    <%= form_tag({ controller: 'export_files', action: 'new' }, { method: :get }) do %>
+      <%= hidden_field_tag :repo_id, @repo_id %>
+      <%= hidden_field_tag :login, 1 %>
+      <%= submit_tag t("rdr.batch_export.duke.submit"), class: "btn btn-primary btn-duke-logo" %>
+    <% end %>
+  </div>
+  <div class="col-sm-1">
+    <div class="vertical-line">
+      <span class="vl-innertext"><%= t("rdr.batch_export.separator") %></span>
+    </div>
+  </div>
+  <div class="col-sm-7">
+    <h2><%= t("rdr.batch_export.nonduke.subheading") %></h2>
+    <p><%= t("rdr.batch_export.nonduke.help") %></p>
+    <%= form_tag({ controller: 'export_files', action: 'unverified_email' }) do %>
+      <%= hidden_field_tag :repo_id, @repo_id %>
+      <div class="form-group">
+        <%= label_tag :email, "Email Address" %>
+        <%= email_field_tag :email, params[:email],
+                                    value: @email,
+                                    class: "form-control",
+                                    required: "true",
+                                    placeholder: "you@example.edu",
+                                    "aria-describedby"=>"export_files_email_address_help" %>
+      </div>
+        <div class="form-group"><%= recaptcha_tags %></div>
+        <%= submit_tag t("rdr.batch_export.nonduke.submit"), class: "btn btn-default" %>
+    <% end %>
+  </div>
+</div>

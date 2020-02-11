@@ -20,6 +20,11 @@ namespace :rdr do
     Hyrax::RepositoryFixityCheckService.fixity_check_everything
   end
 
+  desc "Delete expired email verification tokens"
+  task :delete_expired_email_verification_tokens => :environment do
+    EmailVerification.where("updated_at < '#{Time.zone.now - Rdr.email_verification_token_lifespan}'").destroy_all
+  end
+
   namespace :migration do
     desc 'Migrate DDR Component ARKs to RDR FileSets (ARK_MAP_FILE, DRYRUN)'
     task :migrate_component_arks => :environment do

@@ -25,6 +25,7 @@ RSpec.describe Importer::Factory::DatasetFactory, :clean do
     allow(Hyrax).to receive(:config).and_call_original
     allow(Hyrax).to receive_message_chain(:config, :whitelisted_ingest_dirs) { Array(fixture_path) }
     allow(Hyrax::CurationConcern).to receive(:actor).and_return(actor)
+    allow_any_instance_of(Collection).to receive(:mint_ark_for_collection)
   end
 
   context 'with files' do

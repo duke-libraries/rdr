@@ -9,7 +9,11 @@ class SubmissionsController < ApplicationController
   def create
     @submission.submitter = current_user
     if @submission.valid?
-      if @submission.passed_screening?
+      if @submission.followup?
+        SubmissionsMailer.notify_followup(@submission).deliver_now
+        render :followup
+
+      elsif @submission.passed_screening?
         deposit_agreement_path = Submissions::DocumentDepositAgreement.call(@submission.submitter)
         deposit_instructions_path = Submissions::CreateDepositInstructions.call
         manifest_path = Submissions::CreateManifest.call(@submission)

@@ -8,7 +8,7 @@
   <%= presenter.attribute_to_html(:subject, render_as: :faceted, label: I18n.t("rdr.show.fields.subject"), html_dl: true) %>
 </div>
 <div>
-  <%= presenter.attribute_to_html(:available, render_as: :faceted_date, label: I18n.t("rdr.show.fields.available"), html_dl: true) %>
+  <%= presenter.attribute_to_html(:available, render_as: :edtf_humanized, label: I18n.t("rdr.show.fields.available"), html_dl: true) %>
 </div>
 <div>
   <%= presenter.attribute_to_html(:ark, label: I18n.t("rdr.show.fields.ark"), html_dl: true) %>
@@ -32,7 +32,7 @@
   <%= presenter.attribute_to_html(:publisher, render_as: :faceted, label: I18n.t("rdr.show.fields.publisher"), html_dl: true) %>
 </div>
 <div>
-  <%= presenter.attribute_to_html(:temporal, label: I18n.t("rdr.show.fields.temporal"), html_dl: true) %>
+  <%= presenter.attribute_to_html(:temporal, render_as: :edtf_humanized, label: I18n.t("rdr.show.fields.temporal"), html_dl: true) %>
 </div>
 <div>
   <%= presenter.attribute_to_html(:based_near_label, label: I18n.t("rdr.show.fields.based_near_label"), html_dl: true) %>
@@ -63,4 +63,34 @@
 </div>
 <div>
   <%= presenter.attribute_to_html(:contact, label: I18n.t("rdr.show.fields.contact"), html_dl: true) %>
+</div>
+<div>
+  <%= presenter.attribute_to_html(:license, label: I18n.t("rdr.show.fields.license"), render_as: :license, html_dl: true) %>
+</div>
+
+
+<%# Render the title metadata element from the top of the page again in the metadata section %>
+<%# but hide it with CSS. This ensures schema.org properties are mapped for this field. %>
+<%# See Hyrax::Renderers::AttributeRenderer & Hyrax::PresentsAttributes#attribute_to_html %>
+
+<div class="hide">
+  <%= presenter.attribute_to_html(:title, label: I18n.t("rdr.show.fields.title"), html_dl: true) %>
+</div>
+
+<%# Render the license URI with valid schema.org markup. %>
+<div class="hide">
+  <%= presenter.attribute_to_html(:license, label: I18n.t("rdr.show.fields.license"), html_dl: true) %>
+</div>
+
+<%# This property is hard-coded in the markup rather than metadata-driven. %>
+<div class="hide" itemprop="includedInDataCatalog" itemscope itemtype="http://schema.org/DataCatalog">
+  <dt>Repository</dt>
+  <dd>
+    <ul class="tabular">
+      <li itemprop="name">
+        <a href="https://research.repository.duke.edu">Duke Research Data Repository</a>
+      </li>
+      <meta itemprop="url" content="https://research.repository.duke.edu" />
+    </ul>
+  </dd>
 </div>

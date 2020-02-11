@@ -64,6 +64,20 @@ module Importer
             expect(subject.errors.messages[:on_behalf_of]).to include(I18n.t('rdr.batch_import.nonexistent_user', user_key: 'abc@inst.edu'))
           end
         end
+        describe 'malformed CSV manifest' do
+          let(:error_msg) { 'malformed-ness of CSV manifest' }
+          let(:error_line) { 4 }
+          before do
+            allow_any_instance_of(Importer::CSVParser).to receive(:as_csv_table).and_raise(
+                                                                    CSV::MalformedCSVError.new(error_msg, error_line))
+          end
+          let(:exception_msg) { "#{error_msg} in line #{error_line}." }
+          it 'has a malformed CSV manifest error' do
+            expect(subject).to_not be_valid
+            expect(subject.errors.messages[:base]).to include(I18n.t('rdr.batch_import.malformed_csv_manifest',
+                                                                     error: exception_msg))
+          end
+        end
       end
     end
   end

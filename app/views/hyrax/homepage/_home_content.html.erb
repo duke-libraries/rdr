@@ -8,7 +8,7 @@
           main_app.new_submission_path,
           class: "btn btn-primary btn-lg btn-emphasize" %>
       <%= link_to t('hyrax.homepage.marquee.browse_button'),
-          main_app.search_catalog_path(f: { has_model_ssim: ["Dataset"], Rdr::Index::Fields.top_level => ["True"] }, latest_version: true),
+          main_app.search_catalog_path(latest_version: true, top_level: true),
           class: 'btn btn-default btn-default-darker btn-lg' %>
     </div>
   </div>

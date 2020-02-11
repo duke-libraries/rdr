@@ -3,7 +3,7 @@ FactoryBot.define do
     transient do
       user { FactoryBot.create(:user) }
       # Set to true (or a hash) if you want to create an admin set
-      with_admin_set false
+      with_admin_set { false }
     end
 
     # It is reasonable to assume that a work has an admin set; However, we don't want to
@@ -18,8 +18,8 @@ FactoryBot.define do
       end
     end
 
-    title ["Test title"]
-    visibility Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
+    title { ["Test title"] }
+    visibility { Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE }
 
     after(:build) do |work, evaluator|
       work.apply_depositor_metadata(evaluator.user.user_key)
@@ -28,11 +28,11 @@ FactoryBot.define do
     factory :public_dataset, traits: [:public]
 
     trait :public do
-      visibility Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
+      visibility { Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC }
     end
 
     factory :registered_dataset do
-      read_groups ["registered"]
+      read_groups { ["registered"] }
     end
 
     factory :dataset_with_one_file do
@@ -46,7 +46,7 @@ FactoryBot.define do
     end
 
     factory :public_dataset_with_public_files, traits: [:public] do
-      before(:create) { |work, evaluator| 2.times { work.ordered_members << FactoryBot.create(:file_set, user: evaluator.user, traits: [:public]) } }
+      before(:create) { |work, evaluator| 2.times { work.ordered_members << FactoryBot.create(:public_file_set, user: evaluator.user) } }
     end
 
     factory :dataset_with_ordered_files do
@@ -66,6 +66,13 @@ FactoryBot.define do
       before(:create) do |work, evaluator|
         work.ordered_members << FactoryBot.create(:dataset, user: evaluator.user, title: ['A Contained Work'], id: "BlahBlah1")
         work.ordered_members << FactoryBot.create(:dataset, user: evaluator.user, title: ['Another Contained Work'], id: "BlahBlah2")
+      end
+    end
+
+    factory :dataset_with_two_public_children do
+      before(:create) do |work, evaluator|
+        work.ordered_members << FactoryBot.create(:public_dataset, user: evaluator.user, title: ['A Public Contained Work'], id: "BlahBlah3")
+        work.ordered_members << FactoryBot.create(:public_dataset, user: evaluator.user, title: ['Another Public Contained Work'], id: "BlahBlah4")
       end
     end
 
@@ -116,7 +123,7 @@ FactoryBot.define do
 
   # Doesn't set up any edit_users
   factory :dataset_without_access, class: Dataset do
-    title ['Test title']
+    title { ['Test title'] }
     depositor { FactoryBot.create(:user).user_key }
   end
 end
