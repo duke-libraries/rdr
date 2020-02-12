@@ -1,4 +1,4 @@
-module Api::V1
+module API::V1
   class BaseController < ::ActionController::API
     include ActionController::MimeResponds
     include ActionView::Rendering
