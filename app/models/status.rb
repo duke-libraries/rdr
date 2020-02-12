@@ -14,8 +14,10 @@ class Status
 
   class_attribute :solr_status_uri
 
-  self.solr_status_uri = URI(ENV["SOLR_URL"]).tap do |u|
-    u.path += "/admin/ping"
+  if ENV["SOLR_URL"].present?
+    self.solr_status_uri = URI(ENV["SOLR_URL"]).tap do |u|
+      u.path += "/admin/ping"
+    end
   end
 
   def initialize
@@ -32,11 +34,9 @@ class Status
   end
 
   def _services
-    {
-      database: database,
-      jobs: jobs,
-      index: index,
-    }
+    { database: database, jobs: jobs }.tap do |svcs|
+      svcs[:index] = index if solr_status_uri
+    end
   end
 
   def database
@@ -55,13 +55,18 @@ class Status
   end
 
   def jobs
-    data, err = ActiveJob::Base.queue_adapter_name == "resque" ? resque : {}
-    data.merge!(adapter: ActiveJob::Base.queue_adapter_name)
+
+    data, err = resque? ? resque : {}
+    data.merge!(adapter: ActiveJob::Base.queue_adapter.class)
     ServiceReport.new(
       status: err ? ERROR : OK,
       data: data,
       error: err
     )
+  end
+
+  def resque?
+    ActiveJob::Base.queue_adapter.is_a? ActiveJob::QueueAdapters.lookup(:resque)
   end
 
   def resque
