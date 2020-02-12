@@ -1,4 +1,4 @@
-module Api::V1
+module API::V1
   class StatusController < BaseController
 
     def index
