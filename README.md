@@ -1,3 +1,6 @@
+### This repository has moved to https://gitlab.oit.duke.edu/ddr/rdr. 
+As of February 12, 2020, the GitHub repository is retained for archival purposes only. 
+
 # rdr
 
 A generated Hyrax-based Research Data Repository application
